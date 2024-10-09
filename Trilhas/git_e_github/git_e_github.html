@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <header>
+    <header class="nav">
         <nav class="container">
             <h1>Trilhas de Conhecimentos</h1>
             <div class="Trilhas-contact-container">
@@ -60,6 +60,13 @@
 
                     • Arch Linux: <br>
                     <code>sudo pacman -S git</code> </p>
+
+                    <section>
+                        <h3>Vídeo Tutorial</h3> <br>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/CX9p2zQ5X2w?si=LL1IRCcmFIL65scR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </section>
                     
                 </p>
             </ul>
@@ -69,6 +76,28 @@
             <ul>
                 <li>Repositórios</li>
                 <p>Um repositório é um local onde o código-fonte de um projeto é armazenado e gerenciado. No contexto de sistemas de controle de versão como o Git, um repositório (ou repo) mantém o histórico completo de todas as mudanças feitas no projeto ao longo do tempo, permitindo que os desenvolvedores acompanhem, revisem e revertam alterações.</p>
+                <p>Aqui estão os principais aspectos dos repositórios: <br> <br>
+
+                    <strong>1. Repositório Local vs Repositório Remoto</strong> <br> <br>
+                    <strong>Repositório Local:</strong> É o repositório que está na sua máquina. Ele contém todos os arquivos do projeto, assim como o histórico completo de commits, branches, e outros dados. <br>
+                    <strong>Repositório Remoto:</strong> É o repositório que está hospedado em um servidor, como o GitHub, GitLab ou Bitbucket. O repositório remoto é usado para compartilhar o código com outros desenvolvedores. <br> <br>
+                    <strong>2. Criando um Repositório</strong> <br> <br>
+                    Um repositório pode ser criado usando o comando <code>git init</code> para inicializar um repositório local, ou você pode clonar um repositório remoto existente com <code>git clone</code>.  <br>
+                    No GitHub ou GitLab, é possível criar um repositório diretamente pela interface da plataforma e, em seguida, clonar para seu ambiente local. <br> <br>
+                    <strong>3. Componentes de um Repositório</strong> <br> <br>
+                    <strong>Arquivos do Projeto:</strong> O repositório contém todos os arquivos e diretórios do projeto, como código-fonte, documentação, e arquivos de configuração.  <br>
+                    <strong>Histórico de Commits:</strong> O repositório armazena cada commit, que é uma "foto" do projeto em um determinado momento. Isso permite rastrear todas as mudanças feitas. <br>
+                    <strong>Branches:</strong> Um repositório pode conter várias ramificações (branches), que são diferentes linhas de desenvolvimento. A branch principal geralmente é chamada de <code>main</code> ou <code>master</code>, mas outras branches podem ser criadas para desenvolver novos recursos ou corrigir bugs. <br>
+                    <strong>Tags:</strong> São usadas para marcar versões específicas do projeto, como uma versão de lançamento (v1.0.0). As tags são úteis para identificar e referenciar versões específicas do código. <br> <br>
+                    <strong>4. Clonar e Sincronizar Repositórios</strong> <br> <br>
+                    Quando você clona um repositório remoto, você cria uma cópia local dele na sua máquina. A partir daí, você pode fazer mudanças localmente e, quando estiver pronto, enviar essas mudanças de volta para o repositório remoto com o comando <code>git push</code>. <br>
+                    Você também pode baixar as mudanças feitas por outras pessoas no repositório remoto com o comando <code>git pull</code>. Isso sincroniza seu repositório local com o repositório remoto. <br> <br>
+                    <strong>5. Open Source e Repositórios Públicos/Privados</strong> <br> <br>
+                    Um repositório pode ser público, permitindo que qualquer pessoa veja e contribua, ou privado, onde apenas pessoas autorizadas podem acessá-lo. Isso é comum em projetos de código aberto e projetos internos em empresas. <br> <br>
+                    <strong>6. Estrutura de um Repositório Git</strong> <br> <br>
+                    <strong>.git:</strong> Um diretório oculto que contém todos os dados internos do Git, como objetos de commit, referências de branches, e histórico. <br>
+                    <strong>README.md:</strong> Um arquivo comum encontrado em muitos repositórios, usado para descrever o projeto e fornecer instruções para os usuários. <br>
+                    <strong>.gitignore:</strong> Um arquivo que informa ao Git quais arquivos ou pastas ele deve ignorar (como arquivos temporários ou de configuração).</p>
                 <li>Commits</li>
                 <p>Um commit é uma operação que salva as alterações feitas em um repositório Git. Cada commit é uma unidade atômica de alteração que inclui um conjunto de mudanças em arquivos específicos, uma mensagem descritiva e um identificador único (hash). Os commits são usados para rastrear o progresso do desenvolvimento, documentar as alterações feitas e facilitar a colaboração entre os membros da equipe.</p>
                 <li>Branches</li>
