@@ -2,57 +2,44 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial - Trilha de Conhecimento</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Trilhas de Conhecimentos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+
 </head>
 <body>
-    <div class="container">
-        <!-- Menu Lateral -->
-        <aside class="sidebar">
-            <div class="profile">
-                <img src="https://via.placeholder.com/50" alt="Foto do perfil">
-                <p>Klebinho kle</p>
-                <p>Aluno</p>
-                <p>Escola da Demonstração</p>
+    <header>
+        <nav class="container">
+            <h1>Trilhas de Conhecimentos</h1>
+            <div class="dsmovie-contact-container">
+                <img src="img/github.png" alt="Github">
+                <a href="https://github.com/Educhior">/educhior</a>
             </div>
-            <nav class="menu">
-                <a href="#" class="menu-item active"><span class="icon">🏠</span>Inicial</a>
-                <a href="#" class="menu-item"><span class="icon">⚙️</span>Configurações</a>
-                <a href="#" class="menu-item"><span class="icon">🚪</span>Sair</a>
-            </nav>
-        </aside>
+        </nav>
+    </header>
 
-        <!-- Conteúdo Principal -->
-        <main class="main-content">
-            <h1>Inicial</h1>
-            <div class="cards">
-                <div class="card">
-                    <h3>Aprimora</h3>
-                    <p>Ecosistema Adaptativo de Aprendizagem</p>
-                </div>
-                <div class="card">
-                    <h3>Pense+</h3>
-                    <p>Estimulando o pensamento matemático com atividades STEAM</p>
-                </div>
-                <div class="card">
-                    <h3>Espaço Infantil</h3>
-                    <p>Ambiente infantil com conteúdos educativos</p>
-                </div>
-                <div class="card">
-                    <h3>Descomplica</h3>
-                    <p>Descomplica</p>
-                </div>
-                <div class="card">
-                    <h3>Elefante Letrado</h3>
-                    <p>Elefante Letrado</p>
-                </div>
-                <div class="card">
-                    <h3>Eduqz</h3>
-                    <p>Eduqz</p>
+    <main>
+        <section id= "dsmovie-card-list" class="container">
+
+            <br>
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-4 col -xl-3 mb-3">
+                    <div class="dsmovie-card">
+                        <img src="https://github.githubassets.com/assets/social-2deb6d7d43e7.jpg" alt="Github">
+                        <div class="dsmovie-card-description">
+                            <h3>GIT e Github</h3>
+                            <div class="dsmovie-card-description-bottom">
+                                <a class="dsmovie-btn" href="Trilhas/git_e_github/git_e_github.html">Acessar</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </main>
-    </div>
+        </section>
+    </main>
 </body>
 </html>
