@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trilha de Conhecimento - Git e GitHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="/Trilhas/trilhas_styles.css">
+
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <h1>Trilhas de Conhecimentos</h1>
+            <div class="Trilhas-contact-container">
+                <img src="/img/github.png" alt="Github">
+                <a href="https://github.com/Educhior">/educhior</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <a class="btn_btn-primary" href = "/index.html">Voltar</a>
+        </section>
+        <section>
+            <h2>Trilha de Conhecimento - Git e GitHub</h2>
+            <p>Esta trilha de conhecimento tem como objetivo apresentar os conceitos básicos de Git e GitHub, bem como suas funcionalidades e recursos avançados.</p>
+        </section>
+        <section>
+            <h2>Introdução</h2>
+            <ul>
+                <li>O que é Git?</li> <br>
+                <p>Git é um sistema de controle de versão distribuído usado para rastrear mudanças no código-fonte durante o desenvolvimento de software. Ele permite que vários desenvolvedores trabalhem em um projeto de forma colaborativa, mantendo um histórico de todas as alterações e facilitando a coordenação e fusão do trabalho realizado em paralelo.</p>
+                <li>O que é GitHub?</li> <br>
+                <p>GitHub é uma plataforma de hospedagem de código-fonte baseada na web que utiliza o sistema de controle de versão Git. Ele oferece um ambiente colaborativo onde desenvolvedores e equipes podem armazenar, gerenciar e colaborar em projetos de software. O GitHub simplifica o uso do Git, fornecendo uma interface amigável e recursos adicionais, como gerenciamento de projetos, integração contínua (CI), automação, e muito mais.</p> <br>
+                <li>Instalação e Configuração</li> <br>
+                <p> <strong>Windows</strong> <br><br>
+                    1 - Vá até o site oficial do Git: https://git-scm.com. <br>
+                    2 - Clique no botão Download for Windows e baixe o instalador. <br>
+                    3 - Abra o arquivo .exe baixado e siga as instruções do instalador. <br>
+                    4 - Durante a instalação, você verá várias opções. Deixe as opções padrão marcadas, a menos que tenha uma necessidade específica. As opções importantes incluem: <br>
+                        • "Adjusting your PATH environment": Escolha "Use Git from the command line and also from 3rd-party software" para facilitar o uso de Git com outras ferramentas. <br>
+                        • Editor de texto padrão: Você pode selecionar o editor de sua preferência, como o Vim, VS Code, ou Notepad++. <br>
+                    5 - Após a instalação, abra o Git Bash (incluído na instalação) para usar o Git no terminal. <br><br>
+                    <strong>macOS</strong> <br><br>
+                    1 - Você pode instalar o Git via Homebrew (se já tiver Homebrew instalado) ou baixá-lo manualmente. <br>
+                        • Para instalar via Homebrew, abra o terminal e execute: <br>
+                    <code>brew install git</code> <br> <br>
+
+                    2 - Alternativamente, vá até https://git-scm.com, baixe o instalador para macOS e siga as instruções. <br><br>
+                    <strong>Linux</strong> <br><br>
+                    No Linux, o Git está disponível através dos gerenciadores de pacotes. Use um dos seguintes comandos, dependendo da sua distribuição: <br> <br>
+                    
+                    • Debian/Ubuntu: <br>
+                    <code>sudo apt update</code> <br>
+                    <code>sudo apt install git</code> <br> <br>
+                    
+                    • Fedora: <br>
+                    <code>sudo dnf install git</code> <br> <br>
+
+                    • Arch Linux: <br>
+                    <code>sudo pacman -S git</code> </p>
+                    
+                </p>
+            </ul>
+        </section>
+        <section>
+            <h2>Conceitos Básicos</h2>
+            <ul>
+                <li>Repositórios</li>
+                <p>Um repositório é um local onde o código-fonte de um projeto é armazenado e gerenciado. No contexto de sistemas de controle de versão como o Git, um repositório (ou repo) mantém o histórico completo de todas as mudanças feitas no projeto ao longo do tempo, permitindo que os desenvolvedores acompanhem, revisem e revertam alterações.</p>
+                <li>Commits</li>
+                <p>Um commit é uma operação que salva as alterações feitas em um repositório Git. Cada commit é uma unidade atômica de alteração que inclui um conjunto de mudanças em arquivos específicos, uma mensagem descritiva e um identificador único (hash). Os commits são usados para rastrear o progresso do desenvolvimento, documentar as alterações feitas e facilitar a colaboração entre os membros da equipe.</p>
+                <li>Branches</li>
+                <p>Branches são ramificações do código-fonte principal (branch master) que permitem que os desenvolvedores trabalhem em novas funcionalidades, correções de bugs ou experimentos sem afetar o código existente. Cada branch é uma linha independente de desenvolvimento que pode ser mesclada (merged) de volta ao branch principal quando estiver pronta. O uso de branches facilita o desenvolvimento colaborativo e a organização do trabalho em equipe.</p>
+                <li>Merge</li>
+                <p>O merge é o processo de combinar as alterações feitas em diferentes branches de um repositório Git. Quando um branch está pronto para ser integrado de volta ao branch principal (master), os desenvolvedores podem realizar um merge para unir as alterações. O Git tenta mesclar automaticamente as mudanças, mas pode haver conflitos que precisam ser resolvidos manualmente. O merge é uma operação essencial para consolidar o trabalho feito em diferentes partes do projeto.</p>
+            </ul>
+        </section>
+        <section>
+            <h2>Trabalhando com GitHub</h2>
+            <ul>
+                <li>Clonando Repositórios</li>
+                <p>Clonar um repositório Git significa criar uma cópia local do código-fonte hospedado no GitHub em sua máquina. Isso permite que você trabalhe no projeto, faça alterações, crie novos commits e envie suas contribuições de volta para o repositório remoto. Para clonar um repositório, você precisa do URL do repositório e do Git instalado em sua máquina.</p>
+                <li>Pull Requests</li>
+                <p>Um Pull Request (PR) é uma solicitação feita por um desenvolvedor para mesclar as alterações feitas em um branch específico de um repositório Git. Os Pull Requests são usados para revisar, discutir e aprovar as mudanças antes de serem integradas ao branch principal. Eles facilitam a colaboração entre os membros da equipe e ajudam a manter a qualidade do código.</p>
+                <li>Issues</li>
+                <p>As Issues são usadas para rastrear tarefas, bugs, solicitações de recursos e outras atividades relacionadas a um projeto no GitHub. Elas são usadas para relatar problemas, discutir ideias, planejar o trabalho e colaborar com outros desenvolvedores. As Issues podem ser atribuídas a membros da equipe, marcadas com rótulos, comentadas e fechadas quando concluídas.</p>
+                <li>GitHub Actions</li>
+                <p>GitHub Actions é um serviço de automação integrado ao GitHub que permite criar workflows personalizados para automatizar tarefas, testes, implantações e muito mais. Com GitHub Actions, você pode definir ações baseadas em eventos, como push de código, criação de Pull Requests ou lançamento de versões, e executar scripts, comandos ou contêineres em resposta a esses eventos.</p>
+            </ul>
+        </section>
+        <section>
+            <h2>Recursos Avançados</h2>
+            <ul>
+                <li>Rebase</li>
+
+                <li>Cherry-pick</li>
+
+                <li>Submódulos</li>
+
+                <li>Hooks</li>
+                
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
