@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&amp;display=swap');
 
 :root {
-    --bg-gray: #ddd;
-    --color-primary:#034159;
+    --background: rgb(245, 251, 255);
+    --color-primary:linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
     --text-gray: #4a4a4a;
     --white: #fff;
     --text-light-grey: #aaa;
@@ -21,21 +21,29 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 html, body {
-    background-color: var(--bg-gray);
+    font-family: "Exo 2", sans-serif;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
+    overflow-x: hidden;
 }
 
 header {
-    background-color: var(--color-primary);
-    color: var(--white);
-    height: 60px;
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 98px;
+    background: rgb(245, 251, 255);
+    box-shadow: rgb(224, 229, 241) 0px 4px 10px 5px;
     align-items: center;
 }
 
 nav {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    width: 100%;
+    height: 98px;
+    align-items: center;
 }
 
 nav h1 {
@@ -76,7 +84,8 @@ a, a:hover {
 }
 
 .dsmovie-card-description {
-    background-color: var(--white);
+    background: linear-gradient(110.64deg, rgb(255, 255, 255) 1.52%, rgb(246, 249, 255) 100%);
+    box-shadow: rgb(224, 229, 241) 4px 4px 8px;
     padding: 10px 20px 20px 20px;
     display: flex;
     flex-direction: column;
@@ -115,17 +124,16 @@ a, a:hover {
 }
 
 .dsmovie-btn,  .dsmovie-btn:hover{
-    width: 180px;
-    height: 40px;
-    background-color: var(--color-primary);
-    color: var(--white);
-    font-size: 14px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    border: 0;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: rgb(255, 255, 255);
+    background: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%);
+    filter: drop-shadow(rgba(9, 149, 219, 0.35) 0px 4px 4px);
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    transition: 0.3s;
+    font-family: "Exo 2";
 }
 
 .dsmovie-form-container {
@@ -187,7 +195,7 @@ a, a:hover {
     height: 40px;
     border: 1px solid var(--color-primary);
     border-radius: 4px;
-    background-color: var(--white);
+    background-color: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -214,4 +222,10 @@ a, a:hover {
 
 .dsmovie-flip-horizontal {
     transform: rotate(180deg);
+}
+
+.titulo-trilha{
+    font-weight: 800;
+    font-size: 1.875rem;
+    text-transform: uppercase;
 }
