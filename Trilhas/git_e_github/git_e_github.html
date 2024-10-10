@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trilha de Conhecimento - Git e GitHub</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="/roadmap_de_conhecimento/Trilhas/trilhas_styles.css">
+    <link rel="stylesheet" href="/Trilhas/trilhas_styles.css">
 
 </head>
 <body>
@@ -13,14 +13,13 @@
         <nav class="container">
             <h1>Trilhas de Conhecimentos</h1>
             <div class="Trilhas-contact-container">
-                <img src="/roadmap_de_conhecimento/img/github.png" alt="Github">
-                <a href="https://github.com/Educhior">/educhior</a>
+                <img src="/img/logo.svg" alt="EJECT">
             </div>
         </nav>
     </header>
     <main>
         <section>
-            <a class="btn_btn-primary" href = "/roadmap_de_conhecimento">Voltar</a>
+            <a class="btn_btn-primary" href = "/index.html">Voltar</a>
         </section>
         <section>
             <h2>Trilha de Conhecimento - Git e GitHub</h2>
@@ -59,12 +58,12 @@
                     <code>sudo dnf install git</code> <br> <br>
 
                     • Arch Linux: <br>
-                    <code>sudo pacman -S git</code> </p>
+                    <code>sudo pacman -S git</code> </p> <br>
 
                     <section>
                         <h3>Vídeo Tutorial</h3> <br>
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/CX9p2zQ5X2w?si=LL1IRCcmFIL65scR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/CX9p2zQ5X2w?si=LL1IRCcmFIL65scR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width: 80%; height: 315px; display: flex; margin: auto;"></iframe>
                         </div>
                     </section>
                     
@@ -72,9 +71,9 @@
             </ul>
         </section>
         <section>
-            <h2>Conceitos Básicos</h2>
+            <h2>Conceitos Básicos</h2> <br>
             <ul>
-                <li>Repositórios</li>
+                <li>Repositórios</li> <br>
                 <p>Um repositório é um local onde o código-fonte de um projeto é armazenado e gerenciado. No contexto de sistemas de controle de versão como o Git, um repositório (ou repo) mantém o histórico completo de todas as mudanças feitas no projeto ao longo do tempo, permitindo que os desenvolvedores acompanhem, revisem e revertam alterações.</p>
                 <p>Aqui estão os principais aspectos dos repositórios: <br> <br>
 
@@ -98,11 +97,95 @@
                     <strong>.git:</strong> Um diretório oculto que contém todos os dados internos do Git, como objetos de commit, referências de branches, e histórico. <br>
                     <strong>README.md:</strong> Um arquivo comum encontrado em muitos repositórios, usado para descrever o projeto e fornecer instruções para os usuários. <br>
                     <strong>.gitignore:</strong> Um arquivo que informa ao Git quais arquivos ou pastas ele deve ignorar (como arquivos temporários ou de configuração).</p>
-                <li>Commits</li>
+                <li>Commits</li> <br>
                 <p>Um commit é uma operação que salva as alterações feitas em um repositório Git. Cada commit é uma unidade atômica de alteração que inclui um conjunto de mudanças em arquivos específicos, uma mensagem descritiva e um identificador único (hash). Os commits são usados para rastrear o progresso do desenvolvimento, documentar as alterações feitas e facilitar a colaboração entre os membros da equipe.</p>
-                <li>Branches</li>
-                <p>Branches são ramificações do código-fonte principal (branch master) que permitem que os desenvolvedores trabalhem em novas funcionalidades, correções de bugs ou experimentos sem afetar o código existente. Cada branch é uma linha independente de desenvolvimento que pode ser mesclada (merged) de volta ao branch principal quando estiver pronta. O uso de branches facilita o desenvolvimento colaborativo e a organização do trabalho em equipe.</p>
-                <li>Merge</li>
+                <p>
+                    Um commit é como um ponto de controle no projeto, que registra as mudanças feitas em arquivos ou diretórios. Ele armazena o estado do projeto naquele momento específico, permitindo que você volte a esse ponto se necessário. Aqui estão alguns aspectos importantes sobre commits: <br> <br>
+                    Cada commit é identificado por um hash único (gerado automaticamente pelo Git) que serve como um identificador exclusivo daquela mudança. <br> <br>
+                    <strong>2. Estrutura de um Commit</strong> <br> <br>
+                    Mudanças (Diff): O commit contém as diferenças (diferença de código) entre o estado atual dos arquivos e o estado no commit anterior. <br>
+                    Mensagem de Commit: Uma breve descrição das alterações feitas. É importante que essa mensagem seja clara e informativa, para ajudar a rastrear e entender as mudanças ao longo do tempo. <br>
+                    Autor do Commit: O commit também registra quem fez a mudança (nome e email configurados no Git). <br>
+                    Data e Hora: O momento exato em que o commit foi feito. <br> <br>
+                    <strong>3. Criando um Commit</strong> <br> <br>
+                    Antes de fazer um commit, você precisa adicionar as mudanças ao staging area (área de preparação) usando o comando <code>git add <arquivo></code>. <br>
+                    Depois de adicionar as mudanças, você usa <code>git commit -m "mensagem do commit"</code> para salvar essas mudanças no repositório local. <br>
+                    Exemplo: <br>
+                    <code>git add arquivo.txt</code> <br>
+                    <code>git commit -m "Corrigido bug na função de login"</code> <br> <br>
+                    <strong>4. Staging Area (Área de Preparação)</strong> <br> <br>
+                    Nem todas as mudanças feitas nos arquivos são automaticamente incluídas em um commit. Para controlar quais mudanças serão registradas no próximo commit, você as adiciona à staging area usando <code>git add</code>. Somente os arquivos na staging area serão incluídos no commit. <br> <br>
+                    <strong>5. Commits e Histórico</strong> <br> <br>
+                    O Git mantém um histórico de todos os commits feitos no repositório, o que permite rastrear as mudanças ao longo do tempo. Usando o comando <code>git log</code>, você pode visualizar uma lista dos commits anteriores, incluindo a mensagem de commit, o autor, a data e o hash do commit. <br>
+                    Exemplo de <code>git log:</code> <br>
+                    <code>commit d9a8f2a...</code> <br>
+                    <code>Author: João Silva </code> <br>
+                    <code>Date: Wed Oct 6 14:30:00 2024 -0300</code> <br>
+                    <code>Corrigido bug na função de login</code> <br> <br>
+                    <strong>6. Commits Incrementais</strong> <br> <br>
+                    Os commits são feitos de forma incremental, ou seja, cada commit contém apenas as mudanças que foram feitas em relação ao commit anterior. Isso facilita o rastreamento do histórico de desenvolvimento e permite reverter para estados anteriores com facilidade, caso algo dê errado. <br> <br>
+                    <strong>7. Commits e Branches</strong> <br> <br>
+                    Commits são feitos dentro de branches (ramificações), que são linhas de desenvolvimento. Quando você faz um commit, ele fica associado à branch atual. Isso permite trabalhar em diferentes funcionalidades ou correções de bugs sem interferir no código principal. <br> <br>
+                    <strong>8. Alterando e Desfazendo Commits</strong> <br> <br>
+                    É possível editar ou até mesmo desfazer commits em Git. Com o comando <code>git commit --amend</code>, você pode modificar o último commit (como corrigir uma mensagem ou adicionar mais arquivos). Além disso, comandos como <code>git reset</code> ou <code>git revert</code> permitem desfazer commits, restaurando o repositório a um estado anterior. <br> <br>
+                    <strong>9. Commits e Colaboração</strong> <br> <br>
+                    Em repositórios compartilhados (remotos), como no GitHub ou GitLab, os commits locais são enviados ao repositório remoto com o comando <code>git push</code>. Isso permite que outros desenvolvedores vejam as mudanças e colaborem no mesmo projeto. Da mesma forma, ao executar <code>git pull</code>, você pode baixar commits feitos por outros desenvolvedores. <br>   <br>
+                    <strong>10. Boas Práticas para Commits</strong> <br> <br>
+                    <strong>Commits pequenos e frequentes:</strong> Fazer commits pequenos, sempre que uma unidade lógica de trabalho é concluída, facilita o rastreamento de problemas e a colaboração. <br>
+                    <strong>Mensagens claras:</strong> A mensagem de commit deve ser descritiva e explicar claramente o que foi alterado ou corrigido. <br>
+                    <strong>Não incluir mudanças irrelevantes:</strong> Faça commit apenas de arquivos relacionados à alteração. Use <code>.gitignore</code> para ignorar arquivos temporários. <br> <br>
+                </p>
+                <li>Branches</li> <br>
+                <p>
+                    Uma branch representa uma versão do projeto que diverge do histórico principal. A branch principal, na maioria dos projetos, é chamada de main ou master. Quando você cria uma nova branch, você faz uma cópia do projeto a partir de um ponto no tempo (normalmente o commit atual), e a partir desse ponto, os novos commits ficam separados do código principal até que você decida mesclar (merge) essas mudanças de volta. <br> <br>
+                    <strong>1. Por que usar branches?</strong> <br> <br>
+                    Branches permitem que você trabalhe em diferentes tarefas simultaneamente (como novas funcionalidades ou correções de bugs) sem interferir no código estável. Eles são amplamente usados em fluxos de trabalho colaborativos para evitar conflitos entre desenvolvedores que trabalham em partes diferentes do código. <br> <br>
+                    <strong>2. Tipos de Branches</strong> <br> <br>
+                    Branch Principal (main/master): Normalmente, esta é a branch onde o código mais estável é mantido. O nome mais comum é main ou master. <br>
+                    Branches de Funcionalidades (Feature Branches): São criadas para desenvolver novas funcionalidades ou melhorias. Quando a funcionalidade estiver pronta, a branch pode ser fundida de volta à branch principal. <br>
+                    Branches de Correção de Bugs: Usadas para trabalhar em correções de bugs específicos, de forma que o código principal não seja afetado enquanto a correção está em andamento. <br>
+                    Branches de Lançamento (Release Branches): Criadas quando o projeto está pronto para ser preparado para uma nova versão. Elas são usadas para os ajustes finais antes de uma nova versão ser lançada. <br>
+                    Branches de Hotfix: São usadas para corrigir problemas críticos encontrados em produção e que precisam ser resolvidos rapidamente. <br> <br>
+                    <strong>3. Criar uma Branch</strong> <br> <br>
+                    Para criar uma nova branch, você pode usar o comando <code>git branch</code> ou <code>git checkout -b</code>. Aqui está um exemplo de como criar e mudar para uma nova branch chamada nova-funcionalidade: <br>
+                    <code>git checkout -b nova-funcionalidade</code> <br>
+                    Isso cria uma nova branch a partir da branch atual e automaticamente alterna para ela. <br> <br>
+                    <strong>4. Trabalhando em uma Branch</strong> <br> <br>
+                    Uma vez que você está em uma branch, todas as mudanças e commits feitos serão específicos para essa branch. Você pode trabalhar de maneira isolada sem afetar outras branches. Se necessário, você pode trocar entre branches com o comando: <br>
+                    <code>git checkout nome-da-branch</code> <br>
+                    Por exemplo, para voltar à branch principal main: <br> 
+                    <code>git checkout main</code> <br> <br>
+                    <strong>5. Visualizando Branches</strong> <br> <br>
+                    Para ver todas as branches no repositório, use: <br>
+                    <code>git branch</code> <br>
+                    Isso mostrará as branches locais, com a branch atual destacada. <br> <br>
+                    <strong>6. Mesclando (Merge) uma Branch</strong> <br> <br>
+                    Quando o trabalho em uma branch está completo, é comum "mesclar" (merge) essa branch de volta na branch principal (ou em outra branch). Isso integra as mudanças feitas naquela branch ao código principal. O comando básico para isso é: <br>
+                    <code>git checkout main</code> <br>
+                    <code>git merge nova-funcionalidade</code> <br>
+                    Isso mescla a branch nova-funcionalidade na branch main. <br> <br>
+                    <strong>7. Branches Remotas</strong> <br> <br>
+                    Além das branches locais, você pode ter branches remotas, que são cópias das branches que existem no servidor remoto (por exemplo, no GitHub ou GitLab). Para sincronizar uma branch local com o repositório remoto, você usa o comando <code>git push</code>. <br>
+                    Para enviar uma nova branch para o repositório remoto: <br>
+                    <code>git push origin nome-da-branch</code> <br> <br>        
+                    <strong>8. Excluindo uma Branch</strong> <br> <br>
+                    Quando uma branch não é mais necessária (por exemplo, após a conclusão de uma funcionalidade e sua mesclagem na branch principal), ela pode ser deletada. Para excluir uma branch local, use: <br>
+                    <code>git branch -d nome-da-branch</code> <br>
+                    Para excluir uma branch remota: <br>
+                    <code>git push origin --delete nome-da-branch</code> <br> <br>
+                    <strong>9. Branching e Colaboração</strong> <br> <br>
+                    Em projetos colaborativos, é comum que cada desenvolvedor trabalhe em suas próprias branches para isolar suas mudanças. Quando uma funcionalidade está pronta, a branch é enviada para revisão e, se aprovada, mesclada na branch principal por meio de um Pull Request (em plataformas como GitHub ou GitLab). <br>
+                    Exemplo de Fluxo de Trabalho: <br>
+                    Criar uma branch para uma nova funcionalidade: <br>
+                    <code>git checkout -b feature-nova-funcionalidade</code> <br>
+                    Fazer commits das alterações: <br>
+                    <code>git add .</code> <br>
+                    <code>git commit -m "Adiciona nova funcionalidade X"</code> <br>
+                    Publicar a branch no repositório remoto: <br>
+                    <code>git push origin feature-nova-funcionalidade</code> <br>
+                    Criar um Pull Request para que a branch seja revisada e mesclada na branch main. <br> <br>
+                </p>
+                <li>Merge</li> <br>
                 <p>O merge é o processo de combinar as alterações feitas em diferentes branches de um repositório Git. Quando um branch está pronto para ser integrado de volta ao branch principal (master), os desenvolvedores podem realizar um merge para unir as alterações. O Git tenta mesclar automaticamente as mudanças, mas pode haver conflitos que precisam ser resolvidos manualmente. O merge é uma operação essencial para consolidar o trabalho feito em diferentes partes do projeto.</p>
             </ul>
         </section>
@@ -119,6 +202,7 @@
                 <p>GitHub Actions é um serviço de automação integrado ao GitHub que permite criar workflows personalizados para automatizar tarefas, testes, implantações e muito mais. Com GitHub Actions, você pode definir ações baseadas em eventos, como push de código, criação de Pull Requests ou lançamento de versões, e executar scripts, comandos ou contêineres em resposta a esses eventos.</p>
             </ul>
         </section>
+        <!--
         <section>
             <h2>Recursos Avançados</h2>
             <ul>
@@ -132,6 +216,10 @@
                 
             </ul>
         </section>
+        -->
+        <footer>
+            <p>Desenvolvido por <a href="https://github.com/Educhior" ></a> - 2024</p>
+        </footer>
     </main>
 </body>
 </html>

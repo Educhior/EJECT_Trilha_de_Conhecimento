@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&amp;display=swap');
 
 :root {
-    --bg-gray: #ddd;
-    --color-primary:#034159;
+    --background: rgb(245, 251, 255);
+    --color-primary:linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
     --text-gray: #4a4a4a;
     --white: #fff;
     --text-light-grey: #aaa;
@@ -15,27 +15,31 @@
     font-family: 'Open Sans', sans-serif;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-header {
-    background-color: var(--color-primary);
-    color: var(--white);
-    height: 60px;
-    display: flex;
-    align-items: center;
+html, body {
+    font-family: "Exo 2", sans-serif;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
+    overflow-x: hidden;
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 98px;
+    background: rgb(245, 251, 255);
+    box-shadow: rgb(224, 229, 241) 0px 4px 10px 5px;
+    align-items: center;
+}
 
 nav {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    width: 100%;
+    height: 98px;
+    align-items: center;
 }
-
 nav h1 {
     font-size: 24px;
     font-weight: 700;
@@ -44,6 +48,15 @@ nav h1 {
 nav a {
     font-size: 12px;
     font-weight: 400;
+}
+
+code {
+    background-color: #dfdfdf;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    color: #f34545;
 }
 
 a, a:hover {
@@ -86,22 +99,27 @@ li {
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 
-.btn_btn-primary {
+.btn-primary {
     display: flex;
-    flex-direction: column;
     align-items: center;
-}
-
-.btn_btn-primary,  .btn_btn-primary:hover{
+    justify-content: center;
     width: 80px;
     height: 40px;
     background-color: var(--color-primary);
     color: var(--white);
     font-size: 14px;
     font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-radius: 4px;
-    border: 0;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: darken(var(--color-primary), 10%);
+}
+
+footer {
+    text-align: center;
+    color: var(--text-gray);
 }
