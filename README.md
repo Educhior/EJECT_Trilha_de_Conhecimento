@@ -46,7 +46,7 @@ Estratégias de marketing para redes sociais.
 Planejamento de campanhas.
 Gestão de Projetos
 
-- Noções de metodologias ágeis: Scrum e Kanban. **[EM BREVE]**
+- **Noções de metodologias ágeis: Scrum e Kanban.**
 
 Como gerenciar tarefas e equipes de maneira eficiente.
 Soft Skills
