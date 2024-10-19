@@ -84,7 +84,7 @@ As logos e o nome da EJECT são de propriedade exclusiva da empresa e estão pro
 
 O conteúdo deste repositório consiste em duas partes:
 
-- **Conteúdo Autoral:** Materiais e diretrizes desenvolvidos pela equipe da EJCT.
+- **Conteúdo Autoral:** Materiais e diretrizes desenvolvidos pela equipe da EJECT.
 - **Conteúdo de Terceiros:** Materiais obtidos de fontes externas, utilizados para fins educacionais e de capacitação dos membros e aspirantes da EJECT.
 O uso desse conteúdo segue as permissões e licenças dos respectivos autores. Se você tiver interesse em utilizar ou adaptar este material fora do contexto da EJECT, verifique as licenças de cada parte do conteúdo ou entre em contato conosco através do e-mail: contato@ejectufrn.com.br.
 
