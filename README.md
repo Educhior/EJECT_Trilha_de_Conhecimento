@@ -25,6 +25,7 @@ O projeto está organizado em módulos, cada um abordando uma área de conhecime
 Módulos:
 
 - Introdução à EJECT **[EM BREVE]**
+
 Conheça a missão, visão e valores da empresa.
 Estrutura organizacional e principais áreas de atuação.Processo de trabalho colaborativo e metodologias ágeis.
  
@@ -40,15 +41,18 @@ Práticas de desenvolvimento ágil.
 Marketing Digital
 
 - Conceitos básicos de SEO e SEM. **[EM BREVE]**
+
 Estratégias de marketing para redes sociais.
 Planejamento de campanhas.
 Gestão de Projetos
 
 - Noções de metodologias ágeis: Scrum e Kanban. **[EM BREVE]**
+
 Como gerenciar tarefas e equipes de maneira eficiente.
 Soft Skills
 
 - Comunicação eficaz. **[EM BREVE]**
+
 Trabalho em equipe.
 Gestão de tempo e produtividade.
 
