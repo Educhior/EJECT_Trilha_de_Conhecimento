@@ -17,7 +17,6 @@ h1, h2, h3, h4, h5, h6 {
 * {
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
 }
 
 html, body {
@@ -26,6 +25,17 @@ html, body {
     height: 100%;
     background: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
     overflow-x: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
 }
 
 header {
@@ -47,8 +57,11 @@ nav {
 }
 
 nav h1 {
-    font-size: 24px;
-    font-weight: 700;
+    font-family: "Exo 2", sans-serif;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(0, 61, 115);
+    font-size: 30px;
 }
 
 nav a {
@@ -61,30 +74,30 @@ a, a:hover {
     color: unset;
 }
 
-.dsmovie-contact-container {
+.ds-contact-container {
     display: flex;
     align-items: center;
 }
 
-.dsmovie-contact-container img {
+.ds-contact-container img {
     margin-right: 10px;
 }
 
-#dsmovie-card-list {
+#ds-card-list {
     padding: 0 15px;
 }
 
-.dsmovie-card {
+.ds-card {
     width: 100%;
 }
 
-.dsmovie-card img {
+.ds-card img {
     width: 100%;
     border-radius: 8px 8px 0 0;
 }
 
-.dsmovie-card-description {
-    background: linear-gradient(110.64deg, rgb(255, 255, 255) 1.52%, rgb(246, 249, 255) 100%);
+.ds-card-description {
+    background: rgb(255, 255, 255);
     box-shadow: rgb(224, 229, 241) 4px 4px 8px;
     padding: 10px 20px 20px 20px;
     display: flex;
@@ -93,37 +106,41 @@ a, a:hover {
     border-radius: 0 0 8px 8px;
 }
 
-.dsmovie-card-description h3 {
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 10px;
+.ds-card-description h3 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
     text-align: center;
 }
 
-.dsmovie-card-description-bottom {
+.ds-card-description-bottom {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.dsmovie-card-description-bottom h4 {
+.ds-card-description-bottom h4 {
     font-size: 16px;
     font-weight: 700;
     color: var(--star-yellow);
 }
 
-.dsmovie-card-description-bottom img{
+.ds-card-description-bottom img{
     width: 22px;
 }
 
-.dsmovie-card-description-bottom p{
+.ds-card-description-bottom p{
     font-size: 12px;
     font-weight: 400;
     color: var(--text-light-grey);
     margin-bottom: 10px;
 }
 
-.dsmovie-btn,  .dsmovie-btn:hover{
+.ds-btn,  .ds-btn:hover{
     font-size: 1rem;
     font-weight: bold;
     text-transform: uppercase;
@@ -132,16 +149,20 @@ a, a:hover {
     filter: drop-shadow(rgba(9, 149, 219, 0.35) 0px 4px 4px);
     padding: 0.8rem 1.2rem;
     border-radius: 10px;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     font-family: "Exo 2";
 }
 
-.dsmovie-form-container {
+button:hover {
+    transform: scale(1.2); /* Expande o botão em 20% */
+}
+
+.ds-form-container {
     padding: 40px 0;
     max-width: 480px;
 }
 
-.dsmovie-form-description {
+.ds-form-description {
     background-color: var(--white);
     padding: 20px;
     display: flex;
@@ -150,26 +171,26 @@ a, a:hover {
     border-radius: 0 0 8px 8px;
 }
 
-.dsmovie-form {
+.ds-form {
     width: 100%;
 }
 
-.dsmovie-form-group {
+.ds-form-group {
     margin-bottom: 20px;
 }
 
-.dsmovie-form-description h3 {
+.ds-form-description h3 {
     font-size: 13px;
     font-weight: 700;
     margin-bottom: 20px;
 }
 
-.dsmovie-form-group label {
+.ds-form-group label {
     font-size: 12px;
     color: var(--text-light-grey);
 }
 
-.dsmovie-form-btn-container{
+.ds-form-btn-container{
     height: 100px;
     display: flex;
     flex-direction: column;
@@ -177,20 +198,20 @@ a, a:hover {
     justify-content: space-between;
 }
 
-.dsmovie-pagination-container {
+.ds-pagination-container {
     padding: 15px 0;
     display: flex;
     justify-content: center;
 }
 
-.dsmovie-pagination-box {
+.ds-pagination-box {
     width: 180px;
     justify-content: space-between;
     display: flex;
     align-items: center;
 }
 
-.dsmovie-pagination-box button{
+.ds-pagination-box button{
     width: 40px;
     height: 40px;
     border: 1px solid var(--color-primary);
@@ -201,26 +222,26 @@ a, a:hover {
     align-items: center;
 }
 
-.dsmovie-pagination-box button img{
+.ds-pagination-box button img{
     filter: brightness(0) saturate(0) invert(25%) sepia(38%) saturate(5165%) hue-rotate(239deg) brightness(79%) contrast(88%);
 }
 
-.dsmovie-pagination-box button:disabled{
+.ds-pagination-box button:disabled{
     border: 1px solid var(--text-light-grey);
 }
 
-.dsmovie-pagination-box button:disabled img{
+.ds-pagination-box button:disabled img{
     filter: unset;
 }
 
-.dsmovie-pagination-box p{
+.ds-pagination-box p{
     margin: 0;
     font-size: 12px;
     color: var(--color-primary);
     font-weight: 400;
 }
 
-.dsmovie-flip-horizontal {
+.ds-flip-horizontal {
     transform: rotate(180deg);
 }
 
@@ -228,4 +249,22 @@ a, a:hover {
     font-weight: 800;
     font-size: 1.875rem;
     text-transform: uppercase;
+}
+
+footer {
+    height: auto;
+    width: 100%;
+    background-color: rgb(10, 55, 78);
+    padding: 0px 4rem;
+}
+
+footer p {
+    font-family: "Exo 2", sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    padding-top: 2rem;
+    color: rgb(255, 255, 255);
+    font-size: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
 }
