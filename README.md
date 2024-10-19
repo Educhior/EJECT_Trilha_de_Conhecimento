@@ -6,6 +6,8 @@
 
 Bem-vindo(a) ao repositório da Trilha de Conhecimento da EJECT (Empresa Júnior da Escola de Ciências e Tecnologia da UFRN). Este projeto foi desenvolvido com o objetivo de auxiliar novos aspirantes e integrantes que estão ingressando na EJECT. Aqui, você encontrará materiais de estudo, atividades práticas e diretrizes para o desenvolvimento de habilidades essenciais no ambiente de trabalho da empresa.
 
+https://educhior.github.io/EJECT_Trilha_de_Conhecimento/
+
 
 ## Objetivo
 
