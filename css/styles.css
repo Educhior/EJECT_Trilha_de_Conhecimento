@@ -1,14 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&amp;display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
 
 :root {
     --background: rgb(245, 251, 255);
-    --color-primary:linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
+    --color-primary: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
     --text-gray: #4a4a4a;
     --white: #fff;
     --text-light-grey: #aaa;
     --star-yellow: #FFBB3A;
 }
-
 
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
@@ -23,7 +22,7 @@ html, body {
     font-family: "Exo 2", sans-serif;
     width: 100%;
     height: 100%;
-    background: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
+    background: var(--color-primary);
     overflow-x: hidden;
 }
 
@@ -43,7 +42,7 @@ header {
     justify-content: space-between;
     width: 100%;
     height: 98px;
-    background: rgb(245, 251, 255);
+    background: var(--background);
     box-shadow: rgb(224, 229, 241) 0px 4px 10px 5px;
     align-items: center;
 }
@@ -57,7 +56,6 @@ nav {
 }
 
 nav h1 {
-    font-family: "Exo 2", sans-serif;
     font-weight: bold;
     text-align: center;
     color: rgb(0, 61, 115);
@@ -97,7 +95,7 @@ a, a:hover {
 }
 
 .ds-card-description {
-    background: rgb(255, 255, 255);
+    background: var(--white);
     box-shadow: rgb(224, 229, 241) 4px 4px 8px;
     padding: 10px 20px 20px 20px;
     display: flex;
@@ -107,12 +105,8 @@ a, a:hover {
 }
 
 .ds-card-description h3 {
-    display: block;
     font-size: 1.5em;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+    margin: 0.83em 0;
     font-weight: bold;
     text-align: center;
 }
@@ -129,32 +123,32 @@ a, a:hover {
     color: var(--star-yellow);
 }
 
-.ds-card-description-bottom img{
+.ds-card-description-bottom img {
     width: 22px;
 }
 
-.ds-card-description-bottom p{
+.ds-card-description-bottom p {
     font-size: 12px;
     font-weight: 400;
     color: var(--text-light-grey);
     margin-bottom: 10px;
 }
 
-.ds-btn,  .ds-btn:hover{
+.ds-btn {
     font-size: 1rem;
     font-weight: bold;
     text-transform: uppercase;
-    color: rgb(255, 255, 255);
+    color: var(--white);
     background: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%);
-    filter: drop-shadow(rgba(9, 149, 219, 0.35) 0px 4px 4px);
     padding: 0.8rem 1.2rem;
     border-radius: 10px;
     transition: all 0.3s ease;
     font-family: "Exo 2";
 }
 
-button:hover {
-    transform: scale(1.2); /* Expande o botão em 20% */
+.ds-btn:hover {
+    color: var(--white);
+    transform: scale(1.05); /* Expande o botão em 5% */
 }
 
 .ds-form-container {
@@ -190,7 +184,7 @@ button:hover {
     color: var(--text-light-grey);
 }
 
-.ds-form-btn-container{
+.ds-form-btn-container {
     height: 100px;
     display: flex;
     flex-direction: column;
@@ -211,7 +205,7 @@ button:hover {
     align-items: center;
 }
 
-.ds-pagination-box button{
+.ds-pagination-box button {
     width: 40px;
     height: 40px;
     border: 1px solid var(--color-primary);
@@ -222,19 +216,19 @@ button:hover {
     align-items: center;
 }
 
-.ds-pagination-box button img{
+.ds-pagination-box button img {
     filter: brightness(0) saturate(0) invert(25%) sepia(38%) saturate(5165%) hue-rotate(239deg) brightness(79%) contrast(88%);
 }
 
-.ds-pagination-box button:disabled{
+.ds-pagination-box button:disabled {
     border: 1px solid var(--text-light-grey);
 }
 
-.ds-pagination-box button:disabled img{
+.ds-pagination-box button:disabled img {
     filter: unset;
 }
 
-.ds-pagination-box p{
+.ds-pagination-box p {
     margin: 0;
     font-size: 12px;
     color: var(--color-primary);
@@ -245,26 +239,22 @@ button:hover {
     transform: rotate(180deg);
 }
 
-.titulo-trilha{
+.titulo-trilha {
     font-weight: 800;
     font-size: 1.875rem;
     text-transform: uppercase;
 }
 
 footer {
-    height: auto;
     width: 100%;
     background-color: rgb(10, 55, 78);
-    padding: 0px 4rem;
+    padding: 0 4rem;
 }
 
 footer p {
     font-family: "Exo 2", sans-serif;
     font-size: 1rem;
     text-align: center;
-    padding-top: 2rem;
-    color: rgb(255, 255, 255);
-    font-size: 1rem;
-    padding-top: 2rem;
-    padding-bottom: 1rem;
+    padding: 2rem 0 1rem;
+    color: var(--white);
 }
