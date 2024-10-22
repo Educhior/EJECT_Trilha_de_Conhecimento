@@ -195,8 +195,168 @@ p {
     color: white;
 }
 
-.checkbox-container {
+
+/* Alinhando o título e a caixa de marcação ao lado para desktops */
+.section-header {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    align-items: center;
+    justify-content: space-between; /* Deixa os dois elementos com espaço entre eles */
+    margin-bottom: 20px; /* Espaço entre o header e o conteúdo */
+}
+
+.section-header h2 {
+    margin: 0; /* Remove a margem para melhor alinhamento */
+    font-size: 1.8rem; /* Ajuste o tamanho da fonte conforme necessário */
+}
+
+.completion-label {
+    background-color: #4caf50; /* Cor verde para o fundo */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.completion-label input[type="checkbox"] {
+    margin-right: 8px; /* Espaçamento entre a caixa de seleção e o texto */
+}
+
+/* Ajustes gerais */
+p {
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* Estilos para telas menores (mobile) */
+@media screen and (max-width: 768px) {
+    .section-header {
+        flex-direction: column; /* Empilha o título e o checkbox */
+        align-items: flex-start; /* Alinha os elementos à esquerda */
+    }
+
+    .section-header h2 {
+        margin-bottom: 10px; /* Adiciona espaço entre o título e o checkbox */
+        font-size: 1.6rem; /* Reduz um pouco o tamanho da fonte para melhor visualização em mobile */
+    }
+
+    .completion-label {
+        padding: 4px 8px; /* Reduz o espaçamento para economizar espaço em telas menores */
+        font-size: 0.85rem; /* Reduz um pouco o tamanho da fonte */
+    }
+}
+
+/* Estilo para a tag BETA */
+.beta-tag {
+    background-color: #ff9800; /* Cor de fundo laranja para destacar */
+    color: white;              /* Texto branco */
+    font-size: 0.8rem;         /* Tamanho da fonte menor */
+    padding: 2px 6px;          /* Espaçamento ao redor */
+    border-radius: 5px;        /* Cantos arredondados */
+    margin-left: 10px;         /* Espaço entre o texto e a tag */
+    font-weight: bold;         /* Negrito para destaque */
+    cursor: pointer;           /* Cursor de pointer para interatividade */
+    transition: background-color 0.3s ease; /* Transição suave */
+}
+
+.beta-tag:hover {
+    background-color: #e68900; /* Efeito de hover mais escuro */
+}
+
+/* Estilo do modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Estilo da caixa de conteúdo do modal */
+.modal-content {
+    background-color: #f8f8f8;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    position: relative;
+}
+
+/* Título do modal */
+.modal-content h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Texto dentro do modal */
+.modal-content p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Botão de fechar (X) estilizado */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #000;
+}
+
+/* Exibir modal com transição */
+.modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+/* Estilos para dispositivos móveis */
+@media screen and (max-width: 768px) {
+    .modal-content {
+        width: 90%; /* Ajusta a largura para telas menores */
+        padding: 20px;
+    }
+
+    .modal-content h3 {
+        font-size: 1.3rem; /* Reduz o tamanho do título em mobile */
+    }
+
+    .modal-content p {
+        font-size: 0.95rem; /* Ajusta o tamanho do texto em mobile */
+    }
+}
+
+#confetti {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+    pointer-events: none;
 }
