@@ -6,8 +6,10 @@
         <title>EJECT | VICE-PRESIDÊNCIA</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <!-- Se for visualizar localmente, remova: "/EJECT_Trilha_de_Conhecimento/" dos linkamento -->
-        <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/trilhas_styles.css">
+        <link rel="stylesheet" href="/css/trilhas_styles.css">
         <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     </head>
 <body>
     <!-- Vlibra -->
@@ -38,15 +40,25 @@
         </section>
 
         <section>
-            
             <ul>
                 <li>
-                    <h4>Barra de Progresso Interativa</h4> <br>
+                    <h4>Barra de Progresso Interativa <span class="beta-tag" id="open-modal">BETA</span> </h4> <br>
                     <div class="progress-bar-container">
                         <div id="progress-bar" class="progress-bar">0%</div>
                     </div>
                 </li>
             </ul>
+        
+            <!-- Modal estrutura -->
+            <div id="betaModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Funcionalidade Beta</h3>
+                    <p>Esta funcionalidade ainda está em fase de testes. Por favor, nos envie feedback sobre quaisquer problemas ou sugestões de melhorias!</p>
+                </div>
+            </div>
+
+        
         </section>
 
         <!-- Conteúdo do Scrum -->
@@ -57,28 +69,36 @@
 
         <!-- Fundamentos do Scrum -->
         <section>
-            <h2>Introdução às OKRs</h2>
-            <label><input type="checkbox" class="topic-checkbox"> Marcar Concluido</label> <br> <br>
+            <div class="section-header">
+                <h2>Introdução às OKRs</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label> 
+            </div> <br>
             <ul>
                 <p>OKRs (Objectives and Key Results) são uma metodologia de definição de metas usada por empresas para alinhar esforços e medir o progresso de forma clara e objetiva. Eles são amplamente utilizados por empresas de tecnologia, como Google e LinkedIn, mas podem ser aplicados em qualquer setor ou contexto, incluindo empresas tradicionais, startups e até equipes pequenas.</p>
                 <p>Para entender melhor, vamos dividir em duas partes:</p>
                 <li>Objective (Objetivo)</li> <br>
                 <p>O objetivo é o <strong>que você quer alcançar.</strong> Deve ser algo inspirador, claro e desafiador. Ele serve para motivar e engajar a equipe, proporcionando uma direção e um propósito claros. Um bom objetivo deve ser qualitativo e ambicioso, mas não impossível de ser alcançado.</p>
-                <p>Exemplo de Objetivo:</p>
+                <p><strong>Exemplo de Objetivo:</strong></p>
                 <p>Aumentar a satisfação do cliente com nossos produtos.</p>
                 <li>Key Results (Resultados-chave)</li> <br>
                 <p>Os resultados-chave são como você sabe que alcançou o objetivo. Eles são os indicadores quantitativos que medem o progresso em direção ao objetivo. Um bom resultado-chave deve ser específico, mensurável e ter um prazo claro.</p> <br>
                 <p>Para cada objetivo, você normalmente define de 2 a 5 resultados-chave. Eles devem ser metas desafiadoras, mas alcançáveis, e precisam estar ligados diretamente ao sucesso do objetivo.</p>
-                <p>Exemplo de Resultados-chave para o Objetivo acima:</p>
+                <p><strong>Exemplo de Resultados-chave para o Objetivo acima:</strong></p>
                 <p>1. Aumentar a pontuação de satisfação do cliente de 7 para 9 no NPS (Net Promoter Score) até o final do trimestre.</p>
                 <p>2. Reduzir o tempo médio de resposta do suporte ao cliente de 24 horas para 12 horas até o final do trimestre.</p>
                 <p>3. Aumentar a taxa de renovação de contratos de 80% para 90% até o final do trimestre.</p>
-            </ul>
+            </ul> <br>
         </section>
 
         <section>
-            <h2>Características principais dos OKRs</h2>
-            <label><input type="checkbox" class="topic-checkbox"> Marcar Concluido</label> <br> <br>
+            <div class="section-header">
+                <h2>Características principais dos OKRs</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
             <ul>
                 <li><strong>Transparência</strong></li> <br>
                 <p>Os OKRs são públicos dentro da organização. Todo mundo pode ver os OKRs de outras equipes ou indivíduos, o que promove uma cultura de transparência e colaboração.</p>
@@ -88,12 +108,16 @@
                 <p>Os OKRs ajudam a manter o foco nas prioridades estratégicas da organização. Ao definir objetivos claros e resultados-chave mensuráveis, as equipes sabem exatamente no que devem se concentrar para alcançar o sucesso.</p>
                 <li><strong>Periodicidade</strong></li> <br>
                 <p>OKRs são normalmente estabelecidos em ciclos trimestrais ou anuais, permitindo ajustes frequentes de acordo com o progresso e as mudanças no ambiente.</p>
-            </ul>
+            </ul> <br>
         </section>
 
         <section>
-            <h2>Por que OKRs funcionam?</h2>
-            <label><input type="checkbox" class="topic-checkbox"> Marcar Concluido</label> <br> <br>
+            <div class="section-header">
+                <h2>Por que OKRs funcionam?</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
             <ul>
                 <li><strong>Clareza</strong></li> <br>
                 <p>Todos sabem para onde a empresa está indo e o que precisam fazer para chegar lá.</p>
@@ -105,8 +129,12 @@
         </section>
 
         <section>
-            <h2>Diferença entre OKRs e Metas Tradicionais</h2>
-            <label><input type="checkbox" class="topic-checkbox"> Marcar Concluido</label> <br> <br>
+            <div class="section-header">
+                <h2>Diferença entre OKRs e Metas Tradicionais</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
             <ul>
                 <li><strong>Flexibilidade</strong></li> <br>
                 <p>Ao contrário de metas anuais fixas, os OKRs podem ser ajustados conforme necessário a cada trimestre, acompanhando mudanças nas prioridades da empresa.</p>
@@ -128,15 +156,19 @@
                 <div class="ratio ratio-16x9 mb-4">
                     <iframe src="https://www.youtube.com/embed/R7MQC9M66Fk?si=YyECF4UTtCaMlAHP" title="ProSEmpre 2023.1 | Capacitação de Vice-presidência" allowfullscreen></iframe>
                 </div>
-            </section>
+            </section> <br>
         </section>
 
         <section>
-            <h2>Introdução às KPI</h2>
-            <label><input type="checkbox" class="topic-checkbox"> Marcar Concluido</label> <br> <br>
+            <div class="section-header">
+                <h2>Introdução às KPI</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
             <ul>
                 <p>KPI (Key Performance Indicator), ou Indicador-chave de Desempenho, é uma métrica utilizada para medir o desempenho de um processo, projeto ou iniciativa dentro de uma empresa. Os KPIs servem como uma forma objetiva de acompanhar se as atividades estão sendo realizadas de maneira eficaz e eficiente, ajudando a atingir as metas estabelecidas.</p>
-                <p>Características dos KPIs:</p>
+                <p><strong>Características dos KPIs:</strong></p>
                 <li>Quantitativos</li> <br>
                 <p>KPIs são sempre mensuráveis, com valores numéricos que permitem acompanhar o progresso ao longo do tempo.</p>
                 <li>Relevantes</li> <br>
@@ -145,12 +177,16 @@
                 <p>Um bom KPI mede um aspecto muito claro e específico de um processo.</p>
                 <li>Acionáveis</li> <br>
                 <p>KPIs devem fornecer insights que levem à ação, ou seja, ajudar na tomada de decisões para melhorar o desempenho.</p>
-            </ul>
+            </ul> <br>
         </section>
 
         <section>
-            <h2>Tipos de KPIs</h2>
-            <label><input type="checkbox" class="topic-checkbox"> Marcar Concluido</label> <br> <br>
+            <div class="section-header">
+                <h2>Tipos de KPIs</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
             <p>Os KPIs podem variar de acordo com o objetivo da empresa ou setor, mas geralmente podem ser classificados em dois grandes grupos:</p>
             <ul>
                 <li><strong>KPIs Operacionais</strong></li> <br>
@@ -176,12 +212,16 @@
                 <p>Taxa de retenção de funcionários</p>
                 <p>Tempo médio de contratação</p>
                 <p>Satisfação dos funcionários (medida por pesquisas)</p>
-            </ul>
+            </ul> <br>
         </section>
 
         <section>
-            <h2>Como escolher bons KPIs</h2>
-            <label><input type="checkbox" class="topic-checkbox"> Marcar Concluido</label> <br> <br>
+            <div class="section-header">
+                <h2>Como escolher bons KPIs</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
             <p>Para definir KPIs eficazes, é importante que eles:</p>
             <p><strong>Apoiem os objetivos estratégicos:</strong> Apoiem os objetivos estratégicos: Devem estar diretamente relacionados ao que a empresa ou equipe quer alcançar</p>
             <p><strong>Sejam mensuráveis e específicos:</strong> Devem ter uma fórmula clara de medição, sem ambiguidade.</p>
@@ -195,12 +235,16 @@
                 <p><strong>Objetivo:</strong> Reduzir o tempo de entrega de 5 para 3 dias. </p>
                 <p><strong>Fórmula:</strong> (Soma do tempo de entrega de todos os pedidos) ÷ (Número total de pedidos)</p>
                 <p><strong>Fórmula:</strong> Mensal</p>
-            </ul>
+            </ul> <br>
         </section>
 
         <section>
-            <h2>Diferença entre KPIs e OKRs</h2>
-            <label><input type="checkbox" class="topic-checkbox"> Marcar Concluido</label> <br> <br>
+            <div class="section-header">
+                <h2>Diferença entre KPIs e OKRs</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
             <p>Enquanto <strong>OKRs</strong> são usados para definir <strong>objetivos</strong> e medir o <strong>progresso</strong> em relação a esses objetivos, os <strong>KPIs</strong> são métricas que medem <strong>o desempenho contínuo de processos</strong>. Os OKRs são mais focados em metas de curto a médio prazo e resultados desafiadores, enquanto os KPIs geralmente monitoram o desempenho de atividades regulares e operacionais.</p>
         </section>
 
@@ -210,12 +254,16 @@
                 <div class="ratio ratio-16x9 mb-4">
                     <iframe src="https://drive.google.com/file/d/1NuqYDg8ZI9duriqfZhaTAzeijWNXEOuI/preview" title="[Capacitação] Indicadores" allowfullscreen></iframe>
                 </div>
-            </section>
+            </section> <br>
         </section>
 
         <section>
-            <h2>Introdução às BPMN</h2>
-            <label><input type="checkbox" class="topic-checkbox"> Marcar Concluido</label> <br> <br>
+            <div class="section-header">
+                <h2>Introdução às BPMN</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
             <p>BPMN (Business Process Model and Notation) é uma notação gráfica padronizada utilizada para modelar processos de negócios. Sua principal função é representar visualmente o fluxo de atividades, tarefas e interações de um processo, facilitando o entendimento entre equipes técnicas e não técnicas dentro de uma organização.</p>
             <h4>Por que usar BPMN?</h4> <br>
             <p>O BPMN é amplamente utilizado porque:</p>
@@ -230,8 +278,12 @@
         </section>
         
         <section>
-            <h2>Elementos principais do BPMN</h2>
-            <label><input type="checkbox" class="topic-checkbox"> Marcar Concluido</label> <br> <br>
+            <div class="section-header">
+                <h2>Elementos principais do BPMN</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
             <ul>
                 <li><strong>Piscinas (Pools) e Raias (Lanes)</strong></li> <br>
                 <p><strong>Piscinas (Pools):</strong> Representam participantes do processo (organizações, departamentos ou sistemas).</p>
@@ -260,11 +312,15 @@
             </ul>
 
             <img src="https://www.researchgate.net/publication/363243490/figure/fig2/AS:11431281184863292@1693467674528/Figura-2-Categorias-e-elementos-utilizados-pela-notacao-BPMN.png" alt="Categorias e elementos utilizados pela notação BPMN" style="width: 80%; height: auto; display: flex; margin: auto;"> <br>
-        </section>
+        </section> <br>
         
         <section>
-            <h2>Exemplo de processo BPMN</h2>
-            <label><input type="checkbox" class="topic-checkbox"> Marcar Concluido</label> <br> <br>
+            <div class="section-header">
+                <h2>Exemplo de processo BPMN</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
             <p>Imagine que uma empresa tenha um processo de aprovação de reembolso:</p>
             <ul>
                 <li><strong>Evento de início:</strong> Recebimento da solicitação de reembolso.</li>
@@ -274,9 +330,14 @@
                 <p>Se rejeitado, o processo termina com uma notificação ao funcionário.</p>
                 <li><strong>Atividade:</strong> Processamento do reembolso.</li>
                 <li><strong>Evento de término:</strong> Envio da confirmação ao solicitante.</li>
-            </ul>
+            </ul> <br>
             
-            <h4>Vantagens do BPMN</h4> <br>
+            <div class="section-header">
+                <h2>Vantagens do BPMN</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
             <ul>
                 <li><strong>Facilidade de entendimento</strong></li> <br>
                 <p>É uma linguagem simples e visual que qualquer pessoa pode aprender rapidamente, independentemente de seu conhecimento técnico.</p>
@@ -284,9 +345,14 @@
                 <p>Ao mapear visualmente, fica mais fácil ver ineficiências e criar planos para otimizar o fluxo de trabalho.</p>
                 <li><strong>Integração com sistemas</strong></li> <br>
                 <p>Como é um padrão amplamente aceito, o BPMN pode ser utilizado com várias ferramentas de software para automatização de processos.</p>
-            </ul>
+            </ul> <br>
 
-            <h4>Diferença entre BPMN e outros diagramas</h4> <br>
+            <div class="section-header">
+                <h2>Diferença entre BPMN e outros diagramas</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
             <ul>
                 <li><strong>Fluxogramas comuns</strong></li> <br>
                 <p>Embora ambos sejam usados para mapear processos, os fluxogramas são mais simples e menos padronizados, o que pode gerar interpretações diferentes.</p>
@@ -321,24 +387,9 @@
     <footer class="text-center py-4">
         <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
     </footer>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka6PYS2ZTMj7Do35tWl53KIkazN1l5Hb9Kjk7aaJ5RrbZZgZ9KmbxKt0qKZ1dQF" crossorigin="anonymous"></script>
-    <script>
-        const checkboxes = document.querySelectorAll('.topic-checkbox');
-        const progressBar = document.getElementById('progress-bar');
-
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateProgress);
-        });
-
-        function updateProgress() {
-            const total = checkboxes.length;
-            const checked = document.querySelectorAll('.topic-checkbox:checked').length;
-            const percentage = (checked / total) * 100;
-
-            progressBar.style.width = percentage + '%';
-            progressBar.textContent = Math.round(percentage) + '%';
-        }
-    </script>
+    <script src="/script/barra_progresso.js"></script>
 </body>
 </html>
