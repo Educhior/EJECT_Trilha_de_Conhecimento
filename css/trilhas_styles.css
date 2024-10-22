@@ -92,7 +92,8 @@ code {
 
 a, a:hover {
     text-decoration: none;
-    color: unset;
+    color: rgb(0, 61, 115);
+    font-weight: bold;
 }
 
 .Trilhas-contact-container {
