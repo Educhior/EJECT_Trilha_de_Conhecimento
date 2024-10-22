@@ -179,3 +179,25 @@ footer p {
 p {
     font-family: "Exo 2", sans-serif;
 }
+
+.progress-bar-container {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 25px;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 30px;
+    background-color: #4caf50;
+    border-radius: 25px;
+    text-align: center;
+    color: white;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
