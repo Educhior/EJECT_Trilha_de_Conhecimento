@@ -145,7 +145,7 @@ li {
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 
-.btn-primary {
+.btn_btn-primary {
     font-size: 1rem;
     font-weight: bold;
     text-transform: uppercase;
@@ -157,7 +157,8 @@ li {
     font-family: "Exo 2";
 }
 
-.btn-primary:hover {
+.btn_btn-primary:hover {
+    color: var(--white);
     transform: scale(1.05); /* Expande o botão em 5% */
     background-color:linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%); /* Leve ajuste na cor ao passar o mouse */
 }
