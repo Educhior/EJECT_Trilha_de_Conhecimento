@@ -258,3 +258,13 @@ footer p {
     padding: 2rem 0 1rem;
     color: var(--white);
 }
+
+.login-icon a {
+    text-decoration: none;
+    color: #000; /* Certifique-se de que a cor do ícone está visível */
+    font-size: 24px; /* Tamanho do ícone */
+}
+
+.login-icon a:hover {
+    color: #007bff; /* Muda a cor ao passar o mouse */
+}
