@@ -55,6 +55,36 @@ nav {
     align-items: center;
 }
 
+/* Estilos gerais da barra de navegação */
+nav.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  .ds-contact-container img {
+    height: 50px; /* Ajuste conforme necessário */
+  }
+  
+  /* Media Query para telas menores (mobile) */
+  @media (max-width: 768px) {
+    /* Oculta o título da barra de navegação em telas pequenas */
+    h1 {
+      display: none;
+    }
+  
+    /* Ajusta a logo para centralizar ou ocupar todo o espaço se necessário */
+    .ds-contact-container {
+      margin: 0 auto;
+    }
+  }
+  
+
 nav h1 {
     font-weight: bold;
     text-align: center;
@@ -289,4 +319,87 @@ footer p {
 .search-bar::placeholder {
     color: var(--text-light-grey); /* Cor do texto do placeholder */
     opacity: 0.7; /* Opacidade do placeholder */
+}
+
+/* Container que agrupa a barra de busca e o filtro */
+.filter-search-container {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Alinha verticalmente no centro */
+    gap: 20px;               /* Espaço entre a barra de busca e o filtro */
+    flex-wrap: nowrap;       /* Evita que os itens quebrem de linha */
+}
+
+/* Define a largura dos elementos de busca e filtro */
+.search-container, .filter-container {
+    flex: 0 1 300px; /* Cada elemento tem um tamanho fixo e ajustável */
+}
+
+/* Estilo da barra de busca */
+.search-bar, .filter-bar {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--text-light-grey);
+}
+
+/* Foco nos campos */
+.search-bar:focus, .filter-bar:focus {
+    border-color: rgb(9, 149, 219);
+    outline: none;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .filter-search-container {
+        flex-direction: column; /* Empilha a barra de busca e o filtro */
+        gap: 10px;              /* Espaço reduzido entre os itens */
+    }
+}
+
+/* Contêiner principal da busca e filtro */
+.filter-search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;               /* Espaçamento entre elementos */
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Melhorias para dispositivos móveis */
+@media (max-width: 768px) {
+    .filter-search-container {
+        flex-wrap: nowrap;
+        gap: 10px;              /* Reduz o espaço entre os itens */
+        max-width: 100%;        /* Ocupa toda a largura da tela */
+        flex-direction: row;
+
+    }
+
+    .search-bar, .filter-bar {
+        width: 100%;            /* Garante que ocupem toda a largura disponível */
+        max-width: 100%;        /* Remove o limite de largura */
+    }
+}
+
+
+.search-container, .filter-container {
+    flex: 1 1 300px;
+}
+
+.search-bar, .filter-bar {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--text-light-grey);
+}
+
+.search-bar:focus, .filter-bar:focus {
+    border-color: rgb(9, 149, 219);
+    outline: none;
 }
