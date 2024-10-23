@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo</title>
+    <link rel="stylesheet" href="/css/painel_administrativo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+</head>
+<body>
+
+<header>
+    <nav>
+        <h1>Painel Administrativo</h1>
+        <div class="login-icon">
+            <a href="#" id="logout">&#x1F464; Sair</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <div class="container">
+        <h2>Gerenciamento de Usuários</h2>
+
+        <!-- Campo de busca -->
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar usuários..." id="searchInput" onkeyup="searchUser()">
+        </div>
+
+        <!-- Tabela de usuários -->
+        <table class="user-list" id="userTable">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Categoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>João Silva</td>
+                    <td>joao@example.com</td>
+                    <td><span class="tag aspirante">Aspirante</span></td>
+                </tr>
+                <tr>
+                    <td>Maria Oliveira</td>
+                    <td>maria@example.com</td>
+                    <td><span class="tag eject">EJECT</span></td>
+                </tr>
+                <tr>
+                    <td>Pedro Santos</td>
+                    <td>pedro@example.com</td>
+                    <td><span class="tag outros">Outros</span></td>
+                </tr>
+                <!-- Adicione mais usuários conforme necessário -->
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Painel Administrativo</p>
+</footer>
+
+<script src="/script/painel_administrativo.js"></script>
+
+</body>
+</html>
