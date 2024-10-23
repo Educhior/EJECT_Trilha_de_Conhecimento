@@ -1,3 +1,6 @@
+// Define a chave única para o localStorage com base no conteúdo da página
+const trailKey = document.title; // Ou use um identificador específico para a trilha
+
 // Seleciona todos os checkboxes e a barra de progresso
 const checkboxes = document.querySelectorAll('.topic-checkbox');
 const progressBar = document.getElementById('progress-bar');
@@ -29,12 +32,12 @@ function setProgress(percentage) {
 // Função para salvar o progresso no localStorage
 function saveProgress() {
     const progressState = Array.from(checkboxes).map(checkbox => checkbox.checked);
-    localStorage.setItem('progress', JSON.stringify(progressState));
+    localStorage.setItem(`progress_${trailKey}`, JSON.stringify(progressState)); // Salva com a chave única
 }
 
 // Função para carregar o progresso do localStorage
 function loadProgress() {
-    const savedProgress = JSON.parse(localStorage.getItem('progress'));
+    const savedProgress = JSON.parse(localStorage.getItem(`progress_${trailKey}`)); // Carrega com a chave única
 
     if (savedProgress) {
         checkboxes.forEach((checkbox, index) => {
@@ -86,7 +89,6 @@ function createConfettiPiece() {
         piece.remove();
     });
 }
-
 
 // Pegar os elementos do modal e do botão
 const modal = document.getElementById("betaModal");

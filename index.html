@@ -7,6 +7,7 @@
     <title>EJECT | Trilhas de Conhecimentos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7p5l7l5Bv5Ll7+1ZwXtuclC1T64oJZ+6D5Ll+Pdg1+1wPyF5gqQ/P1Wg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -36,10 +37,15 @@
     <main>
         <section id="ds-card-list" class="container">
             <br>
-            <div class="row">
+            <!-- Barra de Busca -->
+            <div class="mb-3 text-center">
+                <input type="text" id="searchInput" class="form-control search-bar" placeholder="Pesquise as trilhas...">
+            </div> <br>
+
+            <div class="row" id="cardContainer">
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
                     <div class="ds-card">
-                        <img src="https://github.githubassets.com/assets/social-2deb6d7d43e7.jpg" alt="Imagem do GitHub">
+                        <img src="https://hermes.dio.me/articles/cover/d2489f96-d56f-4b82-bc7f-84fbc9fb1368.jpg" alt="Imagem do GitHub">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">GIT e Github</h3>
                             <div class="ds-card-description-bottom">
@@ -53,7 +59,7 @@
                     <div class="ds-card">
                         <img src="https://erp-disk.ams3.digitaloceanspaces.com/portadas-tutoriales/small_portada_cm1gdlxji0065017b0k930xiv.webp" alt="Imagem do Scrum">
                         <div class="ds-card-description">
-                            <h3>Scrum</h3>
+                            <h3 class="titulo-trilha">Scrum</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="Trilhas/Scrum">Acessar</a>
                             </div>
@@ -65,9 +71,9 @@
                     <div class="ds-card">
                         <img src="https://lh3.googleusercontent.com/p/AF1QipMSfq4RpVGA9PnYPgiKHdqn_FKY2k-CGe4rlRM8=s680-w680-h510" alt="Imagem sobre a História da EJECT">
                         <div class="ds-card-description">
-                            <h3>História da EJECT</h3>
+                            <h3 class="titulo-trilha">História da EJECT</h3>
                             <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="#">Em breve</a>
+                                <a class="ds-btn" href="Trilhas/historia_eject">Acessar</a>
                             </div>
                         </div>
                     </div>
@@ -77,7 +83,7 @@
                     <div class="ds-card">
                         <img src="https://hotmart.s3.amazonaws.com/product_pictures/d2badee3-49a9-4627-9f7d-a5e51ae35384/sitehtmlcss1024x579.jpg" alt="Imagem do HTML e CSS">
                         <div class="ds-card-description">
-                            <h3>HTML e CSS</h3>
+                            <h3 class="titulo-trilha">HTML e CSS</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="#">Em breve</a>
                             </div>
@@ -89,7 +95,57 @@
                     <div class="ds-card">
                         <img src="https://listradigital.com.br/wp-content/uploads/2021/02/080221-bpListraINFO.png" alt="Imagem do OKRs">
                         <div class="ds-card-description">
-                            <h3>Vice-Presidência</h3>
+                            <h3 class="titulo-trilha">OKRs, KPIs e BPMN</h3>
+                            <div class="ds-card-description-bottom">
+                                <a class="ds-btn" href="#">Em breve</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                    <div class="ds-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLbQDxmV2E6ZfAlhNMrPE1o-sPSIFiAjmngg&s" alt="Imagem do UX e UI">
+                        <div class="ds-card-description">
+                            <h3 class="titulo-trilha">UX e UI</h3>
+                            <div class="ds-card-description-bottom">
+                                <a class="ds-btn" href="#">Em breve</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                    <div class="ds-card">
+                        <img src="https://marquesfernandes.com/wp-content/uploads/2020/08/kwi4bvgzths31.jpg" alt="Imagem do liguagem pyhon">
+                        <div class="ds-card-description">
+                            <h3 class="titulo-trilha">python</h3>
+                            <div class="ds-card-description-bottom">
+                                <a class="ds-btn" href="#">Em breve</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                    <div class="ds-card">
+                        <img src="https://imagedelivery.net/qc7VvyphMGWFiPVvTbB-ww/swapps.com/2016/02/simply-django-announcements.jpg/w=1024,h=576" alt="Imagem da freamwork django">
+                        <div class="ds-card-description">
+                            <h3 class="titulo-trilha">django</h3>
+                            <div class="ds-card-description-bottom">
+                                <a class="ds-btn" href="#">Em breve</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                    <div class="ds-card">
+                        <img src="https://webrain.com.br/wp-content/uploads/2019/05/google-data-studio.jpg" alt="Imagem do google data studio">
+                        <div class="ds-card-description">
+                            <h3 class="titulo-trilha">Google data Studio</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="#">Em breve</a>
                             </div>
@@ -103,5 +159,22 @@
     <footer>
         <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        // Script para filtrar as trilhas
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const query = this.value.toLowerCase();
+            const cards = document.querySelectorAll('#cardContainer .ds-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('.titulo-trilha').textContent.toLowerCase();
+                if (title.includes(query)) {
+                    card.parentElement.style.display = ''; // Exibe o card
+                } else {
+                    card.parentElement.style.display = 'none'; // Oculta o card
+                }
+            });
+        });
+    </script>
 </body>
 </html>
