@@ -222,5 +222,50 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
     <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
+    <script>
+        // Script para filtrar as trilhas
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const query = this.value.toLowerCase();
+            const cards = document.querySelectorAll('#cardContainer .ds-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('.titulo-trilha').textContent.toLowerCase();
+                if (title.includes(query)) {
+                    card.parentElement.style.display = ''; // Exibe o card
+                } else {
+                    card.parentElement.style.display = 'none'; // Oculta o card
+                }
+            });
+        });
+        
+        document.getElementById('filterSelect').addEventListener('change', function() {
+        let filterValue = this.value;
+        let cards = document.querySelectorAll('.ds-card');
+
+        cards.forEach(function(card) {
+            // Reseta a exibição de todos os cards
+            card.parentElement.style.display = 'block';
+
+            // Filtra pelas opções selecionadas
+            if (filterValue === 'available' && card.querySelector('.ds-btn').textContent === 'Em breve') {
+                card.parentElement.style.display = 'none'; // Oculta trilhas "Em breve"
+            } else if (filterValue === 'soon' && card.querySelector('.ds-btn').textContent !== 'Em breve') {
+                card.parentElement.style.display = 'none'; // Oculta trilhas "Disponíveis"
+            }
+        });
+
+        // Ordenação alfabética
+        if (filterValue === 'alphabetical') {
+            let cardList = document.querySelector('#ds-card-list .row');
+            let sortedCards = Array.from(cards).sort(function(a, b) {
+                return a.querySelector('h3').textContent.localeCompare(b.querySelector('h3').textContent);
+            });
+
+            sortedCards.forEach(function(card) {
+                cardList.appendChild(card.parentElement); // Reorganiza os cards na ordem correta
+            });
+        }
+    });
+    </script>
 </body>
 </html>
