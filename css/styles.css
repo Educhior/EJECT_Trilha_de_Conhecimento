@@ -301,3 +301,139 @@ footer p {
 .login-button:hover {
     transform: scale(1.05); /* Efeito hover */
 }
+
+.logout-icon {
+    margin-left: auto; /* Para alinhar à direita se necessário */
+}
+
+.logout-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px; /* Largura mínima */
+    min-height: 50px; /* Altura mínima */
+    transition: all 0.3s ease;
+}
+
+.logout-button img {
+    width: 24px; /* Ajuste o tamanho do ícone */
+    height: 24px;
+    margin-right: 8px; /* Espaço entre o ícone e o texto */
+}
+
+.logout-button:hover {
+    transform: scale(1.05); /* Efeito hover */
+}
+
+/* Estilo do modal */
+.modal {
+
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 1000; /* Certifique-se de que está acima de outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo semitransparente */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Estilo da caixa de conteúdo do modal */
+.modal-content {
+    background-color: #fff; /* Fundo branco para melhor contraste */
+    padding: 30px;
+    border-radius: 12px; /* Bordas arredondadas */
+    max-width: 500px; /* Largura máxima do modal */
+    width: 90%; /* Largura responsiva */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Sombra do modal */
+    text-align: center; /* Centraliza o texto */
+    font-family: 'Arial', sans-serif; /* Fonte */
+    color: #333; /* Cor do texto */
+    position: relative; /* Para o botão de fechar */
+    transition: transform 0.3s ease; /* Transição suave */
+    transform: translateY(-20px); /* Efeito inicial */
+}
+
+/* Efeito de aparecer do modal */
+.modal.show .modal-content {
+    transform: translateY(0); /* Animação ao mostrar o modal */
+}
+
+/* Título do modal */
+.modal-content h2 {
+    margin-top: 0; /* Remove a margem superior */
+    font-size: 1.8rem; /* Tamanho do título */
+    color: #333; /* Cor do título */
+    margin-bottom: 15px; /* Margem inferior */
+    text-transform: uppercase; /* Texto em caixa alta */
+}
+
+/* Texto dentro do modal */
+.modal-content p {
+    font-size: 1rem; /* Tamanho do texto */
+    color: #555; /* Cor do texto */
+    line-height: 1.6; /* Altura da linha */
+    margin-bottom: 20px; /* Margem inferior */
+}
+
+/* Botão de fechar (X) estilizado */
+.close-button {
+    position: absolute; /* Para posicionamento livre */
+    top: 15px; /* Distância do topo */
+    right: 20px; /* Distância da direita */
+    font-size: 1.5rem; /* Tamanho do botão */
+    color: #666; /* Cor do botão */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: color 0.3s ease; /* Transição suave */
+}
+
+.close-button:hover {
+    color: #000; /* Cor ao passar o mouse */
+}
+
+/* Botão de logout estilizado */
+#logout-button {
+    background-color: #ff4757; /* Cor do botão de logout */
+    color: #fff; /* Cor do texto do botão */
+    border: none; /* Sem borda */
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: background-color 0.3s ease; /* Transição suave */
+}
+
+#logout-button:hover {
+    background-color: #ff6b81; /* Cor ao passar o mouse */
+}
+
+/* Exibir modal com transição */
+.modal.show {
+    display: flex; /* Flexível para centralizar */
+    opacity: 1; /* Visível */
+}
+
+/* Estilos para dispositivos móveis */
+@media screen and (max-width: 768px) {
+    .modal-content {
+        width: 90%; /* Ajusta a largura para telas menores */
+        padding: 20px; /* Ajusta o padding */
+    }
+
+    .modal-content h2 {
+        font-size: 1.5rem; /* Tamanho do título em mobile */
+    }
+
+    .modal-content p {
+        font-size: 0.95rem; /* Tamanho do texto em mobile */
+    }
+}
+
+
