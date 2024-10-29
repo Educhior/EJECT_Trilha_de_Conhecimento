@@ -74,6 +74,36 @@ nav {
     align-items: center;
 }
 
+/* Estilos gerais da barra de navegação */
+nav.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  .ds-contact-container img {
+    height: 50px; /* Ajuste conforme necessário */
+  }
+  
+  /* Media Query para telas menores (mobile) */
+  @media (max-width: 768px) {
+    /* Oculta o título da barra de navegação em telas pequenas */
+    h1 {
+      display: none;
+    }
+  
+    /* Ajusta a logo para centralizar ou ocupar todo o espaço se necessário */
+    .ds-contact-container {
+      margin: 0 auto;
+    }
+  }
+  
+
 nav h1 {
     font-weight: bold;
     text-align: center;

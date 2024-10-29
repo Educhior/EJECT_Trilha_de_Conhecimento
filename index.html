@@ -67,10 +67,30 @@
     <main>
         <section id="ds-card-list" class="container">
             <br>
-            <div class="row">
+
+            <section>
+                <!-- Barra de Busca e Filtro -->
+                <div class="filter-search-container">
+                    <div class="search-container">
+                        <input type="text" id="searchInput" class="form-control search-bar" placeholder="Pesquise as trilhas...">
+                    </div>
+                    <div class="filter-container">
+                        <select id="filterSelect" class="form-select filter-bar">
+                            <option value="all">Todos</option>
+                            <option value="alphabetical">Ordem Alfabética</option>
+                            <option value="available">Disponíveis</option>
+                            <option value="soon">Em Breve</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+            <br>
+            
+
+            <div class="row" id="cardContainer">
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
                     <div class="ds-card">
-                        <img src="https://github.githubassets.com/assets/social-2deb6d7d43e7.jpg" alt="Imagem do GitHub">
+                        <img src="https://hermes.dio.me/articles/cover/d2489f96-d56f-4b82-bc7f-84fbc9fb1368.jpg" alt="Imagem do GitHub">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">GIT e Github</h3>
                             <div class="ds-card-description-bottom">
@@ -84,7 +104,7 @@
                     <div class="ds-card">
                         <img src="https://erp-disk.ams3.digitaloceanspaces.com/portadas-tutoriales/small_portada_cm1gdlxji0065017b0k930xiv.webp" alt="Imagem do Scrum">
                         <div class="ds-card-description">
-                            <h3>Scrum</h3>
+                            <h3 class="titulo-trilha">Scrum</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/Trilhas/Scrum.html">Acessar</a>
                             </div>
@@ -96,9 +116,9 @@
                     <div class="ds-card">
                         <img src="https://lh3.googleusercontent.com/p/AF1QipMSfq4RpVGA9PnYPgiKHdqn_FKY2k-CGe4rlRM8=s680-w680-h510" alt="Imagem sobre a História da EJECT">
                         <div class="ds-card-description">
-                            <h3>História da EJECT</h3>
+                            <h3 class="titulo-trilha">História da EJECT</h3>
                             <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="#">Em breve</a>
+                                <a class="ds-btn" href="Trilhas/historia_eject">Acessar</a>
                             </div>
                         </div>
                     </div>
@@ -108,7 +128,7 @@
                     <div class="ds-card">
                         <img src="https://hotmart.s3.amazonaws.com/product_pictures/d2badee3-49a9-4627-9f7d-a5e51ae35384/sitehtmlcss1024x579.jpg" alt="Imagem do HTML e CSS">
                         <div class="ds-card-description">
-                            <h3>HTML e CSS</h3>
+                            <h3 class="titulo-trilha">HTML e CSS</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="#">Em breve</a>
                             </div>
@@ -120,7 +140,69 @@
                     <div class="ds-card">
                         <img src="https://listradigital.com.br/wp-content/uploads/2021/02/080221-bpListraINFO.png" alt="Imagem do OKRs">
                         <div class="ds-card-description">
-                            <h3>OKRs e KPIs</h3>
+                            <h3 class="titulo-trilha">OKRs, KPIs e BPMN</h3>
+                            <div class="ds-card-description-bottom">
+                                <a class="ds-btn" href="Trilhas/okrs_kpis_e_bpmn">Acessar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                    <div class="ds-card">
+                        <img src="https://cityhost.ua/upload_img/blog5f352fc3b2393_wp.png" alt="Imagem do wordpress">
+                        <div class="ds-card-description">
+                            <h3 class="titulo-trilha">Wordpress</h3>
+                            <div class="ds-card-description-bottom">
+                                <a class="ds-btn" href="Trilhas/wordpress">Acessar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                    <div class="ds-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLbQDxmV2E6ZfAlhNMrPE1o-sPSIFiAjmngg&s" alt="Imagem do UX e UI">
+                        <div class="ds-card-description">
+                            <h3 class="titulo-trilha">UX e UI</h3>
+                            <div class="ds-card-description-bottom">
+                                <a class="ds-btn" href="#">Em breve</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                    <div class="ds-card">
+                        <img src="https://marquesfernandes.com/wp-content/uploads/2020/08/kwi4bvgzths31.jpg" alt="Imagem do liguagem pyhon">
+                        <div class="ds-card-description">
+                            <h3 class="titulo-trilha">python</h3>
+                            <div class="ds-card-description-bottom">
+                                <a class="ds-btn" href="#">Em breve</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                    <div class="ds-card">
+                        <img src="https://imagedelivery.net/qc7VvyphMGWFiPVvTbB-ww/swapps.com/2016/02/simply-django-announcements.jpg/w=1024,h=576" alt="Imagem da freamwork django">
+                        <div class="ds-card-description">
+                            <h3 class="titulo-trilha">django</h3>
+                            <div class="ds-card-description-bottom">
+                                <a class="ds-btn" href="#">Em breve</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                    <div class="ds-card">
+                        <img src="https://webrain.com.br/wp-content/uploads/2019/05/google-data-studio.jpg" alt="Imagem do google data studio">
+                        <div class="ds-card-description">
+                            <h3 class="titulo-trilha">Data Studio</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="#">Em breve</a>
                             </div>
