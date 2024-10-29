@@ -403,3 +403,9 @@ footer p {
     border-color: rgb(9, 149, 219);
     outline: none;
 }
+
+.img_javascript {
+    max-height: 169.5px;
+    object-fit: cover;
+    object-position: center;
+}
