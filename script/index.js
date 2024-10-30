@@ -86,7 +86,7 @@ onAuthStateChanged(auth, (user) => {
         event.preventDefault(); // Previne o comportamento padrão do botão
         signOut(auth).then(() => {
             alert('Deslogado com sucesso!');
-            window.location.href = '/login.html';
+            window.location.href = '/login';
         }).catch((error) => {
             console.error('Erro ao deslogar:', error);
         });
