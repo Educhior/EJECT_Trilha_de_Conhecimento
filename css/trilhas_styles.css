@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&amp;display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
 
 :root {
     --background: rgb(245, 251, 255);
@@ -64,15 +64,17 @@ nav a {
     font-weight: 400;
 }
 
-/* Ajustes para dispositivos móveis */
 @media only screen and (max-width: 768px) {
     nav {
-        flex-direction: column;
-        height: auto;
+        flex-direction: column; /* Certifique-se de que a direção é a correta para mobile */
+        align-items: center; /* Centraliza os itens */
+        padding: 10px 0; /* Espaçamento interno */
+        width: 100%; /* Garantindo que a largura é 100% */
     }
 
     nav h1 {
         font-size: 24px;
+        margin-bottom: 10px; /* Espaçamento inferior para o título */
     }
 
     nav a {
@@ -80,6 +82,8 @@ nav a {
         margin: 5px 0;
     }
 }
+
+
 
 code {
     background-color: #dfdfdf;
@@ -158,7 +162,7 @@ li {
 
 .btn-primary:hover {
     transform: scale(1.05); /* Expande o botão em 5% */
-    background-color:linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%); /* Leve ajuste na cor ao passar o mouse */
+    background: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%); /* Leve ajuste na cor ao passar o mouse */
 }
 
 footer {
@@ -194,7 +198,6 @@ p {
     text-align: center;
     color: white;
 }
-
 
 /* Alinhando o título e a caixa de marcação ao lado para desktops */
 .section-header {
@@ -281,7 +284,6 @@ p {
     align-items: center;
 }
 
-
 /* Estilo da caixa de conteúdo do modal */
 .modal-content {
     background-color: #f8f8f8;
@@ -308,84 +310,59 @@ p {
 
 /* Texto dentro do modal */
 .modal-content p {
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.6;
     margin-bottom: 20px;
 }
 
-/* Botão de fechar (X) estilizado */
+/* Botão de fechar o modal */
 .close {
     position: absolute;
     top: 15px;
     right: 20px;
-    font-size: 1.5rem;
-    color: #666;
+    font-size: 20px;
+    color: #999;
     cursor: pointer;
-    transition: color 0.3s ease;
 }
 
 .close:hover {
-    color: #000;
+    color: #333; /* Muda a cor ao passar o mouse */
 }
 
-/* Exibir modal com transição */
+/* Efeitos do modal */
 .modal.show {
+    display: flex; /* Exibe o modal */
+}
+
+.modal-content {
+    transition: transform 0.3s ease;
+    transform: translateY(-20px); /* Efeito inicial */
+}
+
+.modal.show .modal-content {
+    transform: translateY(0); /* Animação ao mostrar o modal */
+}
+
+.logout-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: 8px;
     display: flex;
-    opacity: 1;
-}
-
-/* Estilos para dispositivos móveis */
-@media screen and (max-width: 768px) {
-    .modal-content {
-        width: 90%; /* Ajusta a largura para telas menores */
-        padding: 20px;
-    }
-
-    .modal-content h3 {
-        font-size: 1.3rem; /* Reduz o tamanho do título em mobile */
-    }
-
-    .modal-content p {
-        font-size: 0.95rem; /* Ajusta o tamanho do texto em mobile */
-    }
-}
-
-#confetti {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0px;
-    left: 0px;
-    z-index: 999;
-    pointer-events: none;
-}
-
-#loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    display: flex;
-    justify-content: center;
     align-items: center;
-    z-index: 1000;
+    justify-content: center;
+    min-width: 150px; /* Largura mínima */
+    min-height: 50px; /* Altura mínima */
+    transition: all 0.3s ease;
 }
 
-.spinner {
-    width: 40px;
-    height: 40px;
-    border: 5px solid #ccc;
-    border-top-color: #3498db;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+.logout-button img {
+    width: 24px; /* Ajuste o tamanho do ícone */
+    height: 24px;
+    margin-right: 8px; /* Espaço entre o ícone e o texto */
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.logout-button:hover {
+    transform: scale(1.05); /* Efeito hover */
 }
 
 /* Estilo do modal */
