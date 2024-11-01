@@ -5,13 +5,13 @@ import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.0.0/
 
 // Configurações do Firebase
 const firebaseConfig = {
-    apiKey: "API_KEY",
-    authDomain: "eject-trilha-de-conhecimento.firebaseapp.com",
-    projectId: "eject-trilha-de-conhecimento",
-    storageBucket: "eject-trilha-de-conhecimento.appspot.com",
-    messagingSenderId: "339989029881",
-    appId: "1:339989029881:web:8a0e91c6e068cad152d328",
-    measurementId: "G-37E12ZK0X0"
+  apiKey: "AIzaSyCjYmouzj1x8pSuHVJ6s01vj-ubETBRJwQ",
+  authDomain: "eject-trilha-de-conhecimento.firebaseapp.com",
+  projectId: "eject-trilha-de-conhecimento",
+  storageBucket: "eject-trilha-de-conhecimento.appspot.com",
+  messagingSenderId: "339989029881",
+  appId: "1:339989029881:web:8a0e91c6e068cad152d328",
+  measurementId: "G-37E12ZK0X0"
 };
 
 // Inicializa o Firebase
