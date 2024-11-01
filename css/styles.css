@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
 
+/* Variáveis de cor */
 :root {
     --background: rgb(245, 251, 255);
     --color-primary: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
@@ -9,16 +10,14 @@
     --star-yellow: #FFBB3A;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-}
-
+/* Reset de estilo */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Configurações de fonte e corpo */
 html, body {
     font-family: "Exo 2", sans-serif;
     width: 100%;
@@ -38,6 +37,18 @@ main {
     padding: 20px;
 }
 
+/* Estilos de título */
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+/* Estilos de links */
+a, a:hover {
+    text-decoration: none;
+    color: unset;
+}
+
+/* Header */
 header {
     display: flex;
     justify-content: space-between;
@@ -47,25 +58,26 @@ header {
     box-shadow: rgb(224, 229, 241) 0px 4px 10px 5px;
     align-items: center;
 }
-/* Estilo padrão */
+
+/* Título e logo */
 .title-logo-container {
-    display: block; /* Exibir título normalmente */
+    display: block;
 }
 
-/* Estilo para mobile */
+/* Responsividade para mobile */
 @media (max-width: 768px) {
     .title-logo-container {
-        display: none; /* Ocultar título em telas pequenas */
+        display: none;
     }
 
     .nav-bar {
         display: flex;
-        justify-content: space-between; /* Para alinhar logo e ícone de login */
-        padding: 10px; /* Adicione espaçamento conforme necessário */
+        justify-content: space-between;
+        padding: 10px;
     }
 }
 
-
+/* Barra de navegação */
 nav {
     display: flex;
     justify-content: space-between;
@@ -74,35 +86,12 @@ nav {
     align-items: center;
 }
 
-/* Estilos gerais da barra de navegação */
 nav.container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-  }
-  
-  h1 {
-    font-size: 24px;
-  }
-  
-  .ds-contact-container img {
-    height: 50px; /* Ajuste conforme necessário */
-  }
-  
-  /* Media Query para telas menores (mobile) */
-  @media (max-width: 768px) {
-    /* Oculta o título da barra de navegação em telas pequenas */
-    h1 {
-      display: none;
-    }
-  
-    /* Ajusta a logo para centralizar ou ocupar todo o espaço se necessário */
-    .ds-contact-container {
-      margin: 0 auto;
-    }
-  }
-  
+}
 
 nav h1 {
     font-weight: bold;
@@ -116,11 +105,6 @@ nav a {
     font-weight: 400;
 }
 
-a, a:hover {
-    text-decoration: none;
-    color: unset;
-}
-
 .ds-contact-container {
     display: flex;
     align-items: center;
@@ -128,12 +112,17 @@ a, a:hover {
 
 .ds-contact-container img {
     margin-right: 10px;
+    height: 50px;
 }
 
-#ds-card-list {
-    padding: 0 15px;
+/* Media Query para mobile */
+@media (max-width: 768px) {
+    .ds-contact-container {
+        margin: 0 auto;
+    }
 }
 
+/* Estilos dos cards */
 .ds-card {
     width: 100%;
 }
@@ -174,6 +163,7 @@ a, a:hover {
 
 .ds-card-description-bottom img {
     width: 22px;
+    
 }
 
 .ds-card-description-bottom p {
@@ -183,7 +173,8 @@ a, a:hover {
     margin-bottom: 10px;
 }
 
-.ds-btn {
+/* Botões */
+.ds-btn, .login-button, .logout-button {
     font-size: 1rem;
     font-weight: bold;
     text-transform: uppercase;
@@ -192,241 +183,27 @@ a, a:hover {
     padding: 0.8rem 1.2rem;
     border-radius: 10px;
     transition: all 0.3s ease;
-    font-family: "Exo 2", sans-serif;
-}
-
-.ds-btn:hover {
-    color: var(--white);
-    transform: scale(1.05); /* Expande o botão em 5% */
-}
-
-.ds-form-container {
-    padding: 40px 0;
-    max-width: 480px;
-}
-
-.ds-form-description {
-    background-color: var(--white);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 0 0 8px 8px;
-}
-
-.ds-form {
-    width: 100%;
-}
-
-.ds-form-group {
-    margin-bottom: 20px;
-}
-
-.ds-form-description h3 {
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-.ds-form-group label {
-    font-size: 12px;
-    color: var(--text-light-grey);
-}
-
-.ds-form-btn-container {
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.ds-pagination-container {
-    padding: 15px 0;
-    display: flex;
-    justify-content: center;
-}
-
-.ds-pagination-box {
-    width: 180px;
-    justify-content: space-between;
-    display: flex;
-    align-items: center;
-}
-
-.ds-pagination-box button {
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--text-light-grey);
-    border-radius: 4px;
-    background: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.ds-pagination-box button img {
-    filter: brightness(0) saturate(0) invert(25%) sepia(38%) saturate(5165%) hue-rotate(239deg) brightness(79%) contrast(88%);
-}
-
-.ds-pagination-box button:disabled {
-    border: 1px solid var(--text-light-grey);
-}
-
-.ds-pagination-box button:disabled img {
-    filter: unset;
-}
-
-.ds-pagination-box p {
-    margin: 0;
-    font-size: 12px;
-    color: var(--text-light-grey);
-    font-weight: 400;
-}
-
-.ds-flip-horizontal {
-    transform: rotate(180deg);
-}
-
-.titulo-trilha {
-    font-weight: 800;
-    font-size: 1.875rem;
-    text-transform: uppercase;
-}
-
-footer {
-    width: 100%;
-    background-color: rgb(10, 55, 78);
-    padding: 0 4rem;
-}
-
-footer p {
-    font-family: "Exo 2", sans-serif;
-    font-size: 1rem;
-    text-align: center;
-    padding: 2rem 0 1rem;
-    color: var(--white);
-}
-
-.login-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: var(--color-primary);
-    border: none;
-    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 150px; /* Largura mínima */
-    min-height: 50px; /* Altura mínima */
-    transition: all 0.3s ease;
+    min-width: 150px;
+    min-height: 50px;
+    border-color: transparent;
 }
 
-.login-button img {
-    width: 24px; /* Ajuste o tamanho do ícone */
+.ds-btn:hover, .login-button:hover, .logout-button:hover {
+    transform: scale(1.05);
+    color:white;
+    
+}
+
+.login-button img, .logout-button img {
+    width: 24px;
     height: 24px;
-    margin-right: 8px; /* Espaço entre o ícone e o texto */
+    margin-right: 8px;
 }
 
-.login-button:hover {
-    transform: scale(1.05); /* Efeito hover */
-}
-
-.logout-icon {
-    margin-left: auto; /* Para alinhar à direita se necessário */
-}
-
-/* Estilos para a barra de busca */
-.search-bar {
-    width: 100%; /* Ocupará 100% da largura do contêiner pai */
-    max-width: 400px; /* Defina uma largura máxima para a barra de busca */
-    margin: 0 auto; /* Centraliza a barra de busca */
-    border: 1px solid var(--text-light-grey);
-    border-radius: 5px; /* Arredonda os cantos da barra de busca */
-    padding: 10px; /* Espaçamento interno */
-    font-size: 1rem; /* Tamanho da fonte */
-    transition: border-color 0.3s; /* Transição suave para a cor da borda */
-}
-
-.search-bar:focus {
-    border-color: rgb(9, 149, 219); /* Altera a cor da borda ao focar */
-    outline: none; /* Remove o contorno padrão */
-}
-
-.search-bar::placeholder {
-    color: var(--text-light-grey); /* Cor do texto do placeholder */
-    opacity: 0.7; /* Opacidade do placeholder */
-}
-
-/* Container que agrupa a barra de busca e o filtro */
-.filter-search-container {
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;     /* Alinha verticalmente no centro */
-    gap: 20px;               /* Espaço entre a barra de busca e o filtro */
-    flex-wrap: nowrap;       /* Evita que os itens quebrem de linha */
-}
-
-/* Define a largura dos elementos de busca e filtro */
-.search-container, .filter-container {
-    flex: 0 1 300px; /* Cada elemento tem um tamanho fixo e ajustável */
-}
-
-/* Estilo da barra de busca */
-.search-bar, .filter-bar {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: 1px solid var(--text-light-grey);
-}
-
-/* Foco nos campos */
-.search-bar:focus, .filter-bar:focus {
-    border-color: rgb(9, 149, 219);
-    outline: none;
-}
-
-/* Responsividade para telas menores */
-@media (max-width: 768px) {
-    .filter-search-container {
-        flex-direction: column; /* Empilha a barra de busca e o filtro */
-        gap: 10px;              /* Espaço reduzido entre os itens */
-    }
-}
-
-/* Contêiner principal da busca e filtro */
-.filter-search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;               /* Espaçamento entre elementos */
-    flex-wrap: wrap;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* Melhorias para dispositivos móveis */
-@media (max-width: 768px) {
-    .filter-search-container {
-        flex-wrap: nowrap;
-        gap: 10px;              /* Reduz o espaço entre os itens */
-        max-width: 100%;        /* Ocupa toda a largura da tela */
-        flex-direction: row;
-
-    }
-
-    .search-bar, .filter-bar {
-        width: 100%;            /* Garante que ocupem toda a largura disponível */
-        max-width: 100%;        /* Remove o limite de largura */
-    }
-}
-
-
-.search-container, .filter-container {
-    flex: 1 1 300px;
-}
-
+/* Estilos da barra de busca */
 .search-bar, .filter-bar {
     width: 100%;
     max-width: 300px;
@@ -434,6 +211,7 @@ footer p {
     font-size: 1rem;
     border-radius: 5px;
     border: 1px solid var(--text-light-grey);
+    transition: border-color 0.3s;
 }
 
 .search-bar:focus, .filter-bar:focus {
@@ -441,33 +219,36 @@ footer p {
     outline: none;
 }
 
-.logout-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: var(--color-primary);
-    border: none;
-    border-radius: 8px;
+.search-bar::placeholder {
+    color: var(--text-light-grey);
+    opacity: 0.7;
+}
+
+/* Container de busca e filtro */
+.filter-search-container {
     display: flex;
-    align-items: center;
     justify-content: center;
-    min-width: 150px; /* Largura mínima */
-    min-height: 50px; /* Altura mínima */
-    transition: all 0.3s ease;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.logout-button img {
-    width: 24px; /* Ajuste o tamanho do ícone */
-    height: 24px;
-    margin-right: 8px; /* Espaço entre o ícone e o texto */
+/* Ajustes para mobile */
+@media (max-width: 768px) {
+    .filter-search-container {
+        flex-direction: row;
+        gap: 10px;
+        max-width: 100%;
+    }
+
+    .search-bar, .filter-bar {
+        width: 100%;
+    }
 }
 
-.logout-button:hover {
-    transform: scale(1.05); /* Efeito hover */
-}
-
-/* Estilo do modal */
 .modal {
-
     display: none; /* Escondido por padrão */
     position: fixed;
     z-index: 1000; /* Certifique-se de que está acima de outros elementos */
@@ -481,18 +262,14 @@ footer p {
     align-items: center; /* Centraliza verticalmente */
 }
 
-/* Estilo da caixa de conteúdo do modal */
 .modal-content {
     background-color: #fff; /* Fundo branco para melhor contraste */
+    margin: 15% auto; /* Margem superior */
     padding: 30px;
-    border-radius: 12px; /* Bordas arredondadas */
     max-width: 500px; /* Largura máxima do modal */
-    width: 90%; /* Largura responsiva */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Sombra do modal */
+    border: 1px solid #888;
+    width: 80%; /* Largura do modal */
     text-align: center; /* Centraliza o texto */
-    font-family: 'Arial', sans-serif; /* Fonte */
-    color: #333; /* Cor do texto */
-    position: relative; /* Para o botão de fechar */
     transition: transform 0.3s ease; /* Transição suave */
     transform: translateY(-20px); /* Efeito inicial */
 }
@@ -502,7 +279,33 @@ footer p {
     transform: translateY(0); /* Animação ao mostrar o modal */
 }
 
-/* Título do modal */
+.close {
+    color: #aaa;
+    float: right; /* Alinhamento à direita */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black; /* Cor ao passar o mouse */
+    text-decoration: none; /* Sem decoração */
+    cursor: pointer; /* Cursor de ponteiro */
+}
+
+.show {
+    opacity: 1; /* Modal fica visível */
+    transform: translateY(0); /* Modal se move para a posição normal */
+}
+.modal-content h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 .modal-content h2 {
     margin-top: 0; /* Remove a margem superior */
     font-size: 1.8rem; /* Tamanho do título */
@@ -511,7 +314,6 @@ footer p {
     text-transform: uppercase; /* Texto em caixa alta */
 }
 
-/* Texto dentro do modal */
 .modal-content p {
     font-size: 1rem; /* Tamanho do texto */
     color: #555; /* Cor do texto */
@@ -519,22 +321,6 @@ footer p {
     margin-bottom: 20px; /* Margem inferior */
 }
 
-/* Botão de fechar (X) estilizado */
-.close-button {
-    position: absolute; /* Para posicionamento livre */
-    top: 15px; /* Distância do topo */
-    right: 20px; /* Distância da direita */
-    font-size: 1.5rem; /* Tamanho do botão */
-    color: #666; /* Cor do botão */
-    cursor: pointer; /* Cursor de ponteiro */
-    transition: color 0.3s ease; /* Transição suave */
-}
-
-.close-button:hover {
-    color: #000; /* Cor ao passar o mouse */
-}
-
-/* Botão de logout estilizado */
 #logout-button {
     background-color: #ff4757; /* Cor do botão de logout */
     color: #fff; /* Cor do texto do botão */
@@ -549,25 +335,32 @@ footer p {
     background-color: #ff6b81; /* Cor ao passar o mouse */
 }
 
-/* Exibir modal com transição */
-.modal.show {
-    display: flex; /* Flexível para centralizar */
-    opacity: 1; /* Visível */
+
+.close-button {
+    position: absolute; /* Para posicionamento livre */
+    top: 15px; /* Distância do topo */
+    right: 20px; /* Distância da direita */
+    font-size: 1.5rem; /* Tamanho do botão */
+    color: #666; /* Cor do botão */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: color 0.3s ease; /* Transição suave */
 }
 
-/* Estilos para dispositivos móveis */
-@media screen and (max-width: 768px) {
-    .modal-content {
-        width: 90%; /* Ajusta a largura para telas menores */
-        padding: 20px; /* Ajusta o padding */
-    }
-
-    .modal-content h2 {
-        font-size: 1.5rem; /* Tamanho do título em mobile */
-    }
-
-    .modal-content p {
-        font-size: 0.95rem; /* Tamanho do texto em mobile */
-    }
+.login-button:focus, .logout-button:focus, .close-button:focus {
+    outline: 2px solid rgb(9, 149, 219);
 }
 
+/* Footer */
+footer {
+    width: 100%;
+    background-color: rgb(10, 55, 78);
+    padding: 0 4rem;
+}
+
+footer p {
+    font-family: "Exo 2", sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    padding: 2rem 0 1rem;
+    color: var(--white);
+}

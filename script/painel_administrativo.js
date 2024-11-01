@@ -40,7 +40,7 @@ function searchUser() {
 auth.onAuthStateChanged((user) => {
     if (!user) {
         alert('Você não está logado. Redirecionando para o login...');
-        window.location.href = 'login.html';  // Redireciona para a página de login
+        window.location.href = '/EJECT_Trilha_de_Conhecimento/login';  // Redireciona para a página de login
     }
 });
 
@@ -49,6 +49,6 @@ document.getElementById('logout').addEventListener('click', function(event) {
     event.preventDefault();
     auth.signOut().then(() => {
         alert('Você saiu!');
-        window.location.href = 'login.html';  // Redireciona para a página de login após logout
+        window.location.href = '/EJECT_Trilha_de_Conhecimento/login';  // Redireciona para a página de login após logout
     });
 });
