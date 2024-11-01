@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             signOut(auth)
                 .then(() => {
-                    window.location.href = 'EJECT_Trilha_de_Conhecimento//login'; // Redirecionar após deslogar
+                    window.location.href = '/EJECT_Trilha_de_Conhecimento/login'; // Redirecionar após deslogar
                 })
                 .catch((error) => {
                     console.error('Erro ao deslogar:', error);
