@@ -1,10 +1,11 @@
-// Importe o Firebase e as configurações do seu projeto
+// Importa o Firebase e as configurações do seu projeto
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
 
 // Configurações do Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyCjYmouzj1x8pSuHVJ6s01vj-ubETBRJwQ",
+    apiKey: "API_KEY",
     authDomain: "eject-trilha-de-conhecimento.firebaseapp.com",
     projectId: "eject-trilha-de-conhecimento",
     storageBucket: "eject-trilha-de-conhecimento.appspot.com",
@@ -13,11 +14,21 @@ const firebaseConfig = {
     measurementId: "G-37E12ZK0X0"
 };
 
-// Inicialize o Firebase
+// Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
-
-// Obtenha a instância do Auth
 const auth = getAuth(app);
+const database = getDatabase(app);
+
+// Função para salvar o nome do usuário no Realtime Database
+function saveUserName(userId, name) {
+    set(ref(database, 'users/' + userId), {
+        username: name
+    }).then(() => {
+        console.log("Nome salvo com sucesso no Firebase!");
+    }).catch((error) => {
+        console.error("Erro ao salvar o nome:", error);
+    });
+}
 
 // Função para cadastrar um novo usuário
 document.querySelector('form').addEventListener('submit', function(event) {
@@ -26,6 +37,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm-password').value;
+    const name = document.getElementById('name').value; // Nome do usuário
 
     if (password !== confirmPassword) {
         alert("As senhas não correspondem!");
@@ -34,12 +46,15 @@ document.querySelector('form').addEventListener('submit', function(event) {
 
     // Criando usuário com email e senha usando o método `createUserWithEmailAndPassword`
     createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
+        .then((userCredential) => {
             // Cadastro bem-sucedido
-            alert('Cadastro realizado com sucesso!');
+            
+            // Salva o nome do usuário no Firebase
+            const user = userCredential.user;
+            saveUserName(user.uid, name);
 
-            // Redirecionar ou realizar outras ações após o cadastro
-            window.location.href = 'index.html'; // Redireciona para a página de login
+            // Redireciona para a página de login
+            window.location.href = '/EJECT_Trilha_de_Conhecimento/login';
         })
         .catch((error) => {
             // Tratar erros de registro

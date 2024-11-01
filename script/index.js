@@ -1,7 +1,6 @@
 // Importar as funções necessárias do Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 // Configuração do Firebase
 const firebaseConfig = {
@@ -29,12 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutButtonModal = document.getElementById('logout-button-modal');
 
     // Esconder o modal inicialmente
-    logoutModal.style.display = 'none';
+    if (logoutModal) logoutModal.style.display = 'none';
 
+    // Função de cadastro com atualização de perfil
     const signUp = (email, password, displayName) => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Atualiza o perfil do usuário
                 return updateProfile(userCredential.user, {
                     displayName: displayName
                 });
@@ -47,48 +46,72 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     };
 
+    // Função de login (opcional para testes)
+    const signIn = (email, password) => {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                console.log("Usuário logado:", userCredential.user);
+            })
+            .catch((error) => {
+                console.error("Erro ao logar:", error);
+            });
+    };
+
     // Verificar o estado de autenticação do usuário
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // Usuário está logado
-        const userName = user.displayName || user.email; // Usar o displayName se existir, caso contrário, usar o e-mail
-        welcomeMessage.innerHTML = `Bem-vindo, ${userName}!`;
-        welcomeMessage.style.display = 'block';
-        logoutContainer.style.display = 'block'; // Mostrar o botão de logout
-        loginButton.style.display = 'none'; // Ocultar o botão de login
-    } else {
-        // Usuário não está logado
-        welcomeMessage.style.display = 'none';
-        logoutContainer.style.display = 'none'; // Esconder o botão de logout
-        loginButton.style.display = 'block'; // Mostrar o botão de login
-    }
-});
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const userName = user.displayName || user.email; // Usar o displayName se existir, caso contrário, usar o e-mail
+            if (welcomeMessage) {
+                welcomeMessage.innerHTML = `Boas-vindas, ${userName}!`;
+                welcomeMessage.style.display = 'block';
+            }
+            if (logoutContainer) logoutContainer.style.display = 'block';
+            if (loginButton) loginButton.style.display = 'none';
+        } else {
+            if (welcomeMessage) welcomeMessage.style.display = 'none';
+            if (logoutContainer) logoutContainer.style.display = 'none';
+            if (loginButton) loginButton.style.display = 'block';
+        }
+    });
 
     // Exibir modal ao clicar no botão de logout
-    logoutButtonModal.addEventListener('click', () => {
-        logoutModal.style.display = 'block'; // Mostra o modal
-    });
+    if (logoutButtonModal) {
+        logoutButtonModal.addEventListener('click', () => {
+            if (logoutModal) {
+                logoutModal.style.display = 'block'; // Exibe o modal
+            }
+        });
+    }
 
-    // Fechar o modal quando o usuário clicar no "x"
-    closeModalButton.addEventListener('click', () => {
-        logoutModal.style.display = 'none'; // Esconde o modal
-    });
+    // Fechar o modal ao clicar no botão "x"
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', () => {
+            if (logoutModal) {
+                logoutModal.style.display = 'none'; // Esconde o modal
+            }
+        });
+    }
 
     // Fechar o modal se o usuário clicar fora da área do modal
     window.addEventListener('click', (event) => {
         if (event.target === logoutModal) {
-            logoutModal.style.display = 'none'; // Esconde o modal
+            if (logoutModal) {
+                logoutModal.style.display = 'none'; // Esconde o modal
+            }
         }
     });
 
     // Função para deslogar o usuário
-    logoutButton.addEventListener('click', (event) => {
-        event.preventDefault(); // Previne o comportamento padrão do botão
-        signOut(auth).then(() => {
-            alert('Deslogado com sucesso!');
-            window.location.href = '/login';
-        }).catch((error) => {
-            console.error('Erro ao deslogar:', error);
+    if (logoutButton) {
+        logoutButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            signOut(auth)
+                .then(() => {
+                    window.location.href = '/login.html'; // Redirecionar após deslogar
+                })
+                .catch((error) => {
+                    console.error('Erro ao deslogar:', error);
+                });
         });
-    });
+    }
 });

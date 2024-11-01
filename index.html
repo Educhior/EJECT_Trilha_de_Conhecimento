@@ -32,7 +32,7 @@
             </a>
         </div>
         <div class="login-icon" id="login-container">
-            <a href="/EJECT_Trilha_de_Conhecimento/login" class="login-button" id="login-button">
+            <a href="/login" class="login-button" id="login-button">
                 <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
                 Login
             </a>
@@ -42,7 +42,7 @@
         <!-- Botão de Logout -->
         <div class="logout-icon" id="logout-container">
             <button class="login-button" id="logout-button-modal">
-                <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Logout Icon">
+                <img class="user" src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Logout Icon">
                 Logout
             </button>
         </div>
@@ -57,7 +57,6 @@
             </div>
         </div>
 
-        <div id="welcome-message" style="display: none;"></div> <!-- Onde o nome do usuário será exibido -->
     </nav>
 </header>
 
@@ -68,8 +67,8 @@
             <br>
 
             <section>
-                <h1>Hub do Conhecimento</h1>
-                <p>Olá Aspirante! Selecione uma trilha para começar a aprender.</p>
+                <h1><div id="welcome-message" style="display: none;"></div></h1>
+                <p>Selecione uma trilha para começar o aprendizado. </p>
             </section> <br>
 
             <section>
@@ -98,7 +97,7 @@
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">GIT e Github</h3>
                             <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/git_e_github.html">Acessar</a>
+                                <a class="ds-btn" href="/Trilhas/git_e_github.html">Acessar</a>
                             </div>
                         </div>
                     </div>
@@ -218,7 +217,7 @@
     </main>
 
     <footer>
-        <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
+        <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; 2024 - Todos os direitos reservados.</p>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
