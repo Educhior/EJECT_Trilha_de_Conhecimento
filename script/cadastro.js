@@ -5,7 +5,7 @@ import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.0.0/
 
 // Configurações do Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyCjYmouzj1x8pSuHVJ6s01vj-ubETBRJwQ",
+  apiKey: "AIzaSyCjYmouzj1x8pSuHVJ6s01vj-ubETBRJwQ",
   authDomain: "eject-trilha-de-conhecimento.firebaseapp.com",
   projectId: "eject-trilha-de-conhecimento",
   storageBucket: "eject-trilha-de-conhecimento.appspot.com",
