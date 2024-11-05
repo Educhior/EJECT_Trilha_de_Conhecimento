@@ -70,12 +70,28 @@ async function loadUserTrails(userId) {
 // Função para carregar o perfil do usuário
 async function loadUserProfile(userId) {
     const userRef = ref(db, 'users/' + userId);
+
     try {
         const snapshot = await get(userRef);
+        
         if (snapshot.exists()) {
             const userData = snapshot.val();
-            document.getElementById('name').value = userData.name || '';
-            document.getElementById('email').value = userData.email || '';
+            const nameField = document.getElementById('name');
+            const emailField = document.getElementById('email');
+            
+            // Verifica e preenche o nome e o email do banco de dados
+            nameField.value = userData.name || '';
+            emailField.value = userData.email || '';
+
+            // Se o nome no banco de dados estiver vazio, usa o displayName do Firebase Auth
+            onAuthStateChanged(auth, (user) => {
+                if (user && !nameField.value) {
+                    nameField.value = user.displayName || '';
+                }
+                if (user && !emailField.value) {
+                    emailField.value = user.email || '';
+                }
+            });
         } else {
             console.log("Usuário não encontrado.");
         }
@@ -83,6 +99,7 @@ async function loadUserProfile(userId) {
         console.error("Erro ao carregar perfil do usuário:", error);
     }
 }
+
 
 // Função para deslogar o usuário
 function logout() {
