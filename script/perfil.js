@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 
 // Sua configuração do Firebase
 const firebaseConfig = {
@@ -65,6 +65,20 @@ async function loadUserTrails(userId) {
     }
 }
 
+// Função para deslogar o usuário
+function logout() {
+    signOut(auth).then(() => {
+        console.log("Usuário deslogado com sucesso.");
+        // Redirecionar para a página de login ou limpar a interface, conforme necessário
+        window.location.href = 'login.html'; // Exemplo de redirecionamento
+    }).catch((error) => {
+        console.error("Erro ao deslogar:", error);
+    });
+}
+
+// Adiciona o evento de clique ao botão de deslogar
+document.getElementById('logoutButton').addEventListener('click', logout);
+
 // Verifica o estado de autenticação
 onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -72,5 +86,7 @@ onAuthStateChanged(auth, (user) => {
         loadUserTrails(user.uid); // Chama a função com o UID do usuário autenticado
     } else {
         console.log("Usuário não autenticado.");
+        // Redirecionar para a página de login se o usuário não estiver autenticado
+        window.location.href = '/login'; // Exemplo de redirecionamento
     }
 });
