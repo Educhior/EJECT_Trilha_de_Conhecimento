@@ -70,7 +70,7 @@ function logout() {
     signOut(auth).then(() => {
         console.log("Usuário deslogado com sucesso.");
         // Redirecionar para a página de login ou limpar a interface, conforme necessário
-        window.location.href = 'login.html'; // Exemplo de redirecionamento
+        window.location.href = 'EJECT_Trilha_de_Conhecimento'; // Exemplo de redirecionamento
     }).catch((error) => {
         console.error("Erro ao deslogar:", error);
     });
@@ -87,6 +87,6 @@ onAuthStateChanged(auth, (user) => {
     } else {
         console.log("Usuário não autenticado.");
         // Redirecionar para a página de login se o usuário não estiver autenticado
-        window.location.href = '/login'; // Exemplo de redirecionamento
+        window.location.href = 'EJECT_Trilha_de_Conhecimento/login'; // Exemplo de redirecionamento
     }
 });
