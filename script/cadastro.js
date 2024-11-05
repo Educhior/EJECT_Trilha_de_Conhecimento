@@ -27,7 +27,7 @@ function saveUserName(userId, name, email) {
         createdAt: new Date().toISOString() // Adiciona a data de criação
     }).then(() => {
         alert("Nome e informações salvos com sucesso!");
-        window.location.href = '/index.html'; // Redireciona para a página inicial
+        window.location.href = '/EJECT_Trilha_de_Conhecimento'; // Redireciona para a página inicial
     }).catch((error) => {
         console.error("Erro ao salvar o nome:", error);
         alert("Erro ao salvar suas informações. Tente novamente.");
