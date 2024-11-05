@@ -23,11 +23,11 @@ async function loadUserTrails(userId) {
     const userRef = ref(db, 'users/' + userId + '/trilhas'); // Verifique o caminho correto
     try {
         const snapshot = await get(userRef);
+        const trailsList = document.querySelector('.list-group-flush');
+        trailsList.innerHTML = ''; // Limpa a lista existente
 
         if (snapshot.exists()) {
             const trails = snapshot.val();
-            const trailsList = document.querySelector('.list-group-flush');
-            trailsList.innerHTML = ''; // Limpa a lista existente
 
             for (const trailName in trails) {
                 const trail = trails[trailName];
@@ -57,11 +57,13 @@ async function loadUserTrails(userId) {
             }
         } else {
             console.log("Nenhuma trilha encontrada.");
-            const trailsList = document.querySelector('.list-group-flush');
             trailsList.innerHTML = '<li class="list-group-item">Nenhuma trilha encontrada.</li>';
         }
     } catch (error) {
         console.error("Erro ao carregar as trilhas:", error);
+        // Exiba uma mensagem de erro amigável
+        const trailsList = document.querySelector('.list-group-flush');
+        trailsList.innerHTML = '<li class="list-group-item">Erro ao carregar as trilhas. Tente novamente mais tarde.</li>';
     }
 }
 
@@ -69,10 +71,10 @@ async function loadUserTrails(userId) {
 function logout() {
     signOut(auth).then(() => {
         console.log("Usuário deslogado com sucesso.");
-        // Redirecionar para a página de login ou limpar a interface, conforme necessário
-        window.location.href = 'EJECT_Trilha_de_Conhecimento'; // Exemplo de redirecionamento
+        window.location.href = '/EJECT_Trilha_de_Conhecimento/login'; // Exemplo de redirecionamento para a página de login
     }).catch((error) => {
         console.error("Erro ao deslogar:", error);
+        // Exiba uma mensagem de erro se necessário
     });
 }
 
@@ -86,7 +88,6 @@ onAuthStateChanged(auth, (user) => {
         loadUserTrails(user.uid); // Chama a função com o UID do usuário autenticado
     } else {
         console.log("Usuário não autenticado.");
-        // Redirecionar para a página de login se o usuário não estiver autenticado
-        window.location.href = 'EJECT_Trilha_de_Conhecimento/login'; // Exemplo de redirecionamento
+        window.location.href = '/EJECT_Trilha_de_Conhecimento/login'; // Redirecionar para a página de login
     }
 });
