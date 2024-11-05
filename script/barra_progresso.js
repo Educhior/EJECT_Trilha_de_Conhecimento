@@ -1,10 +1,41 @@
-// Define a chave única para o localStorage com base no conteúdo da página
-const trailKey = document.title; // Ou use um identificador específico para a trilha
+// Importa as funções necessárias do Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+// Configuração do Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCjYmouzj1x8pSuHVJ6s01vj-ubETBRJwQ",
+  authDomain: "eject-trilha-de-conhecimento.firebaseapp.com",
+  projectId: "eject-trilha-de-conhecimento",
+  storageBucket: "eject-trilha-de-conhecimento.appspot.com",
+  messagingSenderId: "339989029881",
+  appId: "1:339989029881:web:8a0e91c6e068cad152d328",
+  measurementId: "G-37E12ZK0X0"
+};
+
+// Inicializa o Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const database = getDatabase(app);
 
 // Seleciona todos os checkboxes e a barra de progresso
 const checkboxes = document.querySelectorAll('.topic-checkbox');
 const progressBar = document.getElementById('progress-bar');
-const confetti = document.getElementById('confetti');
+
+// Obtém o usuário autenticado
+let userId = '';
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        userId = user.uid; // Armazena o ID do usuário autenticado
+        console.log("Usuário autenticado:", user.email);
+    } else {
+        console.log("Nenhum usuário autenticado.");
+    }
+});
+
+// Seleciona o campo de entrada para o nome da trilha
+const trilhaInput = document.getElementById('trilha-nome');
 
 // Função para atualizar a barra de progresso
 function updateProgress() {
@@ -12,11 +43,8 @@ function updateProgress() {
     const checked = document.querySelectorAll('.topic-checkbox:checked').length;
     const percentage = (checked / total) * 100;
 
-    // Atualiza a barra de progresso
     setProgress(percentage);
-
-    // Salvar estado das checkboxes no localStorage
-    saveProgress();
+    saveProgress(); // Salva progresso toda vez que a barra é atualizada
 }
 
 // Função para definir a largura e o texto da barra de progresso
@@ -24,29 +52,109 @@ function setProgress(percentage) {
     progressBar.style.width = percentage + '%';
     progressBar.textContent = Math.round(percentage) + '%';
 
-    if (percentage >= 100) {
-        triggerConfetti();
+    // Verifica se a trilha está 100% completa
+    if (percentage === 100) {
+        const trilhaId = trilhaInput.value.trim();
+        if (userId && trilhaId) {
+            const completeRef = ref(database, `users/${userId}/trilhas/${trilhaId}/completa`);
+            set(completeRef, true)
+                .then(() => {
+                    console.log("Trilha marcada como completa no Firebase.");
+                })
+                .catch((error) => {
+                    console.error("Erro ao marcar trilha como completa:", error);
+                });
+        }
     }
 }
 
-// Função para salvar o progresso no localStorage
+// Função para salvar o progresso no Firebase
 function saveProgress() {
     const progressState = Array.from(checkboxes).map(checkbox => checkbox.checked);
-    localStorage.setItem(`progress_${trailKey}`, JSON.stringify(progressState)); // Salva com a chave única
-}
+    const trilhaId = trilhaInput.value.trim();
 
-// Função para carregar o progresso do localStorage
-function loadProgress() {
-    const savedProgress = JSON.parse(localStorage.getItem(`progress_${trailKey}`)); // Carrega com a chave única
-
-    if (savedProgress) {
-        checkboxes.forEach((checkbox, index) => {
-            checkbox.checked = savedProgress[index];
-        });
+    if (!trilhaId) {
+        alert("Por favor, insira o nome da trilha.");
+        return;
     }
 
-    // Atualiza a barra de progresso com os dados carregados
-    updateProgress();
+    if (userId) {
+        const progressRef = ref(database, `users/${userId}/trilhas/${trilhaId}/progresso`);
+        set(progressRef, progressState)
+            .then(() => {
+                console.log("Progresso salvo no Firebase com sucesso!");
+            })
+            .catch((error) => {
+                console.error("Erro ao salvar progresso no Firebase:", error);
+                alert("Ocorreu um erro ao salvar o progresso. Tente novamente mais tarde.");
+            });
+    } else {
+        console.error("Usuário não autenticado. Não foi possível salvar o progresso.");
+        alert("Você precisa estar logado para salvar o progresso.");
+    }
+}
+
+// Função para carregar o progresso do Firebase
+function loadProgressFromFirebase() {
+    const trilhaId = trilhaInput.value.trim();
+
+    if (!trilhaId) {
+        console.error("Por favor, insira o nome da trilha para carregar o progresso.");
+        return;
+    }
+
+    if (userId) {
+        const progressRef = ref(database, `users/${userId}/trilhas/${trilhaId}/progresso`);
+        get(progressRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const savedProgress = snapshot.val();
+                console.log("Dados carregados do Firebase:", savedProgress);
+                if (Array.isArray(savedProgress)) {
+                    checkboxes.forEach((checkbox, index) => {
+                        checkbox.checked = savedProgress[index];
+                    });
+                    updateProgress(); // Atualiza a barra de progresso
+                    console.log("Progresso carregado do Firebase com sucesso!");
+                } else {
+                    console.error("O progresso carregado não está no formato esperado.");
+                }
+            } else {
+                console.log("Nenhum progresso salvo encontrado no Firebase.");
+            }
+        }).catch((error) => {
+            console.error("Erro ao carregar progresso do Firebase:", error);
+            alert("Ocorreu um erro ao carregar o progresso. Tente novamente mais tarde.");
+        });
+    } else {
+        console.error("Usuário não autenticado. Não foi possível carregar o progresso.");
+        alert("Você precisa estar logado para carregar o progresso.");
+    }
+}
+
+// Função para carregar o estado de conclusão da trilha
+function loadTrilhaCompleta() {
+    const trilhaId = trilhaInput.value.trim();
+
+    if (!trilhaId) {
+        console.error("Por favor, insira o nome da trilha para carregar o estado de conclusão.");
+        return;
+    }
+
+    if (userId) {
+        const completeRef = ref(database, `users/${userId}/trilhas/${trilhaId}/completa`);
+        get(completeRef).then((snapshot) => {
+            if (snapshot.exists() && snapshot.val() === true) {
+                console.log("Trilha está completa.");
+                // Aqui você pode exibir "completa" no seu perfil
+            } else {
+                console.log("Trilha não está completa ou não foi encontrada.");
+            }
+        }).catch((error) => {
+            console.error("Erro ao carregar estado de conclusão da trilha:", error);
+        });
+    } else {
+        console.error("Usuário não autenticado. Não foi possível carregar o estado de conclusão.");
+    }
 }
 
 // Adiciona o evento de mudança a cada checkbox
@@ -54,41 +162,11 @@ checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', updateProgress);
 });
 
-// Carrega o progresso salvo ao carregar a página
-window.addEventListener('load', loadProgress);
-
-// Função para disparar confetes
-function triggerConfetti() {
-    confetti.style.display = 'block';
-    for (let i = 0; i < 100; i++) {
-        createConfettiPiece();
-    }
-}
-
-// Função para criar peças de confete
-function createConfettiPiece() {
-    const piece = document.createElement('div');
-    piece.classList.add('confetti-piece');
-
-    // Gerar formas e cores aleatórias
-    piece.style.left = `${Math.random() * 100}vw`; // Largura aleatória da tela
-    piece.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
-
-    // Variar tamanho do confete
-    const size = Math.random() * 10 + 5; // Tamanho entre 5px e 15px
-    piece.style.width = `${size}px`;
-    piece.style.height = `${size}px`;
-
-    // Adicionar forma aleatória (círculo ou quadrado)
-    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-
-    confetti.appendChild(piece);
-
-    // Remove o confete após a animação
-    piece.addEventListener('animationend', () => {
-        piece.remove();
-    });
-}
+// Carrega o progresso salvo do Firebase ao carregar a página
+window.addEventListener('load', () => {
+    loadProgressFromFirebase();
+    loadTrilhaCompleta(); // Carrega o estado de conclusão ao carregar a página
+});
 
 // Pegar os elementos do modal e do botão
 const modal = document.getElementById("betaModal");
@@ -100,13 +178,13 @@ modal.style.display = "none"; // Garante que o modal não esteja visível
 
 // Quando o usuário clicar no botão "BETA", abrir o modal
 btn.onclick = function() {
-    console.log("Botão BETA clicado"); // Log para verificar se o botão está funcionando
+    console.log("Botão BETA clicado");
     modal.style.display = "flex"; // Mostrar o modal como flexbox
 }
 
 // Quando o usuário clicar no "X", fechar o modal
 span.onclick = function() {
-    console.log("Modal fechado"); // Log para verificar se o modal está sendo fechado
+    console.log("Modal fechado");
     modal.style.display = "none";
 }
 

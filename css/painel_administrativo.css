@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
+
+:root {
+    --background: rgb(245, 251, 255);
+    --color-primary: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
+    --text-gray: #4a4a4a;
+    --white: #fff;
+    --text-light-grey: #aaa;
+    --star-yellow: #FFBB3A;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: "Exo 2", sans-serif;
+    width: 100%;
+    height: 100%;
+    background: var(--color-primary);
+    overflow-x: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 98px;
+    background: var(--background);
+    box-shadow: rgb(224, 229, 241) 0px 4px 10px 5px;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 98px;
+    align-items: center;
+}
+
+nav h1 {
+    font-weight: bold;
+    text-align: center;
+    color: rgb(0, 61, 115);
+    font-size: 30px;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    padding: 10px;
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.user-list {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-list th, .user-list td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.user-list th {
+    background-color: #007bff;
+    color: white;
+}
+
+.user-list tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.tag {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.aspirante {
+    background-color: #28a745;
+}
+
+.eject {
+    background-color: #dc3545;
+}
+
+.outros {
+    background-color: #ffc107;
+}
+
+footer {
+    width: 100%;
+    background-color: rgb(10, 55, 78);
+    padding: 0 4rem;
+}
+
+footer p {
+    font-family: "Exo 2", sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    padding: 2rem 0 1rem;
+    color: var(--white);
+}
+
+.login-icon a {
+    text-decoration: none;
+    color: #000;
+    font-size: 24px;
+}
+
+.login-icon a:hover {
+    color: #007bff;
+}

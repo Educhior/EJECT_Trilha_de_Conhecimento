@@ -1,5 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&amp;display=swap');
+/* Importação da fonte */
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
 
+/* Variáveis de cor */
 :root {
     --background: rgb(245, 251, 255);
     --color-primary: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
@@ -9,21 +11,20 @@
     --star-yellow: #FFBB3A;
 }
 
-.destaque {
-    color: rgb(206, 34, 177);
-    font-weight: bold;
-}
-
+/* Reset de estilo */
 * {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
+/* Configurações de fonte e corpo */
 html, body {
     font-family: "Exo 2", sans-serif;
     width: 100%;
     height: 100%;
     background: var(--color-primary);
+    overflow-x: hidden;
 }
 
 body {
@@ -32,27 +33,72 @@ body {
     min-height: 100vh;
 }
 
+main {
+    flex: 1;
+    padding: 20px;
+    margin: 0 20%; /* Margens laterais */
+}
+
+/* Estilos de título */
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+/* Estilos de links */
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: unset; /* Mantém a cor padrão ao passar o mouse */
+}
+
+/* Header */
 header {
     display: flex;
     justify-content: space-between;
     width: 100%;
     height: 98px;
-    background: rgb(245, 251, 255);
+    background: var(--background);
     box-shadow: rgb(224, 229, 241) 0px 4px 10px 5px;
     align-items: center;
 }
 
+/* Título e logo */
+.title-logo-container {
+    display: block;
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+    .title-logo-container {
+        display: none;
+    }
+
+    .nav-bar {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+    }
+}
+
+/* Barra de navegação */
 nav {
     display: flex;
     justify-content: space-between;
     width: 100%;
     height: 98px;
     align-items: center;
-    padding: 0 20px;
+}
+
+nav.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
 }
 
 nav h1 {
-    font-family: "Exo 2", sans-serif;
     font-weight: bold;
     text-align: center;
     color: rgb(0, 61, 115);
@@ -64,73 +110,36 @@ nav a {
     font-weight: 400;
 }
 
-/* Ajustes para dispositivos móveis */
-@media only screen and (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        height: auto;
-    }
-
-    nav h1 {
-        font-size: 24px;
-    }
-
-    nav a {
-        font-size: 14px;
-        margin: 5px 0;
-    }
-}
-
-code {
-    background-color: #dfdfdf;
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.9rem;
-    color: #df1d1d;
-}
-
-a, a:hover {
-    text-decoration: none;
-    color: unset;
-}
-
-.Trilhas-contact-container {
+.ds-contact-container {
     display: flex;
     align-items: center;
 }
 
-.Trilhas-contact-container img {
+.ds-contact-container img {
     margin-right: 10px;
+    height: 50px;
 }
 
-main {
-    flex: 1;
-    padding: 20px;
-    margin-left: 20%;
-    margin-right: 20%;
-}
-
-@media only screen and (max-width: 768px) {
-    main {
-        margin-left: 5%;
-        margin-right: 5%;
+/* Media Query para mobile */
+@media (max-width: 768px) {
+    .ds-contact-container {
+        margin: 0 auto;
     }
 }
 
-section {
-    margin-bottom: 2rem;
+/* Contêiner de contato */
+.ds-contact-container, .Trilhas-contact-container {
+    display: flex;
+    align-items: center;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    font-family: "Exo 2", sans-serif;
+.ds-contact-container img,
+.Trilhas-contact-container img {
+    margin-right: 10px;
+    height: 50px;
 }
 
-h2 {
-    color: #333;
-}
-
+/* Estilos para listas */
 ul {
     list-style-type: none;
     padding: 0;
@@ -141,10 +150,11 @@ li {
     margin: 0.5rem 0;
     padding: 1rem;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.btn-primary {
+/* Estilos de botão */
+.ds-btn, .login-button, .logout-button {
     font-size: 1rem;
     font-weight: bold;
     text-transform: uppercase;
@@ -153,14 +163,28 @@ li {
     padding: 0.8rem 1.2rem;
     border-radius: 10px;
     transition: all 0.3s ease;
-    font-family: "Exo 2";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    min-height: 50px;
+    border-color: transparent;
 }
 
-.btn-primary:hover {
-    transform: scale(1.05); /* Expande o botão em 5% */
-    background-color:linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%); /* Leve ajuste na cor ao passar o mouse */
+.ds-btn:hover, .login-button:hover, .logout-button:hover {
+    transform: scale(1.05);
+    color:white;
+    
 }
 
+.login-button img, .logout-button img {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+
+/* Footer */
 footer {
     width: 100%;
     background-color: rgb(10, 55, 78);
@@ -168,17 +192,13 @@ footer {
 }
 
 footer p {
-    font-family: "Exo 2", sans-serif;
     font-size: 1rem;
     text-align: center;
     padding: 2rem 0 1rem;
-    color: rgb(255, 255, 255);
+    color: var(--white);
 }
 
-p {
-    font-family: "Exo 2", sans-serif;
-}
-
+/* Estilos para progress bar */
 .progress-bar-container {
     width: 100%;
     background-color: #f3f3f3;
@@ -195,22 +215,20 @@ p {
     color: white;
 }
 
-
-/* Alinhando o título e a caixa de marcação ao lado para desktops */
+/* Estilos de seção e rótulos de conclusão */
 .section-header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Deixa os dois elementos com espaço entre eles */
-    margin-bottom: 20px; /* Espaço entre o header e o conteúdo */
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .section-header h2 {
-    margin: 0; /* Remove a margem para melhor alinhamento */
-    font-size: 1.8rem; /* Ajuste o tamanho da fonte conforme necessário */
+    font-size: 1.8rem;
 }
 
 .completion-label {
-    background-color: #4caf50; /* Cor verde para o fundo */
+    background-color: #4caf50;
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
@@ -222,81 +240,86 @@ p {
 }
 
 .completion-label input[type="checkbox"] {
-    margin-right: 8px; /* Espaçamento entre a caixa de seleção e o texto */
-}
-
-/* Ajustes gerais */
-p {
-    line-height: 1.6;
-    font-size: 1rem;
+    margin-right: 8px;
 }
 
 /* Estilos para telas menores (mobile) */
 @media screen and (max-width: 768px) {
+    main {
+        margin: 0 5%; /* Margens reduzidas em mobile */
+    }
+
     .section-header {
-        flex-direction: column; /* Empilha o título e o checkbox */
-        align-items: flex-start; /* Alinha os elementos à esquerda */
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .section-header h2 {
-        margin-bottom: 10px; /* Adiciona espaço entre o título e o checkbox */
-        font-size: 1.6rem; /* Reduz um pouco o tamanho da fonte para melhor visualização em mobile */
+        margin-bottom: 10px;
+        font-size: 1.6rem;
     }
 
     .completion-label {
-        padding: 4px 8px; /* Reduz o espaçamento para economizar espaço em telas menores */
-        font-size: 0.85rem; /* Reduz um pouco o tamanho da fonte */
+        padding: 4px 8px;
+        font-size: 0.85rem;
+    }
+
+    /* Título e logo */
+    .title-logo-container {
+        display: none; /* Esconde logo em mobile */
     }
 }
 
 /* Estilo para a tag BETA */
 .beta-tag {
-    background-color: #ff9800; /* Cor de fundo laranja para destacar */
-    color: white;              /* Texto branco */
-    font-size: 0.8rem;         /* Tamanho da fonte menor */
-    padding: 2px 6px;          /* Espaçamento ao redor */
-    border-radius: 5px;        /* Cantos arredondados */
-    margin-left: 10px;         /* Espaço entre o texto e a tag */
-    font-weight: bold;         /* Negrito para destaque */
-    cursor: pointer;           /* Cursor de pointer para interatividade */
-    transition: background-color 0.3s ease; /* Transição suave */
+    background-color: #ff9800;
+    color: white;
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .beta-tag:hover {
-    background-color: #e68900; /* Efeito de hover mais escuro */
+    background-color: #e68900;
 }
 
 /* Estilo do modal */
 .modal {
-    display: none;
+    display: none; /* Escondido por padrão */
     position: fixed;
-    z-index: 1000;
+    z-index: 1000; /* Certifique-se de que está acima de outros elementos */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo semitransparente */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
 }
-
 
 /* Estilo da caixa de conteúdo do modal */
 .modal-content {
-    background-color: #f8f8f8;
+    background-color: #fff; /* Fundo branco para melhor contraste */
+    margin: 15% auto; /* Margem superior */
     padding: 30px;
-    border-radius: 12px;
-    max-width: 600px;
-    width: 90%;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-    color: #333;
-    position: relative;
+    max-width: 500px; /* Largura máxima do modal */
+    border: 1px solid #888;
+    width: 80%; /* Largura do modal */
+    text-align: center; /* Centraliza o texto */
+    transition: transform 0.3s ease; /* Transição suave */
+    transform: translateY(-20px); /* Efeito inicial */
 }
 
-/* Título do modal */
+.modal.show .modal-content {
+    transform: translateY(0);
+}
+
+/* Títulos e textos do modal */
 .modal-content h3 {
     margin-top: 0;
     font-size: 1.5rem;
@@ -306,57 +329,99 @@ p {
     letter-spacing: 1px;
 }
 
-/* Texto dentro do modal */
+.modal-content h2 {
+    margin-top: 0; /* Remove a margem superior */
+    font-size: 1.8rem; /* Tamanho do título */
+    color: #333; /* Cor do título */
+    margin-bottom: 15px; /* Margem inferior */
+    text-transform: uppercase; /* Texto em caixa alta */
+}
+
 .modal-content p {
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 20px;
+    font-size: 1rem; /* Tamanho do texto */
+    color: #555; /* Cor do texto */
+    line-height: 1.6; /* Altura da linha */
+    margin-bottom: 20px; /* Margem inferior */
 }
 
-/* Botão de fechar (X) estilizado */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 1.5rem;
-    color: #666;
-    cursor: pointer;
-    transition: color 0.3s ease;
+/* Botão de fechar */
+.close-button {
+    position: absolute; /* Para posicionamento livre */
+    top: 15px; /* Distância do topo */
+    right: 20px; /* Distância da direita */
+    font-size: 1.5rem; /* Tamanho do botão */
+    color: #666; /* Cor do botão */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: color 0.3s ease; /* Transição suave */
 }
 
-.close:hover {
+.close-button:hover {
     color: #000;
 }
 
-/* Exibir modal com transição */
-.modal.show {
-    display: flex;
-    opacity: 1;
+.close {
+    color: #aaa;
+    float: right; /* Alinhamento à direita */
+    font-size: 28px;
+    font-weight: bold;
 }
 
-/* Estilos para dispositivos móveis */
-@media screen and (max-width: 768px) {
-    .modal-content {
-        width: 90%; /* Ajusta a largura para telas menores */
-        padding: 20px;
-    }
-
-    .modal-content h3 {
-        font-size: 1.3rem; /* Reduz o tamanho do título em mobile */
-    }
-
-    .modal-content p {
-        font-size: 0.95rem; /* Ajusta o tamanho do texto em mobile */
-    }
+.close:hover,
+.close:focus {
+    color: black; /* Cor ao passar o mouse */
+    text-decoration: none; /* Sem decoração */
+    cursor: pointer; /* Cursor de ponteiro */
 }
 
-#confetti {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0px;
-    left: 0px;
-    z-index: 999;
-    pointer-events: none;
+.show {
+    opacity: 1; /* Modal fica visível */
+    transform: translateY(0); /* Modal se move para a posição normal */
+}
+
+#logout-button {
+    background-color: #ff4757; /* Cor do botão de logout */
+    color: #fff; /* Cor do texto do botão */
+    border: none; /* Sem borda */
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: background-color 0.3s ease; /* Transição suave */
+}
+
+#logout-button:hover {
+    background-color: #ff6b81; /* Cor ao passar o mouse */
+}
+
+.logout-button img {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+.logout-button:hover {
+    transform: scale(1.05);
+}
+
+.login-button:focus, .logout-button:focus, .close-button:focus {
+    outline: 2px solid rgb(9, 149, 219);
+}
+
+/* Estilo do destaque */
+.destaque {
+    color: rgb(206, 34, 177);
+    font-weight: bold;
+}
+
+code{
+    background-color: #ffffff;
+    color: #271e1e;
+    padding: 3px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Ajustes gerais */
+p {
+    line-height: 1.6;
+    font-size: 1rem;
 }
