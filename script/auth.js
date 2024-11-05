@@ -24,7 +24,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
   signInWithEmailAndPassword(auth, email, password)
       .then(() => { // Removed unused parameter
-          window.location.href = 'EJECT_Trilha_de_Conhecimento/perfil';  // Redireciona para a página protegida
+          window.location.href = '/perfil';  // Redireciona para a página protegida
       })
       .catch((error) => {
           alert('Erro: ' + error.message);
@@ -35,7 +35,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // Se o usuário estiver logado, redirecione para a página de login
-    window.location.href = 'EJECT_Trilha_de_Conhecimento/perfil'; // Redireciona para a página protegida
+    window.location.href = '/perfil'; // Redireciona para a página protegida
   } else {
     // Usuário não está logado, permanece na página de login ou executa outra lógica
     console.log("Usuário não autenticado");
