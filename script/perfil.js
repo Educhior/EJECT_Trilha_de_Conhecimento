@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 
 // Sua configuração do Firebase
@@ -67,6 +67,23 @@ async function loadUserTrails(userId) {
     }
 }
 
+// Função para carregar o perfil do usuário
+async function loadUserProfile(userId) {
+    const userRef = ref(db, 'users/' + userId);
+    try {
+        const snapshot = await get(userRef);
+        if (snapshot.exists()) {
+            const userData = snapshot.val();
+            document.getElementById('name').value = userData.name || '';
+            document.getElementById('email').value = userData.email || '';
+        } else {
+            console.log("Usuário não encontrado.");
+        }
+    } catch (error) {
+        console.error("Erro ao carregar perfil do usuário:", error);
+    }
+}
+
 // Função para deslogar o usuário
 function logout() {
     signOut(auth).then(() => {
@@ -86,14 +103,34 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         console.error("O botão de logout não foi encontrado.");
     }
-});
 
+    // Evento para atualizar o perfil do usuário
+    document.querySelector('.forms_perfil').addEventListener('submit', async (event) => {
+        event.preventDefault(); // Previne o envio padrão do formulário
+        const userId = auth.currentUser.uid;
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+
+        try {
+            const userRef = ref(db, 'users/' + userId);
+            await set(userRef, {
+                name,
+                email
+            });
+            alert("Perfil atualizado com sucesso!");
+        } catch (error) {
+            console.error("Erro ao atualizar perfil:", error);
+            alert("Erro ao atualizar perfil. Tente novamente.");
+        }
+    });
+});
 
 // Verifica o estado de autenticação
 onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log("Usuário autenticado:", user.uid);
-        loadUserTrails(user.uid); // Chama a função com o UID do usuário autenticado
+        loadUserProfile(user.uid); // Carrega o perfil do usuário
+        loadUserTrails(user.uid); // Chama a função para carregar as trilhas
     } else {
         console.log("Usuário não autenticado.");
         window.location.href = '/EJECT_Trilha_de_Conhecimento/login'; // Redirecionar para a página de login
