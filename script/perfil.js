@@ -78,8 +78,16 @@ function logout() {
     });
 }
 
-// Adiciona o evento de clique ao botão de deslogar
-document.getElementById('logoutButton').addEventListener('click', logout);
+// Adiciona o evento de clique ao botão de deslogar após o DOM ser carregado
+document.addEventListener("DOMContentLoaded", () => {
+    const logoutButton = document.getElementById('logout-button'); // ID corrigido
+    if (logoutButton) {
+        logoutButton.addEventListener('click', logout);
+    } else {
+        console.error("O botão de logout não foi encontrado.");
+    }
+});
+
 
 // Verifica o estado de autenticação
 onAuthStateChanged(auth, (user) => {
