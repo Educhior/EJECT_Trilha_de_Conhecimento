@@ -1,4 +1,4 @@
-// Import the functions you need from the SDKs you need
+// Importa as funções necessárias do Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
@@ -43,50 +43,60 @@ function updateProgress() {
     const checked = document.querySelectorAll('.topic-checkbox:checked').length;
     const percentage = (checked / total) * 100;
 
-    // Atualiza a barra de progresso
     setProgress(percentage);
-
-    // Salvar estado das checkboxes no localStorage e no Firebase
-    saveProgress();
+    saveProgress(); // Salva progresso toda vez que a barra é atualizada
 }
 
 // Função para definir a largura e o texto da barra de progresso
 function setProgress(percentage) {
     progressBar.style.width = percentage + '%';
     progressBar.textContent = Math.round(percentage) + '%';
+
+    // Verifica se a trilha está 100% completa
+    if (percentage === 100) {
+        const trilhaId = trilhaInput.value.trim();
+        if (userId && trilhaId) {
+            const completeRef = ref(database, `users/${userId}/trilhas/${trilhaId}/completa`);
+            set(completeRef, true)
+                .then(() => {
+                    console.log("Trilha marcada como completa no Firebase.");
+                })
+                .catch((error) => {
+                    console.error("Erro ao marcar trilha como completa:", error);
+                });
+        }
+    }
 }
 
-// Função para salvar o progresso no localStorage e Firebase
+// Função para salvar o progresso no Firebase
 function saveProgress() {
     const progressState = Array.from(checkboxes).map(checkbox => checkbox.checked);
-    const trilhaId = trilhaInput.value.trim(); // Pega o nome da trilha
+    const trilhaId = trilhaInput.value.trim();
 
     if (!trilhaId) {
-        console.error("Por favor, insira o nome da trilha.");
+        alert("Por favor, insira o nome da trilha.");
         return;
     }
 
-    // Salvar no localStorage
-    localStorage.setItem('progress', JSON.stringify(progressState));
-
-    // Salvar no Firebase
     if (userId) {
-        const progressRef = ref(database, `users/${userId}/trilhas/${trilhaId}/progresso`); // Referência para o caminho onde você quer salvar
+        const progressRef = ref(database, `users/${userId}/trilhas/${trilhaId}/progresso`);
         set(progressRef, progressState)
             .then(() => {
                 console.log("Progresso salvo no Firebase com sucesso!");
             })
             .catch((error) => {
                 console.error("Erro ao salvar progresso no Firebase:", error);
+                alert("Ocorreu um erro ao salvar o progresso. Tente novamente mais tarde.");
             });
     } else {
         console.error("Usuário não autenticado. Não foi possível salvar o progresso.");
+        alert("Você precisa estar logado para salvar o progresso.");
     }
 }
 
 // Função para carregar o progresso do Firebase
 function loadProgressFromFirebase() {
-    const trilhaId = trilhaInput.value.trim(); // Pega o nome da trilha
+    const trilhaId = trilhaInput.value.trim();
 
     if (!trilhaId) {
         console.error("Por favor, insira o nome da trilha para carregar o progresso.");
@@ -94,25 +104,56 @@ function loadProgressFromFirebase() {
     }
 
     if (userId) {
-        const progressRef = ref(database, `users/${userId}/trilhas/${trilhaId}/progresso`); // Referência para o caminho onde os dados estão
+        const progressRef = ref(database, `users/${userId}/trilhas/${trilhaId}/progresso`);
         get(progressRef).then((snapshot) => {
             if (snapshot.exists()) {
                 const savedProgress = snapshot.val();
-
-                checkboxes.forEach((checkbox, index) => {
-                    checkbox.checked = savedProgress[index];
-                });
-
-                updateProgress(); // Atualiza a barra de progresso
-                console.log("Progresso carregado do Firebase com sucesso!");
+                console.log("Dados carregados do Firebase:", savedProgress);
+                if (Array.isArray(savedProgress)) {
+                    checkboxes.forEach((checkbox, index) => {
+                        checkbox.checked = savedProgress[index];
+                    });
+                    updateProgress(); // Atualiza a barra de progresso
+                    console.log("Progresso carregado do Firebase com sucesso!");
+                } else {
+                    console.error("O progresso carregado não está no formato esperado.");
+                }
             } else {
                 console.log("Nenhum progresso salvo encontrado no Firebase.");
             }
         }).catch((error) => {
             console.error("Erro ao carregar progresso do Firebase:", error);
+            alert("Ocorreu um erro ao carregar o progresso. Tente novamente mais tarde.");
         });
     } else {
         console.error("Usuário não autenticado. Não foi possível carregar o progresso.");
+        alert("Você precisa estar logado para carregar o progresso.");
+    }
+}
+
+// Função para carregar o estado de conclusão da trilha
+function loadTrilhaCompleta() {
+    const trilhaId = trilhaInput.value.trim();
+
+    if (!trilhaId) {
+        console.error("Por favor, insira o nome da trilha para carregar o estado de conclusão.");
+        return;
+    }
+
+    if (userId) {
+        const completeRef = ref(database, `users/${userId}/trilhas/${trilhaId}/completa`);
+        get(completeRef).then((snapshot) => {
+            if (snapshot.exists() && snapshot.val() === true) {
+                console.log("Trilha está completa.");
+                // Aqui você pode exibir "completa" no seu perfil
+            } else {
+                console.log("Trilha não está completa ou não foi encontrada.");
+            }
+        }).catch((error) => {
+            console.error("Erro ao carregar estado de conclusão da trilha:", error);
+        });
+    } else {
+        console.error("Usuário não autenticado. Não foi possível carregar o estado de conclusão.");
     }
 }
 
@@ -121,9 +162,10 @@ checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', updateProgress);
 });
 
-// Carrega o progresso salvo do Firebase ou localStorage ao carregar a página
+// Carrega o progresso salvo do Firebase ao carregar a página
 window.addEventListener('load', () => {
     loadProgressFromFirebase();
+    loadTrilhaCompleta(); // Carrega o estado de conclusão ao carregar a página
 });
 
 // Pegar os elementos do modal e do botão
@@ -136,13 +178,13 @@ modal.style.display = "none"; // Garante que o modal não esteja visível
 
 // Quando o usuário clicar no botão "BETA", abrir o modal
 btn.onclick = function() {
-    console.log("Botão BETA clicado"); // Log para verificar se o botão está funcionando
+    console.log("Botão BETA clicado");
     modal.style.display = "flex"; // Mostrar o modal como flexbox
 }
 
 // Quando o usuário clicar no "X", fechar o modal
 span.onclick = function() {
-    console.log("Modal fechado"); // Log para verificar se o modal está sendo fechado
+    console.log("Modal fechado");
     modal.style.display = "none";
 }
 

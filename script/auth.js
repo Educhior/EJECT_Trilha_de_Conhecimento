@@ -1,11 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCjYmouzj1x8pSuHVJ6s01vj-ubETBRJwQ",
   authDomain: "eject-trilha-de-conhecimento.firebaseapp.com",
@@ -28,7 +24,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
   signInWithEmailAndPassword(auth, email, password)
       .then(() => { // Removed unused parameter
-          window.location.href = '/EJECT_Trilha_de_Conhecimento/index';  // Redireciona para a página protegida
+          window.location.href = '/perfil.html';  // Redireciona para a página protegida
       })
       .catch((error) => {
           alert('Erro: ' + error.message);
@@ -39,7 +35,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // Se o usuário estiver logado, redirecione para a página de login
-    window.location.href = '/EJECT_Trilha_de_Conhecimento/index';
+    window.location.href = '/perfil.html'; // Redireciona para a página protegida
   } else {
     // Usuário não está logado, permanece na página de login ou executa outra lógica
     console.log("Usuário não autenticado");

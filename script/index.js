@@ -1,6 +1,7 @@
 // Importar as funções necessárias do Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js"; // Importar o módulo do Realtime Database
 
 // Configuração do Firebase
 const firebaseConfig = {
@@ -16,6 +17,7 @@ const firebaseConfig = {
 // Inicializar o Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getDatabase(app); // Inicializa o Realtime Database
 
 document.addEventListener('DOMContentLoaded', () => {
     // Referências aos elementos
@@ -26,9 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const welcomeMessage = document.getElementById('welcome-message');
     const logoutContainer = document.getElementById('logout-container');
     const logoutButtonModal = document.getElementById('logout-button-modal');
-
-    // Esconder o modal inicialmente
-    if (logoutModal) logoutModal.style.display = 'none';
 
     // Função de cadastro com atualização de perfil
     const signUp = (email, password, displayName) => {
@@ -57,46 +56,29 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     };
 
-    // Verificar o estado de autenticação do usuário
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
         if (user) {
-            const userName = user.displayName || user.email; // Usar o displayName se existir, caso contrário, usar o e-mail
-            if (welcomeMessage) {
-                welcomeMessage.innerHTML = `Boas-vindas, ${userName}!`;
-                welcomeMessage.style.display = 'block';
-            }
-            if (logoutContainer) logoutContainer.style.display = 'block';
-            if (loginButton) loginButton.style.display = 'none';
-        } else {
-            if (welcomeMessage) welcomeMessage.style.display = 'none';
-            if (logoutContainer) logoutContainer.style.display = 'none';
-            if (loginButton) loginButton.style.display = 'block';
-        }
-    });
+            try {
+                const userId = user.uid;
+                const userRef = ref(db, `users/${userId}`); // Usar a nova referência do Realtime Database
+                const snapshot = await get(userRef); // Usar get() para obter os dados
 
-    // Exibir modal ao clicar no botão de logout
-    if (logoutButtonModal) {
-        logoutButtonModal.addEventListener('click', () => {
-            if (logoutModal) {
-                logoutModal.style.display = 'block'; // Exibe o modal
-            }
-        });
-    }
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    const username = userData.username; // Acessa o username
 
-    // Fechar o modal ao clicar no botão "x"
-    if (closeModalButton) {
-        closeModalButton.addEventListener('click', () => {
-            if (logoutModal) {
-                logoutModal.style.display = 'none'; // Esconde o modal
-            }
-        });
-    }
+                    await updateProfile(user, { // Atualiza o displayName do usuário autenticado
+                        displayName: username,
+                    });
 
-    // Fechar o modal se o usuário clicar fora da área do modal
-    window.addEventListener('click', (event) => {
-        if (event.target === logoutModal) {
-            if (logoutModal) {
-                logoutModal.style.display = 'none'; // Esconde o modal
+                    console.log("Nome de exibição atualizado com sucesso:", username);
+                    welcomeMessage.innerHTML = `Boas-vindas, ${user.displayName}!`;
+                    welcomeMessage.style.display = 'block';
+                } else {
+                    console.log('Usuário não encontrado no banco de dados.');
+                }
+            } catch (error) {
+                console.error("Erro ao atualizar o nome de exibição:", error);
             }
         }
     });
