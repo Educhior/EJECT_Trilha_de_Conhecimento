@@ -19,7 +19,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-// Função para salvar o nome e outras informações do usuário no Realtime Database
+// function saveUserName(userId, name, email) {
 function saveUserName(userId, name, email) {
     set(ref(database, 'users/' + userId), {
         username: name,
@@ -27,11 +27,14 @@ function saveUserName(userId, name, email) {
         createdAt: new Date().toISOString() // Adiciona a data de criação
     }).then(() => {
         alert("Nome e informações salvos com sucesso!");
+        window.location.href = '/index.html'; // Redireciona para a página inicial
     }).catch((error) => {
         console.error("Erro ao salvar o nome:", error);
         alert("Erro ao salvar suas informações. Tente novamente.");
     });
 }
+    
+
 
 // Função para validar e cadastrar um novo usuário
 document.querySelector('form').addEventListener('submit', function(event) {
@@ -58,10 +61,10 @@ document.querySelector('form').addEventListener('submit', function(event) {
         .then((userCredential) => {
             // Cadastro bem-sucedido
             const user = userCredential.user;
+            console.log("Usuário criado:", user.uid); // Verifique se o UID do usuário está sendo impresso
+            console.log("Nome do usuário:", name); // Verifique se o nome está correto
             saveUserName(user.uid, name, email); // Passando o e-mail também
-
-            // Redireciona para a página de login
-            window.location.href = '/EJECT_Trilha_de_Conhecimento/login';
+                        
         })
         .catch((error) => {
             // Tratar erros de registro
