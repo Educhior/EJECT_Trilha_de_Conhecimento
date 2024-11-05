@@ -1,71 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Administrativo</title>
-    <link rel="stylesheet" href="/css/painel_administrativo.css">
+    <title>Painel Administrativo – Acompanhameno de Membros</title>
+    <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/painel_administrativo.css">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
 </head>
 <body>
 
-<header>
-    <nav>
-        <h1>Painel Administrativo</h1>
-        <div class="login-icon">
-            <a href="#" id="logout">&#x1F464; Sair</a>
-        </div>
-    </nav>
-</header>
+    <header>
+        <nav class="container">
+            <a href="/EJECT_Trilha_de_Conhecimento/index">
+                <h1>SIGAV</h1>
+            </a>
+            <div class="ds-contact-container">
+                <a href="https://www.ejectufrn.com.br/">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
+                </a>
+            </div>
+        </nav>
+    </header>
 
-<main>
-    <div class="container">
-        <h2>Gerenciamento de Usuários</h2>
+    <main>
+        <div class="container">
+            <div>
+                <h2>Acompanhamento de Membros <span class="beta-tag" id="open-modal">BETA</span></h2>
 
-        <!-- Campo de busca -->
-        <div class="search-bar">
-            <input type="text" placeholder="Buscar usuários..." id="searchInput" onkeyup="searchUser()">
-        </div>
+                <!-- Campo de busca -->
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar usuários..." id="searchInput" onkeyup="searchUser()">
+                </div>
+            </div>
+            
 
-        <!-- Tabela de usuários -->
-        <table class="user-list" id="userTable">
-            <thead>
-                <tr>
+            <!-- Tabela de usuários -->
+            <table id="userTable">
+                <thead>
+                  <tr>
                     <th>Nome</th>
                     <th>Email</th>
-                    <th>Categoria</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>João Silva</td>
-                    <td>joao@example.com</td>
-                    <td><span class="tag aspirante">Aspirante</span></td>
-                </tr>
-                <tr>
-                    <td>Maria Oliveira</td>
-                    <td>maria@example.com</td>
-                    <td><span class="tag eject">EJECT</span></td>
-                </tr>
-                <tr>
-                    <td>Pedro Santos</td>
-                    <td>pedro@example.com</td>
-                    <td><span class="tag outros">Outros</span></td>
-                </tr>
-                <!-- Adicione mais usuários conforme necessário -->
-            </tbody>
-        </table>
-    </div>
-</main>
+                    <th>Progresso Geral</th>
+                    <th>Progresso das Trilhas</th> <!-- Adicionada a coluna para o progresso das trilhas -->
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+              
+              <p id="noUsersMessage" style="display: none; color: red; margin-top: 10px;">Nenhum usuário encontrado</p>
+        </div>
+    </main>
 
-<footer>
-    <p>&copy; 2024 Painel Administrativo</p>
-</footer>
+    <footer>
+        <p>SIGAV | EJECT&copy; 2024</p>
+    </footer>
 
-<script src="/script/painel_administrativo.js"></script>
-
+    <!-- Referência aos scripts Firebase compatíveis -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <script src="/EJECT_Trilha_de_Conhecimento/script/painel_administrativo.js" defer></script>
 </body>
 </html>
