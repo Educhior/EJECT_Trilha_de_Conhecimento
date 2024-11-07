@@ -23,22 +23,22 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
-<header>
-    <nav class="container nav-bar">
-        <div class="ds-contact-container">
-            <a href="https://www.ejectufrn.com.br/">
-                <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
-            </a>
-        </div>
-        <div class="login-icon" id="login-container">
-            <a href="/EJECT_Trilha_de_Conhecimento/login.html" class="login-button" id="login-button">
-                <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
-                Perfil
-            </a>
-        </div>
+    <header>
+        <nav class="container nav-bar">
+            <div class="ds-contact-container">
+                <a href="https://www.ejectufrn.com.br/">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
+                </a>
+            </div>
+            <div class="login-icon" id="login-container">
+                <a href="/EJECT_Trilha_de_Conhecimento/login.html" class="login-button" id="login-button">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
+                    Perfil
+                </a>
+            </div>
 
-    </nav>
-</header>
+        </nav>
+    </header>
 
 
 
@@ -262,5 +262,30 @@
         }
     });
     </script>
+
+<script>
+    function createSnowflake() {
+        const snowflake = document.createElement("div");
+        snowflake.classList.add("snowflake");
+        snowflake.textContent = "❆"; // Você pode trocar o emoji por "*" ou qualquer símbolo de neve
+
+        // Posição aleatória para cada floco
+        snowflake.style.left = Math.random() * 100 + "vw";
+        snowflake.style.animationDuration = Math.random() * 3 + 2 + "s"; // Duração aleatória
+        snowflake.style.fontSize = Math.random() * 10 + 10 + "px"; // Tamanho aleatório
+
+        document.body.appendChild(snowflake);
+
+        // Remove o floco de neve depois que ele cai
+        setTimeout(() => {
+            snowflake.remove();
+        }, 5000);
+    }
+
+    // Gera um novo floco de neve a cada 200 ms
+    setInterval(createSnowflake, 200);
+</script>
+
+    
 </body>
 </html>
