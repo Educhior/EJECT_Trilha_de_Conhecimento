@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
+import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+import { getAuth, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 
 // Sua configuração do Firebase
 const firebaseConfig = {
@@ -100,7 +100,6 @@ async function loadUserProfile(userId) {
     }
 }
 
-
 // Função para deslogar o usuário
 function logout() {
     signOut(auth).then(() => {
@@ -129,12 +128,26 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = document.getElementById('email').value;
 
         try {
-            const userRef = ref(db, 'users/' + userId);
-            await set(userRef, {
-                name,
-                email
+            // Atualiza o nome e email no Realtime Database
+            const userRef = ref(db, 'users/' + userId); // Referência ao nó do usuário
+            await update(userRef, {
+                name: name,
+                email: email,
+                username: name  // Atualiza o campo 'username' com o novo nome
             });
-            alert("Perfil atualizado com sucesso!");
+
+            // Atualiza o displayName no Firebase Auth
+            const user = auth.currentUser; // Obtenha o usuário autenticado
+            if (user) {
+                await updateProfile(user, {
+                    displayName: name
+                });
+
+                alert("Perfil atualizado com sucesso!");
+            } else {
+                console.log("Nenhum usuário autenticado.");
+            }
+
         } catch (error) {
             console.error("Erro ao atualizar perfil:", error);
             alert("Erro ao atualizar perfil. Tente novamente.");
