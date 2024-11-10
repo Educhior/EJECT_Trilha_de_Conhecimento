@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
+
+/* Variáveis de cor */
+:root {
+    --background: rgb(245, 251, 255);
+    --color-primary: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
+    --text-gray: #4a4a4a;
+    --white: #fff;
+    --text-light-grey: #aaa;
+    --star-yellow: #FFBB3A;
+}
+
+/* Reset de estilo */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Configurações de fonte e corpo */
+html, body {
+    font-family: "Exo 2", sans-serif;
+    width: 100%;
+    height: 100%;
+    background: var(--color-primary);
+    overflow-x: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Estilos de título */
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+/* Estilos de links */
+a, a:hover {
+    text-decoration: none;
+    color: unset;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 98px;
+    align-items: center;
+}
+
+/* Título e logo */
+.title-logo-container {
+    display: block;
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+    .title-logo-container {
+        display: none;
+    }
+
+    .nav-bar {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+    }
+}
+
+/* Barra de navegação */
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 98px;
+    align-items: center;
+}
+
+nav.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+nav h1 {
+    font-weight: bold;
+    text-align: center;
+    color: rgb(0, 61, 115);
+    font-size: 30px;
+}
+
+nav a {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.ds-contact-container {
+    display: flex;
+    align-items: center;
+}
+
+.ds-contact-container img {
+    margin-right: 10px;
+    height: 50px;
+}
+
+/* Media Query para mobile */
+@media (max-width: 768px) {
+    .ds-contact-container {
+        margin: 0 auto;
+    }
+}
+
+.ds-contact-container a img {
+    width: 150px;
+    height: auto;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+/* Container principal */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;  /* Adicionando borda arredondada */
+}
+
+/* Título principal */
+h2 {
+    color: #004A80;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Barra de busca */
+.search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.search-bar input {
+    padding: 10px;
+    width: 30%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Tabela de usuários */
+#userTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#userTable th, #userTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#userTable th {
+    background-color:  #004A80;
+    color: white;
+    font-weight: 600;
+}
+
+#userTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#userTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Mensagem de "nenhum usuário encontrado" */
+#noUsersMessage {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Rodapé */
+footer {
+    background-color: #004A80;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Estilo para as barras de progresso */
+.progresso-bar {
+    width: 100%;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.progresso {
+    height: 20px;
+    background-color: green;
+    transition: width 0.3s ease;
+}
+
+.incompleta {
+    height: 20px;
+    background-color: red;
+    transition: width 0.3s ease;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .search-bar input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #userTable th, #userTable td {
+        font-size: 14px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+/* Estilo para a tag BETA */
+.beta-tag {
+    background-color: #ff9800;
+    color: white;
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.beta-tag:hover {
+    background-color: #e68900;
+}

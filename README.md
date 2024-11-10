@@ -21,7 +21,7 @@ O projeto está organizado em módulos, cada um abordando uma área de conhecime
 
 Módulos:
 
-- Introdução à EJECT **[EM BREVE]**
+- **Introdução à EJECT**
 
 Conheça a missão, visão e valores da empresa.
 Estrutura organizacional e principais áreas de atuação.Processo de trabalho colaborativo e metodologias ágeis.
