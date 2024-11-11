@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>EJECT | Desenvolvimento Humano</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <!-- Se for visualizar localmente, remova: "/EJECT_Trilha_de_Conhecimento/" dos linkamento -->
+        <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/trilhas_styles.css">
+        <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    </head>
+<body>
+    <!-- Vlibra -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+          <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+<header>
+    <nav class="container nav-bar">
+        <div class="ds-contact-container">
+            <a href="https://www.ejectufrn.com.br/">
+                <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
+            </a>
+        </div>
+        <div class="login-icon" id="login-container">
+            <a href="/EJECT_Trilha_de_Conhecimento/login" class="login-button" id="login-button">
+                <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
+                Perfil
+            </a>
+        </div>
+
+    </nav>
+</header>
+
+    <main>
+        <section>
+            <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
+        </section>
+
+        <input type="hidden" id="trilha-nome" value="Desenvolvimento Humano" />
+
+        <section>
+            <ul>
+                <li>
+                    <h4>Barra de Progresso Interativa <span class="beta-tag" id="open-modal">BETA</span> </h4> <br>
+                    <div class="progress-bar-container">
+                        <div id="progress-bar" class="progress-bar">0%</div>
+                    </div>
+                </li>
+            </ul>
+        
+            <!-- Modal estrutura -->
+            <div id="betaModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Funcionalidade Beta</h3>
+                    <p>Esta funcionalidade ainda está em fase de testes. Por favor, nos envie feedback sobre quaisquer problemas ou sugestões de melhorias!</p>
+                </div>
+            </div>
+
+        
+        </section>
+
+        <!-- Conteúdo do Scrum -->
+        <section class="mb-5">
+            <h2>Gestão de Pessoas</h2> <br>
+            <p>A Gestão de Pessoas é uma das funções mais estratégicas dentro de qualquer organização, pois envolve o desenvolvimento e o bem-estar dos colaboradores, que são, sem dúvida, o maior ativo de uma empresa. O processo de gestão de pessoas vai muito além do simples recrutamento e seleção; ele abrange desde o acolhimento do novo colaborador até o seu desligamento, com foco no crescimento contínuo, no alinhamento de objetivos e no reconhecimento de esforços.</p>
+            <p>Nesta trilha de conhecimento, vamos explorar cada uma das etapas da jornada do colaborador, abordando os principais processos que garantem uma gestão eficaz e que contribuem para a construção de uma cultura organizacional sólida e engajada.</p>
+        </section>
+
+        <!-- Fundamentos do Scrum -->
+        <section>
+            <div class="section-header">
+                <h2>Entrada</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label> 
+            </div> <br>
+            <ul>
+                <p>Entrar em uma nova empresa é um processo que vai muito além de uma assinatura de contrato. É o primeiro passo em uma jornada de crescimento e contribuição mútua, onde tanto o colaborador quanto a empresa têm responsabilidades e expectativas. Nesta etapa, vamos entender as bases para uma integração bem-sucedida, incluindo os principais documentos e práticas essenciais.</p>
+                <p>Principais Etapas:</p>
+                
+                <li>Termo de Adesão</li> <br>
+                <p>No momento da admissão, o Termo de Adesão formaliza o vínculo entre o colaborador e a empresa. Esse documento não é apenas um registro burocrático; ele representa um compromisso mútuo.</p> <br>
+                <p><strong>Importância do Termo de Adesão:</strong> <br> Explicitar, de maneira transparente, o que a empresa espera do colaborador e o que este pode esperar da empresa. Isso inclui questões como direitos trabalhistas, deveres, código de conduta e benefícios.</p>
+                <p><strong>Principais Elementos do Termo de Adesão:</strong></p>
+                <p>1. Direitos e Deveres do Colaborador: Jornada de trabalho, salário, benefícios e expectativas de desempenho.</p>
+                <p>2. Responsabilidades da Empresa: Compromisso com o desenvolvimento, ambiente de trabalho seguro e suporte para o crescimento profissional.</p>
+                <p><strong>Assinatura e Registro:</strong> <br> O termo pode ser assinado fisicamente ou de forma digital, dependendo da política da empresa. Uma explicação clara deve ser fornecida ao colaborador antes da assinatura.</p> <br>
+                
+                
+                <li>Termo de Sigilo</li> <br>
+                <p>O termo de sigilo é essencial para proteger a empresa contra vazamentos de informações confidenciais e garantir que dados sensíveis estejam seguros.</p> <br>
+                
+                <p><strong>Por que o Termo de Sigilo é Importante?</strong></p> <br>
+                <p>Em muitas empresas, os colaboradores têm acesso a informações estratégicas, como dados de clientes, projetos em andamento ou metodologias exclusivas. Esse termo ajuda a garantir que essas informações não sejam divulgadas sem autorização.</p> <br>
+                <p><strong>Conteúdo do Termo de Sigilo</strong></p>
+                <p>1. Definição de Informações Confidenciais: Descrição de quais dados e informações são considerados sigilosos.</p>
+                <p>2. Consequências para Violação de Sigilo: Sanções legais e administrativas caso o colaborador descumpra o termo.</p>
+                <p>3. Legislação: Inclusão de referências à legislação aplicável, como a LGPD (Lei Geral de Proteção de Dados).</p> <br>
+
+                <section>
+                    <section>
+                        <h3>O que é um Termo de Confidencialidade - NDA?</h3> <br>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/SWYXs9NVZv0?si=WIM_psl1LMxSThcQ" title="O que é um Termo de Confidencialidade - NDA?" allowfullscreen></iframe>
+                        </div>
+                    </section> <br>
+                </section>
+
+                <li>Processo Seletivo</li> <br>
+                <p>O processo seletivo é o primeiro contato entre o colaborador e a empresa. É importante que ele seja claro, objetivo e que permita que ambos os lados alinhem expectativas.</p> <br>
+                
+                <p><strong>Dicas Práticas</strong></p>
+                <p>Feedback Final: É essencial fornecer feedback aos candidatos, sejam eles aprovados ou não, para fortalecer a imagem da empresa e apoiar o desenvolvimento profissional dos candidatos.</p>
+                <p>2. Aplique questionários ou entrevistas curtas para entender melhor a intenção do lead.</p>
+
+                <section>
+                    <section>
+                        <h3>Recrutamento e Seleção: Como montar o seu processo</h3> <br>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/9QChWsYHUkY?si=oxgxkBqCVdZZvK4d" title="Recrutamento e Seleção: Como montar o seu processo" allowfullscreen></iframe>
+                        </div>
+                    </section> <br>
+                </section>
+                
+            </ul> <br>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Manutenção</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
+            <p>A fase de manutenção é o coração da gestão de pessoas. Ela trata do desenvolvimento do colaborador, do alinhamento entre equipes e do fortalecimento do ambiente de trabalho. Nesta seção, vamos explorar as práticas e ferramentas que mantêm o colaborador engajado e produtivo, garantindo que seu potencial seja plenamente aproveitado.</p>
+            <ul>
+                
+                <li>Advertências</li> <br>
+                <p><strong>Tipos de Advertências:</strong></p>
+                <p>1. Advertência Verbal: Normalmente o primeiro passo para corrigir um comportamento, sem registro formal.</p>
+                <p>2. Advertência Escrita: Documento formal que registra a ocorrência e as medidas tomadas para corrigir o problema.</p>
+                <p>3. Suspensão: Medida mais severa, aplicada em casos graves, que suspende o colaborador por um período determinado.</p> <br>
+
+                <p><strong>Procedimento para Aplicação:</strong> </p> <br> 
+                <p>1. Transparência: Explicar ao colaborador o motivo da advertência e o impacto de seu comportamento.</p>
+                <p>2 Registro: Formalizar advertências por escrito e, se possível, obter a assinatura do colaborador para confirmação.</p> <br>
+
+                <p>Objetivo da Advertência: Corrigir atitudes que comprometem o ambiente de trabalho, incentivando o colaborador a repensar suas ações.</p>
+                
+                <section>
+                    <section>
+                        <h3>ADVERTÊNCIA NO TRABALHO: desvendamos como funciona na prática para você não ter problemas</h3> <br>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/PD37wdL2rKo?si=hhCjKnYn_9r9HLNW" title="ADVERTÊNCIA NO TRABALHO: desvendamos como funciona na prática para você não ter problemas" allowfullscreen></iframe>
+                        </div>
+                    </section> <br>
+                </section>
+
+                <li><strong>Gestão de Pessoas</strong></li> <br>
+                <p>A gestão de pessoas é a prática de liderança que tem como objetivo criar um ambiente motivador e produtivo.</p>
+                <p><strong>Liderança Positiva:</strong> Bons líderes são essenciais para o engajamento e satisfação dos colaboradores.</p>
+                <p>1. Estilos de Liderança: Liderança democrática, situacional e servidora. Cada um com suas particularidades, mas todos voltados para a valorização do colaborador.</p>
+                <p>2. Ferramentas de Motivação: Reconhecimento público, recompensas, treinamentos e oportunidades de crescimento.</p>
+
+                <p><strong>Gestão de Conflitos:</strong> Saber mediar conflitos é fundamental para manter a harmonia no ambiente de trabalho.</p>
+                <p>1. Métodos de Resolução: Escuta ativa, mediação de conflitos e sessões de alinhamento.</p>
+                
+                <p><strong>Comunicação Efetiva:</strong> A comunicação aberta ajuda na troca de ideias e no fortalecimento da cultura organizacional.</p>
+
+                <section>
+                    <section>
+                        <h3>O QUE É GESTÃO DE PESSOAS? (06 Dicas BEM Práticas para Aplicar na Sua Empresa)</h3> <br>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/SkrYO6c1mHI?si=jpxJWkDoNPBz7xOZ" title="O QUE É GESTÃO DE PESSOAS? (06 Dicas BEM Práticas para Aplicar na Sua Empresa)" allowfullscreen></iframe>
+                        </div>
+                    </section> <br>
+                </section>
+
+                <li><strong>Gestão de Projetos e Equipes</strong></li> <br>
+                <p>Gerenciar projetos e equipes com eficiência é uma habilidade essencial para manter a produtividade e a coesão entre os times.</p>
+                
+                <section>
+                    <section>
+                        <h3>GERENCIAMENTO DE PROJETOS (05 Dicas Certeiras pra Trabalhar o Gerenciamento de Projeto)</h3> <br>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/Usv5V0vNHuI?si=Nvfs-eN_aa6joCU2" title="GERENCIAMENTO DE PROJETOS (05 Dicas Certeiras pra Trabalhar o Gerenciamento de Projeto)" allowfullscreen></iframe>
+                        </div>
+                    </section> <br>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>O que é Gestão Estratégica de Pessoas em 5 Minutos</h3> <br>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/3B2FgJ65VHA?si=qW4wXFum8anScqyE" title="O que é Gestão Estratégica de Pessoas em 5 Minutos" allowfullscreen></iframe>
+                        </div>
+                    </section> <br>
+                </section>
+                
+                
+                <li><strong>Feedbacks</strong></li> <br>
+                <p>O feedback é uma ferramenta poderosa para o crescimento profissional e o alinhamento das expectativas entre colaboradores e líderes.</p>
+                <p><strong>Tipos de Feedback:</strong></p>
+                <p>1. Imediato: Realizado no momento da ocorrência, para orientações rápidas.</p>
+                <p>2. Periódico: Sessões programadas de feedback para avaliação de desempenho.</p>
+                <p>3. Anual: Revisão mais ampla, envolvendo metas e planos de desenvolvimento.</p>
+
+                <p><strong>Estrutura do Feedback:</strong></p>
+                <p>1. Situação, Comportamento e Impacto: Um formato que organiza o feedback de forma construtiva e objetiva.</p>
+
+                <p><strong>Práticas para Oferecer Feedback:</strong></p>
+                <p>1. Respeito e Empatia: Focar em comportamentos e não em julgamentos pessoais.</p>
+                <p>2. Sugestões de Melhoria: Oferecer orientações práticas para que o colaborador possa melhorar.</p>
+                
+                <section>
+                    <section>
+                        <h3>FEEDBACK O QUE É (Significado, Tradução e Como Dar Um)</h3> <br>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/QzyyCrFXmbY?si=4V8k1774aYu4H-iX" title="FEEDBACK O QUE É (Significado, Tradução e Como Dar Um)" allowfullscreen></iframe>
+                        </div>
+                    </section> <br>
+                </section>
+
+                <li><strong>1:1 (Reuniões One-on-One)</strong></li> <br>
+                <p>As reuniões individuais entre líder e colaborador, conhecidas como 1:1, são uma prática importante para acompanhar o desenvolvimento profissional e alinhar objetivos.</p>
+                <p><strong>Objetivo das 1:1</strong></p>
+                <p>1. Apoio Individualizado: Espaço para que o colaborador possa expor dúvidas, dificuldades e ideias.</p>
+                <p>2. Desenvolvimento de Relacionamentos: Construção de confiança e empatia.</p>
+                
+                <p><strong>Como Conduzir uma Reunião 1:1</strong></p>
+                <p>1. Estrutura e Frequência: As reuniões podem ser semanais ou mensais, dependendo do contexto.</p>
+                <p>2. Temas Comuns: Revisão de metas, feedback, desafios e alinhamento de expectativas.</p>
+
+                <section>
+                    <section>
+                        <h3>Como funciona as reuniões de ONE-ON-ONE na prática</h3> <br>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/ii3P2hmpEJw?si=Nn271UIX7__GuVoW" title="Como funciona as reuniões de ONE-ON-ONE na prática" allowfullscreen></iframe>
+                        </div>
+                    </section> <br>
+                </section>
+            </ul>
+        </section>
+
+
+        <section>
+            <div class="section-header">
+                <h2>PDI (Plano de Desenvolvimento Individual)</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
+            <ul>
+                <p>O PDI é um plano estruturado que visa o desenvolvimento contínuo de habilidades e competências dos colaboradores, alinhando suas metas pessoais e profissionais às necessidades da empresa. O PDI ajuda a potencializar o desempenho do colaborador, ao mesmo tempo em que promove um ambiente de trabalho mais engajado e motivado.</p> <br>
+                
+                <li><strong>Objetivos do PDI</strong></li> <br>
+                <p>1. Desenvolvimento Contínuo: Ajudar o colaborador a identificar suas forças e áreas de melhoria, criando um caminho claro para o seu crescimento.</p>
+                <p>2. Alinhamento com a Empresa: Garantir que os objetivos do colaborador estejam alinhados com as metas da empresa, promovendo um crescimento mútuo.</p>
+                <p>3. Aumentar a Satisfação e Retenção: Colaboradores que veem sua evolução sendo apoiada pela empresa tendem a se sentir mais valorizados e comprometidos.</p>
+                
+                <li><strong>Estrutura do PDI</strong></li> <br>
+                <p>1. Autoavaliação: O colaborador começa com uma reflexão sobre suas habilidades, interesses e áreas de desenvolvimento. Este é um passo importante para identificar suas próprias necessidades.</p>
+                <p>2. Metas e Objetivos: Estabelecimento de metas claras e mensuráveis para o desenvolvimento profissional, como adquirir uma nova habilidade, concluir um curso, melhorar a produtividade ou assumir responsabilidades de liderança.</p>
+                <p>3. Plano de Ação: Definir ações específicas e cronogramas para alcançar as metas, como treinamentos, mentorias, projetos desafiadores, entre outros.</p>
+                <p>4. Acompanhamento: O PDI deve ser revisado periodicamente para garantir que o colaborador está no caminho certo, ajustando as metas conforme necessário.</p>
+                
+                <li><strong>Como Elaborar um PDI</strong></li> <br>
+                <p>1. Definição de Objetivos de Curto e Longo Prazo: Estabelecer metas que o colaborador pode alcançar no curto prazo, como aprender uma ferramenta específica, e metas mais ambiciosas a longo prazo, como alcançar uma posição de liderança.</p>
+                <p>2. Identificação de Habilidades Necessárias: Quais competências técnicas ou comportamentais o colaborador precisa desenvolver para alcançar essas metas?</p>
+                <p>3. Desenvolvimento de Competências: Por meio de treinamentos, workshops ou feedback contínuo, a empresa deve oferecer as ferramentas necessárias para que o colaborador evolua.</p>
+                <p>4. Avaliação e Feedback Regular: Realizar encontros periódicos para discutir o progresso do PDI, revisar os objetivos e fazer ajustes conforme necessário.</p>
+                
+                <section>
+                    <section>
+                        <h3>PLANO DE DESENVOLVIMENTO PESSOAL PROJETO DE VIDA (Como Funciona na Prática)</h3> <br>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/OfCoKbVjkdw?si=Pa7XrI_OZ2yOHyGQ" title="PLANO DE DESENVOLVIMENTO PESSOAL PROJETO DE VIDA (Como Funciona na Prática)" allowfullscreen></iframe>
+                        </div>
+                    </section> <br>
+                </section>
+            </ul> <br>
+        </section>
+
+
+
+        <section>
+            <div class="section-header">
+                <h2>Saída</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label>
+            </div> <br>
+            <ul>
+                <p>A fase de saída marca o encerramento do vínculo entre colaborador e empresa. Conduzir um desligamento com respeito e transparência é essencial para preservar a imagem da empresa e o bem-estar do colaborador. A última etapa dessa jornada envolve procedimentos formais e documentações importantes.</p>
+                
+                <li>Desligamento</li> <br>
+                <p>O desligamento pode ser voluntário ou involuntário, mas deve sempre ocorrer de maneira profissional e empática.</p> <br>
+                <p><strong>Objetivo do Processo de Desligamento</strong></p> <br>
+                <p>1. Feedback Final: Conversa de encerramento para ouvir o colaborador e reforçar a cultura de aprendizado.</p>
+                <p>2. Formalização: Finalização de documentos e esclarecimento de direitos, como férias e rescisão.</p>
+                
+                <section>
+                    <section>
+                        <h3>Gestão de Desligamento Estratégica | RH Class #74</h3> <br>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/X7HxC__8z30?si=2zVBuzqbQq6X-oQw" title="Gestão de Desligamento Estratégica | RH Class #74" allowfullscreen></iframe>
+                        </div>
+                    </section> <br>
+                </section>
+                
+                <li>Certificado de Horas</li> <br>
+                <p>O Certificado de Horas é um documento formal emitido pela empresa que reconhece a carga horária dedicada pelo colaborador a determinadas atividades, treinamentos, cursos ou projetos dentro da organização. Esse certificado pode ser crucial tanto para o colaborador quanto para a empresa, oferecendo benefícios para ambos os lados, incluindo a comprovação do desenvolvimento profissional do colaborador.</p>
+                <p><strong>Objetivos do Certificado de Horas</strong></p>
+                <p><strong>1. Reconhecimento do Compromisso do Colaborador:</strong><br> O certificado oferece um reconhecimento oficial pelo esforço e tempo dedicado pelo colaborador a programas de desenvolvimento, treinamentos, ou qualquer outra atividade profissional realizada dentro da empresa.</p>
+                <p><strong>2. Valorização da Qualificação Profissional:</strong><br> Ao incluir a carga horária e a atividade realizada, o certificado pode ser usado pelo colaborador em futuras oportunidades de emprego ou promoções, demonstrando a qualificação e experiência adquirida.</p>
+                <p><strong>3. Controle e Transparência:</strong><br> Para a empresa, emitir certificados de horas ajuda a manter um registro formal das atividades de treinamento ou desenvolvimento realizadas, facilitando o controle e a avaliação dos investimentos em capacitação.</p>
+            </ul> <br>
+        </section>
+
+      
+        <!-- Referências -->
+        <section>
+            <h2>Referências e Conteúdos Extras</h2> <br>
+            <ul>
+                <li>Cursos</li> <br>
+                <a href="https://escoladepessoas.com.br/curso/setor-de-rh/" target="_blank"> [Escola de Pessoas] Setor de RH: como implementar do zero</a><br>
+                <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/gestao-de-pessoas,eda0b8a6a28bb610VgnVCM1000004c00210aRCRD" target="_blank"> [Sebrae] Gestão de pessoas</a><br> <br>
+                <li>Vídeos</li> <br>
+                <a href="https://www.youtube.com/watch?v=xMqzIiecebU" target="_blank"> [YOUTUBE] RHCast #55 | Construindo um RH do zero</a><br>
+                <a href="https://www.youtube.com/watch?v=C1XGq2oNzrU" target="_blank"> [YOUTUBE] RHCast #60 | Pessoas e Estratégia</a><br>
+
+            </ul>
+        </section>
+        
+    </main>
+
+    <footer class="text-center py-4">
+        <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka6PYS2ZTMj7Do35tWl53KIkazN1l5Hb9Kjk7aaJ5RrbZZgZ9KmbxKt0qKZ1dQF" crossorigin="anonymous"></script>
+    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/barra_progresso.js"></script>
+    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
+</body>
+</html>
