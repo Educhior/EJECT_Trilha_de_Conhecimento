@@ -76,6 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     welcomeMessage.style.display = 'block';
                 } else {
                     console.log('Usuário não encontrado no banco de dados.');
+                    welcomeMessage.innerHTML = `Boas-vindas, Astronauta!`;
+                    welcomeMessage.style.display = 'block';
                 }
             } catch (error) {
                 console.error("Erro ao atualizar o nome de exibição:", error);
