@@ -22,14 +22,20 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
-    <header class="nav">
-        <nav class="container">
-            <h1>Trilhas de Conhecimentos</h1>
-            <div class="Trilhas-contact-container">
+    <header>
+        <nav class="container nav-bar">
+            <div class="ds-contact-container">
                 <a href="https://www.ejectufrn.com.br/">
-                    <img src="/img/logo.svg" alt="EJECT">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
                 </a>
             </div>
+            <div class="login-icon" id="login-container">
+                <a href="/EJECT_Trilha_de_Conhecimento/login" class="login-button" id="login-button">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
+                    Perfil
+                </a>
+            </div>
+
         </nav>
     </header>
     <main>
@@ -47,6 +53,15 @@
                     </div>
                 </li>
             </ul>
+        
+            <!-- Modal estrutura -->
+            <div id="betaModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Funcionalidade Beta</h3>
+                    <p>Esta funcionalidade ainda está em fase de testes. Por favor, nos envie feedback sobre quaisquer problemas ou sugestões de melhorias!</p>
+                </div>
+            </div>
         </section>
 
         <section>
@@ -120,7 +135,7 @@
      
     </main>
 
-    <footer>
+    <footer class="text-center py-4">
         <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
     </footer>
 
@@ -130,4 +145,5 @@
     
     <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/barra_progresso.js"></script>
     <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
+</body>
 </html>
