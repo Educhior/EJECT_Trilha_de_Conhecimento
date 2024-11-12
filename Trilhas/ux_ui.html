@@ -3,12 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>EJECT | Scrum</title>
+        <title>EJECT | UX/UI</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <!-- Se for visualizar localmente, remova: "/EJECT_Trilha_de_Conhecimento/" dos linkamento -->
-        <link rel="stylesheet" href="/css/trilhas_styles.css">
-        <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
-    </head>
+        <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/trilhas_styles.css">
+        <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/logo.svg">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 <body>
     <!-- Vlibra -->
     <div vw class="enabled">
@@ -22,167 +23,215 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
-    <header class="nav">
-        <nav class="container d-flex justify-content-between align-items-center">
-            <h1>Trilhas de Conhecimentos</h1>
-            <div class="Trilhas-contact-container">
-                <a href="https://www.ejectufrn.com.br/">
-                    <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="EJECT Logo" style="height: 50px;">
-                </a>
-            </div>
-        </nav>
-    </header>
+<header>
+    <nav class="container nav-bar">
+        <div class="ds-contact-container">
+            <a href="https://www.ejectufrn.com.br/">
+                <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
+            </a>
+        </div>
+        <div class="login-icon" id="login-container">
+            <a href="/EJECT_Trilha_de_Conhecimento/login" class="login-button" id="login-button">
+                <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
+                Perfil
+            </a>
+        </div>
+
+    </nav>
+</header>
+
     <main>
         <section>
-            <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento/index">Voltar</a>
+            <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
         </section>
 
-        <!-- Conteúdo do Scrum -->
-        <section class="mb-5">
-            <h2>Scrum</h2> <br>
-            <p>Scrum é um framework ágil utilizado no gerenciamento e desenvolvimento de projetos complexos, principalmente no contexto de desenvolvimento de software. Ele organiza o trabalho em ciclos curtos chamados sprints, promovendo entregas contínuas e a melhoria constante com base em revisões regulares.</p>
-        </section>
+        <input type="hidden" id="trilha-nome" value="Ux ui" />
 
-        <!-- Fundamentos do Scrum -->
         <section>
-            <h2>Fundamentos do Scrum</h2> <br>
             <ul>
-                <p>O Scrum é sustentado por três pilares fundamentais: transparência, inspeção e adaptação. Vamos desmembrar cada um deles para facilitar o entendimento. </p>
-                <li>Transparência</li> <br>
-                <p>Todos os aspectos significativos do processo devem ser visíveis para as pessoas envolvidas. <br> <br> Por exemplo, imagine que você está desenvolvendo um aplicativo com uma equipe. A transparência significa que todos os membros da equipe sabem quais tarefas estão em andamento, quais já foram concluídas e o que ainda precisa ser feito. Para isso, utilizam-se ferramentas como o kanban, onde cada tarefa é visualmente apresentada.</p>
-                <li>Inspeção</li> <br>
-                <p>O progresso do trabalho precisa ser inspecionado frequentemente, tanto em termos de produto quanto de processo, para identificar possíveis desvios. Um exemplo disso seria uma revisão periódica dos protótipos ou funcionalidades do produto para garantir que estão alinhados com os objetivos iniciais.</p> <br>
-                <li>Adaptação</li> <br>
-                <p> Caso alguma discrepância seja identificada na inspeção, deve-se ajustar o curso imediatamente. Isso pode ser comparado a um estudante que percebe, ao revisar suas anotações, que não compreendeu bem um tópico. Ele, então, ajusta sua estratégia de estudo antes da próxima prova
-
-                    <section>
-                        <h3>SCRUM O QUE É (de um Jeito BEM Prático)</h3> <br>
-                        <div class="ratio ratio-16x9 mb-4">
-                            <iframe src="https://www.youtube.com/embed/HlmiVz0SqNQ?si=MEU8VPBVbRG_d4yK" title="SCRUM O QUE É (de um Jeito BEM Prático)" allowfullscreen></iframe>
-                        </div>
-                    </section>
-                    
-                </p>
-            </ul>
-        </section>
-
-        <!-- Papéis no Scrum -->
-        <section>
-            <h2>Papéis no Scrum</h2> <br>
-            <p>O Scrum define três papéis principais, que formam o núcleo da equipe: Product Owner, Scrum Master e o Time de Desenvolvimento. Cada papel tem responsabilidades específicas e complementares.</p>
-            <ul>
-                <li>Product Owner (Dono do Produto)</li> <br>
-                <p>O <strong>Product</strong> Owner é responsável por maximizar o valor do produto resultante do trabalho da equipe. Ele gerencia o Product Backlog (lista priorizada de tudo o que precisa ser feito no projeto) e decide quais funcionalidades ou melhorias devem ser desenvolvidas primeiro, priorizando o que traz mais valor para o cliente ou para o negócio. <br> <br>
-                    <strong>Exemplo:</strong> Imagine que sua equipe está desenvolvendo um aplicativo de gerenciamento de finanças. O Product Owner pode priorizar a criação de uma funcionalidade que permite aos usuários registrar suas despesas diárias, já que isso traz um valor imediato para os usuários, em vez de priorizar uma função mais complexa, como previsões financeiras baseadas em inteligência artificial.</p>
-
-                <li>Scrum Master</li> <br>
-                <p>O <strong>Scrum Master</strong> é o facilitador do processo Scrum. Ele ajuda a equipe a entender e seguir as práticas do framework, removendo impedimentos que possam atrapalhar o progresso do time. Além disso, ele garante que o Scrum esteja sendo aplicado corretamente, promovendo um ambiente de trabalho colaborativo e produtivo. <br> <br>
-                     <strong>Exemplo:</strong> Se, durante um sprint, a equipe encontra dificuldades com uma tecnologia específica, o Scrum Master pode atuar ajudando a equipe a encontrar uma solução, seja buscando apoio externo ou sugerindo uma abordagem diferente.
-                
-                <li>Time de Desenvolvimento</li> <br>
-                    <p>O <strong>Time de Desenvolvimento</strong> é formado por profissionais multidisciplinares que são responsáveis por entregar o incremento do produto ao final de cada sprint. Eles são autogeridos, ou seja, eles próprios decidem como organizar o trabalho para atingir o objetivo do sprint. <br> <br>
-                        <strong>Exemplo:</strong> Em um projeto de desenvolvimento de um site de e-commerce, o time de desenvolvimento pode ser composto por desenvolvedores de front-end e back-end, designers de UI/UX e testadores. Eles cooperam para entregar uma nova funcionalidade do site, como a página de checkout, ao final de um sprint.
-            </ul>
-        </section>
-
-        <!-- Eventos do Scrum -->
-        <section>
-            <h2>Eventos do Scrum</h2> <br>
-            <p>O Scrum organiza o trabalho em eventos (ou cerimônias), que são essenciais para a entrega de valor contínuo e a melhoria do processo. Estes eventos criam cadência e oportunidades regulares de inspeção e adaptação.
-            <ul>
-                <li>Sprint</li> <br>
-                <p>O sprint é o ciclo de trabalho do Scrum, com duração fixa (geralmente entre 1 e 4 semanas), durante o qual um incremento potencialmente utilizável do produto é desenvolvido. Cada sprint tem um objetivo claro, e não se pode alterar o escopo do sprint após ele ter começado. <br> <br> 
-                    <strong>Exemplo:</strong> Se estamos desenvolvendo um aplicativo de educação, em um sprint de 2 semanas, a equipe pode decidir criar e entregar uma funcionalidade de "quiz" com diferentes níveis de dificuldade. Ao final dessas 2 semanas, o quiz deve estar funcional e pronto para uso ou testes.</p>
-                <li>Planejamento do Sprint (Sprint Planning)</li> <br>
-                <p>O planejamento do sprint é uma reunião que acontece no início de cada sprint, onde o Product Owner apresenta ao time de desenvolvimento os itens do backlog priorizados. A equipe, em conjunto, decide quantos itens podem ser concluídos durante o sprint e elabora um plano para alcançá-los. 
-                    <br> <br> <strong>Exemplo:</strong> Durante o planejamento do sprint, a equipe decide que, para o sprint atual, irá desenvolver a funcionalidade de "login" e aprimorar a interface do usuário. Eles estimam o tempo necessário para cada tarefa e definem as etapas para alcançar o objetivo do sprint.</p>                    
-                </p> <br>
-                
-                <section>
-                    <h3>Scrum - Como fazer um Planejamento da Sprint na Prática</h3> <br>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/Pucp6CoCIEk?si=psDSMpC743AX4FZj" title="Planejamento da Sprint na Prática" allowfullscreen></iframe>
+                <li>
+                    <h4>Barra de Progresso Interativa <span class="beta-tag" id="open-modal">BETA</span> </h4> <br>
+                    <div class="progress-bar-container">
+                        <div id="progress-bar" class="progress-bar">0%</div>
                     </div>
-                </section>
-
-                <li>Daily Scrum (Reunião Diária)</li> <br>
-                <p> A <strong>reunião diária</strong> é um encontro curto (máximo de 15 minutos) onde o time de desenvolvimento sincroniza as atividades e ajusta o plano de trabalho para as próximas 24 horas. Cada membro do time responde a três perguntas básicas: O que fiz ontem? O que farei hoje? Há algum impedimento no meu caminho? <br> <br>
-                    <strong>Exemplo:</strong> Imagine que estamos no segundo dia do sprint de desenvolvimento da funcionalidade de relatórios financeiros. Durante a reunião diária, um dos desenvolvedores pode mencionar que teve problemas com a integração da funcionalidade ao banco de dados, o que poderá ser discutido e resolvido pela equipe para garantir que o trabalho continue conforme o planejado.</p>
-                </p>
-                <li>Revisão do Sprint (Sprint Review)</li> <br>
-                <p> Ao final de cada sprint, a equipe apresenta o que foi concluído para o Product Owner e stakeholders (partes interessadas). Essa é uma oportunidade para o time receber feedback sobre o que foi desenvolvido e discutir as próximas etapas. <br> <br>
-                    <strong>Exemplo:</strong> Durante a revisão do sprint, a equipe de desenvolvimento do aplicativo de finanças pode demonstrar a nova funcionalidade de relatórios para o Product Owner e receber feedback. O Product Owner pode sugerir melhorias antes de a funcionalidade ser liberada para os usuários.</p>
-                </p>
-                <li>Retrospectiva do Sprint (Sprint Retrospective)</li> <br>
-                <p> A retrospectiva do sprint é uma reunião interna onde a equipe reflete sobre o que foi bem-sucedido no sprint e o que pode ser melhorado no próximo. É uma oportunidade para melhoria contínua do processo. <br> <br>
-                    <strong>Exemplo:</strong> Na retrospectiva do sprint, a equipe pode discutir que a comunicação entre os desenvolvedores e o designer de UI/UX foi um pouco lenta, e sugerir maneiras de melhorar essa colaboração no próximo sprint.</p>
-                </p>
-
-                <img src="https://www.sydle.com/blog/assets/post/framework-scrum-5f6dc45f320703787497f887/eventos-scrum.png" alt="Eventos do Scrum" style="width: 80%; height: auto; display: flex; margin: auto;"> <br>
+                </li> <br>
             </ul>
-        </section>
-
-        <!-- Artefatos do Scrum -->
-        <section>
-            <h2>Artefatos do Scrum</h2> <br>
-            <p>Os artefatos são representações tangíveis de informações no Scrum, que servem para garantir a transparência e facilitar as inspeções e adaptações. Os principais artefatos são: <strong>Product Backlog, Sprint Backlog e Incremento.</strong> </p>
-            <ul>
-                <li>Product Backlog</li>
-                <p>O Product Backlog é uma lista priorizada de tudo que precisa ser desenvolvido no produto. O Product Owner é o responsável por manter e priorizar essa lista, que está em constante evolução. <br> <br>
-                    <strong>Exemplo:</strong> No desenvolvimento de um aplicativo de educação, o Product Backlog pode incluir itens como "Criar sistema de login", "Adicionar funcionalidade de quiz", "Implementar sistema de ranking".</p>
-            </p>
-                <li>Sprint Backlog</li>
-                <p>O Sprint Backlog é o conjunto de itens do Product Backlog que foram selecionados para o sprint, juntamente com o plano de ação para entregá-los. <br> <br>
-                    <strong>Exemplo:</strong> Para o sprint de 2 semanas, a equipe pode selecionar "Criar sistema de login" e "Adicionar funcionalidade de quiz" do Product Backlog para trabalhar durante esse período.</p>
-            </p>
-            <li>Incremento</li>
-            <p>O Incremento é o resultado final do sprint, que deve ser um produto ou funcionalidade utilizável, mesmo que o Product Owner decida não liberá-lo imediatamente. <br> <br>
-                <strong>Exemplo:</strong> Ao final do sprint, o incremento pode ser uma nova funcionalidade de "quiz" que esteja pronta para ser testada pelos usuários, mesmo que ainda não seja lançada oficialmente.</p>
-            </p>
-
-            <section>
-                <h3>Conheça os 3 Artefatos do Scrum - Backlog do Produto, Backlog da Sprint e Incremento</h3> <br>
-                <div class="ratio ratio-16x9 mb-4">
-                    <iframe src="https://www.youtube.com/embed/sJtDuC4AhoI?si=qa8Gfll6B1WioSzy" title="Artefatos do Scrum" allowfullscreen></iframe>
+        
+            <!-- Modal estrutura -->
+            <div id="betaModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Funcionalidade Beta</h3>
+                    <p>Esta funcionalidade ainda está em fase de testes. Por favor, nos envie feedback sobre quaisquer problemas ou sugestões de melhorias!</p>
                 </div>
-            </section>
-            </ul>
+            </div>
         </section>
-        
-        <!-- Referências -->
+
         <section>
-            <h2>Referências e Conteúdos Extras</h2> <br>
+           
+            <div class="wrapper">
+                <div class="section-header" style="display: flex; justify-content: space-between;">
+                    <h2>UX Design - Domine o Figma</h2>
+                    <label class="completion-label">
+                        <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                    </label> 
+                </div>
+            </div>
+            <p>Aprenda os conceitos básicos na ferramenta Figma, muito utilizada para gerar interfaces de maneira rápida e prática na web.</p>
+            <div class="ratio ratio-16x9 mb-4">
+                <iframe src="https://www.youtube.com/embed/5rEWrhYRBqw?si=8SpgZpr_NSEpgOPN" title="UX design" allowfullscreen></iframe>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>UX Design - Guia básico para criar uma interface</h2>
+            <li>
+                Um guia básico para criar uma interface antes de abrir o Figma.
+                <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                    <a href="https://brasil.uxdesign.cc/um-guia-b%C3%A1sico-para-criar-uma-interface-antes-de-abrir-o-figma-87d1c651c91f" target="_blank" style="color: rgb(0, 61, 115);">Acesse o curso</a>
+                    <div class="section-header">
+                        <label class="completion-label">
+                            <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                        </label> 
+                    </div>
+                </div>
+            </li> <br>
+        </section>
+
+        <section>
+            <h2>Alguns princípios de UI Design</h2>
             <ul>
-                <li>Sites</li> <br>
-                <a href="https://aws.amazon.com/pt/what-is/scrum/#:~:text=O%20Scrum%20%C3%A9%20um%20framework%20para%20fazer%20o%20trabalho%20no,Agile%20para%20gerenciamento%20de%20projetos." target="_blank"> [LINK] O que é o Scrum?</a><br> 
-                <a href="https://fia.com.br/blog/scrum/" target="_blank"> [LINK] Scrum: o que é e como aplicar a metodologia ágil para gestão?</a><br>
-                <a href="https://caroli.org/scrum-significado-aplicacao-conceitos-e-exemplos/" target="_blank"> [LINK] SCRUM: significado, aplicação, conceitos e exemplos  </a><br> <br>
+                <li>
+                    Espaço em Branco: O elemento principal de uma boa Interface:
+                    <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                        <a href="https://gabrielsilvestri.com.br/espaco/" target="_blank" style="color: rgb(0, 61, 115);">Acesse o curso</a>
+                        <div class="section-header">
+                            <label class="completion-label">
+                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                            </label> 
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    Alinhamento em Interfaces: posicionando elementos corretamente:
+                    <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                        <a href="https://gabrielsilvestri.com.br/alinhamento/" target="_blank" style="color: rgb(0, 61, 115);">Acesse o curso</a>
+                        <div class="section-header">
+                            <label class="completion-label">
+                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                            </label> 
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    Ferramentas para criar uma paleta de cores: <br>
+                    <a href="https://color.adobe.com/pt/explore" target="_blank" style="color: rgb(0, 61, 115);">Color Adobe</a>
+                    <br>
+                    <a href="https://paletton.com/#uid=13+0u0klllljXRzkDurm1cfmJ39" target="_blank" style="color: rgb(0, 61, 115);">Paletton</a>
+                </li>
+            </ul> <br>
+        </section>
 
-                <li>Livros</li> <br>
-                <a href="https://www.amazon.com.br/SCRUM-fazer-dobro-trabalho-metade/dp/8543107164/ref=sr_1_1?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=Scrum%2C+a+arte+de+fazer+o+dobro+do+trabalho+na+metade+do+tempo&qid=1615833031&sr=8-1" target="_blank"> [AMAZON] Scrum: A arte de fazer o dobro do trabalho na metade do tempo</a><br> 
-                <a href="https://www.amazon.com.br/Sprint-M%C3%A9todo-Google-Testar-Aplicar/dp/8551001523/ref=pd_sbs_d_sccl_2_2/135-9467661-6965655?pd_rd_w=gTd95&content-id=amzn1.sym.0645f0a3-04e5-412c-b308-1a45962da814&pf_rd_p=0645f0a3-04e5-412c-b308-1a45962da814&pf_rd_r=QF39RQ0XPZ470E2T82SV&pd_rd_wg=Hkq3s&pd_rd_r=21d970a9-301f-4623-89ac-0e8ee6c9bca3&pd_rd_i=8551001523&psc=1" target="_blank"> [AMAZON] Sprint: O método usado no Google para testar e aplicar novas ideias em apenas cinco dias</a><br> <br>
+        <section>
+            <div class="wrapper">
+                <div class="section-header"  style="display: flex; justify-content: space-between;">
+                    <h2>Capacitação sobre prototipação no figma</h2>
+                    <label class="completion-label">
+                        <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                    </label> 
+                </div>
+            </div>
+            <div class="ratio ratio-16x9 mb-4">
+                <iframe src="https://www.youtube.com/embed/lsIMESGt6p0?si=k5M2X0M2huh6XlTF" title="Capacitação sobre prototipação" allowfullscreen></iframe>
+            </div>
+        </section>
 
-                <li>Vídeos</li> <br>
-                <a href="https://www.youtube.com/watch?v=SWDhGSZNF9M" target="_blank"> [YOUTUBE - EN] Scrum in 20 mins... (with examples)</a><br>
-                <a href="https://www.youtube.com/watch?v=QI90LBuFiL4" target="_blank"> [YOUTUBE - PT-Br] Kanban OU Scrum? QUAL A DIFERENÇA? - Metodologias ágeis</a><br> <br>                
-                
-                <li>Cursos</li> <br>
-                <a href="https://www.alura.com.br/curso-online-scrum-agilidade-seu-projeto?srsltid=AfmBOor62v2iWQA-cPDBhV2QMdbR-ZOAdJjPAnN6Upkei78cWC8VOYtY" target="_blank"> [ALURA CURSO] Scrum:
-                    agilidade em seu projeto</a><br>
-                <a href="https://www.udemy.com/course/formacao-total-em-scrum/?couponCode=LETSLEARNNOW" target="_blank"> [CURSO - PT-Br] Certificação Scrum Master: Curso Preparatório COMPLETO</a><br> <br>
-                
-                <li>Podcasts</li> <br>
-                <a href="https://www.youtube.com/watch?v=qHO2tYlgqk4" target="_blank"> [VÍDEO PODCAST] OS VALORES DO SCRUM | PODCAST SEJA ÁGIL | TEMP 22 - EP 19</a><br> <br>
-  
+        <section>
+            <h2>UX/UI Design - Origamid</h2>
+            <p>Vamos aprofundar os conhecimentos sobre UX/UI Design, cujas competências serão muito importantes para exercer sua função nos projetos que virão a seguir.</p>
+            <p>Cada curso possui um projeto a ser concluído ao final, que você já pode incluir em seu portfólio pessoal e utilizar como comprovação da sua Trilha na EJECT! 🚀</p>
+            <ul>
+                <li>
+                    <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                        <a href="https://www.origamid.com/curso/ui-design-para-iniciantes" target="_blank" style="color: rgb(0, 61, 115);">UI Design para Iniciantes</a>
+                        <div class="section-header">
+                            <label class="completion-label">
+                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                            </label> 
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                        <a href="https://www.origamid.com/curso/ui-design-avancado" target="_blank" style="color: rgb(0, 61, 115);">UI Design Avançado</a>
+                        <div class="section-header">
+                            <label class="completion-label">
+                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                            </label> 
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                        <a href="https://www.origamid.com/curso/ux-design-heuristicas" target="_blank" style="color: rgb(0, 61, 115);">UX Design Heurísticas</a>
+                        <div class="section-header">
+                            <label class="completion-label">
+                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                            </label> 
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                        <a href="https://www.origamid.com/curso/tipografia-avancada" target="_blank" style="color: rgb(0, 61, 115);">Tipografia Avançada</a>
+                        <div class="section-header">
+                            <label class="completion-label">
+                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                            </label> 
+                        </div>
+                    </div>
+                </li>
             </ul>
         </section>
         
+        <section>
+            <h2>UX/UI - Trilha de Estudo Extra</h2>
+            <p>
+                Conteúdos extras sobre UX/UI.
+            </p>
+            <div class="ratio ratio-16x9 mb-4">
+                <iframe src="https://www.youtube.com/embed/Gg2cH_VuckE?si=x7KRS5BmpABMgGIq" title="Design Responsivo" allowfullscreen></iframe>
+            </div>
+            <div class="ratio ratio-16x9 mb-4">
+                <iframe src="https://www.youtube.com/embed/6nlO05bMuPY?si=S2pzUZ-ax9z7NjbV" title="Design Responsivo" allowfullscreen></iframe>
+            </div>
+
+            <ul>
+                <li>
+                    <a href="https://www.alura.com.br/curso-online-figma-criando-evoluindo-componentes-interface" target="_blank" style="color: rgb(0, 61, 115);">Figma: componentes, auto layout e máscaras</a>
+                </li>
+                <li>
+                    <a href="https://cursos.alura.com.br/extra/alura-mais/auto-layout-no-figma-c1584" target="_blank" style="color: rgb(0, 61, 115);">Auto layout no Figma - Parte 1</a>
+                </li>
+                <li>
+                    <a href="https://cursos.alura.com.br/extra/alura-mais/auto-layout-no-figma-c323" target="_blank" style="color: rgb(0, 61, 115);">Auto layout no Figma - Parte 2</a>
+                </li>
+            </ul>
+
+        </section>
+
     </main>
 
     <footer class="text-center py-4">
         <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka6PYS2ZTMj7Do35tWl53KIkazN1l5Hb9Kjk7aaJ5RrbZZgZ9KmbxKt0qKZ1dQF" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>    
+    
+    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/barra_progresso.js"></script>
+    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
 </body>
 </html>
