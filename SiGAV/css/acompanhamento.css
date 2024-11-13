@@ -1,0 +1,301 @@
+/* Container principal */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;  /* Adicionando borda arredondada */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Exo 2', sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    background-color: #f7f7f7;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #e0e0e0;
+}
+
+.logo h2 {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+}
+
+.menu {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.menu-item {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 1em;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.menu-item.active, .menu-item:hover {
+    background-color: #d1e9ff;
+    color: #007bff;
+}
+
+.premium-section {
+    margin-top: auto;
+    text-align: center;
+}
+
+.premium-section img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-bar {
+    padding: 10px;
+    width: 250px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+}
+
+.user-icons img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.welcome-card, .profile-card, .task-card, .calendar, .tasks {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-card img {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.profile-card img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.task-card h4 {
+    font-size: 1em;
+    color: #333;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin: 10px 0;
+    position: relative;
+}
+
+.progress-bar::after {
+    content: '';
+    width: 50%; /* ajuste de acordo com a porcentagem de tarefas concluídas */
+    height: 100%;
+    background-color: #007bff;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.avatars img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.calendar, .tasks {
+    grid-column: span 2;
+}
+
+.tasks .task-item {
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+
+/* Título principal */
+h2 {
+    color: #004A80;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Barra de busca */
+.search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.search-bar input {
+    padding: 10px;
+    width: 30%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Tabela de usuários */
+#userTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#userTable th, #userTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#userTable th {
+    background-color:  #004A80;
+    color: white;
+    font-weight: 600;
+}
+
+#userTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#userTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Mensagem de "nenhum usuário encontrado" */
+#noUsersMessage {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Rodapé */
+footer {
+    background-color: #004A80;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Estilo para as barras de progresso */
+.progresso-bar {
+    width: 100%;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.progresso {
+    height: 20px;
+    background-color: green;
+    transition: width 0.3s ease;
+}
+
+.incompleta {
+    height: 20px;
+    background-color: red;
+    transition: width 0.3s ease;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .search-bar input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #userTable th, #userTable td {
+        font-size: 14px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+/* Estilo para a tag BETA */
+.beta-tag {
+    background-color: #ff9800;
+    color: white;
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.beta-tag:hover {
+    background-color: #e68900;
+}

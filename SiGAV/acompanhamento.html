@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiGAV | Acompanhamento de Membros</title>
+    <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/SiGAV/css/acompanhamento.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Menu Lateral -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo">
+            <h2>SiGAV<span class="beta-tag" id="open-modal">BETA</span></h2>
+        </div>
+        <nav class="menu">
+            <a href="/EJECT_Trilha_de_Conhecimento/SiGAV/Sigav" class="menu-item">Menu</a>
+            <a href="#" class="menu-item active">Acompanhamento</a>
+            <a href="#" class="menu-item">OKR's</a>
+            <a href="#" class="menu-item">GT's</a>
+            <a href="#" class="menu-item">Configurações</a>
+        </nav>
+        <div class="premium-section">
+            <p>V: 0.2.0 | EJECT&copy; 2024</p>
+        </div>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <header>
+            <input type="text" placeholder="Buscar usuários..." id="searchInput" class="search-bar">
+        </header>
+
+        <section>
+            <div class="container">
+                <div>
+                    <h2>Acompanhamento de Membros</h2>
+    
+                    
+                </div>
+                
+    
+                <!-- Tabela de usuários -->
+                <table id="userTable">
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Progresso Geral</th>
+                        <th>Progresso das Trilhas</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                  
+                  <p id="noUsersMessage" style="display: none; color: red; margin-top: 10px;">Nenhum usuário encontrado</p>
+            </div>
+    </main>
+    
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <script src="/EJECT_Trilha_de_Conhecimento/SiGAV/script/painel_administrativo.js" defer></script>
+</body>
+</html>
