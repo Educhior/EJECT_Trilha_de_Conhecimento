@@ -3,10 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>EJECT | WordPress</title>
+        <title>EJECT | Django</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link rel="stylesheet" href="/css/trilhas_styles.css">
-        <link rel="icon" type="image/x-icon" href="/img/svgs/logo-eject.svg">
+        <!-- Se for visualizar localmente, remova: "/EJECT_Trilha_de_Conhecimento/" dos linkamento -->
+        <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/trilhas_styles.css">
+        <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     </head>
 <body>
@@ -26,24 +27,26 @@
     <nav class="container nav-bar">
         <div class="ds-contact-container">
             <a href="https://www.ejectufrn.com.br/">
-                <img src="/img/logo.svg" alt="Logotipo da EJECT">
+                <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
             </a>
         </div>
         <div class="login-icon" id="login-container">
-            <a href="/login.html" class="login-button" id="login-button">
-                <img src="/img/icon/user-solid.svg" alt="Login Icon">
+            <a href="/EJECT_Trilha_de_Conhecimento/login" class="login-button" id="login-button">
+                <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
                 Perfil
             </a>
         </div>
 
     </nav>
 </header>
+
     <main>
+
         <section>
-            <a class="btn btn-primary" href="/index.html">Voltar</a>
+            <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
         </section>
 
-        <input type="hidden" id="trilha-nome" value="wordpress" />
+        <input type="hidden" id="trilha-nome" value="Django" />
 
         <section>
             <ul>
@@ -65,7 +68,7 @@
             </div>
         </section>
 
-        <!-- Conteúdo do Scrum -->
+        <!-- Conteúdo  -->
         <section class="mb-5">
             <h2>Introdução ao Django</h2> <br>
             <p>O Django é um software que você pode usar para desenvolver aplicações Web de forma rápida e eficiente. A maioria das aplicações Web tem várias funções comuns, como autenticação, recuperação de informações de um banco de dados e gerenciamento de cookies. Os desenvolvedores precisam codificar funcionalidades semelhantes em cada aplicação Web que eles escrevem. O Django torna esse trabalho mais fácil, agrupando as diferentes funções em uma grande coleção de módulos reutilizáveis, chamados de framework de aplicações Web. Os desenvolvedores usam a framework Web do Django para organizar e escrever seu código de maneira mais eficiente e para reduzir significativamente o tempo de desenvolvimento na Web.</p>
@@ -80,31 +83,13 @@
                 </label> 
             </div> <br>
             <ul>
+                <li><a href="https://www.alura.com.br/artigos/django-instalacao-configuracao-e-escrevendo-seu-primeiro-app" target="_blank" rel="noopener noreferrer">Django: instalação, configuração e escrevendo seu primeiro app</a></li> <br>
                 
-                <li>
-                  <a href="https://www.alura.com.br/artigos/django-instalacao-configuracao-e-escrevendo-seu-primeiro-app" target="_blank" rel="noopener noreferrer">
-                    Django: instalação, configuração e escrevendo seu primeiro app
-                  </a>
-                </li> <br>
+                <li><a href="https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/" target="_blank" rel="noopener noreferrer">Ação Check-List Deploy</a></li> <br>
                 
-                <li>
-                  <a href="https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/" target="_blank" rel="noopener noreferrer">
-                    Ação Check-List Deploy: 
-                  </a>
-                </li> <br>
+                <li><a href="https://docs.djangoproject.com/en/2.0/topics/security/" target="_blank" rel="noopener noreferrer">Documentação Segurança no Django</a></li> <br>
                 
-                <li>
-                  <a href="https://docs.djangoproject.com/en/2.0/topics/security/" target="_blank" rel="noopener noreferrer">
-                    Documentação Segurança no Django: 
-                  </a>
-                </li> <br>
-                
-                <li>
-                  <a href="https://opensource.com/article/18/1/10-tips-making-django-admin-more-secure" target="_blank" rel="noopener noreferrer">
-                    Top 10 Práticas no Admin na Django: 
-                  </a>
-                </li> <br>
-               
+                <li><a href="https://opensource.com/article/18/1/10-tips-making-django-admin-more-secure" target="_blank" rel="noopener noreferrer">Top 10 Práticas no Admin na Django</a></li>
                 
             </ul> <br>
         </section>
@@ -119,110 +104,74 @@
             </div> <br>
             <p>1. Django templates:</p>
             <ul>
-                <li>
-                  <a href="https://cursos.alura.com.br/course/django-templates-boas-praticas/task/112325" target="_blank" rel="noopener noreferrer">
-                    Acessar
-                  </a>
-                  <p>Vamos criar uma aplicação do zero chamada Alura Space, usando Django e dando ênfase total ao template. Quando clicarmos nas imagens da interface, elas serão apresentadas em um tamanho maior e, abaixo delas, encontraremos um texto com seu contexto.</p>
-                </li> <br>
+                <li><a href="https://cursos.alura.com.br/course/django-templates-boas-praticas/task/112325" target="_blank" rel="noopener noreferrer">Acessar</a></li> <br>
+                <p>Vamos criar uma aplicação do zero chamada Alura Space, usando Django e dando ênfase total ao template. Quando clicarmos nas imagens da interface, elas serão apresentadas em um tamanho maior e, abaixo delas, encontraremos um texto com seu contexto.</p>
+
+                <li>2. Django: persistência de dados e Admin</li> <br>
+                <p>O <strong>Scrum Master</strong> é o facilitador do processo Scrum. Ele ajuda a equipe a entender e seguir as práticas do framework, removendo impedimentos que possam atrapalhar o progresso do time. Além disso, ele garante que o Scrum esteja sendo aplicado corretamente, promovendo um ambiente de trabalho colaborativo e produtivo. <br> <br>
+                     <strong>Exemplo:</strong> Se, durante um sprint, a equipe encontra dificuldades com uma tecnologia específica, o Scrum Master pode atuar ajudando a equipe a encontrar uma solução, seja buscando apoio externo ou sugerindo uma abordagem diferente.
                 
-          
-  
-            </ul> <br>
-
-            <p>2. Django: persistência de dados e Admin</p>
-            <ul>
-                <li>
-                  <a href="https://cursos.alura.com.br/course/django-autenticacao-formularios-alerta/task/119186" target="_blank" rel="noopener noreferrer">
-                    Acessar
-                  </a>
-                  <p>App Usuários</p>
-                </li> <br>
-                <li>
-                  <a href="https://cursos.alura.com.br/course/django-autenticacao-formularios-alerta/task/119343" target="_blank" rel="noopener noreferrer">
-                    Acessar
-                  </a>
-                  <p>Formulário no Django</p>
-                </li> <br>
-
-                <li>
-                  <a href="https://cursos.alura.com.br/course/django-autenticacao-formularios-alerta/task/119349" target="_blank" rel="noopener noreferrer">
-                    Acessar
-                  </a>
-                  <p>Autenticação de Usuários</p>
-                </li> <br>
-
-                <li>
-                  <a href="https://cursos.alura.com.br/course/django-autenticacao-formularios-alerta/task/119344" target="_blank" rel="noopener noreferrer">
-                    Acessar
-                  </a>
-                  <p>Validações</p>
-                </li> <br>
-          
-  
-            </ul> <br>
-
-            <p>3. Django: Autenticação de formulários e alertas</p>
-            <ul>
-                <li>
-                  <a href="https://cursos.alura.com.br/course/django-2-boas-praticas/task/70220" target="_blank" rel="noopener noreferrer">
-                    Acessar
-                  </a>
-                  <p>Paginação no Django</p>
-                </li> <br>
-                <li>
-                  <a href="https://cursos.alura.com.br/course/django-persistencia-dados-admin/task/118895" target="_blank" rel="noopener noreferrer">
-                    Acessar
-                  </a>
-                  <p>Mecanismo de Busca</p>
-                </li> <br>
-
-                <li>
-                  <a href="https://www.youtube.com/watch?v=sKnMi0Qr-u8" target="_blank" rel="noopener noreferrer">
-                    Acessar
-                  </a>
-                  <p>Envio de email</p>
-                </li> <br>
-          
-  
+                <li>Time de Desenvolvimento</li> <br>
+                    <p>O <strong>Time de Desenvolvimento</strong> é formado por profissionais multidisciplinares que são responsáveis por entregar o incremento do produto ao final de cada sprint. Eles são autogeridos, ou seja, eles próprios decidem como organizar o trabalho para atingir o objetivo do sprint. <br> <br>
+                        <strong>Exemplo:</strong> Em um projeto de desenvolvimento de um site de e-commerce, o time de desenvolvimento pode ser composto por desenvolvedores de front-end e back-end, designers de UI/UX e testadores. Eles cooperam para entregar uma nova funcionalidade do site, como a página de checkout, ao final de um sprint.
             </ul> <br>
         </section>
 
+        <!-- Eventos do Scrum -->
         <section>
-          <div class="section-header">
-              <h2>Django Rest</h2>
-              <label class="completion-label">
-                  <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-              </label> 
-          </div> <br>
-          <p>1. Django Rest (Formacao):</p>
-          <ul>
-              <li>
-                <a href="https://cursos.alura.com.br/formacao-django-rest" target="_blank" rel="noopener noreferrer">
-                  Acessar
+            <div class="section-header">
+                <h2>3. Django: Autenticação de formulários e alertas</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label> 
+            </div> <br>
+            <p>O Scrum organiza o trabalho em eventos (ou cerimônias), que são essenciais para a entrega de valor contínuo e a melhoria do processo. Estes eventos criam cadência e oportunidades regulares de inspeção e adaptação.
+            <ul>
+                <li>Paginação no Django</li> <br>
+                <a href="https://cursos.alura.com.br/course/django-2-boas-praticas/task/70220" target="_blank" rel="noopener noreferrer">
+                    Acessar
+                  </a>
+                <li>Mecanismo de Busca</li> <br>
+                <a href="https://cursos.alura.com.br/course/django-persistencia-dados-admin/task/118895" target="_blank" rel="noopener noreferrer">
+                    Acessar
                 </a>
-                <p>Django REST APIs: crie aplicações REST em Python</p>
-              </li> <br>
-              
-        
+                
+                <li>Envio de e-mail</li>
+                <a href="https://www.youtube.com/watch?v=sKnMi0Qr-u8" target="_blank" rel="noopener noreferrer">
+                    Acessar
+                </a>
 
-          </ul> <br>
+            </ul>
+        </section>
 
-    
-      </section>
-
-        
-
-  
-        
+        <!-- Artefatos do Scrum -->
+        <section>
+            <div class="section-header">
+                <h2>Django Rest</h2>
+                <label class="completion-label">
+                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                </label> 
+            </div> <br>
+            <p>1. Django Rest (Formacao):</p>
+            <ul>
+                <li>Django REST APIs: crie aplicações REST em Python</li>
+                <a href="https://cursos.alura.com.br/formacao-django-rest" target="_blank" rel="noopener noreferrer">
+                    Acessar
+                </a>
+            </ul>
+        </section>
     </main>
 
     <footer class="text-center py-4">
         <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka6PYS2ZTMj7Do35tWl53KIkazN1l5Hb9Kjk7aaJ5RrbZZgZ9KmbxKt0qKZ1dQF" crossorigin="anonymous"></script>
-    <script type="module" src="/script/barra_progresso.js"></script>
-    <script type="module" src="/script/index.js"></script>
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+
+    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
+    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/barra_progresso.js"></script>
 </body>
 </html>
