@@ -23,19 +23,25 @@ const database = getDatabase(app);
 const checkboxes = document.querySelectorAll('.topic-checkbox');
 const progressBar = document.getElementById('progress-bar');
 
-// Obtém o usuário autenticado
+// Seleciona o campo de entrada para o nome da trilha
+const trilhaInput = document.getElementById('trilha-nome');
+
+// Variável para armazenar o ID do usuário
 let userId = '';
+
+// Observa mudanças de estado na autenticação do usuário
 onAuthStateChanged(auth, (user) => {
     if (user) {
         userId = user.uid; // Armazena o ID do usuário autenticado
         console.log("Usuário autenticado:", user.email);
+
+        // Chama as funções para carregar o progresso e o estado de conclusão
+        loadProgressFromFirebase();
+        loadTrilhaCompleta();
     } else {
         console.log("Nenhum usuário autenticado.");
     }
 });
-
-// Seleciona o campo de entrada para o nome da trilha
-const trilhaInput = document.getElementById('trilha-nome');
 
 // Função para atualizar a barra de progresso
 function updateProgress() {
@@ -134,6 +140,7 @@ function loadProgressFromFirebase() {
 // Função para carregar o estado de conclusão da trilha
 function loadTrilhaCompleta() {
     const trilhaId = trilhaInput.value.trim();
+    console.log("Tentando carregar trilha:", trilhaId, "para o usuário:", userId);
 
     if (!trilhaId) {
         console.error("Por favor, insira o nome da trilha para carregar o estado de conclusão.");
@@ -145,7 +152,7 @@ function loadTrilhaCompleta() {
         get(completeRef).then((snapshot) => {
             if (snapshot.exists() && snapshot.val() === true) {
                 console.log("Trilha está completa.");
-                // Aqui você pode exibir "completa" no seu perfil
+                // Exibir "completa" no perfil ou interface
             } else {
                 console.log("Trilha não está completa ou não foi encontrada.");
             }
@@ -160,12 +167,6 @@ function loadTrilhaCompleta() {
 // Adiciona o evento de mudança a cada checkbox
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', updateProgress);
-});
-
-// Carrega o progresso salvo do Firebase ao carregar a página
-window.addEventListener('load', () => {
-    loadProgressFromFirebase();
-    loadTrilhaCompleta(); // Carrega o estado de conclusão ao carregar a página
 });
 
 // Pegar os elementos do modal e do botão
