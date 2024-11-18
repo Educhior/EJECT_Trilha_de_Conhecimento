@@ -18,13 +18,19 @@
             <a href="#" class="menu-item active">Inicio</a>
             <a href="/EJECT_Trilha_de_Conhecimento/SiGAV/acompanhamento" class="menu-item">Acompanhamento</a>
             <a href="#" class="menu-item">OKR's</a>
-            <a href="#" class="menu-item">GT's</a>
+            <a href="/EJECT_Trilha_de_Conhecimento/SiGAV/ProSempre" class="menu-item">ProSempre</a>
+            <a href="/EJECT_Trilha_de_Conhecimento/SiGAV/financeiro" class="menu-item">Financeiro</a>
             <a href="#" class="menu-item">Configurações</a>
         </nav>
         <div class="premium-section">
-            <p>V: 0.2.0 | EJECT&copy; 2024</p>
+            <p>V: 0.2.1 | EJECT&copy; 2024</p>
         </div>
+        <!-- Botão de Fechar -->
+        <button class="close-btn" id="close-sidebar">×</button>
     </aside>
+
+    <!-- Botão de Menu Hambúrguer -->
+    <button class="menu-toggle" id="open-sidebar">&#9776;</button>
 
     <!-- Conteúdo Principal -->
     <main class="main-content">
@@ -42,7 +48,7 @@
             </div>
             <div class="profile-card">
                 <img src="john-doe.jpg" alt="Apollo">
-                <h4>Em Desenvlvimento</h4>
+                <h4>Em Desenvolvimento</h4>
                 <p>Sr. Apollo</p>
                 <div class="profile-info">
                     <p>Company: EJECT</p>
@@ -81,9 +87,19 @@
             </div>
         </section>
     </main>
+
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
     <script src="/EJECT_Trilha_de_Conhecimento/SiGAV/script/sigav.js" defer></script>
+    
+    <!-- Lógica para alternar a visibilidade da sidebar -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open'); // Alterna a classe 'open' para mostrar ou esconder a sidebar
+        }
+    </script>
+
 </body>
 </html>
