@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiGAV | ProSempre</title>
+    <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/SiGAV/css/sigav.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+   <!-- Menu Lateral -->
+   <aside class="sidebar">
+    <div class="logo">
+        <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo">
+        <h2>SiGAV<span class="beta-tag" id="open-modal">BETA</span></h2>
+    </div>
+    <nav class="menu">
+        <a href="#" class="menu-item">Inicio</a>
+        <a href="/EJECT_Trilha_de_Conhecimento/SiGAV/acompanhamento" class="menu-item">Acompanhamento</a>
+        <a href="#" class="menu-item">OKR's</a>
+        <a href="/EJECT_Trilha_de_Conhecimento/SiGAV/ProSempre" class="menu-item active">ProSempre</a>
+        <a href="/EJECT_Trilha_de_Conhecimento/SiGAV/financeiro" class="menu-item">Financeiro</a>
+        <a href="#" class="menu-item">Configurações</a>
+    </nav>
+    <div class="premium-section">
+        <p>V: 0.2.1 | EJECT&copy; 2024</p>
+    </div>
+</aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <section>
+            <div class="container">
+                <div>
+                    <h2>ProSempre | Avaliação do 1º Desafio</h2> <br>
+                </div>
+                <iframe width="100%" height="700" src="https://lookerstudio.google.com/embed/reporting/2340e7dd-be15-4b21-9a20-737a00b1e97b/page/EzWtD" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+            </div>
+        </section>
+        <footer>
+            <p>SIGAV - Sistema de Gerenciamento e Acompanhamento Virtual V: 0.2.1 | EJECT&copy; 2024</p>
+        </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <script src="/EJECT_Trilha_de_Conhecimento/SiGAV/script/painel_administrativo.js" defer></script>
+    
+    <!-- Lógica para alternar a visibilidade da sidebar -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open'); // Alterna a classe 'open' para mostrar ou esconder a sidebar
+        }
+    </script>
+</body>
+</html>

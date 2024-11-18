@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiGAV</title>
+    <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/SiGAV/css/sigav.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Menu Lateral -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo">
+            <h2>SiGAV<span class="beta-tag" id="open-modal">BETA</span></h2>
+        </div>
+        <nav class="menu">
+            <a href="#" class="menu-item active">Inicio</a>
+            <a href="/EJECT_Trilha_de_Conhecimento/SiGAV/acompanhamento" class="menu-item">Acompanhamento</a>
+            <a href="#" class="menu-item">OKR's</a>
+            <a href="/EJECT_Trilha_de_Conhecimento/SiGAV/ProSempre" class="menu-item">ProSempre</a>
+            <a href="/EJECT_Trilha_de_Conhecimento/SiGAV/financeiro" class="menu-item">Financeiro</a>
+            <a href="#" class="menu-item">Configurações</a>
+        </nav>
+        <div class="premium-section">
+            <p>V: 0.2.1 | EJECT&copy; 2024</p>
+        </div>
+    </aside>
+
+    <!-- Botão de Menu Hambúrguer -->
+    <button class="menu-toggle" id="open-sidebar">&#9776;</button>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <header>
+            <input type="text" placeholder="Search..." class="search-bar">
+            <div class="user-icons">
+                <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="User 1">
+            </div>
+        </header>
+
+        <section class="dashboard">
+            <div class="welcome-card">
+                <h3>Bem Vindo ao SiGAV</h3> <br>
+                <p>O SIGAV é uma plataforma interna de gerenciamento desenvolvida para otimizar e centralizar as operações da empresa.</p>
+            </div>
+            <div class="profile-card">
+                <img src="john-doe.jpg" alt="Apollo">
+                <h4>Em Desenvolvimento</h4>
+                <p>Sr. Apollo</p>
+                <div class="profile-info">
+                    <p>Company: EJECT</p>
+                    <p>Apirante</p>
+                    <p>Tempo de MEJ: 15 anos</p>
+                </div>
+            </div>
+            <div class="task-card">
+                <div class="stats">
+                    <h5>Total de Usuários Cadastrados:</h5>
+                    <p id="user-count">0</p> <!-- Será atualizado pelo script --> <br>
+                    
+                    <h5>Top 3 Usuários por Trilhas Concluídas:</h5>
+                    <ul id="top-users">
+                        <!-- Nomes dos usuários irão aparecer aqui -->
+                    </ul>
+                </div>
+            </div>
+            <div class="task-card">
+                <h4>Grupo de GT</h4>
+                <p>Task Done: 25 / 50</p>
+                <div class="progress-bar"></div>
+                <div class="avatars">
+                    <img src="avatar4.jpg" alt="Avatar 4">
+                    <img src="avatar5.jpg" alt="Avatar 5">
+                    <img src="avatar6.jpg" alt="Avatar 6">
+                </div>
+            </div>
+            <div class="calendar">
+                <h4>Calendário</h4> <br>
+                <iframe src="https://calendar.google.com/calendar/embed?src=c_ce2f8f7824145228974c0794751eae8186e68ea3bca8463ca0e4df9e7a1cc410%40group.calendar.google.com&ctz=America%2FFortaleza" style="border: 0" width="100%" height="500" frameborder="0" scrolling="no"></iframe>
+            </div>
+            <div class="tasks">
+                <h4>Daily Tasks</h4> <br>
+                <div class="task-item">10:00 - Em Desenvolvimento</div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <script src="/EJECT_Trilha_de_Conhecimento/SiGAV/script/sigav.js" defer></script>
+    
+    <!-- Lógica para alternar a visibilidade da sidebar -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open'); // Alterna a classe 'open' para mostrar ou esconder a sidebar
+        }
+    </script>
+
+</body>
+</html>
