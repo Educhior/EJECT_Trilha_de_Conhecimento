@@ -41,248 +41,489 @@
     <main>
         <section>
             <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
-        </section>
+        </section> <br>
 
         <input type="hidden" id="trilha-nome" value="Git e GitHub" />
 
-        <section>
-            <ul>
-                <li>
-                    <h4>Barra de Progresso Interativa <span class="beta-tag" id="open-modal">BETA</span> </h4> <br>
-                    <div class="progress-bar-container">
-                        <div id="progress-bar" class="progress-bar">0%</div>
-                    </div>
-                </li>
-            </ul>
-        
-            <!-- Modal estrutura -->
-            <div id="betaModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h3>Funcionalidade Beta</h3>
-                    <p>Esta funcionalidade ainda está em fase de testes. Por favor, nos envie feedback sobre quaisquer problemas ou sugestões de melhorias!</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Trilha de Conhecimento - Git e GitHub</h2>
-            <p>Esta trilha de conhecimento tem como objetivo apresentar os conceitos básicos de Git e GitHub, bem como suas funcionalidades e recursos avançados.</p>
-        </section>
-        <section>
-            <div class="section-header">
-                <h2>Introdução</h2>
-                <label class="completion-label">
-                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                </label> 
-            </div> <br>
-            <ul>
-                <li>O que é Git?</li> <br>
-                <p>Git é um sistema de controle de versão distribuído usado para rastrear mudanças no código-fonte durante o desenvolvimento de software. Ele permite que vários desenvolvedores trabalhem em um projeto de forma colaborativa, mantendo um histórico de todas as alterações e facilitando a coordenação e fusão do trabalho realizado em paralelo.</p>
-                <li>O que é GitHub?</li> <br>
-                <p>GitHub é uma plataforma de hospedagem de código-fonte baseada na web que utiliza o sistema de controle de versão Git. Ele oferece um ambiente colaborativo onde desenvolvedores e equipes podem armazenar, gerenciar e colaborar em projetos de software. O GitHub simplifica o uso do Git, fornecendo uma interface amigável e recursos adicionais, como gerenciamento de projetos, integração contínua (CI), automação, e muito mais.</p> <br>
-                <li>Instalação e Configuração</li> <br>
-                <p> <strong>Windows</strong> <br><br>
-                    1 - Vá até o site oficial do Git: https://git-scm.com. <br>
-                    2 - Clique no botão Download for Windows e baixe o instalador. <br>
-                    3 - Abra o arquivo .exe baixado e siga as instruções do instalador. <br>
-                    4 - Durante a instalação, você verá várias opções. Deixe as opções padrão marcadas, a menos que tenha uma necessidade específica. As opções importantes incluem: <br>
-                        • "Adjusting your PATH environment": Escolha "Use Git from the command line and also from 3rd-party software" para facilitar o uso de Git com outras ferramentas. <br>
-                        • Editor de texto padrão: Você pode selecionar o editor de sua preferência, como o Vim, VS Code, ou Notepad++. <br>
-                    5 - Após a instalação, abra o Git Bash (incluído na instalação) para usar o Git no terminal. <br><br>
-                    <strong>macOS</strong> <br><br>
-                    1 - Você pode instalar o Git via Homebrew (se já tiver Homebrew instalado) ou baixá-lo manualmente. <br>
-                        • Para instalar via Homebrew, abra o terminal e execute: <br>
-                    <code>brew install git</code> <br> <br>
-
-                    2 - Alternativamente, vá até https://git-scm.com, baixe o instalador para macOS e siga as instruções. <br><br>
-                    <strong>Linux</strong> <br><br>
-                    No Linux, o Git está disponível através dos gerenciadores de pacotes. Use um dos seguintes comandos, dependendo da sua distribuição: <br> <br>
-                    
-                    • Debian/Ubuntu: <br>
-                    <code>sudo apt update</code> <br>
-                    <code>sudo apt install git</code> <br> <br>
-                    
-                    • Fedora: <br>
-                    <code>sudo dnf install git</code> <br> <br>
-
-                    • Arch Linux: <br>
-                    <code>sudo pacman -S git</code> </p> <br>
-
+        <div class="content">
+            <section class="main-section">
+                <section>
                     <section>
-                        <h3>Vídeo Tutorial</h3> <br>
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/CX9p2zQ5X2w?si=LL1IRCcmFIL65scR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width: 80%; height: 315px; display: flex; margin: auto;"></iframe>
-                        </div>
-                    </section>
-                    
-                </p>
-            </ul> <br>
-        </section>
-        <section>
-            <div class="section-header">
-                <h2>Conceitos Básicos</h2>
-                <label class="completion-label">
-                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                </label> 
-            </div> <br>
-            <ul>
-                <li>Repositórios</li> <br>
-                <p>Um repositório é um local onde o código-fonte de um projeto é armazenado e gerenciado. No contexto de sistemas de controle de versão como o Git, um repositório (ou repo) mantém o histórico completo de todas as mudanças feitas no projeto ao longo do tempo, permitindo que os desenvolvedores acompanhem, revisem e revertam alterações.</p>
-                <p>Aqui estão os principais aspectos dos repositórios: <br> <br>
+                        <p id="texto" style="display: none;">
+                            Este site está testando um projeto para ser acessível, permitindo que o conteúdo seja narrado automaticamente para usuários com deficiência visual.
 
-                    <strong>1. Repositório Local vs Repositório Remoto</strong> <br> <br>
-                    <strong>Repositório Local:</strong> É o repositório que está na sua máquina. Ele contém todos os arquivos do projeto, assim como o histórico completo de commits, branches, e outros dados. <br>
-                    <strong>Repositório Remoto:</strong> É o repositório que está hospedado em um servidor, como o GitHub, GitLab ou Bitbucket. O repositório remoto é usado para compartilhar o código com outros desenvolvedores. <br> <br>
-                    <strong>2. Criando um Repositório</strong> <br> <br>
-                    Um repositório pode ser criado usando o comando <code>git init</code> para inicializar um repositório local, ou você pode clonar um repositório remoto existente com <code>git clone</code>.  <br>
-                    No GitHub ou GitLab, é possível criar um repositório diretamente pela interface da plataforma e, em seguida, clonar para seu ambiente local. <br> <br>
-                    <strong>3. Componentes de um Repositório</strong> <br> <br>
-                    <strong>Arquivos do Projeto:</strong> O repositório contém todos os arquivos e diretórios do projeto, como código-fonte, documentação, e arquivos de configuração.  <br>
-                    <strong>Histórico de Commits:</strong> O repositório armazena cada commit, que é uma "foto" do projeto em um determinado momento. Isso permite rastrear todas as mudanças feitas. <br>
-                    <strong>Branches:</strong> Um repositório pode conter várias ramificações (branches), que são diferentes linhas de desenvolvimento. A branch principal geralmente é chamada de <code>main</code> ou <code>master</code>, mas outras branches podem ser criadas para desenvolver novos recursos ou corrigir bugs. <br>
-                    <strong>Tags:</strong> São usadas para marcar versões específicas do projeto, como uma versão de lançamento (v1.0.0). As tags são úteis para identificar e referenciar versões específicas do código. <br> <br>
-                    <strong>4. Clonar e Sincronizar Repositórios</strong> <br> <br>
-                    Quando você clona um repositório remoto, você cria uma cópia local dele na sua máquina. A partir daí, você pode fazer mudanças localmente e, quando estiver pronto, enviar essas mudanças de volta para o repositório remoto com o comando <code>git push</code>. <br>
-                    Você também pode baixar as mudanças feitas por outras pessoas no repositório remoto com o comando <code>git pull</code>. Isso sincroniza seu repositório local com o repositório remoto. <br> <br>
-                    <strong>5. Open Source e Repositórios Públicos/Privados</strong> <br> <br>
-                    Um repositório pode ser público, permitindo que qualquer pessoa veja e contribua, ou privado, onde apenas pessoas autorizadas podem acessá-lo. Isso é comum em projetos de código aberto e projetos internos em empresas. <br> <br>
-                    <strong>6. Estrutura de um Repositório Git</strong> <br> <br>
-                    <strong>.git:</strong> Um diretório oculto que contém todos os dados internos do Git, como objetos de commit, referências de branches, e histórico. <br>
-                    <strong>README.md:</strong> Um arquivo comum encontrado em muitos repositórios, usado para descrever o projeto e fornecer instruções para os usuários. <br>
-                    <strong>.gitignore:</strong> Um arquivo que informa ao Git quais arquivos ou pastas ele deve ignorar (como arquivos temporários ou de configuração).</p>
-                <li>Commits</li> <br>
-                <p>Um commit é uma operação que salva as alterações feitas em um repositório Git. Cada commit é uma unidade atômica de alteração que inclui um conjunto de mudanças em arquivos específicos, uma mensagem descritiva e um identificador único (hash). Os commits são usados para rastrear o progresso do desenvolvimento, documentar as alterações feitas e facilitar a colaboração entre os membros da equipe.</p>
-                <p>
-                    Um commit é como um ponto de controle no projeto, que registra as mudanças feitas em arquivos ou diretórios. Ele armazena o estado do projeto naquele momento específico, permitindo que você volte a esse ponto se necessário. Aqui estão alguns aspectos importantes sobre commits: <br> <br>
-                    Cada commit é identificado por um hash único (gerado automaticamente pelo Git) que serve como um identificador exclusivo daquela mudança. <br> <br>
-                    <strong>2. Estrutura de um Commit</strong> <br> <br>
-                    Mudanças (Diff): O commit contém as diferenças (diferença de código) entre o estado atual dos arquivos e o estado no commit anterior. <br>
-                    Mensagem de Commit: Uma breve descrição das alterações feitas. É importante que essa mensagem seja clara e informativa, para ajudar a rastrear e entender as mudanças ao longo do tempo. <br>
-                    Autor do Commit: O commit também registra quem fez a mudança (nome e email configurados no Git). <br>
-                    Data e Hora: O momento exato em que o commit foi feito. <br> <br>
-                    <strong>3. Criando um Commit</strong> <br> <br>
-                    Antes de fazer um commit, você precisa adicionar as mudanças ao staging area (área de preparação) usando o comando <code>git add <arquivo></code>. <br>
-                    Depois de adicionar as mudanças, você usa <code>git commit -m "mensagem do commit"</code> para salvar essas mudanças no repositório local. <br>
-                    Exemplo: <br>
-                    <code>git add arquivo.txt</code> <br>
-                    <code>git commit -m "Corrigido bug na função de login"</code> <br> <br>
-                    <strong>4. Staging Area (Área de Preparação)</strong> <br> <br>
-                    Nem todas as mudanças feitas nos arquivos são automaticamente incluídas em um commit. Para controlar quais mudanças serão registradas no próximo commit, você as adiciona à staging area usando <code>git add</code>. Somente os arquivos na staging area serão incluídos no commit. <br> <br>
-                    <strong>5. Commits e Histórico</strong> <br> <br>
-                    O Git mantém um histórico de todos os commits feitos no repositório, o que permite rastrear as mudanças ao longo do tempo. Usando o comando <code>git log</code>, você pode visualizar uma lista dos commits anteriores, incluindo a mensagem de commit, o autor, a data e o hash do commit. <br>
-                    Exemplo de <code>git log:</code> <br>
-                    <code>commit d9a8f2a...</code> <br>
-                    <code>Author: João Silva </code> <br>
-                    <code>Date: Wed Oct 6 14:30:00 2024 -0300</code> <br>
-                    <code>Corrigido bug na função de login</code> <br> <br>
-                    <strong>6. Commits Incrementais</strong> <br> <br>
-                    Os commits são feitos de forma incremental, ou seja, cada commit contém apenas as mudanças que foram feitas em relação ao commit anterior. Isso facilita o rastreamento do histórico de desenvolvimento e permite reverter para estados anteriores com facilidade, caso algo dê errado. <br> <br>
-                    <strong>7. Commits e Branches</strong> <br> <br>
-                    Commits são feitos dentro de branches (ramificações), que são linhas de desenvolvimento. Quando você faz um commit, ele fica associado à branch atual. Isso permite trabalhar em diferentes funcionalidades ou correções de bugs sem interferir no código principal. <br> <br>
-                    <strong>8. Alterando e Desfazendo Commits</strong> <br> <br>
-                    É possível editar ou até mesmo desfazer commits em Git. Com o comando <code>git commit --amend</code>, você pode modificar o último commit (como corrigir uma mensagem ou adicionar mais arquivos). Além disso, comandos como <code>git reset</code> ou <code>git revert</code> permitem desfazer commits, restaurando o repositório a um estado anterior. <br> <br>
-                    <strong>9. Commits e Colaboração</strong> <br> <br>
-                    Em repositórios compartilhados (remotos), como no GitHub ou GitLab, os commits locais são enviados ao repositório remoto com o comando <code>git push</code>. Isso permite que outros desenvolvedores vejam as mudanças e colaborem no mesmo projeto. Da mesma forma, ao executar <code>git pull</code>, você pode baixar commits feitos por outros desenvolvedores. <br>   <br>
-                    <strong>10. Boas Práticas para Commits</strong> <br> <br>
-                    <strong>Commits pequenos e frequentes:</strong> Fazer commits pequenos, sempre que uma unidade lógica de trabalho é concluída, facilita o rastreamento de problemas e a colaboração. <br>
-                    <strong>Mensagens claras:</strong> A mensagem de commit deve ser descritiva e explicar claramente o que foi alterado ou corrigido. <br>
-                    <strong>Não incluir mudanças irrelevantes:</strong> Faça commit apenas de arquivos relacionados à alteração. Use <code>.gitignore</code> para ignorar arquivos temporários. <br> <br>
-                </p>
-                <li>Branches</li> <br>
-                <p>
-                    Uma branch representa uma versão do projeto que diverge do histórico principal. A branch principal, na maioria dos projetos, é chamada de main ou master. Quando você cria uma nova branch, você faz uma cópia do projeto a partir de um ponto no tempo (normalmente o commit atual), e a partir desse ponto, os novos commits ficam separados do código principal até que você decida mesclar (merge) essas mudanças de volta. <br> <br>
-                    <strong>1. Por que usar branches?</strong> <br> <br>
-                    Branches permitem que você trabalhe em diferentes tarefas simultaneamente (como novas funcionalidades ou correções de bugs) sem interferir no código estável. Eles são amplamente usados em fluxos de trabalho colaborativos para evitar conflitos entre desenvolvedores que trabalham em partes diferentes do código. <br> <br>
-                    <strong>2. Tipos de Branches</strong> <br> <br>
-                    Branch Principal (main/master): Normalmente, esta é a branch onde o código mais estável é mantido. O nome mais comum é main ou master. <br>
-                    Branches de Funcionalidades (Feature Branches): São criadas para desenvolver novas funcionalidades ou melhorias. Quando a funcionalidade estiver pronta, a branch pode ser fundida de volta à branch principal. <br>
-                    Branches de Correção de Bugs: Usadas para trabalhar em correções de bugs específicos, de forma que o código principal não seja afetado enquanto a correção está em andamento. <br>
-                    Branches de Lançamento (Release Branches): Criadas quando o projeto está pronto para ser preparado para uma nova versão. Elas são usadas para os ajustes finais antes de uma nova versão ser lançada. <br>
-                    Branches de Hotfix: São usadas para corrigir problemas críticos encontrados em produção e que precisam ser resolvidos rapidamente. <br> <br>
-                    <strong>3. Criar uma Branch</strong> <br> <br>
-                    Para criar uma nova branch, você pode usar o comando <code>git branch</code> ou <code>git checkout -b</code>. Aqui está um exemplo de como criar e mudar para uma nova branch chamada nova-funcionalidade: <br>
-                    <code>git checkout -b nova-funcionalidade</code> <br>
-                    Isso cria uma nova branch a partir da branch atual e automaticamente alterna para ela. <br> <br>
-                    <strong>4. Trabalhando em uma Branch</strong> <br> <br>
-                    Uma vez que você está em uma branch, todas as mudanças e commits feitos serão específicos para essa branch. Você pode trabalhar de maneira isolada sem afetar outras branches. Se necessário, você pode trocar entre branches com o comando: <br>
-                    <code>git checkout nome-da-branch</code> <br>
-                    Por exemplo, para voltar à branch principal main: <br> 
-                    <code>git checkout main</code> <br> <br>
-                    <strong>5. Visualizando Branches</strong> <br> <br>
-                    Para ver todas as branches no repositório, use: <br>
-                    <code>git branch</code> <br>
-                    Isso mostrará as branches locais, com a branch atual destacada. <br> <br>
-                    <strong>6. Mesclando (Merge) uma Branch</strong> <br> <br>
-                    Quando o trabalho em uma branch está completo, é comum "mesclar" (merge) essa branch de volta na branch principal (ou em outra branch). Isso integra as mudanças feitas naquela branch ao código principal. O comando básico para isso é: <br>
-                    <code>git checkout main</code> <br>
-                    <code>git merge nova-funcionalidade</code> <br>
-                    Isso mescla a branch nova-funcionalidade na branch main. <br> <br>
-                    <strong>7. Branches Remotas</strong> <br> <br>
-                    Além das branches locais, você pode ter branches remotas, que são cópias das branches que existem no servidor remoto (por exemplo, no GitHub ou GitLab). Para sincronizar uma branch local com o repositório remoto, você usa o comando <code>git push</code>. <br>
-                    Para enviar uma nova branch para o repositório remoto: <br>
-                    <code>git push origin nome-da-branch</code> <br> <br>        
-                    <strong>8. Excluindo uma Branch</strong> <br> <br>
-                    Quando uma branch não é mais necessária (por exemplo, após a conclusão de uma funcionalidade e sua mesclagem na branch principal), ela pode ser deletada. Para excluir uma branch local, use: <br>
-                    <code>git branch -d nome-da-branch</code> <br>
-                    Para excluir uma branch remota: <br>
-                    <code>git push origin --delete nome-da-branch</code> <br> <br>
-                    <strong>9. Branching e Colaboração</strong> <br> <br>
-                    Em projetos colaborativos, é comum que cada desenvolvedor trabalhe em suas próprias branches para isolar suas mudanças. Quando uma funcionalidade está pronta, a branch é enviada para revisão e, se aprovada, mesclada na branch principal por meio de um Pull Request (em plataformas como GitHub ou GitLab). <br>
-                    Exemplo de Fluxo de Trabalho: <br>
-                    Criar uma branch para uma nova funcionalidade: <br>
-                    <code>git checkout -b feature-nova-funcionalidade</code> <br>
-                    Fazer commits das alterações: <br>
-                    <code>git add .</code> <br>
-                    <code>git commit -m "Adiciona nova funcionalidade X"</code> <br>
-                    Publicar a branch no repositório remoto: <br>
-                    <code>git push origin feature-nova-funcionalidade</code> <br>
-                    Criar um Pull Request para que a branch seja revisada e mesclada na branch main. <br> <br>
-                </p>
-                <li>Merge</li> <br>
-                <p>O merge é o processo de combinar as alterações feitas em diferentes branches de um repositório Git. Quando um branch está pronto para ser integrado de volta ao branch principal (master), os desenvolvedores podem realizar um merge para unir as alterações. O Git tenta mesclar automaticamente as mudanças, mas pode haver conflitos que precisam ser resolvidos manualmente. O merge é uma operação essencial para consolidar o trabalho feito em diferentes partes do projeto.</p>
-            </ul> <br>
-        </section>
-        <section>
-            <div class="section-header">
-                <h2>Trabalhando com GitHub</h2>
-                <label class="completion-label">
-                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                </label> 
-            </div> <br>
-            <ul>
-                <li>Clonando Repositórios</li>
-                <p>Clonar um repositório Git significa criar uma cópia local do código-fonte hospedado no GitHub em sua máquina. Isso permite que você trabalhe no projeto, faça alterações, crie novos commits e envie suas contribuições de volta para o repositório remoto. Para clonar um repositório, você precisa do URL do repositório e do Git instalado em sua máquina.</p>
-                <li>Pull Requests</li>
-                <p>Um Pull Request (PR) é uma solicitação feita por um desenvolvedor para mesclar as alterações feitas em um branch específico de um repositório Git. Os Pull Requests são usados para revisar, discutir e aprovar as mudanças antes de serem integradas ao branch principal. Eles facilitam a colaboração entre os membros da equipe e ajudam a manter a qualidade do código.</p>
-                <li>Issues</li>
-                <p>As Issues são usadas para rastrear tarefas, bugs, solicitações de recursos e outras atividades relacionadas a um projeto no GitHub. Elas são usadas para relatar problemas, discutir ideias, planejar o trabalho e colaborar com outros desenvolvedores. As Issues podem ser atribuídas a membros da equipe, marcadas com rótulos, comentadas e fechadas quando concluídas.</p>
-                <li>GitHub Actions</li>
-                <p>GitHub Actions é um serviço de automação integrado ao GitHub que permite criar workflows personalizados para automatizar tarefas, testes, implantações e muito mais. Com GitHub Actions, você pode definir ações baseadas em eventos, como push de código, criação de Pull Requests ou lançamento de versões, e executar scripts, comandos ou contêineres em resposta a esses eventos.</p>
-            </ul>
-        </section>
+                            Trilha de Conhecimento - Guit e Guitrub.
+
+Esta trilha de conhecimento tem como objetivo apresentar os conceitos básicos de Guit e Guitrub, bem como suas funcionalidades e recursos avançados.
+
+Introdução
+
+O que é Guit?
+
+Git é um sistema de controle de versão distribuído usado para rastrear mudanças no código-fonte durante o desenvolvimento de software. Ele permite que vários desenvolvedores trabalhem em um projeto de forma colaborativa, mantendo um histórico de todas as alterações e facilitando a coordenação e fusão do trabalho realizado em paralelo.
+
+O que é GuitHub?
+
+GitHub é uma plataforma de hospedagem de código-fonte baseada na web que utiliza o sistema de controle de versão Guit. Ele oferece um ambiente colaborativo onde desenvolvedores e equipes podem armazenar, gerenciar e colaborar em projetos de software. O GitHub simplifica o uso do Git, fornecendo uma interface amigável e recursos adicionais, como gerenciamento de projetos, integração contínua (CI), automação, e muito mais.
+
+Instalação e Configuração
+
+Windows
+
+1 - Vá até o site oficial do Git: https://git-scm.com.
+2 - Clique no botão Download for Windows e baixe o instalador.
+3 - Abra o arquivo .exe baixado e siga as instruções do instalador.
+4 - Durante a instalação, você verá várias opções. Deixe as opções padrão marcadas, a menos que tenha uma necessidade específica. As opções importantes incluem:
+• "Adjusting your PATH environment": Escolha "Use Git from the command line and also from 3rd-party software" para facilitar o uso de Git com outras ferramentas.
+• Editor de texto padrão: Você pode selecionar o editor de sua preferência, como o Vim, VS Code, ou Notepad++.
+5 - Após a instalação, abra o Git Bash (incluído na instalação) para usar o Git no terminal.
+
+macOS
+
+1 - Você pode instalar o Git via Homebrew (se já tiver Homebrew instalado) ou baixá-lo manualmente.
+• Para instalar via Homebrew, abra o terminal e execute:
+brew install git
+
+2 - Alternativamente, vá até https://git-scm.com, baixe o instalador para macOS e siga as instruções.
+
+Linux
+
+No Linux, o Git está disponível através dos gerenciadores de pacotes. Use um dos seguintes comandos, dependendo da sua distribuição:
+
+• Debian/Ubuntu:
+sudo apt update
+sudo apt install git
+
+• Fedora:
+sudo dnf install git
+
+• Arch Linux:
+sudo pacman -S git
+
+Conceitos Básicos
+
+Repositórios
+
+Um repositório é um local onde o código-fonte de um projeto é armazenado e gerenciado. No contexto de sistemas de controle de versão como o Git, um repositório (ou repo) mantém o histórico completo de todas as mudanças feitas no projeto ao longo do tempo, permitindo que os desenvolvedores acompanhem, revisem e revertam alterações.
+
+Aqui estão os principais aspectos dos repositórios:
+
+1. Repositório Local vs Repositório Remoto
+
+Repositório Local: É o repositório que está na sua máquina. Ele contém todos os arquivos do projeto, assim como o histórico completo de commits, branches, e outros dados.
+Repositório Remoto: É o repositório que está hospedado em um servidor, como o GitHub, GitLab ou Bitbucket. O repositório remoto é usado para compartilhar o código com outros desenvolvedores.
+
+2. Criando um Repositório
+
+Um repositório pode ser criado usando o comando git init para inicializar um repositório local, ou você pode clonar um repositório remoto existente com git clone.
+No GitHub ou GitLab, é possível criar um repositório diretamente pela interface da plataforma e, em seguida, clonar para seu ambiente local.
+
+3. Componentes de um Repositório
+
+Arquivos do Projeto: O repositório contém todos os arquivos e diretórios do projeto, como código-fonte, documentação, e arquivos de configuração.
+Histórico de Commits: O repositório armazena cada commit, que é uma "foto" do projeto em um determinado momento. Isso permite rastrear todas as mudanças feitas.
+Branches: Um repositório pode conter várias ramificações (branches), que são diferentes linhas de desenvolvimento. A branch principal geralmente é chamada de main ou master, mas outras branches podem ser criadas para desenvolver novos recursos ou corrigir bugs.
+Tags: São usadas para marcar versões específicas do projeto, como uma versão de lançamento (v1.0.0). As tags são úteis para identificar e referenciar versões específicas do código.
+
+4. Clonar e Sincronizar Repositórios
+
+Quando você clona um repositório remoto, você cria uma cópia local dele na sua máquina. A partir daí, você pode fazer mudanças localmente e, quando estiver pronto, enviar essas mudanças de volta para o repositório remoto com o comando git push.
+Você também pode baixar as mudanças feitas por outras pessoas no repositório remoto com o comando git pull. Isso sincroniza seu repositório local com o repositório remoto.
+
+5. Open Source e Repositórios Públicos/Privados
+
+Um repositório pode ser público, permitindo que qualquer pessoa veja e contribua, ou privado, onde apenas pessoas autorizadas podem acessá-lo. Isso é comum em projetos de código aberto e projetos internos em empresas.
+
+6. Estrutura de um Repositório Git
+
+.git: Um diretório oculto que contém todos os dados internos do Git, como objetos de commit, referências de branches, e histórico.
+README.md: Um arquivo comum encontrado em muitos repositórios, usado para descrever o projeto e fornecer instruções para os usuários.
+.gitignore: Um arquivo que informa ao Git quais arquivos ou pastas ele deve ignorar (como arquivos temporários ou de configuração).
+
+Commits
+
+Um commit é uma operação que salva as alterações feitas em um repositório Git. Cada commit é uma unidade atômica de alteração que inclui um conjunto de mudanças em arquivos específicos, uma mensagem descritiva e um identificador único (hash). Os commits são usados para rastrear o progresso do desenvolvimento, documentar as alterações feitas e facilitar a colaboração entre os membros da equipe.
+
+Um commit é como um ponto de controle no projeto, que registra as mudanças feitas em arquivos ou diretórios. Ele armazena o estado do projeto naquele momento específico, permitindo que você volte a esse ponto se necessário. Aqui estão alguns aspectos importantes sobre commits:
+
+Cada commit é identificado por um hash único (gerado automaticamente pelo Git) que serve como um identificador exclusivo daquela mudança.
+
+2. Estrutura de um Commit
+
+Mudanças (Diff): O commit contém as diferenças (diferença de código) entre o estado atual dos arquivos e o estado no commit anterior.
+Mensagem de Commit: Uma breve descrição das alterações feitas. É importante que essa mensagem seja clara e informativa, para ajudar a rastrear e entender as mudanças ao longo do tempo.
+Autor do Commit: O commit também registra quem fez a mudança (nome e email configurados no Git).
+Data e Hora: O momento exato em que o commit foi feito.
+
+3. Criando um Commit
+
+Antes de fazer um commit, você precisa adicionar as mudanças ao staging area (área de preparação) usando o comando git add .
+Depois de adicionar as mudanças, você usa git commit -m "mensagem do commit" para salvar essas mudanças no repositório local.
+Exemplo:
+git add arquivo.txt
+git commit -m "Corrigido bug na função de login"
+
+4. Staging Area (Área de Preparação)
+
+Nem todas as mudanças feitas nos arquivos são automaticamente incluídas em um commit. Para controlar quais mudanças serão registradas no próximo commit, você as adiciona à staging area usando git add. Somente os arquivos na staging area serão incluídos no commit.
+
+5. Commits e Histórico
+
+O Git mantém um histórico de todos os commits feitos no repositório, o que permite rastrear as mudanças ao longo do tempo. Usando o comando git log, você pode visualizar uma lista dos commits anteriores, incluindo a mensagem de commit, o autor, a data e o hash do commit.
+Exemplo de git log:
+commit d9a8f2a...
+Author: João Silva
+Date: Wed Oct 6 14:30:00 2024 -0300
+Corrigido bug na função de login
+
+6. Commits Incrementais
+
+Os commits são feitos de forma incremental, ou seja, cada commit contém apenas as mudanças que foram feitas em relação ao commit anterior. Isso facilita o rastreamento do histórico de desenvolvimento e permite reverter para estados anteriores com facilidade, caso algo dê errado.
+
+7. Commits e Branches
+
+Commits são feitos dentro de branches (ramificações), que são linhas de desenvolvimento. Quando você faz um commit, ele fica associado à branch atual. Isso permite trabalhar em diferentes funcionalidades ou correções de bugs sem interferir no código principal.
+
+8. Alterando e Desfazendo Commits
+
+É possível editar ou até mesmo desfazer commits em Git. Com o comando git commit --amend, você pode modificar o último commit (como corrigir uma mensagem ou adicionar mais arquivos). Além disso, comandos como git reset ou git revert permitem desfazer commits, restaurando o repositório a um estado anterior.
+
+9. Commits e Colaboração
+
+Em repositórios compartilhados (remotos), como no GitHub ou GitLab, os commits locais são enviados ao repositório remoto com o comando git push. Isso permite que outros desenvolvedores vejam as mudanças e colaborem no mesmo projeto. Da mesma forma, ao executar git pull, você pode baixar commits feitos por outros desenvolvedores.
+
+10. Boas Práticas para Commits
+
+Commits pequenos e frequentes: Fazer commits pequenos, sempre que uma unidade lógica de trabalho é concluída, facilita o rastreamento de problemas e a colaboração.
+Mensagens claras: A mensagem de commit deve ser descritiva e explicar claramente o que foi alterado ou corrigido.
+Não incluir mudanças irrelevantes: Faça commit apenas de arquivos relacionados à alteração. Use .gitignore para ignorar arquivos temporários.
+
+
+Branches
+
+Uma branch representa uma versão do projeto que diverge do histórico principal. A branch principal, na maioria dos projetos, é chamada de main ou master. Quando você cria uma nova branch, você faz uma cópia do projeto a partir de um ponto no tempo (normalmente o commit atual), e a partir desse ponto, os novos commits ficam separados do código principal até que você decida mesclar (merge) essas mudanças de volta.
+
+1. Por que usar branches?
+
+Branches permitem que você trabalhe em diferentes tarefas simultaneamente (como novas funcionalidades ou correções de bugs) sem interferir no código estável. Eles são amplamente usados em fluxos de trabalho colaborativos para evitar conflitos entre desenvolvedores que trabalham em partes diferentes do código.
+
+2. Tipos de Branches
+
+Branch Principal (main/master): Normalmente, esta é a branch onde o código mais estável é mantido. O nome mais comum é main ou master.
+Branches de Funcionalidades (Feature Branches): São criadas para desenvolver novas funcionalidades ou melhorias. Quando a funcionalidade estiver pronta, a branch pode ser fundida de volta à branch principal.
+Branches de Correção de Bugs: Usadas para trabalhar em correções de bugs específicos, de forma que o código principal não seja afetado enquanto a correção está em andamento.
+Branches de Lançamento (Release Branches): Criadas quando o projeto está pronto para ser preparado para uma nova versão. Elas são usadas para os ajustes finais antes de uma nova versão ser lançada.
+Branches de Hotfix: São usadas para corrigir problemas críticos encontrados em produção e que precisam ser resolvidos rapidamente.
+
+3. Criar uma Branch
+
+Para criar uma nova branch, você pode usar o comando git branch ou git checkout -b. Aqui está um exemplo de como criar e mudar para uma nova branch chamada nova-funcionalidade:
+git checkout -b nova-funcionalidade
+Isso cria uma nova branch a partir da branch atual e automaticamente alterna para ela.
+
+4. Trabalhando em uma Branch
+
+Uma vez que você está em uma branch, todas as mudanças e commits feitos serão específicos para essa branch. Você pode trabalhar de maneira isolada sem afetar outras branches. Se necessário, você pode trocar entre branches com o comando:
+git checkout nome-da-branch
+Por exemplo, para voltar à branch principal main:
+git checkout main
+
+5. Visualizando Branches
+
+Para ver todas as branches no repositório, use:
+git branch
+Isso mostrará as branches locais, com a branch atual destacada.
+
+6. Mesclando (Merge) uma Branch
+
+Quando o trabalho em uma branch está completo, é comum "mesclar" (merge) essa branch de volta na branch principal (ou em outra branch). Isso integra as mudanças feitas naquela branch ao código principal. O comando básico para isso é:
+git checkout main
+git merge nova-funcionalidade
+Isso mescla a branch nova-funcionalidade na branch main.
+
+7. Branches Remotas
+
+Além das branches locais, você pode ter branches remotas, que são cópias das branches que existem no servidor remoto (por exemplo, no GitHub ou GitLab). Para sincronizar uma branch local com o repositório remoto, você usa o comando git push.
+Para enviar uma nova branch para o repositório remoto:
+git push origin nome-da-branch
+
+8. Excluindo uma Branch
+
+Quando uma branch não é mais necessária (por exemplo, após a conclusão de uma funcionalidade e sua mesclagem na branch principal), ela pode ser deletada. Para excluir uma branch local, use:
+git branch -d nome-da-branch
+Para excluir uma branch remota:
+git push origin --delete nome-da-branch
+
+9. Branching e Colaboração
+
+Em projetos colaborativos, é comum que cada desenvolvedor trabalhe em suas próprias branches para isolar suas mudanças. Quando uma funcionalidade está pronta, a branch é enviada para revisão e, se aprovada, mesclada na branch principal por meio de um Pull Request (em plataformas como GitHub ou GitLab).
+Exemplo de Fluxo de Trabalho:
+Criar uma branch para uma nova funcionalidade:
+git checkout -b feature-nova-funcionalidade
+Fazer commits das alterações:
+git add .
+git commit -m "Adiciona nova funcionalidade X"
+Publicar a branch no repositório remoto:
+git push origin feature-nova-funcionalidade
+Criar um Pull Request para que a branch seja revisada e mesclada na branch main.
+
+
+Merge
+
+O merge é o processo de combinar as alterações feitas em diferentes branches de um repositório Git. Quando um branch está pronto para ser integrado de volta ao branch principal (master), os desenvolvedores podem realizar um merge para unir as alterações. O Git tenta mesclar automaticamente as mudanças, mas pode haver conflitos que precisam ser resolvidos manualmente. O merge é uma operação essencial para consolidar o trabalho feito em diferentes partes do projeto.
+
+Trabalhando com GitHub
+
+Clonando Repositórios
+Clonar um repositório Git significa criar uma cópia local do código-fonte hospedado no GitHub em sua máquina. Isso permite que você trabalhe no projeto, faça alterações, crie novos commits e envie suas contribuições de volta para o repositório remoto. Para clonar um repositório, você precisa do URL do repositório e do Git instalado em sua máquina.
+
+Pull Requests
+Um Pull Request (PR) é uma solicitação feita por um desenvolvedor para mesclar as alterações feitas em um branch específico de um repositório Git. Os Pull Requests são usados para revisar, discutir e aprovar as mudanças antes de serem integradas ao branch principal. Eles facilitam a colaboração entre os membros da equipe e ajudam a manter a qualidade do código.
+
+Issues
+As Issues são usadas para rastrear tarefas, bugs, solicitações de recursos e outras atividades relacionadas a um projeto no GitHub. Elas são usadas para relatar problemas, discutir ideias, planejar o trabalho e colaborar com outros desenvolvedores. As Issues podem ser atribuídas a membros da equipe, marcadas com rótulos, comentadas e fechadas quando concluídas.
+
+GitHub Actions
+GitHub Actions é um serviço de automação integrado ao GitHub que permite criar workflows personalizados para automatizar tarefas, testes, implantações e muito mais. Com GitHub Actions, você pode definir ações baseadas em eventos, como push de código, criação de Pull Requests ou lançamento de versões, e executar scripts, comandos ou contêineres em resposta a esses eventos.
+                        </p>
+                        <button id="play-button">Reproduzir Narração</button>
+                        <button id="pause-button" disabled>Pausar</button>
+                        <button id="resume-button" disabled>Continuar</button>
+                        <button id="stop-button" disabled>Parar</button>
+                        <span class="beta-tag">BETA</span>
+                    </section> <br>
+                    <section>
+                        <h2 class="title">Trilha de Conhecimento - Git e GitHub</h2>
+                    </section> <br>
+                    <p>Esta trilha de conhecimento tem como objetivo apresentar os conceitos básicos de Git e GitHub, bem como suas funcionalidades e recursos avançados.</p> <br>
+                    <div class="section-header">
+                        <h2>Introdução</h2>
+                        <label class="completion-label">
+                            <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                        </label> 
+                    </div> <br>
+                    <ul>
+                        <li>O que é Git?</li> <br>
+                        <p>Git é um sistema de controle de versão distribuído usado para rastrear mudanças no código-fonte durante o desenvolvimento de software. Ele permite que vários desenvolvedores trabalhem em um projeto de forma colaborativa, mantendo um histórico de todas as alterações e facilitando a coordenação e fusão do trabalho realizado em paralelo.</p>
+                        <li>O que é GitHub?</li> <br>
+                        <p>GitHub é uma plataforma de hospedagem de código-fonte baseada na web que utiliza o sistema de controle de versão Git. Ele oferece um ambiente colaborativo onde desenvolvedores e equipes podem armazenar, gerenciar e colaborar em projetos de software. O GitHub simplifica o uso do Git, fornecendo uma interface amigável e recursos adicionais, como gerenciamento de projetos, integração contínua (CI), automação, e muito mais.</p> <br>
+                        <li>Instalação e Configuração</li> <br>
+                        <p> <strong>Windows</strong> <br><br>
+                            1 - Vá até o site oficial do Git: https://git-scm.com. <br>
+                            2 - Clique no botão Download for Windows e baixe o instalador. <br>
+                            3 - Abra o arquivo .exe baixado e siga as instruções do instalador. <br>
+                            4 - Durante a instalação, você verá várias opções. Deixe as opções padrão marcadas, a menos que tenha uma necessidade específica. As opções importantes incluem: <br>
+                                • "Adjusting your PATH environment": Escolha "Use Git from the command line and also from 3rd-party software" para facilitar o uso de Git com outras ferramentas. <br>
+                                • Editor de texto padrão: Você pode selecionar o editor de sua preferência, como o Vim, VS Code, ou Notepad++. <br>
+                            5 - Após a instalação, abra o Git Bash (incluído na instalação) para usar o Git no terminal. <br><br>
+                            <strong>macOS</strong> <br><br>
+                            1 - Você pode instalar o Git via Homebrew (se já tiver Homebrew instalado) ou baixá-lo manualmente. <br>
+                                • Para instalar via Homebrew, abra o terminal e execute: <br>
+                            <code>brew install git</code> <br> <br>
         
-        <section>
-            <h2>Referências e Conteúdos Extras</h2>
-            <ul>
-                <li>GIT</li>
-                <a href="https://git-scm.com/docs/git/pt_BR" target="_blank"> [LINK] O que é GIT?</a><br> 
-                <a href="https://git-scm.com/docs/git-branch/pt_BR" target="_blank"> [LINK] Branches</a><br>
-                <a href="https://git-scm.com/docs/git#_git_commands" target="_blank"> [LINK] Git Commands</a><br> <br>
-
-                <li>GitHub Desktop</li>
-                <a href="https://docs.github.com/pt/get-started/start-your-journey/about-github-and-git" target="_blank"> [LINK] Aprenda as noções básicas do GitHub</a><br> 
-                <a href="https://docs.github.com/pt/get-started/using-github/github-flow" target="_blank"> [LINK] Fluxo do GitHub</a><br> <br>
-
+                            2 - Alternativamente, vá até https://git-scm.com, baixe o instalador para macOS e siga as instruções. <br><br>
+                            <strong>Linux</strong> <br><br>
+                            No Linux, o Git está disponível através dos gerenciadores de pacotes. Use um dos seguintes comandos, dependendo da sua distribuição: <br> <br>
+                            
+                            • Debian/Ubuntu: <br>
+                            <code>sudo apt update</code> <br>
+                            <code>sudo apt install git</code> <br> <br>
+                            
+                            • Fedora: <br>
+                            <code>sudo dnf install git</code> <br> <br>
+        
+                            • Arch Linux: <br>
+                            <code>sudo pacman -S git</code> </p> <br>
+        
+                            <section>
+                                <h3>Vídeo Tutorial</h3> <br>
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/CX9p2zQ5X2w?si=LL1IRCcmFIL65scR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width: 80%; height: 315px; display: flex; margin: auto;"></iframe>
+                                </div>
+                            </section>
+                            
+                        </p>
+                    </ul> <br>
+                </section>
+                <section>
+                    <div class="section-header">
+                        <h2>Conceitos Básicos</h2>
+                        <label class="completion-label">
+                            <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                        </label> 
+                    </div> <br>
+                    <ul>
+                        <li>Repositórios</li> <br>
+                        <p>Um repositório é um local onde o código-fonte de um projeto é armazenado e gerenciado. No contexto de sistemas de controle de versão como o Git, um repositório (ou repo) mantém o histórico completo de todas as mudanças feitas no projeto ao longo do tempo, permitindo que os desenvolvedores acompanhem, revisem e revertam alterações.</p>
+                        <p>Aqui estão os principais aspectos dos repositórios: <br> <br>
+        
+                            <strong>1. Repositório Local vs Repositório Remoto</strong> <br> <br>
+                            <strong>Repositório Local:</strong> É o repositório que está na sua máquina. Ele contém todos os arquivos do projeto, assim como o histórico completo de commits, branches, e outros dados. <br>
+                            <strong>Repositório Remoto:</strong> É o repositório que está hospedado em um servidor, como o GitHub, GitLab ou Bitbucket. O repositório remoto é usado para compartilhar o código com outros desenvolvedores. <br> <br>
+                            <strong>2. Criando um Repositório</strong> <br> <br>
+                            Um repositório pode ser criado usando o comando <code>git init</code> para inicializar um repositório local, ou você pode clonar um repositório remoto existente com <code>git clone</code>.  <br>
+                            No GitHub ou GitLab, é possível criar um repositório diretamente pela interface da plataforma e, em seguida, clonar para seu ambiente local. <br> <br>
+                            <strong>3. Componentes de um Repositório</strong> <br> <br>
+                            <strong>Arquivos do Projeto:</strong> O repositório contém todos os arquivos e diretórios do projeto, como código-fonte, documentação, e arquivos de configuração.  <br>
+                            <strong>Histórico de Commits:</strong> O repositório armazena cada commit, que é uma "foto" do projeto em um determinado momento. Isso permite rastrear todas as mudanças feitas. <br>
+                            <strong>Branches:</strong> Um repositório pode conter várias ramificações (branches), que são diferentes linhas de desenvolvimento. A branch principal geralmente é chamada de <code>main</code> ou <code>master</code>, mas outras branches podem ser criadas para desenvolver novos recursos ou corrigir bugs. <br>
+                            <strong>Tags:</strong> São usadas para marcar versões específicas do projeto, como uma versão de lançamento (v1.0.0). As tags são úteis para identificar e referenciar versões específicas do código. <br> <br>
+                            <strong>4. Clonar e Sincronizar Repositórios</strong> <br> <br>
+                            Quando você clona um repositório remoto, você cria uma cópia local dele na sua máquina. A partir daí, você pode fazer mudanças localmente e, quando estiver pronto, enviar essas mudanças de volta para o repositório remoto com o comando <code>git push</code>. <br>
+                            Você também pode baixar as mudanças feitas por outras pessoas no repositório remoto com o comando <code>git pull</code>. Isso sincroniza seu repositório local com o repositório remoto. <br> <br>
+                            <strong>5. Open Source e Repositórios Públicos/Privados</strong> <br> <br>
+                            Um repositório pode ser público, permitindo que qualquer pessoa veja e contribua, ou privado, onde apenas pessoas autorizadas podem acessá-lo. Isso é comum em projetos de código aberto e projetos internos em empresas. <br> <br>
+                            <strong>6. Estrutura de um Repositório Git</strong> <br> <br>
+                            <strong>.git:</strong> Um diretório oculto que contém todos os dados internos do Git, como objetos de commit, referências de branches, e histórico. <br>
+                            <strong>README.md:</strong> Um arquivo comum encontrado em muitos repositórios, usado para descrever o projeto e fornecer instruções para os usuários. <br>
+                            <strong>.gitignore:</strong> Um arquivo que informa ao Git quais arquivos ou pastas ele deve ignorar (como arquivos temporários ou de configuração).</p>
+                        <li>Commits</li> <br>
+                        <p>Um commit é uma operação que salva as alterações feitas em um repositório Git. Cada commit é uma unidade atômica de alteração que inclui um conjunto de mudanças em arquivos específicos, uma mensagem descritiva e um identificador único (hash). Os commits são usados para rastrear o progresso do desenvolvimento, documentar as alterações feitas e facilitar a colaboração entre os membros da equipe.</p>
+                        <p>
+                            Um commit é como um ponto de controle no projeto, que registra as mudanças feitas em arquivos ou diretórios. Ele armazena o estado do projeto naquele momento específico, permitindo que você volte a esse ponto se necessário. Aqui estão alguns aspectos importantes sobre commits: <br> <br>
+                            Cada commit é identificado por um hash único (gerado automaticamente pelo Git) que serve como um identificador exclusivo daquela mudança. <br> <br>
+                            <strong>2. Estrutura de um Commit</strong> <br> <br>
+                            Mudanças (Diff): O commit contém as diferenças (diferença de código) entre o estado atual dos arquivos e o estado no commit anterior. <br>
+                            Mensagem de Commit: Uma breve descrição das alterações feitas. É importante que essa mensagem seja clara e informativa, para ajudar a rastrear e entender as mudanças ao longo do tempo. <br>
+                            Autor do Commit: O commit também registra quem fez a mudança (nome e email configurados no Git). <br>
+                            Data e Hora: O momento exato em que o commit foi feito. <br> <br>
+                            <strong>3. Criando um Commit</strong> <br> <br>
+                            Antes de fazer um commit, você precisa adicionar as mudanças ao staging area (área de preparação) usando o comando <code>git add <arquivo></code>. <br>
+                            Depois de adicionar as mudanças, você usa <code>git commit -m "mensagem do commit"</code> para salvar essas mudanças no repositório local. <br>
+                            Exemplo: <br>
+                            <code>git add arquivo.txt</code> <br>
+                            <code>git commit -m "Corrigido bug na função de login"</code> <br> <br>
+                            <strong>4. Staging Area (Área de Preparação)</strong> <br> <br>
+                            Nem todas as mudanças feitas nos arquivos são automaticamente incluídas em um commit. Para controlar quais mudanças serão registradas no próximo commit, você as adiciona à staging area usando <code>git add</code>. Somente os arquivos na staging area serão incluídos no commit. <br> <br>
+                            <strong>5. Commits e Histórico</strong> <br> <br>
+                            O Git mantém um histórico de todos os commits feitos no repositório, o que permite rastrear as mudanças ao longo do tempo. Usando o comando <code>git log</code>, você pode visualizar uma lista dos commits anteriores, incluindo a mensagem de commit, o autor, a data e o hash do commit. <br>
+                            Exemplo de <code>git log:</code> <br>
+                            <code>commit d9a8f2a...</code> <br>
+                            <code>Author: João Silva </code> <br>
+                            <code>Date: Wed Oct 6 14:30:00 2024 -0300</code> <br>
+                            <code>Corrigido bug na função de login</code> <br> <br>
+                            <strong>6. Commits Incrementais</strong> <br> <br>
+                            Os commits são feitos de forma incremental, ou seja, cada commit contém apenas as mudanças que foram feitas em relação ao commit anterior. Isso facilita o rastreamento do histórico de desenvolvimento e permite reverter para estados anteriores com facilidade, caso algo dê errado. <br> <br>
+                            <strong>7. Commits e Branches</strong> <br> <br>
+                            Commits são feitos dentro de branches (ramificações), que são linhas de desenvolvimento. Quando você faz um commit, ele fica associado à branch atual. Isso permite trabalhar em diferentes funcionalidades ou correções de bugs sem interferir no código principal. <br> <br>
+                            <strong>8. Alterando e Desfazendo Commits</strong> <br> <br>
+                            É possível editar ou até mesmo desfazer commits em Git. Com o comando <code>git commit --amend</code>, você pode modificar o último commit (como corrigir uma mensagem ou adicionar mais arquivos). Além disso, comandos como <code>git reset</code> ou <code>git revert</code> permitem desfazer commits, restaurando o repositório a um estado anterior. <br> <br>
+                            <strong>9. Commits e Colaboração</strong> <br> <br>
+                            Em repositórios compartilhados (remotos), como no GitHub ou GitLab, os commits locais são enviados ao repositório remoto com o comando <code>git push</code>. Isso permite que outros desenvolvedores vejam as mudanças e colaborem no mesmo projeto. Da mesma forma, ao executar <code>git pull</code>, você pode baixar commits feitos por outros desenvolvedores. <br>   <br>
+                            <strong>10. Boas Práticas para Commits</strong> <br> <br>
+                            <strong>Commits pequenos e frequentes:</strong> Fazer commits pequenos, sempre que uma unidade lógica de trabalho é concluída, facilita o rastreamento de problemas e a colaboração. <br>
+                            <strong>Mensagens claras:</strong> A mensagem de commit deve ser descritiva e explicar claramente o que foi alterado ou corrigido. <br>
+                            <strong>Não incluir mudanças irrelevantes:</strong> Faça commit apenas de arquivos relacionados à alteração. Use <code>.gitignore</code> para ignorar arquivos temporários. <br> <br>
+                        </p>
+                        <li>Branches</li> <br>
+                        <p>
+                            Uma branch representa uma versão do projeto que diverge do histórico principal. A branch principal, na maioria dos projetos, é chamada de main ou master. Quando você cria uma nova branch, você faz uma cópia do projeto a partir de um ponto no tempo (normalmente o commit atual), e a partir desse ponto, os novos commits ficam separados do código principal até que você decida mesclar (merge) essas mudanças de volta. <br> <br>
+                            <strong>1. Por que usar branches?</strong> <br> <br>
+                            Branches permitem que você trabalhe em diferentes tarefas simultaneamente (como novas funcionalidades ou correções de bugs) sem interferir no código estável. Eles são amplamente usados em fluxos de trabalho colaborativos para evitar conflitos entre desenvolvedores que trabalham em partes diferentes do código. <br> <br>
+                            <strong>2. Tipos de Branches</strong> <br> <br>
+                            Branch Principal (main/master): Normalmente, esta é a branch onde o código mais estável é mantido. O nome mais comum é main ou master. <br>
+                            Branches de Funcionalidades (Feature Branches): São criadas para desenvolver novas funcionalidades ou melhorias. Quando a funcionalidade estiver pronta, a branch pode ser fundida de volta à branch principal. <br>
+                            Branches de Correção de Bugs: Usadas para trabalhar em correções de bugs específicos, de forma que o código principal não seja afetado enquanto a correção está em andamento. <br>
+                            Branches de Lançamento (Release Branches): Criadas quando o projeto está pronto para ser preparado para uma nova versão. Elas são usadas para os ajustes finais antes de uma nova versão ser lançada. <br>
+                            Branches de Hotfix: São usadas para corrigir problemas críticos encontrados em produção e que precisam ser resolvidos rapidamente. <br> <br>
+                            <strong>3. Criar uma Branch</strong> <br> <br>
+                            Para criar uma nova branch, você pode usar o comando <code>git branch</code> ou <code>git checkout -b</code>. Aqui está um exemplo de como criar e mudar para uma nova branch chamada nova-funcionalidade: <br>
+                            <code>git checkout -b nova-funcionalidade</code> <br>
+                            Isso cria uma nova branch a partir da branch atual e automaticamente alterna para ela. <br> <br>
+                            <strong>4. Trabalhando em uma Branch</strong> <br> <br>
+                            Uma vez que você está em uma branch, todas as mudanças e commits feitos serão específicos para essa branch. Você pode trabalhar de maneira isolada sem afetar outras branches. Se necessário, você pode trocar entre branches com o comando: <br>
+                            <code>git checkout nome-da-branch</code> <br>
+                            Por exemplo, para voltar à branch principal main: <br> 
+                            <code>git checkout main</code> <br> <br>
+                            <strong>5. Visualizando Branches</strong> <br> <br>
+                            Para ver todas as branches no repositório, use: <br>
+                            <code>git branch</code> <br>
+                            Isso mostrará as branches locais, com a branch atual destacada. <br> <br>
+                            <strong>6. Mesclando (Merge) uma Branch</strong> <br> <br>
+                            Quando o trabalho em uma branch está completo, é comum "mesclar" (merge) essa branch de volta na branch principal (ou em outra branch). Isso integra as mudanças feitas naquela branch ao código principal. O comando básico para isso é: <br>
+                            <code>git checkout main</code> <br>
+                            <code>git merge nova-funcionalidade</code> <br>
+                            Isso mescla a branch nova-funcionalidade na branch main. <br> <br>
+                            <strong>7. Branches Remotas</strong> <br> <br>
+                            Além das branches locais, você pode ter branches remotas, que são cópias das branches que existem no servidor remoto (por exemplo, no GitHub ou GitLab). Para sincronizar uma branch local com o repositório remoto, você usa o comando <code>git push</code>. <br>
+                            Para enviar uma nova branch para o repositório remoto: <br>
+                            <code>git push origin nome-da-branch</code> <br> <br>        
+                            <strong>8. Excluindo uma Branch</strong> <br> <br>
+                            Quando uma branch não é mais necessária (por exemplo, após a conclusão de uma funcionalidade e sua mesclagem na branch principal), ela pode ser deletada. Para excluir uma branch local, use: <br>
+                            <code>git branch -d nome-da-branch</code> <br>
+                            Para excluir uma branch remota: <br>
+                            <code>git push origin --delete nome-da-branch</code> <br> <br>
+                            <strong>9. Branching e Colaboração</strong> <br> <br>
+                            Em projetos colaborativos, é comum que cada desenvolvedor trabalhe em suas próprias branches para isolar suas mudanças. Quando uma funcionalidade está pronta, a branch é enviada para revisão e, se aprovada, mesclada na branch principal por meio de um Pull Request (em plataformas como GitHub ou GitLab). <br>
+                            Exemplo de Fluxo de Trabalho: <br>
+                            Criar uma branch para uma nova funcionalidade: <br>
+                            <code>git checkout -b feature-nova-funcionalidade</code> <br>
+                            Fazer commits das alterações: <br>
+                            <code>git add .</code> <br>
+                            <code>git commit -m "Adiciona nova funcionalidade X"</code> <br>
+                            Publicar a branch no repositório remoto: <br>
+                            <code>git push origin feature-nova-funcionalidade</code> <br>
+                            Criar um Pull Request para que a branch seja revisada e mesclada na branch main. <br> <br>
+                        </p>
+                        <li>Merge</li> <br>
+                        <p>O merge é o processo de combinar as alterações feitas em diferentes branches de um repositório Git. Quando um branch está pronto para ser integrado de volta ao branch principal (master), os desenvolvedores podem realizar um merge para unir as alterações. O Git tenta mesclar automaticamente as mudanças, mas pode haver conflitos que precisam ser resolvidos manualmente. O merge é uma operação essencial para consolidar o trabalho feito em diferentes partes do projeto.</p>
+                    </ul> <br>
+                </section>
+                <section>
+                    <div class="section-header">
+                        <h2>Trabalhando com GitHub</h2>
+                        <label class="completion-label">
+                            <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                        </label> 
+                    </div> <br>
+                    <ul>
+                        <li>Clonando Repositórios</li>
+                        <p>Clonar um repositório Git significa criar uma cópia local do código-fonte hospedado no GitHub em sua máquina. Isso permite que você trabalhe no projeto, faça alterações, crie novos commits e envie suas contribuições de volta para o repositório remoto. Para clonar um repositório, você precisa do URL do repositório e do Git instalado em sua máquina.</p>
+                        <li>Pull Requests</li>
+                        <p>Um Pull Request (PR) é uma solicitação feita por um desenvolvedor para mesclar as alterações feitas em um branch específico de um repositório Git. Os Pull Requests são usados para revisar, discutir e aprovar as mudanças antes de serem integradas ao branch principal. Eles facilitam a colaboração entre os membros da equipe e ajudam a manter a qualidade do código.</p>
+                        <li>Issues</li>
+                        <p>As Issues são usadas para rastrear tarefas, bugs, solicitações de recursos e outras atividades relacionadas a um projeto no GitHub. Elas são usadas para relatar problemas, discutir ideias, planejar o trabalho e colaborar com outros desenvolvedores. As Issues podem ser atribuídas a membros da equipe, marcadas com rótulos, comentadas e fechadas quando concluídas.</p>
+                        <li>GitHub Actions</li>
+                        <p>GitHub Actions é um serviço de automação integrado ao GitHub que permite criar workflows personalizados para automatizar tarefas, testes, implantações e muito mais. Com GitHub Actions, você pode definir ações baseadas em eventos, como push de código, criação de Pull Requests ou lançamento de versões, e executar scripts, comandos ou contêineres em resposta a esses eventos.</p>
+                    </ul>
+                </section>
                 
-                <li>GitFlow</li>
-                <a href="https://www.alura.com.br/artigos/git-flow-o-que-e-como-quando-utilizar?srsltid=AfmBOooMBdYG8oWrBrzymldKKajJs8MKoTHWug9t-mzXZ7cbyec3GvlR" target="_blank"> [LINK] Alura - Git Flow: entenda o que é, como e quando utilizar</a><br>
-                <a href="https://www.atlassian.com/br/git/tutorials/comparing-workflows/gitflow-workflow" target="_blank"> [LINK] Atlassian - Comparando fluxos de trabalho: Gitflow Workflow</a><br> <br>
-                <li>Outros</li>
-                <a href="https://www.youtube.com/watch?v=UBAX-13g8OM" target="_blank"> [VÍDEO] Git e GitHub para Iniciantes</a><br> <br>
-                
-            </ul>
-        </section>
+                <section>
+                    <h2>Referências e Conteúdos Extras</h2>
+                    <ul>
+                        <li>GIT</li>
+                        <a href="https://git-scm.com/docs/git/pt_BR" target="_blank"> [LINK] O que é GIT?</a><br> 
+                        <a href="https://git-scm.com/docs/git-branch/pt_BR" target="_blank"> [LINK] Branches</a><br>
+                        <a href="https://git-scm.com/docs/git#_git_commands" target="_blank"> [LINK] Git Commands</a><br> <br>
+        
+                        <li>GitHub Desktop</li>
+                        <a href="https://docs.github.com/pt/get-started/start-your-journey/about-github-and-git" target="_blank"> [LINK] Aprenda as noções básicas do GitHub</a><br> 
+                        <a href="https://docs.github.com/pt/get-started/using-github/github-flow" target="_blank"> [LINK] Fluxo do GitHub</a><br> <br>
+        
+                        
+                        <li>GitFlow</li>
+                        <a href="https://www.alura.com.br/artigos/git-flow-o-que-e-como-quando-utilizar?srsltid=AfmBOooMBdYG8oWrBrzymldKKajJs8MKoTHWug9t-mzXZ7cbyec3GvlR" target="_blank"> [LINK] Alura - Git Flow: entenda o que é, como e quando utilizar</a><br>
+                        <a href="https://www.atlassian.com/br/git/tutorials/comparing-workflows/gitflow-workflow" target="_blank"> [LINK] Atlassian - Comparando fluxos de trabalho: Gitflow Workflow</a><br> <br>
+                        <li>Outros</li>
+                        <a href="https://www.youtube.com/watch?v=UBAX-13g8OM" target="_blank"> [VÍDEO] Git e GitHub para Iniciantes</a><br> <br>
+                        
+                    </ul>
+                </section>
+            </section>
+      
+            <aside class="summary">
+              <h2>Indice</h2>
+              <ul>
+                <li class="active">Introdução</li>
+                <li>Conceitos Básicos</li>
+                <li>Trabalhando com GitHub</li>
+                <li>Referências e Conteúdos Extras</li>
+              </ul>
+            </aside>
+          </div>
+
+        
+        
         
     </main>
 </body>
@@ -292,6 +533,78 @@
 
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka6PYS2ZTMj7Do35tWl53KIkazN1l5Hb9Kjk7aaJ5RrbZZgZ9KmbxKt0qKZ1dQF" crossorigin="anonymous"></script>
-    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/barra_progresso.js"></script>
-    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
+    <script>
+        const texto = document.getElementById('texto').innerText;
+        const playButton = document.getElementById('play-button');
+        const pauseButton = document.getElementById('pause-button');
+        const resumeButton = document.getElementById('resume-button');
+        const stopButton = document.getElementById('stop-button');
+
+        // Verifica se a API de narração é suportada
+        if ('speechSynthesis' in window) {
+            const synth = window.speechSynthesis;
+            let utterance;
+            let selectedVoice;
+
+            // Carrega as vozes disponíveis
+            const loadVoices = () => {
+                const voices = synth.getVoices();
+                // Filtra vozes naturais em português brasileiro
+                selectedVoice = voices.find(voice => 
+                    voice.lang === 'pt-BR' && voice.name.toLowerCase().includes('natural')
+                ) || voices.find(voice => voice.lang === 'pt-BR'); // Fallback
+            };
+
+            // Garante que as vozes sejam carregadas (alguns navegadores precisam de tempo)
+            if (synth.onvoiceschanged !== undefined) {
+                synth.onvoiceschanged = loadVoices;
+            }
+            loadVoices();
+
+            playButton.addEventListener('click', () => {
+                if (utterance) {
+                    synth.cancel(); // Cancela qualquer narração em andamento
+                }
+                utterance = new SpeechSynthesisUtterance(texto);
+                utterance.lang = 'pt-BR';
+                if (selectedVoice) utterance.voice = selectedVoice; // Configura a voz
+                utterance.rate = 1; // Velocidade (ajuste se necessário)
+                synth.speak(utterance);
+
+                // Atualiza botões
+                playButton.disabled = true;
+                pauseButton.disabled = false;
+                stopButton.disabled = false;
+            });
+
+            pauseButton.addEventListener('click', () => {
+                if (synth.speaking && !synth.paused) {
+                    synth.pause();
+                    pauseButton.disabled = true;
+                    resumeButton.disabled = false;
+                }
+            });
+
+            resumeButton.addEventListener('click', () => {
+                if (synth.paused) {
+                    synth.resume();
+                    pauseButton.disabled = false;
+                    resumeButton.disabled = true;
+                }
+            });
+
+            stopButton.addEventListener('click', () => {
+                if (synth.speaking) {
+                    synth.cancel();
+                    playButton.disabled = false;
+                    pauseButton.disabled = true;
+                    resumeButton.disabled = true;
+                    stopButton.disabled = true;
+                }
+            });
+
+        } else {
+            alert('Desculpe, seu navegador não suporta a narração automática.');
+        }
+    </script>
 </html>
