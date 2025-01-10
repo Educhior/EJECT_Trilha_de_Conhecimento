@@ -50,11 +50,11 @@
                 <section>
                     <section>
                         <p id="texto" style="display: none;">
-                            Este site está testando um projeto para ser acessível, permitindo que o conteúdo seja narrado automaticamente para usuários com deficiência visual.
+                            Este site está testando uma ferramenta de acessibilidade que permite a narração automática do conteúdo para usuários com deficiência visual. Como está em desenvolvimento, é possível que ainda apresente problemas na execução durante o uso.
 
-                            Trilha de Conhecimento - Guit e Guitrub.
+                            Trilha de Conhecimento - Guit e Guithub.
 
-Esta trilha de conhecimento tem como objetivo apresentar os conceitos básicos de Guit e Guitrub, bem como suas funcionalidades e recursos avançados.
+Esta trilha de conhecimento tem como objetivo apresentar os conceitos básicos de Guit e Guithub, bem como suas funcionalidades e recursos avançados.
 
 Introdução
 
@@ -546,7 +546,7 @@ GitHub Actions é um serviço de automação integrado ao GitHub que permite cri
             let utterance;
             let selectedVoice;
 
-            // Carrega as vozes disponíveis
+            // Força o carregamento das vozes antes da interação
             const loadVoices = () => {
                 const voices = synth.getVoices();
                 // Filtra vozes naturais em português brasileiro
@@ -555,11 +555,11 @@ GitHub Actions é um serviço de automação integrado ao GitHub que permite cri
                 ) || voices.find(voice => voice.lang === 'pt-BR'); // Fallback
             };
 
-            // Garante que as vozes sejam carregadas (alguns navegadores precisam de tempo)
+            // Garante que as vozes sejam carregadas, especialmente em dispositivos móveis
+            loadVoices();
             if (synth.onvoiceschanged !== undefined) {
                 synth.onvoiceschanged = loadVoices;
             }
-            loadVoices();
 
             playButton.addEventListener('click', () => {
                 if (utterance) {
