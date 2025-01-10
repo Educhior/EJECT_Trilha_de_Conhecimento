@@ -383,3 +383,97 @@ footer p {
         transform: translateY(100vh) rotate(360deg);
     }
 }
+
+
+.gift-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #000, rgb(9, 149, 219));
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.presente{
+    width: 50px;
+    height: 300px;
+  
+    position: relative;
+  
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .hover{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    transition: .25s ease;
+  }
+  .lacos{
+    display: flex;
+  }
+  
+  .volta{
+    width: 150px;
+    height: 50px;
+    border: 10px solid #FFBB3A;
+    border-radius: 50% / 100% 50% 50% 0%;
+  }
+  
+  .volta.esq{
+    transform: rotateY(180deg);
+  }
+  
+  .fita{
+    background: rgb(9, 149, 219);
+  }
+  
+  .topo{
+    width: 300px;
+    height: 80px;
+  
+    background: rgb(0, 61, 115);
+  
+    display: flex;
+    justify-content: center;
+  
+    filter: drop-shadow(0 2px 5px);
+    border-radius: 15px;
+  }
+  
+  .topo > .fita{
+    width: 120px;
+    height: 80px;
+  }
+  
+  .caixa{
+    width: 260px;
+    height: 250px;
+    background: rgb(0, 61, 115);
+  
+    display: flex;
+    justify-content: center;
+  
+    border-radius: 0 0 15px 15px;
+  
+  }
+  
+  .caixa > .fita{
+    background: rgb(9, 149, 219);
+    width: 100px;
+    height: 100%;
+  }
+
+
+.countdown {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    color: #ffffff;
+}
