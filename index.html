@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+<!-- 
+
+░░░░░▄▄▀▀▀▀▀▀▀▀▀▄▄░░░░░
+░░░░█░░░░░░░░░░░░░█░░░░
+░░░█░░░░░░░░░░▄▄▄░░█░░░
+░░░█░░▄▄▄░░▄░░███░░█░░░
+░░░▄█░▄░░░▀▀▀░░░▄░█▄░░░
+░░░█░░▀█▀█▀█▀█▀█▀░░█░░░
+░░░▄██▄▄▀▀▀▀▀▀▀▄▄██▄░░░
+░▄█░█▀▀█▀▀▀█▀▀▀█▀▀█░█▄░
+-->
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +19,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/styles.css">
     <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
-    
 </head>
 <body>
     <!-- Vlibra -->
@@ -22,7 +32,7 @@
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
-    <!-- test -->
+    
     <header>
         <nav class="container nav-bar">
             <div class="ds-contact-container">
@@ -32,7 +42,7 @@
             </div>
             <div class="login-icon" id="login-container">
                 <a href="/EJECT_Trilha_de_Conhecimento/login.html" class="login-button" id="login-button">
-                    <img src="https://cdn-icons-png.flaticon.com/128/2331/2331397.png" alt="Login Icon">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
                     Perfil
                 </a>
             </div>
@@ -46,10 +56,31 @@
         <section id="ds-card-list" class="container">
             <br>
 
+            <section class="gift-section">
+                <div class="presente">
+                    <div class="hover">
+                        <div class="lacos">
+                            <div class="volta esq"></div>
+                            <div class="volta dir"></div>
+                        </div>
+                        <div class="topo">
+                            <div class="fita"></div>
+                        </div>
+                    </div>
+        
+                    <div class="caixa">
+                        <div class="fita"></div>
+                    </div>
+                </div>
+                <div class="countdown" id="countdown">Carregando...</div>
+            </section> <br>
+
+            <!-- Seção de boas-vindas
             <section>
                 <h1><div id="welcome-message" style="display: none;"></div></h1>
                 <p>Selecione uma trilha para começar o aprendizado. </p>
             </section> <br>
+            -->
 
             <section>
                 <!-- Barra de Busca e Filtro -->
@@ -99,7 +130,7 @@
                     <div class="ds-card">
                         <img src="https://media.licdn.com/dms/image/D4D12AQHkxwPuNCCBLA/article-cover_image-shrink_600_2000/0/1696281571014?e=2147483647&v=beta&t=jx27ZVMQKEi4EroaGoApIr5mcpFvcZPs-DnxmjSOxnY" alt="Imagem da trilha de desenvolvimento humano">
                         <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Desenvolvimento Humano</h3>
+                            <h3 class="titulo-trilha">Gestão de Pessoas</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/desenvolvimento_humano">Acessar</a>
                             </div>
@@ -336,6 +367,7 @@
     </script>
 
 <script>
+    /*
     function createSnowflake() {
         const snowflake = document.createElement("div");
         snowflake.classList.add("snowflake");
@@ -356,6 +388,30 @@
 
     // Gera um novo floco de neve a cada 200 ms
     setInterval(createSnowflake, 200);
+    */
+</script>
+
+<script>
+    function updateCountdown() {
+        const targetDate = new Date('2025-01-31T00:00:00').getTime();
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance <= 0) {
+            document.getElementById('countdown').innerHTML = "A data chegou!";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').innerHTML =
+            `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
 </script>
 
     
