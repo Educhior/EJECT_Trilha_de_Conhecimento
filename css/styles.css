@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik+80s+Fade&family=Silkscreen:wght@400;700&display=swap');
 
+@import url('dark_mode.css');
+
 /* Variáveis de cor */
 :root {
     --background: rgb(245, 251, 255);
@@ -478,4 +480,77 @@ footer p {
     font-family: "Silkscreen", serif;
     font-size: 1.5rem;
     color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #121212;
+        --color-primary: #1e1e1e;
+        --text-gray: #e0e0e0;
+        --white: #fff;
+        --text-light-grey: #888;
+        --star-yellow: #FFBB3A;
+    }
+
+    body {
+        background: var(--color-primary);
+        color: var(--text-gray);
+    }
+
+    header, footer {
+        background-color: #1c1c1c;
+    }
+
+    a, a:hover {
+        color: var(--white);
+    }
+
+    .ds-card-description {
+        background: #2c2c2c;
+        color: var(--text-gray);
+    }
+
+    .search-bar, .filter-bar {
+        background-color: #333;
+        color: var(--white);
+        border: 1px solid #444;
+    }
+
+    .ds-btn, .login-button, .logout-button {
+        background: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%);
+    }
+
+    .modal-content {
+        background-color: #333;
+        color: var(--white);
+    }
+
+    .ds-card-description-bottom p {
+        color: var(--text-light-grey);
+    }
+
+    .countdown {
+        color: #ffffff;
+    }
+
+    .ds-btn:hover, .login-button:hover, .logout-button:hover {
+        transform: scale(1.05);
+        color: white;
+    }
+
+    .modal {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-content h3, .modal-content p {
+        color: var(--white);
+    }
+
+    #logout-button {
+        background-color: #ff4757;
+    }
+
+    #logout-button:hover {
+        background-color: #ff6b81;
+    }
 }

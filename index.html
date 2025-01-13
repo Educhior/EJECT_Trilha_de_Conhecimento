@@ -105,6 +105,19 @@ Aguarde para novas charadas aqui...
             
 
             <div class="row" id="cardContainer">
+
+                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                    <div class="ds-card">
+                        <img src="https://img.freepik.com/vetores-premium/caixa-de-presente-de-natal-violeta-e-azul-sem-costura-padrao-evento-de-aniversario_75563-16520.jpg?semt=ais_hybrid" alt="Imagem de um presente">
+                        <div class="ds-card-description">
+                            <h3 class="titulo-trilha">⚒️⚙️🖥️📹</h3>
+                            <div class="ds-card-description-bottom">
+                                <a class="ds-btn" href="">🎁</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
                     <div class="ds-card">
                         <img src="https://hermes.dio.me/articles/cover/d2489f96-d56f-4b82-bc7f-84fbc9fb1368.jpg" alt="Imagem do GitHub">
@@ -416,6 +429,20 @@ Aguarde para novas charadas aqui...
 
     setInterval(updateCountdown, 1000);
 </script>
+
+<script>
+    document.getElementById('contrast-toggle').addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        
+        // Alternar o texto do botão
+        if (document.body.classList.contains('dark-mode')) {
+            this.textContent = 'Modo Claro';
+        } else {
+            this.textContent = 'Modo Escuro';
+        }
+    });
+</script>
+
 
     
 </body>
