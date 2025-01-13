@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> EJECT | TypeScript</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/trilhas_styles.css">
+    <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/logo.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Vlibra -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+          <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+    <header>
+        <nav class="container nav-bar">
+            <div class="ds-contact-container">
+                <a href="https://www.ejectufrn.com.br/">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
+                </a>
+            </div>
+            <div class="login-icon" id="login-container">
+                <a href="/EJECT_Trilha_de_Conhecimento/login" class="login-button" id="login-button">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
+                    Perfil
+                </a>
+            </div>
+
+        </nav>
+    </header>
+    <main>
+        <section>
+            <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
+        </section>
+
+        <input type="hidden" id="trilha-nome" value="JavaScript" />
+        <section>
+            <ul>
+                <li>
+                    <h4>Barra de Progresso Interativa <span class="beta-tag" id="open-modal">BETA</span> </h4> <br>
+                    <div class="progress-bar-container">
+                        <div id="progress-bar" class="progress-bar">0%</div>
+                    </div>
+                </li>
+            </ul>
+        
+            <!-- Modal estrutura -->
+            <div id="betaModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Funcionalidade Beta</h3>
+                    <p>Esta funcionalidade ainda está em fase de testes. Por favor, nos envie feedback sobre quaisquer problemas ou sugestões de melhorias!</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Quais são as principais vantagens do Typescript?</h2>
+            <p>Vídeo</p>
+            <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="https://www.youtube.com/watch?v=snwevp02sIw" target="_blank" style="color: rgb(0, 61, 115);">[Link] Vídeo informativo</a>
+                <div class="section-header">
+                    <label class="completion-label">
+                        <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                    </label> 
+                </div>
+            </div>
+        </section>
+    
+        <section>
+            <h2>TypeScript com JavaScript Vanilla</h2>
+            <p>Artigo</p>
+            <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="https://www.alura.com.br/artigos/typescript-javascript-vanilla" target="_blank" style="color: rgb(0, 61, 115);">[Link] Artigo informativo</a>
+                <div class="section-header">
+                    <label class="completion-label">
+                        <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                    </label> 
+                </div>
+            </div>
+        </section>
+    
+        <section>
+            <h2>TypeScript parte 1: evoluindo seu JavaScript</h2>
+            <p>Curso</p>
+            <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="https://cursos.alura.com.br/course/typescript-evoluindo-javascript" target="_blank" style="color: rgb(0, 61, 115);">[Link] Curso Alura</a>
+                <div class="section-header">
+                    <label class="completion-label">
+                        <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                    </label> 
+                </div>
+            </div>
+            
+        </section>
+    
+        <section>
+            <h2>TechGuide: TypeScript – Hipsters Ponto Tech #378</h2>
+            <p>Site</p>
+                <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                    <a href="https://www.hipsters.tech/techguide-typescript-hipsters-ponto-tech-378/" target="_blank" style="color: rgb(0, 61, 115);">[Link] Site informativo</a>
+                    <div class="section-header">
+                        <label class="completion-label">
+                            <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                        </label> 
+                    </div>
+                </div>
+        </section>
+    
+        <section>
+            <h2>TypeScript parte 2: avançando na linguagem</h2>
+            <p>Curso</p>
+                <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                    <a href="https://cursos.alura.com.br/course/typescript-avancando-linguagem" target="_blank" style="color: rgb(0, 61, 115);">[Link] Curso Alura</a>
+                    <div class="section-header">
+                        <label class="completion-label">
+                            <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                        </label> 
+                    </div>
+                </div>
+                
+        </section>
+
+        <section>
+          <h2>Typescript parte 3: mais técnicas e boas práticas</h2>
+          <p>Curso</p>
+              <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                  <a href="https://cursos.alura.com.br/course/typescript-tecnicas-boas-praticas" target="_blank" style="color: rgb(0, 61, 115);">[Link] Curso Alura</a>
+                  <div class="section-header">
+                      <label class="completion-label">
+                          <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                      </label> 
+                  </div>
+              </div>
+              
+        </section>
+
+        <section>
+          <h2>Javascript ou Typescript?</h2>
+          <p>Artigo</p>
+              <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                  <a href="https://www.alura.com.br/artigos/javascript-ou-typescript" target="_blank" style="color: rgb(0, 61, 115);">[Link] Artigo informativo</a>
+                  <div class="section-header">
+                      <label class="completion-label">
+                          <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                      </label> 
+                  </div>
+              </div>
+        </section>
+
+        <section>
+          <h2>Typescript, APIs e PIX na GerenciaNet – Hispters On The Road #55</h2>
+          <p>Site</p>
+              <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                  <a href="https://www.hipsters.tech/typescript-apis-e-pix-na-gerencianet-hispters-on-the-road-55/" target="_blank" style="color: rgb(0, 61, 115);">[Link] Site informativo</a>
+                  <div class="section-header">
+                      <label class="completion-label">
+                          <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
+                      </label> 
+                  </div>
+              </div>
+        </section>
+     
+    </main>
+
+    <footer class="text-center py-4">
+        <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>    
+    
+    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/barra_progresso.js"></script>
+    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
+</body>
+</html>
