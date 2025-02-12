@@ -1,4 +1,4 @@
-// Recuperacao_senha.js
+
 
 // Configuração do Firebase
 const firebaseConfig = {
@@ -11,21 +11,28 @@ const firebaseConfig = {
     measurementId: "G-37E12ZK0X0"
 };
 
-// Inicializar o Firebase
+// Inicializa o Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-// Função para enviar o e-mail de recuperação de senha
-document.getElementById('resetPasswordForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Impede o envio padrão do formulário
-    const email = document.getElementById('email').value;
+// Evento de submissão do formulário
+document.addEventListener("DOMContentLoaded", function () {
+    const resetForm = document.getElementById("resetPasswordForm");
 
-    auth.sendPasswordResetEmail(email)
-        .then(() => {
-            alert('E-mail de redefinição de senha enviado! Verifique sua caixa de entrada.');
-        })
-        .catch((error) => {
-            console.error(error);
-            alert('Erro: ' + error.message);
+    if (resetForm) {
+        resetForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+
+            auth.sendPasswordResetEmail(email)
+                .then(() => {
+                    alert("E-mail de recuperação enviado! Verifique sua caixa de entrada.");
+                    window.location.href = "/EJECT_Trilha_de_Conhecimento/login"; // Redireciona para o login
+                })
+                .catch(error => {
+                    console.error("Erro ao enviar e-mail:", error);
+                    alert("Erro ao enviar e-mail: " + error.message);
+                });
         });
+    }
 });
