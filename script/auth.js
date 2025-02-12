@@ -44,3 +44,5 @@ onAuthStateChanged(auth, (user) => {
 
 const forms = document.querySelector('.forms_cadastro');
 console.log(forms);
+
+
