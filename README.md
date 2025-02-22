@@ -14,46 +14,6 @@ A Trilha de Conhecimento tem como propósito:
 - Oferecer um caminho estruturado de aprendizado nas principais áreas de atuação da empresa.
 - Incentivar o desenvolvimento técnico e interpessoal através de atividades e desafios práticos.
 
-
-## Estrutura do Projeto
-
-O projeto está organizado em módulos, cada um abordando uma área de conhecimento específica. Esses módulos cobrem tanto competências técnicas quanto soft skills necessárias para o sucesso na EJECT. Veja abaixo os principais módulos:
-
-Módulos:
-
-- **Introdução à EJECT**
-
-Conheça a missão, visão e valores da empresa.
-Estrutura organizacional e principais áreas de atuação.Processo de trabalho colaborativo e metodologias ágeis.
- 
-- **Ferramentas de Colaboração**
-
-Introdução ao Git e GitHub.
-
--  Desenvolvimento Web **[EM BREVE]**
-
-HTML, CSS e JavaScript. 
-Noções básicas de design responsivo.
-Práticas de desenvolvimento ágil.
-Marketing Digital
-
-- Conceitos básicos de SEO e SEM. **[EM BREVE]**
-
-Estratégias de marketing para redes sociais.
-Planejamento de campanhas.
-Gestão de Projetos
-
-- **Noções de metodologias ágeis: Scrum e Kanban.**
-
-Como gerenciar tarefas e equipes de maneira eficiente.
-Soft Skills
-
-- Comunicação eficaz. **[EM BREVE]**
-
-Trabalho em equipe.
-Gestão de tempo e produtividade.
-
-
 ## Contribuições
 
 Contribuições para a Trilha de Conhecimento são bem-vindas! Para contribuir, siga os passos abaixo:
