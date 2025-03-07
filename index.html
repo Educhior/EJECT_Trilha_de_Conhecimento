@@ -14,11 +14,6 @@
 ╚██████╔╝██║     ██║  ██║██║ ╚████║      
  ╚═════╝ ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝                                                                                                                                                                                                        
 
-          _            _     _            
-  ___  __| |_   _  ___| |__ (_) ___  _ __ 
- / _ \/ _` | | | |/ __| '_ \| |/ _ \| '__|
-|  __/ (_| | |_| | (__| | | | | (_) | |   
- \___|\__,_|\__,_|\___|_| |_|_|\___/|_|   
 -->
 <html lang="pt-br">
 <head>
@@ -52,7 +47,7 @@
             </div>
             <div class="login-icon" id="login-container">
                 <a href="/EJECT_Trilha_de_Conhecimento/login.html" class="login-button" id="login-button">
-                    <img src="/EJECT_Trilha_de_Conhecimento/img/icon/mascara-de-carnaval.png" alt="Login Icon">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
                     Perfil
                 </a>
             </div>
@@ -64,7 +59,7 @@
 
     <main>
         <div class="banner" id="avisoBanner">
-            ⚠️ Aviso importante! O progresso das trilhas ficará temporariamente indisponível.
+            &#9888; Aviso importante! O progresso das trilhas será descontinuado.
             <button onclick="fecharBanner()">OK</button>
         </div>
 
@@ -436,28 +431,6 @@
 </script>
 
 <script>
-    function criarConfete() {
-        const cores = ["#ffcc00", "#ff33cc", "#6633ff", "#33ccff", "#00ff66", "#ff5733", "#33ff57"];
-        const confete = document.createElement("div");
-        confete.classList.add("confete");
-        document.body.appendChild(confete);
-        
-        // Define propriedades do confete
-        confete.style.left = Math.random() * window.innerWidth + "px";
-        confete.style.background = cores[Math.floor(Math.random() * cores.length)];
-        confete.style.animationDuration = (Math.random() * 3 + 2) + "s";
-        confete.style.width = confete.style.height = (Math.random() * 12 + 6) + "px";
-        confete.style.borderRadius = Math.random() > 0.5 ? "50%" : "30%";
-        confete.style.transform = `rotate(${Math.random() * 360}deg)`;
-
-        // Remove confete após a animação
-        setTimeout(() => confete.remove(), 5000);
-    }
-
-    setInterval(criarConfete, 100); // Cria confetes continuamente
-</script>
-
-<script>
     document.addEventListener("DOMContentLoaded", function () {
         if (!localStorage.getItem("avisoConfirmado")) {
             document.getElementById("avisoBanner").style.display = "block";
@@ -466,7 +439,7 @@
 
     function fecharBanner() {
         document.getElementById("avisoBanner").style.display = "none";
-        //localStorage.setItem("avisoConfirmado", "true");
+        localStorage.setItem("avisoConfirmado", "true");
     }
 </script>
 
