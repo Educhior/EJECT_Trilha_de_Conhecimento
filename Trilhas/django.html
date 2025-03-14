@@ -24,19 +24,15 @@
     </script>
 
 <header>
-    <nav class="container nav-bar">
+    <nav class="container">
+        <a href="index">
+            <h1 href = "/EJECT_Trilha_de_Conhecimento/index">Hub de Conhecimentos</h1>
+        </a>
         <div class="ds-contact-container">
             <a href="https://www.ejectufrn.com.br/">
                 <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
             </a>
         </div>
-        <div class="login-icon" id="login-container">
-            <a href="/EJECT_Trilha_de_Conhecimento/login" class="login-button" id="login-button">
-                <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
-                Perfil
-            </a>
-        </div>
-
     </nav>
 </header>
 
@@ -48,26 +44,6 @@
 
         <input type="hidden" id="trilha-nome" value="Django" />
 
-        <section>
-            <ul>
-                <li>
-                    <h4>Barra de Progresso Interativa <span class="beta-tag" id="open-modal">BETA</span> </h4> <br>
-                    <div class="progress-bar-container">
-                        <div id="progress-bar" class="progress-bar">0%</div>
-                    </div>
-                </li>
-            </ul>
-        
-            <!-- Modal estrutura -->
-            <div id="betaModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h3>Funcionalidade Beta</h3>
-                    <p>Esta funcionalidade ainda está em fase de testes. Por favor, nos envie feedback sobre quaisquer problemas ou sugestões de melhorias!</p>
-                </div>
-            </div>
-        </section>
-
         <!-- Conteúdo  -->
         <section class="mb-5">
             <h2>Introdução ao Django</h2> <br>
@@ -78,9 +54,6 @@
         <section>
             <div class="section-header">
                 <h2>Artigos</h2>
-                <label class="completion-label">
-                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                </label> 
             </div> <br>
             <ul>
                 <li><a href="https://www.alura.com.br/artigos/django-instalacao-configuracao-e-escrevendo-seu-primeiro-app" target="_blank" rel="noopener noreferrer">Django: instalação, configuração e escrevendo seu primeiro app</a></li> <br>
@@ -98,9 +71,6 @@
         <section>
             <div class="section-header">
                 <h2>Django</h2>
-                <label class="completion-label">
-                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                </label> 
             </div> <br>
             <p>1. Django templates:</p>
             <ul>
@@ -115,9 +85,6 @@
         <section>
             <div class="section-header">
                 <h2>3. Django: Autenticação de formulários e alertas</h2>
-                <label class="completion-label">
-                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                </label> 
             </div> <br>
 
             <ul>
@@ -142,9 +109,6 @@
         <section>
             <div class="section-header">
                 <h2>Django Rest</h2>
-                <label class="completion-label">
-                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                </label> 
             </div> <br>
             <p>1. Django Rest (Formacao):</p>
             <ul>
@@ -165,7 +129,5 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
 
-    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
-    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/barra_progresso.js"></script>
 </body>
 </html>

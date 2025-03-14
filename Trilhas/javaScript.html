@@ -23,46 +23,23 @@
     </script>
 
     <header>
-        <nav class="container nav-bar">
+        <nav class="container">
+            <a href="index">
+                <h1 href = "/EJECT_Trilha_de_Conhecimento/index">Hub de Conhecimentos</h1>
+            </a>
             <div class="ds-contact-container">
                 <a href="https://www.ejectufrn.com.br/">
                     <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
                 </a>
             </div>
-            <div class="login-icon" id="login-container">
-                <a href="/EJECT_Trilha_de_Conhecimento/login" class="login-button" id="login-button">
-                    <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
-                    Perfil
-                </a>
-            </div>
-
         </nav>
     </header>
     <main>
         <section>
             <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
-        </section>
+        </section> <br>
 
         <input type="hidden" id="trilha-nome" value="JavaScript" />
-        <section>
-            <ul>
-                <li>
-                    <h4>Barra de Progresso Interativa <span class="beta-tag" id="open-modal">BETA</span> </h4> <br>
-                    <div class="progress-bar-container">
-                        <div id="progress-bar" class="progress-bar">0%</div>
-                    </div>
-                </li>
-            </ul>
-        
-            <!-- Modal estrutura -->
-            <div id="betaModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h3>Funcionalidade Beta</h3>
-                    <p>Esta funcionalidade ainda está em fase de testes. Por favor, nos envie feedback sobre quaisquer problemas ou sugestões de melhorias!</p>
-                </div>
-            </div>
-        </section>
 
         <section>
             <h2>JavaScript para iniciantes - Origamid</h2>
@@ -70,9 +47,6 @@
             <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                 <a href="https://www.origamid.com/curso/javascript-completo-es6/0201-variaveis" target="_blank" style="color: rgb(0, 61, 115);">[Link] Curso Origamid</a>
                 <div class="section-header">
-                    <label class="completion-label">
-                        <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                    </label> 
                 </div>
             </div>
         </section>
@@ -83,9 +57,6 @@
             <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                 <a href="https://www.origamid.com/curso/javascript-completo-es6/0301-o-que-e-o-dom-1" target="_blank" style="color: rgb(0, 61, 115);">[Link] Curso Origamid</a>
                 <div class="section-header">
-                    <label class="completion-label">
-                        <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                    </label> 
                 </div>
             </div>
         </section>
@@ -96,9 +67,6 @@
             <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                 <a href="https://cursos.alura.com.br/course/javascript-metodos-array" target="_blank" style="color: rgb(0, 61, 115);">[Link] Curso Alura</a>
                 <div class="section-header">
-                    <label class="completion-label">
-                        <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                    </label> 
                 </div>
             </div>
             
@@ -111,9 +79,6 @@
                 <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                     <a href="https://cursos.alura.com.br/course/javascript-manipulando-objetos" target="_blank" style="color: rgb(0, 61, 115);">[Link] Curso Alura</a>
                     <div class="section-header">
-                        <label class="completion-label">
-                            <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                        </label> 
                     </div>
                 </div>
         </section>
@@ -125,9 +90,6 @@
                 <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                     <a href="https://cursos.alura.com.br/course/javascript-implementando-crud-requisicoes-http" target="_blank" style="color: rgb(0, 61, 115);">[Link] Curso Alura</a>
                     <div class="section-header">
-                        <label class="completion-label">
-                            <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                        </label> 
                     </div>
                 </div>
                 
@@ -139,11 +101,5 @@
         <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
     </footer>
 
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>    
-    
-    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/barra_progresso.js"></script>
-    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
 </body>
 </html>

@@ -23,47 +23,23 @@
     </script>
 
     <header>
-        <nav class="container nav-bar">
+        <nav class="container">
+            <a href="index">
+                <h1 href = "/EJECT_Trilha_de_Conhecimento/index">Hub de Conhecimentos</h1>
+            </a>
             <div class="ds-contact-container">
                 <a href="https://www.ejectufrn.com.br/">
                     <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
                 </a>
             </div>
-            <div class="login-icon" id="login-container">
-                <a href="/EJECT_Trilha_de_Conhecimento/login" class="login-button" id="login-button">
-                    <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
-                    Perfil
-                </a>
-            </div>
-
         </nav>
     </header>
     <main>
         <section>
             <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
-        </section>
+        </section> <br>
 
         <input type="hidden" id="trilha-nome" value="Vue" />
-
-        <section>
-            <ul>
-                <li>
-                    <h4>Barra de Progresso Interativa <span class="beta-tag" id="open-modal">BETA</span> </h4> <br>
-                    <div class="progress-bar-container">
-                        <div id="progress-bar" class="progress-bar">0%</div>
-                    </div>
-                </li>
-            </ul>
-        
-            <!-- Modal estrutura -->
-            <div id="betaModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h3>Funcionalidade Beta</h3>
-                    <p>Esta funcionalidade ainda está em fase de testes. Por favor, nos envie feedback sobre quaisquer problemas ou sugestões de melhorias!</p>
-                </div>
-            </div>
-        </section>
 
         <section>
             <h2>Vue JS - Desenvolva uma aplicação do zero (Alura)</h2>
@@ -75,19 +51,13 @@
                     <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                         <a href="https://cursos.alura.com.br/course/vue-3-componentes-diretivas-reatividade-framework" target="_blank" style="color: rgb(0, 61, 115);">Vue 3: entendendo componentes, diretivas e reatividade no framework</a>
                         <div class="section-header">
-                            <label class="completion-label">
-                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                            </label> 
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                         <a href="https://cursos.alura.com.br/course/vue3-comecando-framework" target="_blank" style="color: rgb(0, 61, 115);">Vue3: explorando o framework</a>
-                        <div class="section-header">
-                            <label class="completion-label">
-                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                            </label> 
+                        <div class="section-header"> 
                         </div>
                     </div>
                 </li>
@@ -95,19 +65,13 @@
                     <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                         <a href="https://cursos.alura.com.br/course/vue3-avancando-framework" target="_blank" style="color: rgb(0, 61, 115);">Vue3: avançando no framework</a>
                         <div class="section-header">
-                            <label class="completion-label">
-                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                            </label> 
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                         <a href="https://cursos.alura.com.br/course/vue3-composition-api-vuex" target="_blank" style="color: rgb(0, 61, 115);">Vue3: composition API e Vuex</a>
-                        <div class="section-header">
-                            <label class="completion-label">
-                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                            </label> 
+                        <div class="section-header"> 
                         </div>
                     </div>
                 </li>
@@ -119,17 +83,11 @@
             <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                 <a href="https://drive.google.com/file/d/1KOok543hRX6dA3lNm8qT8n2ugduIz--_/view?usp=sharing" target="_blank" style="color: rgb(0, 61, 115);">Acesse o curso</a>
                 <div class="section-header">
-                    <label class="completion-label">
-                        <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                    </label> 
                 </div>
             </div>
             <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                 <a href="https://docs.google.com/document/d/1rabPv7ZjcAaUEsABz5mJD5peQu_p7A1F/edit?usp=sharing&ouid=107375925101647504601&rtpof=true&sd=true" target="_blank" style="color: rgb(0, 61, 115);">Vue Js (Materiais de Suporte)</a>
                 <div class="section-header">
-                    <label class="completion-label">
-                        <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                    </label> 
                 </div>
             </div>
         </section>
@@ -144,7 +102,5 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>    
     
-    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/barra_progresso.js"></script>
-    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
 </body>
 </html>
