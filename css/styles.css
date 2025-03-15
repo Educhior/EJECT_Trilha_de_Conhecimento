@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik+80s+Fade&family=Silkscreen:wght@400;700&display=swap');
 
-@import url('dark_mode.css');
-
 /* Variáveis de cor */
 :root {
     --background: rgb(245, 251, 255);

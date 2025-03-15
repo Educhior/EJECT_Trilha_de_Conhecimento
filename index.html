@@ -22,7 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EJECT | Hub de Conhecimentos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
 </head>
 <body>
@@ -51,7 +51,9 @@
         </nav>
     </header>
 
-
+    <script>
+          !function(){'use strict';const e=['debug','destroy','do','help','identify','is','off','on','ready','render','reset','safe','set'];if(window.noticeable)console.warn('Noticeable SDK code snippet loaded more than once');else{const n=window.noticeable=window.noticeable||[];function t(e){return function(){const t=Array.prototype.slice.call(arguments);return t.unshift(e),n.push(t),n}}function o(){for(let o=0;o<e.length;o++){const c=e[o];n[c]=t(c)}}function c(){const e=document.createElement('script');e.async=!0,e.src='https://sdk.noticeable.io/l.js';const n=document.head;n.insertBefore(e,n.firstChild)}o(),c()}}();
+    </script>
 
     <main>
         <div class="banner" id="avisoBanner">
@@ -82,7 +84,74 @@
                             <option value="soon">Em Breve</option>
                         </select>
                     </div>
-                </div>
+                    <style>
+                        #counter {
+                          align-items: center;
+                          color: rgb(0, 252, 255);
+                          display: none;
+                          font-size: 12px;
+                          font-weight: 800;
+                          height: 18px;
+                          justify-content: center;
+                          margin-left: 8px;
+                          padding: 3px;
+                          pointer-events: none;
+                          position: relative;
+                          text-align: center;
+                          width: 18px;
+                        }
+                      
+                        #counter::after {
+                          align-items: center;
+                          animation: spin 2.2s infinite linear;
+                          background: transparent;
+                          bottom: 0;
+                          border: 2px dashed rgb(198, 186, 249);
+                          border-radius: 50%;
+                          content: '';
+                          display: flex;
+                          left: 0;
+                          justify-content: center;
+                          position: absolute;
+                          right: 0;
+                          top: 0;
+                        }
+                      
+                        #noticeable-widget {
+                          align-items: center;
+                          background: #6d11e1;
+                          border-radius: 8px;
+                          color: white;
+                          display: inline-flex;
+                          font-size: 13px;
+                          font-weight: 600;
+                          height: 22px;
+                          justify-content: center;
+                          padding: 10px 24px;
+                          text-transform: uppercase;
+                          user-select: none;
+                        }
+                      
+                        #noticeable-widget:hover {
+                          background: #8733ef;
+                          cursor: pointer;
+                        }
+                      
+                        @keyframes spin {
+                          from {
+                            transform: rotate(0deg);
+                          }
+                          to {
+                            transform: rotate(360deg);
+                          }
+                        }
+                      </style>
+                      
+                      <div id="noticeable-widget">
+                        Novidades
+                        <span id="counter">1</span>
+                      </div>
+                      
             </section>
             <br>
             
@@ -315,9 +384,6 @@
         <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; 2024-2025 - Todos os direitos reservados.</p>
     </footer>
 
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
     <script>
         // Script para filtrar as trilhas
         document.getElementById('searchInput').addEventListener('keyup', function() {
@@ -390,42 +456,6 @@
 </script>
 
 <script>
-    function updateCountdown() {
-        const targetDate = new Date('2025-03-08T00:00:00').getTime();
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-
-        if (distance <= 0) {
-            document.getElementById('countdown').innerHTML = "A data chegou!";
-            return;
-        }
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById('countdown').innerHTML =
-            `${days}d ${hours}h ${minutes}min ${seconds}s`;
-    }
-
-    setInterval(updateCountdown, 1000);
-</script>
-
-<script>
-    document.getElementById('contrast-toggle').addEventListener('click', function() {
-        document.body.classList.toggle('dark-mode');
-        
-        // Alternar o texto do botão
-        if (document.body.classList.contains('dark-mode')) {
-            this.textContent = 'Modo Claro';
-        } else {
-            this.textContent = 'Modo Escuro';
-        }
-    });
-</script>
-
-<script>
     document.addEventListener("DOMContentLoaded", function () {
         if (!localStorage.getItem("avisoConfirmado")) {
             document.getElementById("avisoBanner").style.display = "block";
@@ -438,7 +468,33 @@
     }
 </script>
 
-
+<script>
+      const widgetId = '1tRQLcfdBtnBnia3lQ2k';
     
+      window.noticeable.on('widget:publication:unread_count:changed', widgetId, e => {
+        const element = document.getElementById('counter');
+    
+        if (element) {
+          if (e.detail.value === 0) {
+            element.style.display = 'none';
+          } else {
+            element.style.display = 'inline-flex';
+            element.innerText = e.detail.value;
+          }
+        }
+      });
+    
+      window.noticeable.on(
+        'widget:trigger_view:mouse_entered', widgetId, () => {
+          window.noticeable.do('widget:open', widgetId);
+      });
+    
+      window.noticeable.on(
+        'widget:widget_view:mouse_left', widgetId, () => {
+          window.noticeable.do('widget:close', widgetId);
+      });
+    
+      window.noticeable.render("widget", widgetId);
+</script>
 </body>
 </html>
