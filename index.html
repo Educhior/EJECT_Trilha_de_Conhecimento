@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<!-- 
+<!--
 ███████╗     ██╗███████╗ ██████╗████████╗
 ██╔════╝     ██║██╔════╝██╔════╝╚══██╔══╝
-█████╗       ██║█████╗  ██║        ██║   
-██╔══╝  ██   ██║██╔══╝  ██║        ██║   
-███████╗╚█████╔╝███████╗╚██████╗   ██║   
-╚══════╝ ╚════╝ ╚══════╝ ╚═════╝   ╚═╝   
-                                         
-██╗   ██╗███████╗██████╗ ███╗   ██╗      
-██║   ██║██╔════╝██╔══██╗████╗  ██║      
-██║   ██║█████╗  ██████╔╝██╔██╗ ██║      
-██║   ██║██╔══╝  ██╔══██╗██║╚██╗██║      
-╚██████╔╝██║     ██║  ██║██║ ╚████║      
- ╚═════╝ ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝                                                                                                                                                                                                        
+█████╗       ██║█████╗  ██║        ██║
+██╔══╝  ██   ██║██╔══╝  ██║        ██║
+███████╗╚█████╔╝███████╗╚██████╗   ██║
+╚══════╝ ╚════╝ ╚══════╝ ╚═════╝   ╚═╝
 
+██╗   ██╗███████╗██████╗ ███╗   ██╗
+██║   ██║██╔════╝██╔══██╗████╗  ██║
+██║   ██║█████╗  ██████╔╝██╔██╗ ██║
+██║   ██║██╔══╝  ██╔══██╗██║╚██╗██║
+╚██████╔╝██║     ██║  ██║██║ ╚████║
+ ╚═════╝ ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝
 -->
 <html lang="pt-br">
 <head>
@@ -21,12 +20,507 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EJECT | Hub de Conhecimentos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
+
+        /* Variáveis de cor */
+        :root {
+            --background: rgb(245, 251, 255);
+            --color-primary-bg: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
+            --text-primary: rgb(0, 61, 115);
+            --text-secondary: #4a4a4a;
+            --text-light-grey: #aaa;
+            --white: #fff;
+            --star-yellow: #FFBB3A;
+            --button-gradient: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%);
+            --button-gemini-gradient: linear-gradient(92.07deg, #4A00E0 1.84%, #8E2DE2 100%); /* Gradiente roxo para botões Gemini */
+            --shadow-color: rgb(224, 229, 241);
+            --danger-color: #ff4757;
+            --danger-hover-color: #ff6b81;
+        }
+
+        /* Reset de estilo e configurações base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: "Exo 2", sans-serif;
+            width: 100%;
+            min-height: 100vh;
+            background: var(--color-primary-bg);
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        /* Estilos de título */
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        h1 { font-size: 2.25rem; }
+        h2 { font-size: 1.75rem; }
+        h3.titulo-trilha { font-size: 1.25rem; margin-bottom: 0.75rem; }
+
+        /* Estilos de links */
+        a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: rgb(17, 167, 241);
+            text-decoration: underline;
+        }
+
+        /* Cabeçalho */
+        header {
+            width: 100%;
+            min-height: 90px;
+            background: var(--background);
+            box-shadow: var(--shadow-color) 0px 4px 10px 0px;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+        }
+        nav.container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        nav h1 {
+            font-weight: bold;
+            color: var(--text-primary);
+            font-size: 1.75rem;
+            margin: 0;
+        }
+        .user-actions-container {
+            display: flex;
+            align-items: center;
+        }
+        .ds-contact-container img {
+            height: 45px;
+            margin-left: 15px;
+        }
+
+        /* Secção de Boas-vindas */
+        .gift-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(45deg, #ffcc00, #ff33cc, #6633ff, #33ccff);
+            color: var(--white);
+            padding: 25px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .gift-section h1 { color: var(--white); font-size: 2rem; margin-bottom: 0.5rem; }
+        .gift-section p { font-size: 1.1rem; margin-bottom: 0; }
+
+        /* Secção de Sugestão Gemini */
+        #gemini-suggestion-section h2 {
+            color: var(--text-primary);
+        }
+        #gemini-suggestion-section p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+        #gemini-suggest-track-button {
+            background: var(--button-gemini-gradient);
+            border: none;
+            color: white; /* Garante que o texto do botão seja branco */
+        }
+        #gemini-suggest-track-button:hover {
+            opacity: 0.9;
+            box-shadow: 0 2px 8px rgba(74, 0, 224, 0.4);
+        }
+
+
+        /* Controles de Filtro e Busca */
+        .filter-search-controls { margin-bottom: 1.5rem; }
+        .filter-search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .search-container, .filter-container {
+            flex-grow: 1;
+            min-width: 200px;
+        }
+        .search-bar, .filter-bar {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--text-light-grey);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .search-bar:focus, .filter-bar:focus {
+            border-color: rgb(9, 149, 219);
+            box-shadow: 0 0 0 0.2rem rgba(9, 149, 219, 0.25);
+            outline: none;
+        }
+        .search-bar::placeholder { color: var(--text-light-grey); opacity: 0.8; }
+
+        /* Estilos dos Cards */
+        .ds-card {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow-color) 0px 4px 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .ds-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-color) 0px 8px 16px;
+        }
+        .ds-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+        .ds-card-description {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex-grow: 1;
+        }
+        .ds-card-description-bottom {
+            margin-top: auto;
+            padding-top: 10px;
+            width: 100%; /* Para que os botões possam usar width: 100% se necessário */
+        }
+
+        /* Botões */
+        .ds-btn {
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: var(--white) !important;
+            background: var(--button-gradient);
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 130px;
+            border: none;
+            text-decoration: none !important;
+        }
+        .ds-btn:hover, .ds-btn:focus {
+            transform: scale(1.03);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            color: var(--white) !important;
+            text-decoration: none !important;
+        }
+        .ds-btn-soon {
+            background: var(--text-light-grey);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .ds-btn-soon:hover { transform: none; box-shadow: none; }
+
+        .gemini-summarize-btn {
+            background: var(--button-gemini-gradient);
+            width: calc(100% - 10px); /* Ocupar largura disponível, com pequena margem */
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        .gemini-summarize-btn:hover {
+            opacity: 0.9;
+            box-shadow: 0 2px 8px rgba(74, 0, 224, 0.4);
+        }
+
+
+        /* Modal (Logout e Gemini) */
+        .modal {
+            position: fixed;
+            z-index: 1050;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Fundo um pouco mais escuro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0s 0.3s; /* Atrasar o visibility hidden */
+        }
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            background-color: var(--white);
+            padding: 0; /* Removido padding para dar controlo ao header, body, footer */
+            border-radius: 8px;
+            width: 90%;
+            max-width: 550px; /* Modal Gemini pode ser um pouco maior */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: translateY(-20px) scale(0.95);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal.show .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header .modal-title {
+            margin-bottom: 0;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+        }
+        .modal-body {
+            padding: 20px;
+            min-height: 100px; /* Altura mínima para o conteúdo */
+            max-height: 60vh; /* Altura máxima, com scroll se necessário */
+            overflow-y: auto;
+            text-align: left; /* Conteúdo do modal Gemini alinhado à esquerda */
+        }
+        .modal-body p {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        .modal-body strong {
+            color: var(--text-primary);
+        }
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            text-align: right;
+        }
+        .modal-content .ds-btn { margin: 5px; }
+        .modal-content .logout-button { background: var(--danger-color); }
+        .modal-content .logout-button:hover { background: var(--danger-hover-color); }
+
+        .close-button { /* Estilo unificado para botões de fechar modal */
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-light-grey);
+            background: none;
+            border: none;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0.5rem; /* Área de clique maior */
+        }
+        .close-button:hover { color: var(--text-secondary); }
+
+        #gemini-loading-indicator .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+
+
+        /* Rodapé */
+        footer {
+            width: 100%;
+            background-color: rgb(10, 55, 78);
+            padding: 1.5rem 1rem;
+            margin-top: auto;
+        }
+        footer p { font-size: 0.9rem; text-align: center; color: var(--white); margin: 0; }
+        footer strong { font-weight: 600; }
+
+        /* Animação de Flocos de Neve (Opcional) */
+        .snowflake {
+            position: fixed;
+            top: -20px; /* Começa um pouco acima */
+            z-index: 999; /* Abaixo do modal */
+            color: var(--white);
+            font-size: 1em; /* Tamanho base */
+            pointer-events: none;
+            animation: fall linear infinite;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5); /* Leve brilho */
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0vh) translateX(0vw) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) translateX(5vw) rotate(360deg); /* Movimento lateral leve */
+                opacity: 0;
+            }
+        }
+
+        /* Banner de Aviso */
+        .banner {
+            position: fixed;
+            bottom: 0; /* Alterado para bottom */
+            left: 0;
+            width: 100%;
+            background: #ffcc00;
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem; /* Ajustado */
+            font-weight: bold;
+            color: #333; /* Melhor contraste */
+            z-index: 1040; /* Abaixo do modal mas acima de outros conteúdos */
+            box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .banner button {
+            margin-left: 15px;
+            padding: 8px 15px;
+            border: none;
+            background: #333;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .banner button:hover {
+            background: #555;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            nav.container { flex-direction: column; padding: 10px; }
+            nav h1 { margin-bottom: 10px; font-size: 1.5rem; }
+            .user-actions-container { margin-bottom: 10px; }
+            .ds-contact-container { margin: 10px auto 0; }
+            .filter-search-container { flex-direction: column; gap: 10px; }
+            .search-bar, .filter-bar { width: 100%; max-width: none; }
+            .gift-section h1 { font-size: 1.8rem; }
+            .gift-section p { font-size: 1rem; }
+            .modal-content { width: 95%; }
+            #gemini-suggestion-section .input-group { flex-direction: column; }
+            #gemini-suggestion-section .input-group input { border-radius: 8px !important; margin-bottom: 10px; }
+            #gemini-suggestion-section .input-group button { width: 100%; border-radius: 8px !important; }
+
+            .ds-card-description-bottom {
+                display: flex;
+                flex-direction: column;
+                gap: 10px; /* Espaço entre os botões */
+            }
+            .ds-card-description-bottom .ds-btn {
+                width: 100%; /* Botões ocupam toda a largura */
+            }
+        }
+
+        @media (max-width: 576px) {
+            header { padding: 0 0.5rem; }
+            nav h1 { font-size: 1.3rem; }
+            .ds-contact-container img { height: 40px; }
+            .ds-btn { font-size: 0.8rem; padding: 0.6rem 1rem; min-width: 110px; }
+            #welcome-message { font-size: 0.9rem; }
+            .modal-header .modal-title { font-size: 1.1rem; }
+        }
+
+        /* Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #1e1e1e;
+                --color-primary-bg: #121212;
+                --text-primary: #e0e0e0;
+                --text-secondary: #b0b0b0;
+                --text-light-grey: #666;
+                --white: #2c2c2c; /* Fundo de elementos como cards */
+                --shadow-color: rgba(0, 0, 0, 0.4); /* Sombra mais pronunciada */
+                --button-gradient: linear-gradient(92.07deg, rgb(12, 120, 180) 1.84%, rgb(20, 140, 210) 100%);
+                --button-gemini-gradient: linear-gradient(92.07deg, #580fc0 1.84%, #a04dff 100%); /* Roxo mais claro para dark mode */
+            }
+
+            body { background: var(--color-primary-bg); color: var(--text-primary); }
+            header { background: var(--background); box-shadow: var(--shadow-color) 0px 4px 10px 0px; }
+            nav h1, #welcome-message { color: var(--text-primary); }
+            a { color: #64b5f6; }
+            a:hover { color: #90caf9; }
+
+            #gemini-suggestion-section h2 { color: var(--text-primary); }
+            #gemini-suggestion-section p { color: var(--text-secondary); }
+            #gemini-suggest-track-button { background: var(--button-gemini-gradient); color: white; }
+
+
+            .ds-card { background: var(--white); box-shadow: var(--shadow-color) 0px 4px 8px; }
+            .ds-card-description h3 { color: var(--text-primary); }
+
+            .search-bar, .filter-bar {
+                background-color: #333;
+                color: var(--text-primary);
+                border: 1px solid #555;
+            }
+            .search-bar:focus, .filter-bar:focus {
+                border-color: #64b5f6;
+                box-shadow: 0 0 0 0.2rem rgba(100, 181, 246, 0.25);
+            }
+            .search-bar::placeholder { color: #888; }
+
+            .ds-btn { background: var(--button-gradient); color: #ffffff !important; }
+            .ds-btn:hover, .ds-btn:focus { color: #ffffff !important; }
+            .ds-btn-soon { background: var(--text-light-grey); color: var(--text-primary) !important; }
+            .gemini-summarize-btn { background: var(--button-gemini-gradient); }
+
+
+            .modal-content { background-color: #333; color: var(--text-primary); }
+            .modal-header { border-bottom: 1px solid #444; }
+            .modal-header .modal-title { color: var(--text-primary); }
+            .modal-body p { color: var(--text-secondary); }
+            .modal-body strong { color: #82b1ff; } /* Cor de destaque para strong no dark mode */
+            .modal-footer { border-top: 1px solid #444; }
+            .close-button { color: var(--text-light-grey); }
+            .close-button:hover { color: var(--text-primary); }
+            .modal-content .logout-button { background: var(--danger-color); }
+            .modal-content .logout-button:hover { background: var(--danger-hover-color); }
+            #gemini-loading-indicator .spinner-border { color: #82b1ff !important; }
+
+
+            footer { background-color: #1c1c1c; }
+            footer p { color: var(--text-secondary); }
+
+            .gift-section { color: #ffffff; } /* Manter texto branco no gradiente */
+            .gift-section h1, .gift-section p { color: #ffffff; }
+
+            .banner { background: #424242; color: #e0e0e0; }
+            .banner button { background: #555; color: #e0e0e0; }
+            .banner button:hover { background: #666; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Vlibra -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper>
@@ -37,14 +531,17 @@
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
-    
+
     <header>
         <nav class="container">
-            <a href="index">
-                <h1 href = "/EJECT_Trilha_de_Conhecimento/index">Hub de Conhecimentos</h1>
+            <a href="index.html"> <h1>Hub de Conhecimentos</h1>
             </a>
+            <div class="user-actions-container">
+                <span id="welcome-message" style="display: none; margin-right: 15px; color: rgb(0, 61, 115); font-weight: 500;"></span>
+                <button id="logout-button-header" class="ds-btn logout-button" style="display: none; min-width: 120px; padding: 0.6rem 1rem;">Sair</button>
+            </div>
             <div class="ds-contact-container">
-                <a href="https://www.ejectufrn.com.br/">
+                <a href="https://www.ejectufrn.com.br/" target="_blank" rel="noopener noreferrer">
                     <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
                 </a>
             </div>
@@ -52,22 +549,27 @@
     </header>
 
     <script>
-          !function(){'use strict';const e=['debug','destroy','do','help','identify','is','off','on','ready','render','reset','safe','set'];if(window.noticeable)console.warn('Noticeable SDK code snippet loaded more than once');else{const n=window.noticeable=window.noticeable||[];function t(e){return function(){const t=Array.prototype.slice.call(arguments);return t.unshift(e),n.push(t),n}}function o(){for(let o=0;o<e.length;o++){const c=e[o];n[c]=t(c)}}function c(){const e=document.createElement('script');e.async=!0,e.src='https://sdk.noticeable.io/l.js';const n=document.head;n.insertBefore(e,n.firstChild)}o(),c()}}();
+        !function(){'use strict';const e=['debug','destroy','do','help','identify','is','off','on','ready','render','reset','safe','set'];if(window.noticeable)console.warn('Noticeable SDK code snippet loaded more than once');else{const n=window.noticeable=window.noticeable||[];function t(e){return function(){const t=Array.prototype.slice.call(arguments);return t.unshift(e),n.push(t),n}}function o(){for(let o=0;o<e.length;o++){const c=e[o];n[c]=t(c)}}function c(){const e=document.createElement('script');e.async=!0;e.src='https://sdk.noticeable.io/l.js';const n=document.head;n.insertBefore(e,n.firstChild)}o(),c()}}();
     </script>
 
     <main>
-
         <section id="ds-card-list" class="container">
             <br>
-
-            <section class="gift-section" style="color: white;">
+            <section class="gift-section">
                 <h1>Hub de Conhecimentos</h1>
-                <h1>Boas-vindas, Astronauta!</h1>
-                <p>Selecione uma trilha para começar o aprendizado. </p>
+                <p>Boas-vindas, Astronauta! Selecione uma trilha para começar o aprendizado.</p>
             </section> <br>
 
-            <section>
-                <!-- Barra de Busca e Filtro -->
+            <section id="gemini-suggestion-section" class="mb-4">
+                <h2 class="text-center mb-3">Não sabe por onde começar?</h2>
+                <p class="text-center mb-3">Diga-nos os seus interesses e a nossa IA ✨ sugerirá algumas trilhas para si!</p>
+                <div class="input-group mb-3 mx-auto" style="max-width: 600px;">
+                    <input type="text" id="gemini-interest-input" class="form-control" placeholder="Ex: programação web, análise de dados, design...">
+                    <button id="gemini-suggest-track-button" class="btn btn-primary ds-btn">✨ Sugerir Trilha</button>
+                </div>
+            </section>
+
+            <section class="filter-search-controls">
                 <div class="filter-search-container">
                     <div class="search-container">
                         <input type="text" id="searchInput" class="form-control search-bar" placeholder="Pesquise as trilhas...">
@@ -80,420 +582,618 @@
                             <option value="soon">Em Breve</option>
                         </select>
                     </div>
-                <!--
-                    <style>
-                        #counter {
-                          align-items: center;
-                          color: rgb(0, 252, 255);
-                          display: none;
-                          font-size: 12px;
-                          font-weight: 800;
-                          height: 18px;
-                          justify-content: center;
-                          margin-left: 8px;
-                          padding: 3px;
-                          pointer-events: none;
-                          position: relative;
-                          text-align: center;
-                          width: 18px;
-                        }
-                      
-                        #counter::after {
-                          align-items: center;
-                          animation: spin 2.2s infinite linear;
-                          background: transparent;
-                          bottom: 0;
-                          border: 2px dashed rgb(198, 186, 249);
-                          border-radius: 50%;
-                          content: '';
-                          display: flex;
-                          left: 0;
-                          justify-content: center;
-                          position: absolute;
-                          right: 0;
-                          top: 0;
-                        }
-                      
-                        #noticeable-widget {
-                          align-items: center;
-                          background: #6d11e1;
-                          border-radius: 8px;
-                          color: white;
-                          display: inline-flex;
-                          font-size: 13px;
-                          font-weight: 600;
-                          height: 22px;
-                          justify-content: center;
-                          padding: 10px 24px;
-                          text-transform: uppercase;
-                          user-select: none;
-                        }
-                      
-                        #noticeable-widget:hover {
-                          background: #8733ef;
-                          cursor: pointer;
-                        }
-                      
-                        @keyframes spin {
-                          from {
-                            transform: rotate(0deg);
-                          }
-                          to {
-                            transform: rotate(360deg);
-                          }
-                        }
-                      </style>
-                      
-                      <div id="noticeable-widget">
-                        Novidades
-                        <span id="counter">1</span>
-                      </div>
-                    -->
-                      
-                      
+                </div>
             </section>
             <br>
-            
 
             <div class="row" id="cardContainer">
-
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
-                        <img src="https://img.freepik.com/vetores-premium/caixa-de-presente-de-natal-violeta-e-azul-sem-costura-padrao-evento-de-aniversario_75563-16520.jpg?semt=ais_hybrid" alt="Imagem de um presente">
+                    <div class="ds-card" data-track-title="EJECT 15 Anos">
+                        <img src="https://placehold.co/600x400/8A2BE2/FFFFFF?text=EJECT+15+Anos" alt="Banner comemorativo EJECT 15 Anos">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">EJECT 15 Anos</h3>
                             <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/anivessario/presente01/index">🎁</a>
+                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/anivessario/presente01/index" aria-label="Acessar conteúdo especial EJECT 15 Anos">Acessar Especial 🎁</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
+                    <div class="ds-card" data-track-title="GIT e Github">
                         <img src="https://hermes.dio.me/articles/cover/d2489f96-d56f-4b82-bc7f-84fbc9fb1368.jpg" alt="Imagem do GitHub">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">GIT e Github</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/git_e_github">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
+                    <div class="ds-card" data-track-title="Gestão de Tempo">
                         <img src="https://timeular.com/wp-content/uploads/2023/11/Copy-of-Copy-of-Blog-image-7.png" alt="Imagem da trilha de gestão de tempo">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">Gestão de Tempo</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/gestao_de_tempo">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
+                    <div class="ds-card" data-track-title="Gestão de Pessoas">
                         <img src="https://media.licdn.com/dms/image/D4D12AQHkxwPuNCCBLA/article-cover_image-shrink_600_2000/0/1696281571014?e=2147483647&v=beta&t=jx27ZVMQKEi4EroaGoApIr5mcpFvcZPs-DnxmjSOxnY" alt="Imagem da trilha de desenvolvimento humano">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">Gestão de Pessoas</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/desenvolvimento_humano">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
-                        <img src="https://media.licdn.com/dms/image/D5612AQFrB74fzNtosA/article-cover_image-shrink_720_1280/0/1685585245706?e=2147483647&v=beta&t=KSjXVDN59S9EFVnoue5f4C_mn4rgg536TURjE9kq_QI" alt="Imagem do GitHub">
+                    <div class="ds-card" data-track-title="Marketing Comercial">
+                        <img src="https://media.licdn.com/dms/image/D5612AQFrB74fzNtosA/article-cover_image-shrink_720_1280/0/1685585245706?e=2147483647&v=beta&t=KSjXVDN59S9EFVnoue5f4C_mn4rgg536TURjE9kq_QI" alt="Imagem da trilha de marketing comercial">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">Marketing Comercial</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/marketing_comercial">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
+                    <div class="ds-card" data-track-title="Scrum">
                         <img src="https://erp-disk.ams3.digitaloceanspaces.com/portadas-tutoriales/small_portada_cm1gdlxji0065017b0k930xiv.webp" alt="Imagem do Scrum">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">Scrum</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/Scrum">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
+                    <div class="ds-card" data-track-title="Financeiro">
                         <img src="https://blog.quantosobra.com.br/wp-content/uploads/2023/04/capa-controle-financeiro-quantosobra.png" alt="Imagem do Financeiro">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">Financeiro</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/financeiro">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
-                        <img src="https://lh3.googleusercontent.com/p/AF1QipMSfq4RpVGA9PnYPgiKHdqn_FKY2k-CGe4rlRM8=s680-w680-h510" alt="Imagem sobre a História da EJECT">
+                    <div class="ds-card" data-track-title="História da EJECT">
+                        <img src="https://placehold.co/600x400/003366/FFFFFF?text=História+da+EJECT" alt="Imagem sobre a História da EJECT">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">História da EJECT</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/historia_eject">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
+                    <div class="ds-card" data-track-title="HTML e CSS">
                         <img src="https://hotmart.s3.amazonaws.com/product_pictures/d2badee3-49a9-4627-9f7d-a5e51ae35384/sitehtmlcss1024x579.jpg" alt="Imagem do HTML e CSS">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">HTML e CSS</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/html_e_css">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
-                        <img src="https://dkrn4sk0rn31v.cloudfront.net/uploads/2020/06/VUE.png" alt="Imagem da liguagem vue">
+                    <div class="ds-card" data-track-title="Vue.js">
+                        <img src="https://dkrn4sk0rn31v.cloudfront.net/uploads/2020/06/VUE.png" alt="Imagem da linguagem Vue.js">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">Vue.js</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/vue">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
-                        <img src="https://listradigital.com.br/wp-content/uploads/2021/02/080221-bpListraINFO.png" alt="Imagem do OKRs">
+                    <div class="ds-card" data-track-title="OKRs, KPIs e BPMN">
+                        <img src="https://listradigital.com.br/wp-content/uploads/2021/02/080221-bpListraINFO.png" alt="Imagem sobre OKRs, KPIs e BPMN">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">OKRs, KPIs e BPMN</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/okrs_kpis_e_bpmn">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
-                        <img src="https://cityhost.ua/upload_img/blog5f352fc3b2393_wp.png" alt="Imagem do wordpress">
+                    <div class="ds-card" data-track-title="Wordpress">
+                        <img src="https://cityhost.ua/upload_img/blog5f352fc3b2393_wp.png" alt="Imagem do Wordpress">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">Wordpress</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/wordpress">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
-                        <img src="https://coodesh.com/blog/wp-content/uploads/2023/03/IDE-para-JavaScript.png" alt="Imagem da liguagem javaScript">
+                    <div class="ds-card" data-track-title="JavaScript">
+                        <img src="https://coodesh.com/blog/wp-content/uploads/2023/03/IDE-para-JavaScript.png" alt="Imagem da linguagem JavaScript">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">JavaScript</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/javaScript">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
+                    <div class="ds-card" data-track-title="TypeScript">
                         <img src="https://static.wixstatic.com/media/c60f10_9605a49c09e948e6bf0195ac2738df23~mv2.png/v1/fit/w_1000,h_1000,al_c,q_80/file.jpg" alt="Imagem do TypeScript">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">TypeScript</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/typescript">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLbQDxmV2E6ZfAlhNMrPE1o-sPSIFiAjmngg&s" alt="Imagem do UX e UI">
+                    <div class="ds-card" data-track-title="UX e UI">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLbQDxmV2E6ZfAlhNMrPE1o-sPSIFiAjmngg&s" alt="Imagem de UX e UI">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">UX e UI</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/ux_ui">Acessar</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
-                        <img src="https://marquesfernandes.com/wp-content/uploads/2020/08/kwi4bvgzths31.jpg" alt="Imagem da liguagem pyhon">
+                    <div class="ds-card" data-track-title="Python">
+                        <img src="https://marquesfernandes.com/wp-content/uploads/2020/08/kwi4bvgzths31.jpg" alt="Imagem da linguagem Python">
                         <div class="ds-card-description">
-                            <h3 class="titulo-trilha">python</h3>
+                            <h3 class="titulo-trilha">Python</h3>
                             <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="#">Em breve</a>
+                                <a class="ds-btn ds-btn-soon" href="#" aria-disabled="true">Em breve</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2" data-track-status="soon">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
-                        <img src="https://imagedelivery.net/qc7VvyphMGWFiPVvTbB-ww/swapps.com/2016/02/simply-django-announcements.jpg/w=1024,h=576" alt="Imagem da freamwork django">
+                    <div class="ds-card" data-track-title="Django & Rest">
+                        <img src="https://imagedelivery.net/qc7VvyphMGWFiPVvTbB-ww/swapps.com/2016/02/simply-django-announcements.jpg/w=1024,h=576" alt="Imagem do framework Django">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">Django & Rest</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/django">ACESSAR</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card">
-                        <img src="https://webrain.com.br/wp-content/uploads/2019/05/google-data-studio.jpg" alt="Imagem do google data studio">
+                    <div class="ds-card" data-track-title="Data Studio">
+                        <img src="https://webrain.com.br/wp-content/uploads/2019/05/google-data-studio.jpg" alt="Imagem do Google Data Studio">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">Data Studio</h3>
                             <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="#">Em breve</a>
+                                <a class="ds-btn ds-btn-soon" href="#" aria-disabled="true">Em breve</a>
+                                <button class="ds-btn gemini-summarize-btn mt-2" data-track-status="soon">✨ Resumir</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </div> </section>
     </main>
 
     <footer>
-        <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; 2024-2025 - Todos os direitos reservados.</p>
+        <p>Feito com <strong>foco</strong> e <strong>compromisso</strong> pela EJECT© 2024-2025 - Todos os direitos reservados.</p>
     </footer>
 
+    <div id="logout-confirmation-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button" id="close-logout-modal">&times;</span>
+            <h3>Confirmar Saída</h3>
+            <p>Tem certeza de que deseja sair?</p>
+            <button id="confirm-logout-button" class="ds-btn logout-button">Sim, Sair</button>
+            <button id="cancel-logout-button" class="ds-btn">Cancelar</button>
+        </div>
+    </div>
+
+    <div id="gemini-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="gemini-modal-title">Informação da IA ✨</h5>
+                <button type="button" class="close-button" id="close-gemini-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="gemini-modal-body">
+                <div id="gemini-loading-indicator" style="display: none; text-align: center;">
+                    <p>A carregar...</p>
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">A carregar...</span>
+                    </div>
+                </div>
+                <div id="gemini-modal-content-area">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="ds-btn" id="ok-gemini-modal-button">OK</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="avisoBanner" class="banner" style="display: none;">
+        Este é um aviso importante!
+        <button onclick="fecharBanner()">Entendi</button>
+    </div>
+
     <script>
-        // Script para filtrar as trilhas
-        document.getElementById('searchInput').addEventListener('keyup', function() {
-            const query = this.value.toLowerCase();
-            const cards = document.querySelectorAll('#cardContainer .ds-card');
+        // Este script é para a funcionalidade de pesquisa e filtro existente.
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const query = this.value.toLowerCase().trim();
+                    const cards = document.querySelectorAll('#cardContainer .col-sm-6');
+                    cards.forEach(cardCol => {
+                        const titleElement = cardCol.querySelector('.titulo-trilha');
+                        if (titleElement) {
+                            const title = titleElement.textContent.toLowerCase();
+                            cardCol.style.display = title.includes(query) ? '' : 'none';
+                        }
+                    });
+                });
+            }
 
-            cards.forEach(card => {
-                const title = card.querySelector('.titulo-trilha').textContent.toLowerCase();
-                if (title.includes(query)) {
-                    card.parentElement.style.display = ''; // Exibe o card
-                } else {
-                    card.parentElement.style.display = 'none'; // Oculta o card
-                }
-            });
-        });
-        
-        document.getElementById('filterSelect').addEventListener('change', function() {
-        let filterValue = this.value;
-        let cards = document.querySelectorAll('.ds-card');
+            const filterSelect = document.getElementById('filterSelect');
+            if (filterSelect) {
+                filterSelect.addEventListener('change', function() {
+                    const filterValue = this.value;
+                    const cardContainer = document.getElementById('cardContainer');
+                    const cardsCols = Array.from(cardContainer.querySelectorAll('.col-sm-6'));
 
-        cards.forEach(function(card) {
-            // Reseta a exibição de todos os cards
-            card.parentElement.style.display = 'block';
+                    cardsCols.forEach(cardCol => cardCol.style.display = ''); // Mostrar todos primeiro
 
-            // Filtra pelas opções selecionadas
-            if (filterValue === 'available' && card.querySelector('.ds-btn').textContent === 'Em breve') {
-                card.parentElement.style.display = 'none'; // Oculta trilhas "Em breve"
-            } else if (filterValue === 'soon' && card.querySelector('.ds-btn').textContent !== 'Em breve') {
-                card.parentElement.style.display = 'none'; // Oculta trilhas "Disponíveis"
+                    if (filterValue === 'available' || filterValue === 'soon') {
+                        cardsCols.forEach(cardCol => {
+                            const button = cardCol.querySelector('.ds-btn'); // O botão "Acessar" ou "Em breve"
+                            if (button) {
+                                const isSoon = button.classList.contains('ds-btn-soon') || button.textContent.toLowerCase().includes('em breve');
+                                if ((filterValue === 'available' && isSoon) || (filterValue === 'soon' && !isSoon)) {
+                                    cardCol.style.display = 'none';
+                                }
+                            }
+                        });
+                    }
+
+                    if (filterValue === 'alphabetical') {
+                        const visibleCardsCols = cardsCols.filter(col => col.style.display !== 'none');
+                        visibleCardsCols.sort((a, b) => {
+                            const titleA = a.querySelector('.titulo-trilha').textContent.trim();
+                            const titleB = b.querySelector('.titulo-trilha').textContent.trim();
+                            return titleA.localeCompare(titleB);
+                        });
+                        visibleCardsCols.forEach(cardCol => cardContainer.appendChild(cardCol));
+                    }
+                });
+            }
+
+            if (!localStorage.getItem("avisoConfirmado")) {
+                const avisoBanner = document.getElementById("avisoBanner");
+                if (avisoBanner) avisoBanner.style.display = "block";
             }
         });
 
-        // Ordenação alfabética
-        if (filterValue === 'alphabetical') {
-            let cardList = document.querySelector('#ds-card-list .row');
-            let sortedCards = Array.from(cards).sort(function(a, b) {
-                return a.querySelector('h3').textContent.localeCompare(b.querySelector('h3').textContent);
-            });
-
-            sortedCards.forEach(function(card) {
-                cardList.appendChild(card.parentElement); // Reorganiza os cards na ordem correta
-            });
+        function fecharBanner() {
+            const avisoBanner = document.getElementById("avisoBanner");
+            if (avisoBanner) avisoBanner.style.display = "none";
+            localStorage.setItem("avisoConfirmado", "true");
         }
-    });
+    </script>
+    <script type="module">
+        // Conteúdo de gemini_features.js
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Elementos do DOM para sugestão de trilha
+            const interestInput = document.getElementById('gemini-interest-input');
+            const suggestTrackButton = document.getElementById('gemini-suggest-track-button');
+
+            // Elementos do Modal Gemini
+            const geminiModal = document.getElementById('gemini-modal');
+            const geminiModalTitle = document.getElementById('gemini-modal-title');
+            const geminiModalContentArea = document.getElementById('gemini-modal-content-area');
+            const geminiLoadingIndicator = document.getElementById('gemini-loading-indicator');
+            const closeGeminiModalButton = document.getElementById('close-gemini-modal');
+            const okGeminiModalButton = document.getElementById('ok-gemini-modal-button');
+
+            // Container dos cards para delegação de eventos (botões de resumir)
+            const cardContainer = document.getElementById('cardContainer');
+
+            // Chave da API (deixar em branco para o ambiente injetar)
+            const apiKey = "AIzaSyAcEn6HsDrVDvuruGajI6Ro5cyyDq-8XTc"; // O AMBIENTE CANVAS DEVE INJETÁ-LA.
+            const geminiApiUrlBase = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+
+            // Mapeamento simples de descrições de trilhas para resumos mais direcionados
+            const trackDescriptions = {
+                "EJECT 15 Anos": "Conteúdo especial comemorativo dos 15 anos da EJECT, celebrando conquistas e a jornada da empresa júnior.",
+                "GIT e Github": "Aprenda os fundamentos do sistema de controlo de versão Git e como usar o GitHub para alojar os seus projetos, colaborar com outros programadores e gerir o seu código de forma eficiente.",
+                "Gestão de Tempo": "Descubra técnicas e ferramentas para otimizar o seu tempo, aumentar a produtividade, definir prioridades e alcançar os seus objetivos de forma mais eficaz.",
+                "Gestão de Pessoas": "Explore os princípios da liderança, motivação de equipas, desenvolvimento de talentos, comunicação interpessoal e criação de um ambiente de trabalho positivo e produtivo.",
+                "Marketing Comercial": "Entenda as estratégias de marketing e vendas, como identificar o seu público-alvo, criar campanhas eficazes, promover produtos ou serviços e construir uma marca forte.",
+                "Scrum": "Conheça a metodologia ágil Scrum para gestão de projetos, focada em entregas incrementais, colaboração em equipa, flexibilidade e adaptação a mudanças.",
+                "Financeiro": "Domine os conceitos básicos de finanças pessoais e empresariais, incluindo orçamento, controlo de despesas, investimentos e planeamento financeiro.",
+                "História da EJECT": "Mergulhe na trajetória da EJECT, desde a sua fundação, principais projetos, desafios superados e o impacto gerado ao longo dos anos.",
+                "HTML e CSS": "Aprenda as linguagens fundamentais para a construção de páginas web: HTML para a estrutura e CSS para a estilização e design visual.",
+                "Vue.js": "Descubra o Vue.js, um framework JavaScript progressivo para construir interfaces de utilizador interativas e dinâmicas de forma eficiente.",
+                "OKRs, KPIs e BPMN": "Entenda como definir Objetivos e Resultados Chave (OKRs), acompanhar Indicadores Chave de Desempenho (KPIs) e modelar processos de negócio com BPMN para melhorar a gestão e os resultados.",
+                "Wordpress": "Aprenda a criar e gerir websites e blogs utilizando o WordPress, a plataforma de gestão de conteúdo mais popular do mundo, sem precisar de saber programar.",
+                "JavaScript": "Domine o JavaScript, a linguagem de programação essencial para adicionar interatividade, dinamismo e funcionalidades avançadas a websites e aplicações web.",
+                "TypeScript": "Explore o TypeScript, um superset do JavaScript que adiciona tipagem estática opcional e outras funcionalidades para desenvolver aplicações mais robustas e escaláveis.",
+                "UX e UI": "Compreenda os princípios de User Experience (UX) para criar produtos digitais intuitivos e agradáveis de usar, e User Interface (UI) para desenhar interfaces visualmente atraentes e funcionais.",
+                "Python": "Inicie na programação com Python, uma linguagem versátil, poderosa e de fácil aprendizagem, amplamente utilizada em desenvolvimento web, ciência de dados, inteligência artificial e mais.",
+                "Django & Rest": "Aprenda a desenvolver aplicações web robustas e APIs RESTful utilizando Django, um framework Python de alto nível que incentiva o desenvolvimento rápido e o design limpo e pragmático.",
+                "Data Studio": "Descubra como usar o Google Data Studio (agora Looker Studio) para criar relatórios e dashboards interativos e visualmente apelativos, transformando dados brutos em informações valiosas."
+            };
+
+            function openGeminiModal(title = "Informação da IA ✨") {
+                if (geminiModalTitle) geminiModalTitle.textContent = title;
+                if (geminiModal) geminiModal.classList.add('show');
+                if (geminiModalContentArea) geminiModalContentArea.innerHTML = '';
+                if (geminiLoadingIndicator) geminiLoadingIndicator.style.display = 'none';
+            }
+
+            function closeGeminiModal() {
+                if (geminiModal) geminiModal.classList.remove('show');
+            }
+
+            function showLoading() {
+                if (geminiModalContentArea) geminiModalContentArea.style.display = 'none';
+                if (geminiLoadingIndicator) geminiLoadingIndicator.style.display = 'block';
+            }
+
+            function hideLoading() {
+                if (geminiLoadingIndicator) geminiLoadingIndicator.style.display = 'none';
+                if (geminiModalContentArea) geminiModalContentArea.style.display = 'block';
+            }
+
+            function formatGeminiResponse(text) {
+                if (!text) return "<p>Não foi possível obter uma resposta.</p>";
+                const lines = text.split('\n');
+                let html = '';
+                let inList = false;
+                for (const line of lines) {
+                    const trimmedLine = line.trim();
+                    if (trimmedLine.startsWith('* ') || trimmedLine.startsWith('- ')) {
+                        if (!inList) {
+                            html += '<ul>\n';
+                            inList = true;
+                        }
+                        html += `  <li>${trimmedLine.substring(2)}</li>\n`;
+                    } else {
+                        if (inList) {
+                            html += '</ul>\n';
+                            inList = false;
+                        }
+                        if (trimmedLine.length > 0) {
+                            html += `<p>${trimmedLine}</p>\n`;
+                        }
+                    }
+                }
+                if (inList) {
+                    html += '</ul>\n';
+                }
+                if (html.trim().length === 0 && text.trim().length > 0) {
+                    html = `<p>${text.trim()}</p>`;
+                }
+                return html || "<p>Não foi possível obter uma resposta clara.</p>";
+            }
+
+            async function callGeminiAPI(promptText) {
+                showLoading();
+                console.log("A chamar API Gemini com URL:", geminiApiUrlBase.replace(apiKey, "[CHAVE_OCULTA]")); // Log URL (sem chave se fosse hardcoded)
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: promptText }] });
+
+                const payload = {
+                    contents: chatHistory,
+                    generationConfig: {
+                        temperature: 0.7,
+                        topK: 40,
+                        topP: 0.95,
+                        maxOutputTokens: 512,
+                    }
+                };
+
+                try {
+                    const response = await fetch(geminiApiUrlBase, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        let userErrorMessage = "Ocorreu um erro ao comunicar com a IA. Por favor, tente novamente mais tarde.";
+                        try {
+                            const errorBody = await response.json();
+                            console.error("Erro da API Gemini:", response.status, errorBody); // Log detalhado do erro
+                            if (response.status === 403) {
+                                userErrorMessage = `Erro de permissão (403): Não foi possível autenticar a chamada à API. Verifique se está num ambiente de pré-visualização ou se uma chave de API válida está configurada para execução local. Detalhe: ${errorBody.error?.message || response.statusText}`;
+                            } else if (errorBody.error?.message) {
+                                userErrorMessage = `Erro da IA: ${errorBody.error.message}`;
+                            } else {
+                                userErrorMessage = `Erro da IA: ${response.statusText}`;
+                            }
+                        } catch (e) {
+                            console.error("Erro ao processar resposta de erro da API Gemini:", response.status, response.statusText);
+                            userErrorMessage = `Erro ao comunicar com a IA (código: ${response.status}). Tente novamente.`;
+                        }
+                        return userErrorMessage;
+                    }
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const responseText = result.candidates[0].content.parts[0].text;
+                        return responseText;
+                    } else if (result.promptFeedback && result.promptFeedback.blockReason) {
+                        console.warn("Prompt bloqueado pela API Gemini:", result.promptFeedback.blockReason, result.promptFeedback.safetyRatings);
+                        return `O seu pedido não pôde ser processado devido a restrições de conteúdo (${result.promptFeedback.blockReason}). Por favor, reformule o seu pedido.`;
+                    } else {
+                        console.warn("Resposta da API Gemini em formato inesperado:", result);
+                        return "A IA retornou uma resposta num formato inesperado. Tente novamente.";
+                    }
+                } catch (error) {
+                    console.error("Erro de rede ao chamar a API Gemini:", error);
+                    return "Ocorreu um erro de rede ou ao processar o seu pedido. Verifique a sua ligação e tente novamente.";
+                } finally {
+                    hideLoading();
+                }
+            }
+
+            if (suggestTrackButton && interestInput) {
+                suggestTrackButton.addEventListener('click', async () => {
+                    const interests = interestInput.value.trim();
+                    if (!interests) {
+                        openGeminiModal("Sugestão de Trilha");
+                        if (geminiModalContentArea) geminiModalContentArea.innerHTML = "<p>Por favor, insira os seus interesses para receber uma sugestão.</p>";
+                        return;
+                    }
+                    openGeminiModal("A Sugerir Trilhas...");
+                    const availableTrackTitles = Array.from(document.querySelectorAll('#cardContainer .ds-card .titulo-trilha'))
+                                                   .map(el => el.textContent.trim())
+                                                   .filter(title => title);
+                    let prompt;
+                    if (availableTrackTitles.length > 0) {
+                        const trackListString = availableTrackTitles.join(", ");
+                        prompt = `Sou um utilizador do Hub de Conhecimentos da EJECT e estou interessado em aprender sobre: "${interests}".
+                        As trilhas de conhecimento atualmente disponíveis no hub são: ${trackListString}.
+                        Com base nos meus interesses, quais destas trilhas você me recomendaria (até 3)?
+                        Para cada trilha recomendada, explique brevemente (1-2 frases) por que ela seria relevante para os meus interesses.
+                        Se nenhuma das trilhas disponíveis parecer diretamente relevante, pode sugerir áreas de estudo relacionadas que eu poderia procurar.
+                        Responda em português de Portugal, formatando as sugestões como uma lista se aplicável.`;
+                    } else {
+                        prompt = `Sou um utilizador interessado em aprender sobre: "${interests}".
+                        Quais áreas gerais de estudo ou tipos de trilhas de conhecimento seriam relevantes para mim?
+                        Explique brevemente (1-2 frases por sugestão).
+                        Responda em português de Portugal, formatando as sugestões como uma lista se aplicável.`;
+                    }
+                    const suggestion = await callGeminiAPI(prompt);
+                    if (geminiModalTitle) geminiModalTitle.textContent = "Sugestões de Trilhas ✨";
+                    if (geminiModalContentArea) geminiModalContentArea.innerHTML = formatGeminiResponse(suggestion);
+                });
+            }
+
+            if (cardContainer) {
+                cardContainer.addEventListener('click', async (event) => {
+                    const summarizeButton = event.target.closest('.gemini-summarize-btn');
+                    if (summarizeButton) {
+                        const card = summarizeButton.closest('.ds-card');
+                        const trackTitle = card ? card.dataset.trackTitle : null;
+                        if (!trackTitle) {
+                            console.warn("Título da trilha não encontrado para resumo.");
+                            return;
+                        }
+                        openGeminiModal(`A Resumir: ${trackTitle}...`);
+                        const predefinedDescription = trackDescriptions[trackTitle];
+                        let prompt;
+                        if (predefinedDescription) {
+                            prompt = `Faça um resumo conciso (cerca de 2-3 frases) da seguinte trilha de conhecimento chamada "${trackTitle}" para um iniciante. A descrição base é: "${predefinedDescription}".
+                            Destaque os principais tópicos que alguém aprenderia e os benefícios.
+                            Responda em português de Portugal.`;
+                        } else {
+                            prompt = `Descreva em poucas palavras (2-3 frases) o que geralmente se aprende numa trilha de conhecimento sobre "${trackTitle}" e quais os seus benefícios para um iniciante.
+                            Responda em português de Portugal.`;
+                        }
+                        const summary = await callGeminiAPI(prompt);
+                        if (geminiModalTitle) geminiModalTitle.textContent = `Resumo de ${trackTitle} ✨`;
+                        if (geminiModalContentArea) geminiModalContentArea.innerHTML = formatGeminiResponse(summary);
+                    }
+                });
+            }
+
+            if (closeGeminiModalButton) closeGeminiModalButton.addEventListener('click', closeGeminiModal);
+            if (okGeminiModalButton) okGeminiModalButton.addEventListener('click', closeGeminiModal);
+            if (geminiModal) {
+                geminiModal.addEventListener('click', (event) => {
+                    if (event.target === geminiModal) closeGeminiModal();
+                });
+            }
+
+            const logoutButtonHeaderEl = document.getElementById('logout-button-header');
+            const logoutConfirmationModalEl = document.getElementById('logout-confirmation-modal');
+            const closeLogoutModalButtonEl = document.getElementById('close-logout-modal');
+            const confirmLogoutButtonEl = document.getElementById('confirm-logout-button');
+            const cancelLogoutButtonEl = document.getElementById('cancel-logout-button');
+
+            function openLogoutModal() {
+                if (logoutConfirmationModalEl) logoutConfirmationModalEl.style.display = 'flex';
+            }
+            function closeLogoutModal() {
+                if (logoutConfirmationModalEl) logoutConfirmationModalEl.style.display = 'none';
+            }
+
+            if (logoutButtonHeaderEl) {
+                logoutButtonHeaderEl.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    openLogoutModal();
+                });
+            }
+            if (confirmLogoutButtonEl) {
+                confirmLogoutButtonEl.addEventListener('click', () => {
+                    console.log('Logout confirmado (simulação).');
+                    closeLogoutModal();
+                });
+            }
+            if (cancelLogoutButtonEl) cancelLogoutButtonEl.addEventListener('click', closeLogoutModal);
+            if (closeLogoutModalButtonEl) closeLogoutModalButtonEl.addEventListener('click', closeLogoutModal);
+            if (logoutConfirmationModalEl) {
+                logoutConfirmationModalEl.addEventListener('click', (event) => {
+                    if (event.target === logoutConfirmationModalEl) closeLogoutModal();
+                });
+            }
+        });
     </script>
 
-<script>
-    /*
-    function createSnowflake() {
-        const snowflake = document.createElement("div");
-        snowflake.classList.add("snowflake");
-        snowflake.textContent = "❆"; // Você pode trocar o emoji por "*" ou qualquer símbolo de neve
-
-        // Posição aleatória para cada floco
-        snowflake.style.left = Math.random() * 100 + "vw";
-        snowflake.style.animationDuration = Math.random() * 3 + 2 + "s"; // Duração aleatória
-        snowflake.style.fontSize = Math.random() * 10 + 10 + "px"; // Tamanho aleatório
-
-        document.body.appendChild(snowflake);
-
-        // Remove o floco de neve depois que ele cai
-        setTimeout(() => {
-            snowflake.remove();
-        }, 5000);
-    }
-
-    // Gera um novo floco de neve a cada 200 ms
-    setInterval(createSnowflake, 200);
-    */
-</script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        if (!localStorage.getItem("avisoConfirmado")) {
-            document.getElementById("avisoBanner").style.display = "block";
-        }
-    });
-
-    function fecharBanner() {
-        document.getElementById("avisoBanner").style.display = "none";
-        localStorage.setItem("avisoConfirmado", "true");
-    }
-</script>
-
-<script>
-      const widgetId = '1tRQLcfdBtnBnia3lQ2k';
-    
-      window.noticeable.on('widget:publication:unread_count:changed', widgetId, e => {
-        const element = document.getElementById('counter');
-    
-        if (element) {
-          if (e.detail.value === 0) {
-            element.style.display = 'none';
-          } else {
-            element.style.display = 'inline-flex';
-            element.innerText = e.detail.value;
-          }
-        }
-      });
-    
-      window.noticeable.on(
-        'widget:trigger_view:mouse_entered', widgetId, () => {
-          window.noticeable.do('widget:open', widgetId);
-      });
-    
-      window.noticeable.on(
-        'widget:widget_view:mouse_left', widgetId, () => {
-          window.noticeable.do('widget:close', widgetId);
-      });
-    
-      window.noticeable.render("widget", widgetId);
-</script>
 </body>
 </html>
