@@ -1,16 +1,451 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>EJECT | WordPress</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/trilhas_styles.css">
-        <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJECT | WordPress com Gemini AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Importação da fonte */
+        @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
+
+        /* Variáveis de cor */
+        :root {
+            --background: rgb(245, 251, 255);
+            --color-primary: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
+            --text-gray: #4a4a4a;
+            --white: #fff;
+            --text-light-grey: #aaa;
+            --star-yellow: #FFBB3A;
+            --gemini-blue: #4285F4; /* Google Blue for Gemini features */
+            --gemini-green: #34A853; /* Google Green */
+        }
+
+        /* Reset de estilo */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Configurações de fonte e corpo */
+        html, body {
+            font-family: "Exo 2", sans-serif;
+            width: 100%;
+            min-height: 100%; 
+            background: var(--color-primary);
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            max-width: 1200px; 
+            margin: 0 auto;    
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0; 
+        }
+        h2 { margin-bottom: 0.75rem; }
+        h3 { margin-bottom: 0.5rem; }
+
+        a {
+            text-decoration: none;
+            color: #0073e6; 
+        }
+
+        a:hover {
+            color: #005bb5; 
+            text-decoration: underline;
+        }
+        nav a {
+            text-decoration: none; 
+            font-size: 12px;       
+            font-weight: 400;      
+        }
+        nav a:hover {
+            color: unset;          
+            text-decoration: none; 
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 98px;
+            background: var(--background);
+            box-shadow: rgb(224, 229, 241) 0px 4px 10px 5px;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 98px;
+            align-items: center;
+        }
+
+        nav.container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px; 
+        }
+
+        nav h1 {
+            font-weight: bold;
+            text-align: center;
+            color: rgb(0, 61, 115);
+            font-size: 30px;
+        }
+
+        .ds-contact-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .ds-contact-container img {
+            margin-right: 10px;
+            height: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .ds-contact-container {
+                margin: 0 auto; 
+            }
+            nav h1 {
+                font-size: 24px; 
+            }
+            .nav-bar { 
+                display: flex;
+                justify-content: space-between;
+                padding: 10px;
+            }
+        }
+
+        .ds-contact-container, .Trilhas-contact-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .ds-contact-container img,
+        .Trilhas-contact-container img {
+            margin-right: 10px;
+            height: 50px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 1rem; 
+        }
+
+        li {
+            background: #fff;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        li p, li ul {
+            margin-bottom: 0.5rem; 
+        }
+        li p:last-child, li ul:last-child {
+            margin-bottom: 0; 
+        }
+        li strong { 
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        ul ul li {
+            background: #f9f9f9; 
+            padding: 0.5rem;
+            margin-top: 0.25rem;
+        }
+        ul ul li a {
+            font-size: 0.95rem;
+        }
+
+        .ds-btn, .login-button, .logout-button, .gemini-btn { /* Added .gemini-btn */
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: var(--white);
+            background: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%);
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            display: inline-flex; /* Changed to inline-flex for side-by-side buttons */
+            align-items: center;
+            justify-content: center;
+            min-width: 150px;
+            min-height: 50px;
+            border-color: transparent;
+            margin: 5px; /* Added margin for spacing between buttons */
+        }
+        .gemini-btn { /* Specific style for Gemini buttons */
+             background: linear-gradient(92.07deg, var(--gemini-blue) 1.84%, var(--gemini-green) 100%);
+        }
+
+
+        .ds-btn:hover, .login-button:hover, .logout-button:hover, .gemini-btn:hover {
+            transform: scale(1.05);
+            color:white;
+        }
+
+        .login-button img, .logout-button img {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+        }
+
+        footer {
+            width: 100%;
+            background-color: rgb(10, 55, 78);
+            padding: 0 1rem; 
+        }
+
+        footer p {
+            font-size: 1rem;
+            text-align: center;
+            padding: 2rem 0 1rem;
+            color: var(--white);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem; 
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0; 
+        }
+        
+        section { 
+            margin-bottom: 1.5rem;
+        }
+        section.mb-5 { 
+             margin-bottom: 3rem !important;
+        }
+
+        @media screen and (max-width: 768px) {
+            main {
+                margin: 0 5%; 
+                padding: 15px; 
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .section-header h2 {
+                margin-bottom: 10px;
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Estilo do modal */
+        .modal {
+            position: fixed;
+            z-index: 1050; /* Bootstrap's modal z-index is 1050 */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            opacity: 0; 
+            visibility: hidden; 
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal.show { 
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            max-width: 600px; /* Increased max-width for summary */
+            border: 1px solid #888;
+            width: 90%;     /* Adjusted for responsiveness */
+            text-align: left; /* Summary text should be left-aligned */
+            border-radius: 8px; 
+            transform: translateY(-20px); 
+            transition: transform 0.3s ease;
+            position: relative; /* For close button positioning */
+            max-height: 80vh; /* Max height for scrollability */
+            overflow-y: auto; /* Enable scroll for long summaries */
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-content h3 { 
+            margin-top: 0;
+            font-size: 1.5rem; 
+            color: #333;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center; /* Modal title can be centered */
+        }
+
+        .modal-content p {
+            font-size: 1rem; 
+            color: #555; 
+            line-height: 1.6; 
+            margin-bottom: 20px; 
+        }
+        .modal-content pre { /* Styling for preformatted text from Gemini */
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap; /* Allow text to wrap */
+            word-wrap: break-word; /* Break long words */
+            font-size: 0.95rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+
+        .close-button, .close { 
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem; 
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            border: none;      
+            background: none;  
+            padding: 0; /* Remove default button padding */
+            line-height: 1; /* Ensure icon aligns well */
+        }
+
+        .close-button:hover, .close:hover {
+            color: #000;
+        }
+        
+        code{
+            background-color: #dbdbdb;
+            color: #271e1e;
+            padding: 3px 6px; 
+            border-radius: 5px;
+            font-size: 0.9em; 
+        }
+
+        p {
+            line-height: 1.6;
+            font-size: 1rem;
+            margin-bottom: 1rem; 
+        }
+        p:last-child {
+            margin-bottom: 0; 
+        }
+        section p:last-of-type { 
+            margin-bottom: 0;
+        }
+
+        /* Gemini API Feature Styles */
+        .gemini-feature-section {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+        }
+        .gemini-feature-section h3 {
+            color: var(--gemini-blue);
+            margin-bottom: 1rem;
+        }
+        .gemini-feature-section textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            margin-bottom: 1rem;
+            font-family: "Exo 2", sans-serif;
+        }
+        .gemini-results {
+            margin-top: 1rem;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+            min-height: 50px;
+        }
+        .gemini-results h4 {
+            font-size: 1.2rem;
+            color: var(--gemini-green);
+            margin-bottom: 0.5rem;
+        }
+        .gemini-results p {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+         .gemini-results ul {
+            padding-left: 20px;
+            list-style: disc;
+        }
+        .gemini-results ul li {
+            background: transparent;
+            box-shadow: none;
+            padding: 0.25rem 0;
+        }
+
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,0,0,.1);
+            border-radius: 50%;
+            border-top-color: var(--gemini-blue);
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .hidden {
+            display: none !important;
+        }
+        .gemini-button-container {
+            text-align: center; /* Center the button */
+            margin-bottom: 2rem;
+        }
+
+        /* Video sections within list items styling */
+        .video-section-within-li {
+            margin-top: 1rem; 
+        }
+        .video-section-within-li h3 {
+            font-size: 1.1rem; 
+            margin-bottom: 0.5rem;
+        }
+
+    </style>
+</head>
 <body>
-    <!-- Vlibra -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper>
@@ -24,8 +459,8 @@
 
 <header>
     <nav class="container">
-        <a href="index">
-            <h1 href = "/EJECT_Trilha_de_Conhecimento/index">Hub de Conhecimentos</h1>
+        <a href="/EJECT_Trilha_de_Conhecimento/index">
+            <h1>Hub de Conhecimentos</h1>
         </a>
         <div class="ds-contact-container">
             <a href="https://www.ejectufrn.com.br/">
@@ -37,211 +472,442 @@
     <main>
         <section>
             <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
-        </section> <br>
+        </section>
 
         <input type="hidden" id="trilha-nome" value="Wordpress" />
 
-        <!-- Conteúdo do Scrum -->
+        <div class="gemini-button-container">
+            <button id="summarizePageBtn" class="gemini-btn">Resumir Conteúdo da Página ✨ <span id="summarizeSpinner" class="loading-spinner hidden"></span></button>
+        </div>
+
+
+        <section class="gemini-feature-section">
+            <h3>Precisa de um Plugin? Gere Ideias! ✨</h3>
+            <p>Descreva a funcionalidade que você precisa para o seu site WordPress e deixe a IA sugerir algumas ideias de plugins.</p>
+            <textarea id="pluginIdeaInput" placeholder="Ex: Preciso de um plugin para mostrar os posts mais populares numa barra lateral e que seja personalizável."></textarea>
+            <button id="generatePluginIdeaBtn" class="gemini-btn">Gerar Ideias de Plugins <span id="pluginIdeaSpinner" class="loading-spinner hidden"></span></button>
+            <div id="pluginIdeaResults" class="gemini-results hidden"></div>
+        </section>
+
+        <section class="gemini-feature-section">
+            <h3>Gerador de Nomes para Blogs/Sites ✨</h3>
+            <p>Insira palavras-chave ou uma breve descrição do tema do seu blog ou site para receber sugestões de nomes criativos.</p>
+            <textarea id="blogNameInput" placeholder="Ex: Culinária vegana, receitas fáceis, dicas de alimentação saudável"></textarea>
+            <button id="generateBlogNameBtn" class="gemini-btn">Gerar Nomes <span id="blogNameSpinner" class="loading-spinner hidden"></span></button>
+            <div id="blogNameResults" class="gemini-results hidden"></div>
+        </section>
+
+
         <section class="mb-5">
-            <h2>Introdução ao WordPress</h2> <br>
+            <h2>Introdução ao WordPress</h2>
             <p>O WordPress é uma das plataformas mais populares para a criação de sites e blogs no mundo. Ele é conhecido por sua facilidade de uso e flexibilidade, sendo adequado tanto para iniciantes quanto para desenvolvedores mais experientes. Se você é universitário e quer criar um portfólio, blog, ou até mesmo um site para algum projeto, o WordPress pode ser a ferramenta ideal para você.</p>
         </section>
 
-        <!-- Fundamentos do Scrum -->
         <section>
             <div class="section-header">
                 <h2>Por que usar o WordPress?</h2>
-            </div> <br>
+            </div>
             <ul>
-                <p>O Scrum é sustentado por três pilares fundamentais: transparência, inspeção e adaptação. Vamos desmembrar cada um deles para facilitar o entendimento. </p>
-                <li>Gratuito e de Código Aberto</li> <br>
-                <p>O WordPress é gratuito, e seu código é aberto, o que significa que qualquer pessoa pode contribuir com melhorias ou criar extensões.</p>
-                <li>Fácil de Usar</li> <br>
-                <p>Não é necessário saber programar para começar a usar o WordPress. Ele oferece uma interface intuitiva, onde você pode criar e gerenciar seu site facilmente.</p>
-                <li>Personalizável</li> <br>
-                <p> Com milhares de temas e plugins disponíveis, você pode personalizar seu site para atender a qualquer necessidade, seja um portfólio acadêmico, uma loja online ou um blog pessoal. </p> 
-                <li>Responsivo</li> <br>
-                <p>A maioria dos temas do WordPress é responsiva, ou seja, seus sites ficarão bonitos em celulares, tablets e computadores.</p>
-                    
-                <section>
-                    <h3>O que é WordPress e como funciona? [2024]</h3> <br>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/HIh3D5lHXWY?si=trOSB8DQ8aOfTgU1" title="O que é WordPress e como funciona?" allowfullscreen></iframe>
-                    </div>
-                </section>
-            </ul> <br>
+                <li>
+                    <strong>Gratuito e de Código Aberto</strong>
+                    <p>O WordPress é gratuito, e seu código é aberto, o que significa que qualquer pessoa pode contribuir com melhorias ou criar extensões.</p>
+                </li>
+                <li>
+                    <strong>Fácil de Usar</strong>
+                    <p>Não é necessário saber programar para começar a usar o WordPress. Ele oferece uma interface intuitiva, onde você pode criar e gerenciar seu site facilmente.</p>
+                </li>
+                <li>
+                    <strong>Personalizável</strong>
+                    <p>Com milhares de temas e plugins disponíveis, você pode personalizar seu site para atender a qualquer necessidade, seja um portfólio acadêmico, uma loja online ou um blog pessoal.</p>
+                </li>
+                <li>
+                    <strong>Responsivo</strong>
+                    <p>A maioria dos temas do WordPress é responsiva, ou seja, seus sites ficarão bonitos em celulares, tablets e computadores.</p>
+                    <section class="video-section-within-li">
+                        <h3>O que é WordPress e como funciona? [2024]</h3>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/HIh3D5lHXWY?si=trOSB8DQ8aOfTgU1" title="O que é WordPress e como funciona?" allowfullscreen></iframe>
+                        </div>
+                    </section>
+                </li>
+            </ul>
         </section>
 
-        <!-- Papéis no Scrum -->
         <section>
             <div class="section-header">
                 <h2>Primeiros Passos</h2>
-            </div> <br>
+            </div>
             <p>1. Escolha entre WordPress.com e WordPress.org</p>
             <ul>
-                <li>WordPress.com</li> <br>
-                <p>É uma versão hospedada, ideal para quem quer começar rapidamente sem se preocupar com hospedagem ou configurações técnicas. Contudo, as opções de personalização são limitadas.</p>
-                <p> https://wordpress.com/pt-br/ </p> <br>
-
-                <li>WordPress.org</li> <br>
-                <p>É a versão autohospedada. Você precisará contratar um serviço de hospedagem e um domínio, mas terá controle total sobre seu site, incluindo a instalação de temas e plugins. </p>
-                <p> https://br.wordpress.org/ </p> <br>
-                
-                <p> <strong>OBS:</strong> Se você pretende usar o WordPress para um projeto mais avançado ou para aprender sobre criação de sites, recomendamos usar o WordPress.org.</p>
-            </ul> <br>
+                <li>
+                    <strong>WordPress.com</strong>
+                    <p>É uma versão hospedada, ideal para quem quer começar rapidamente sem se preocupar com hospedagem ou configurações técnicas. Contudo, as opções de personalização são limitadas.</p>
+                    <p><a href="https://wordpress.com/pt-br/" target="_blank">https://wordpress.com/pt-br/</a></p>
+                </li>
+                <li>
+                    <strong>WordPress.org</strong>
+                    <p>É a versão autohospedada. Você precisará contratar um serviço de hospedagem e um domínio, mas terá controle total sobre seu site, incluindo a instalação de temas e plugins.</p>
+                    <p><a href="https://br.wordpress.org/" target="_blank">https://br.wordpress.org/</a></p>
+                </li>
+            </ul>
+            <p><strong>OBS:</strong> Se você pretende usar o WordPress para um projeto mais avançado ou para aprender sobre criação de sites, recomendamos usar o WordPress.org.</p>
         </section>
 
-        <!-- Eventos do Scrum -->
         <section>
             <div class="section-header">
                 <h2>Instalação</h2>
-            </div> <br>
-            <p>Há três maneiras principais de utilizar o <strong>WordPress.org</strong>: </p>
+            </div>
+            <p>Há três maneiras principais de utilizar o <strong>WordPress.org</strong>:</p>
             <ul>
-                <li>Hospedagem paga</li> <br>
-                <p><strong>1. Escolha um serviço de hospedagem:</strong> Pesquise por provedores de hospedagem que ofereçam instalação fácil do WordPress (como Hostinger, Bluehost ou GoDaddy).</p>
-                <p><strong>2. Registro de domínio: </strong>Um domínio é o endereço do seu site (ex.: www.meusite.com). A maioria das hospedagens oferece a opção de registrar um domínio junto com o plano de hospedagem.</p>
-                <p><strong>3. Instalação automática:</strong> A maioria das hospedagens oferece uma instalação automática do WordPress. Basta seguir as instruções fornecidas.</p> <br>
-                <li>Hospedagem gratuita</li> <br>
-                <p>Embora possível, não é recomendada devido à alta ocorrência de erros.</p>                    
-                <p> WebHost – Tutorial de uso de uma hospedagem gratuita </p>
-                <section>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/IAscPei03aI?si=DTFKt8ho2_3ddLrX" title="Como instalar o WordPress? | Locaweb" allowfullscreen></iframe>
-                    </div>
-                </section>
-
-                <p>InfinityFree – Instalar WordPress no Infinity Free</p>
-                <section>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/ygPhe0iiRJ0?si=1sGMy5l9bFksUBge&amp;start=104" title="HOSPEDAGEM + DOMÍNIO GRÁTIS NO INFINITYFREE COM WORDPRESS 2024: Crie Seu Site Grátis!" allowfullscreen></iframe>
-                    </div>
-                </section>
-                
-
-                <li>Instalação local</li> <br>
-                <p> Ideal para projetos individuais, essa alternativa permite rodar o WordPress localmente, sem a necessidade de um servidor remoto. No entanto, essa abordagem inviabiliza o trabalho colaborativo, pois o projeto só será acessível em sua máquina.</p>
-                <section>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/7v6qNHmqm0I?si=r4t4sIE1BesMr9_J" title="Como instalar o wordpress num servidor web XAMPP (windows)" allowfullscreen></iframe>
-                    </div>
-                </section>
-
-            </ul> <br>
+                <li>
+                    <strong>Hospedagem paga</strong>
+                    <p><strong>1. Escolha um serviço de hospedagem:</strong> Pesquise por provedores de hospedagem que ofereçam instalação fácil do WordPress (como Hostinger, Bluehost ou GoDaddy).</p>
+                    <p><strong>2. Registro de domínio:</strong> Um domínio é o endereço do seu site (ex.: www.meusite.com). A maioria das hospedagens oferece a opção de registrar um domínio junto com o plano de hospedagem.</p>
+                    <p><strong>3. Instalação automática:</strong> A maioria das hospedagens oferece uma instalação automática do WordPress. Basta seguir as instruções fornecidas.</p>
+                </li>
+                <li>
+                    <strong>Hospedagem gratuita</strong>
+                    <p>Embora possível, não é recomendada devido à alta ocorrência de erros.</p>
+                    <section class="video-section-within-li">
+                        <h3>WebHost – Tutorial de uso de uma hospedagem gratuita</h3>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/IAscPei03aI?si=DTFKt8ho2_3ddLrX" title="Como instalar o WordPress? | Locaweb" allowfullscreen></iframe>
+                        </div>
+                    </section>
+                    <section class="video-section-within-li">
+                         <h3>InfinityFree – Instalar WordPress no Infinity Free</h3>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/ygPhe0iiRJ0?si=1sGMy5l9bFksUBge&start=104" title="HOSPEDAGEM + DOMÍNIO GRÁTIS NO INFINITYFREE COM WORDPRESS 2024: Crie Seu Site Grátis!" allowfullscreen></iframe>
+                        </div>
+                    </section>
+                </li>
+                <li>
+                    <strong>Instalação local</strong>
+                    <p>Ideal para projetos individuais, essa alternativa permite rodar o WordPress localmente, sem a necessidade de um servidor remoto. No entanto, essa abordagem inviabiliza o trabalho colaborativo, pois o projeto só será acessível em sua máquina.</p>
+                    <section class="video-section-within-li">
+                        <h3>Como instalar o WordPress num servidor web XAMPP (Windows)</h3>
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/7v6qNHmqm0I?si=r4t4sIE1BesMr9_J" title="Como instalar o wordpress num servidor web XAMPP (windows)" allowfullscreen></iframe>
+                        </div>
+                    </section>
+                </li>
+            </ul>
         </section>
 
-        <!-- Artefatos do Scrum -->
         <section>
             <div class="section-header">
                 <h2>WordPress: Guia Básico</h2>
-            </div> <br>
+            </div>
             <ul>
-                <li>Tour pelo painel</li>
-                <section>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/201L6lynoyc?si=hXhkehV48S2mcRC7" title="Configurar WordPress: tour pelo painel | WordPress sem Código 2.4" allowfullscreen></iframe>
-                    </div>
-                </section>
-
-                <li>O que é um tema WordPress?</li>
-                <section>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/TLIC9un7auI?si=OdtCVhda2OO9BOqY" title="O que é tema WordPress? Como escolher? | WordPress sem Código 2.5" allowfullscreen></iframe>
-                    </div>
-                </section>
-                
-                <li>O que são plug-ins no WordPress?</li>
-                <section>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/V4fcCUQgf6A?si=rbD321ReEJudRPRh" title="O que são plugins WordPress? Como escolher e de quais você precisa | WordPress sem Código 2.6" allowfullscreen></iframe>
-                    </div>
-                </section>
-            
+                <li>
+                    <strong>Tour pelo painel</strong>
+                    <section class="video-section-within-li">
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/201L6lynoyc?si=hXhkehV48S2mcRC7" title="Configurar WordPress: tour pelo painel | WordPress sem Código 2.4" allowfullscreen></iframe>
+                        </div>
+                    </section>
+                </li>
+                <li>
+                    <strong>O que é um tema WordPress?</strong>
+                    <section class="video-section-within-li">
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/TLIC9un7auI?si=OdtCVhda2OO9BOqY" title="O que é tema WordPress? Como escolher? | WordPress sem Código 2.5" allowfullscreen></iframe>
+                        </div>
+                    </section>
+                </li>
+                <li>
+                    <strong>O que são plug-ins no WordPress?</strong>
+                    <section class="video-section-within-li">
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/V4fcCUQgf6A?si=rbD321ReEJudRPRh" title="O que são plugins WordPress? Como escolher e de quais você precisa | WordPress sem Código 2.6" allowfullscreen></iframe>
+                        </div>
+                    </section>
+                </li>
             </ul>
         </section>
 
         <section>
             <div class="section-header">
                 <h2>O que é o Elementor?</h2>
-            </div> <br>
+            </div>
             <p>O Elementor é um dos construtores de páginas mais populares para WordPress. Ele permite que você crie layouts de páginas de forma visual, usando um editor drag-and-drop (arrastar e soltar). Com o Elementor, você pode personalizar seu site sem precisar de conhecimento em programação, tornando-o uma ferramenta acessível para todos, especialmente para universitários que desejam desenvolver suas habilidades em design e criação de sites.</p>
             <ul>
-                <li>Como instalar o Elementor no WordPress?</li>
-                <section>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/fO-01fpRdWk?si=rbVl3enLmbvJYzuX" title="Curso de Elementor Wordpress- Instalação e Configurações Globais - Aula 02" allowfullscreen></iframe>
-                    </div>
-                </section>
-
-                <li>Como usar o Elementor?</li>
-                <p>Após a instalação, crie uma nova página ou post, clique em "Editar com o Elementor" e comece a configurar o layout da sua página conforme desejar.</p>
-                <section>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/zchcWamlE6A?si=LHPOMFPHshIIhxFa" title="O que é o Elementor do WordPress | Expert Digital" allowfullscreen></iframe>
-                    </div>
-                </section>
-                
-                <li>O Elementor é pago?</li>
-                <p>Existem duas versões: gratuita e paga. Ambas permitem criar páginas, mas a versão paga, chamada Elementor PRO, oferece funcionalidades mais avançadas e completas.</p>
-                <a href="https://elementor.com/pricing/" target="_blank"> [LINK] Elementor PRO</a> <br>
-            
+                <li>
+                    <strong>Como instalar o Elementor no WordPress?</strong>
+                    <section class="video-section-within-li">
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/fO-01fpRdWk?si=rbVl3enLmbvJYzuX" title="Curso de Elementor Wordpress- Instalação e Configurações Globais - Aula 02" allowfullscreen></iframe>
+                        </div>
+                    </section>
+                </li>
+                <li>
+                    <strong>Como usar o Elementor?</strong>
+                    <p>Após a instalação, crie uma nova página ou post, clique em "Editar com o Elementor" e comece a configurar o layout da sua página conforme desejar.</p>
+                    <section class="video-section-within-li">
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/zchcWamlE6A?si=LHPOMFPHshIIhxFa" title="O que é o Elementor do WordPress | Expert Digital" allowfullscreen></iframe>
+                        </div>
+                    </section>
+                </li>
+                <li>
+                    <strong>O Elementor é pago?</strong>
+                    <p>Existem duas versões: gratuita e paga. Ambas permitem criar páginas, mas a versão paga, chamada Elementor PRO, oferece funcionalidades mais avançadas e completas.</p>
+                    <p><a href="https://elementor.com/pricing/" target="_blank">[LINK] Elementor PRO</a></p>
+                </li>
             </ul>
         </section>
 
         <section>
             <div class="section-header">
-                <h2>O que é o WooCommerce?</h2> 
-            </div> <br>
+                <h2>O que é o WooCommerce?</h2>
+            </div>
             <p>O WooCommerce é um plugin gratuito para WordPress que transforma seu site em uma loja online completa. É uma das soluções de comércio eletrônico mais populares do mundo, permitindo que você venda produtos físicos, digitais ou serviços diretamente do seu site. Se você é universitário e deseja iniciar um projeto de e-commerce, o WooCommerce oferece todas as ferramentas necessárias para gerenciar sua loja de forma eficiente.</p>
             <ul>
-                <li>Instalação do WooCommerce</li>
-                <p>A instalação da plataforma é simples, basta você acessar no seu painel WordPress, Plugins > Adicionar Novo e fazer uma busca por “WooCommerce”.</p>
-                <p>Após instalado e ativado, você precisa realizar a configuração pelo painel na barra lateral, ou pelo Assistente de Configuração, mostrado ao logar no WordPress.</p>
-                <p><strong>Configuração Inicial</strong></p>
-                <p>Após ativar o WooCommerce, você será guiado por um assistente de configuração:</p>
-                <p><strong>1. Configurações Básicas:</strong> Insira informações básicas, como o endereço da loja, moeda e tipo de produtos que você deseja vender.</p>
-                <p><strong>2. Métodos de Pagamento:</strong> Escolha os métodos de pagamento que você deseja oferecer aos clientes (por exemplo, PayPal, cartões de crédito).</p>
-                <p><strong>3. Envio:</strong> Defina opções de envio, como tarifas e áreas de entrega.</p>
-                <p><strong>4. Impostos:</strong> Configure se deseja cobrar impostos sobre as vendas e como será feito o cálculo.</p>
-                <section>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/YkgM5iHZ1zQ?si=KBXVZryIEHFWpD3V" title="Como instalar e configurar o WooCommerce no WordPress (Rápido e Fácil) 2023" allowfullscreen></iframe>
-                    </div>
-                </section>
-
-                <li>Configurando o WooCommerce</li>
-                <section>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/videoseries?si=_spUU-2AnWaAwXz8&amp;list=PLAeCmCX88aG3A04dxaWQH6DqrYGLU8hDH" title="O que é o Elementor do WordPress | Expert Digital" allowfullscreen></iframe>
-                    </div>
-                </section>
+                <li>
+                    <strong>Instalação do WooCommerce</strong>
+                    <p>A instalação da plataforma é simples, basta você acessar no seu painel WordPress, Plugins > Adicionar Novo e fazer uma busca por “WooCommerce”.</p>
+                    <p>Após instalado e ativado, você precisa realizar a configuração pelo painel na barra lateral, ou pelo Assistente de Configuração, mostrado ao logar no WordPress.</p>
+                </li>
+                <li>
+                    <strong>Configuração Inicial</strong>
+                    <p>Após ativar o WooCommerce, você será guiado por um assistente de configuração:</p>
+                    <p><strong>1. Configurações Básicas:</strong> Insira informações básicas, como o endereço da loja, moeda e tipo de produtos que você deseja vender.</p>
+                    <p><strong>2. Métodos de Pagamento:</strong> Escolha os métodos de pagamento que você deseja oferecer aos clientes (por exemplo, PayPal, cartões de crédito).</p>
+                    <p><strong>3. Envio:</strong> Defina opções de envio, como tarifas e áreas de entrega.</p>
+                    <p><strong>4. Impostos:</strong> Configure se deseja cobrar impostos sobre as vendas e como será feito o cálculo.</p>
+                    <section class="video-section-within-li">
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/YkgM5iHZ1zQ?si=KBXVZryIEHFWpD3V" title="Como instalar e configurar o WooCommerce no WordPress (Rápido e Fácil) 2023" allowfullscreen></iframe>
+                        </div>
+                    </section>
+                </li>
+                <li>
+                    <strong>Configurando o WooCommerce</strong>
+                    <section class="video-section-within-li">
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.youtube.com/embed/videoseries?si=_spUU-2AnWaAwXz8&list=PLAeCmCX88aG3A04dxaWQH6DqrYGLU8hDH" title="O que é o Elementor do WordPress | Expert Digital" allowfullscreen></iframe> </div>
+                    </section>
+                </li>
             </ul>
         </section>
-        
-        <!-- Referências -->
+
         <section>
-            <h2>Referências e Conteúdos Extras</h2> <br>
+            <h2>Referências e Conteúdos Extras</h2>
             <ul>
-                <li>Sites</li> <br>
-                <a href="https://ajuda.hostnet.com.br/tutoriais-para-woocommerce/" target="_blank"> [LINK] Tutoriais para Woocommerce</a> <br> <br>
-
-                <li>Vídeos</li> <br>
-                <a href="https://youtu.be/F2gyAeZdU9s?si=gxcjwukiKGzFOzNH" target="_blank"> [YOUTUBE - EN] How to Customize WooCommerce Product & Product Archive Pages Via Elementor</a><br>
-                <a href="https://www.youtube.com/playlist?list=PLa3bnULYnrpE6ThG9BuW1KTr_naXg_KIf" target="_blank"> [YOUTUBE - PT-Br] Como personalizar o Woocommerce</a><br> <br>                
-                
-                <li>Cursos</li> <br>
-                <a href="https://academy.hostgator.com.br/public/products/f16af464-5d43-46a7-982d-c7d6662b177e" target="_blank"> [HostGator Academy] Curso de WordPress: Crie um Site Profissional</a><br>
-                <a href="https://conteudos.hostgator.com.br/curso-desenvolvimento-de-plugins-wordpress" target="_blank"> [CURSO - PT-Br] Curso Desenvolvimento de Plugins para Wordpress</a><br> <br>
-                
+                <li>
+                    <strong>Sites</strong>
+                    <ul>
+                        <li><a href="https://ajuda.hostnet.com.br/tutoriais-para-woocommerce/" target="_blank">[LINK] Tutoriais para Woocommerce</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Vídeos</strong>
+                    <ul>
+                        <li><a href="https://youtu.be/F2gyAeZdU9s?si=gxcjwukiKGzFOzNH" target="_blank">[YOUTUBE - EN] How to Customize WooCommerce Product & Product Archive Pages Via Elementor</a></li>
+                        <li><a href="https://www.youtube.com/playlist?list=PLa3bnULYnrpE6ThG9BuW1KTr_naXg_KIf" target="_blank">[YOUTUBE - PT-Br] Como personalizar o Woocommerce</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Cursos</strong>
+                    <ul>
+                        <li><a href="https://academy.hostgator.com.br/public/products/f16af464-5d43-46a7-982d-c7d6662b177e" target="_blank">[HostGator Academy] Curso de WordPress: Crie um Site Profissional</a></li>
+                        <li><a href="https://conteudos.hostgator.com.br/curso-desenvolvimento-de-plugins-wordpress" target="_blank">[CURSO - PT-Br] Curso Desenvolvimento de Plugins para Wordpress</a></li>
+                    </ul>
+                </li>
             </ul>
         </section>
-        
+
     </main>
 
+    <div id="summaryModal" class="modal">
+        <div class="modal-content">
+            <button class="close-button" id="closeSummaryModal">&times;</button>
+            <h3>Resumo da Página ✨</h3>
+            <div id="summaryModalContent"><p>A carregar resumo...</p></div>
+        </div>
+    </div>
+
+
     <footer class="text-center py-4">
-        <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
+        <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT© - Todos os direitos reservados.</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka6PYS2ZTMj7Do35tWl53KIkazN1l5Hb9Kjk7aaJ5RrbZZgZ9KmbxKt0qKZ1dQF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-ka6PYS2ZTMj7Do35tWl53KIkazN1l5Hb9Kjk7aaJ5RrbZZgZ9KmbxKt0qKZ1dQF" crossorigin="anonymous"></script>
+    <script>
+        // Função para chamar a API Gemini
+        async function callGeminiAPI(promptText, resultElementId, spinnerElementId) {
+            const resultElement = document.getElementById(resultElementId);
+            const spinnerElement = document.getElementById(spinnerElementId);
+
+            if (!resultElement || !spinnerElement) {
+                console.error("Elementos de resultado ou spinner não encontrados.");
+                return;
+            }
+
+            spinnerElement.classList.remove('hidden');
+            resultElement.classList.add('hidden'); // Esconder resultados anteriores
+            resultElement.innerHTML = ''; // Limpar resultados anteriores
+
+            let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
+            const payload = { contents: chatHistory };
+            const apiKey = ""; // A API Key será fornecida pelo ambiente de execução, se necessário.
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error("Erro da API:", errorData);
+                    throw new Error(`Erro HTTP: ${response.status} - ${errorData.error?.message || 'Erro desconhecido'}`);
+                }
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    // Usar <pre> para manter a formatação, incluindo quebras de linha
+                    resultElement.innerHTML = `<pre>${text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>`;
+                } else {
+                    console.error("Resposta da API inesperada:", result);
+                    resultElement.innerHTML = '<p>Não foi possível gerar o conteúdo. A resposta da API não continha o texto esperado.</p>';
+                }
+            } catch (error) {
+                console.error('Erro ao chamar a API Gemini:', error);
+                resultElement.innerHTML = `<p>Ocorreu um erro ao tentar gerar o conteúdo: ${error.message}. Por favor, tente novamente mais tarde.</p>`;
+            } finally {
+                spinnerElement.classList.add('hidden');
+                resultElement.classList.remove('hidden');
+            }
+        }
+
+        // Resumir Conteúdo da Página
+        const summarizePageBtn = document.getElementById('summarizePageBtn');
+        const summaryModal = document.getElementById('summaryModal');
+        const summaryModalContent = document.getElementById('summaryModalContent');
+        const closeSummaryModalBtn = document.getElementById('closeSummaryModal');
+        const summarizeSpinner = document.getElementById('summarizeSpinner');
+
+
+        function getPageContentForSummary() {
+            let content = "";
+            const mainElement = document.querySelector('main');
+            if (mainElement) {
+                // Selecionar secções que são filhas diretas de main, excluindo as secções de funcionalidades da Gemini
+                const sections = mainElement.querySelectorAll('main > section:not(.gemini-feature-section):not(.gemini-button-container)');
+                sections.forEach(section => {
+                    // Adicionar títulos H2
+                    const h2 = section.querySelector('h2');
+                    if (h2) content += h2.innerText + "\n\n";
+                    
+                    // Adicionar parágrafos diretos da secção
+                    const directParagraphs = Array.from(section.childNodes).filter(node => node.nodeName === 'P');
+                    directParagraphs.forEach(p => content += p.innerText + "\n");
+
+                    // Adicionar parágrafos dentro de LIs (que são os principais blocos de texto)
+                     const listItemsParagraphs = section.querySelectorAll('li p, li > strong'); // Inclui strong como sub-títulos
+                    listItemsParagraphs.forEach(p => content += p.innerText + "\n");
+                    content += "\n"; // Adicionar uma quebra de linha entre secções
+                });
+            }
+            // Limitar o tamanho do conteúdo para evitar prompts muito longos
+            return content.substring(0, 15000); // Limite de caracteres para o prompt
+        }
+
+        if (summarizePageBtn) {
+            summarizePageBtn.addEventListener('click', async () => {
+                summarizeSpinner.classList.remove('hidden');
+                summaryModalContent.innerHTML = '<p>A gerar resumo...</p>';
+                summaryModal.classList.add('show');
+
+                const pageContent = getPageContentForSummary();
+                if (!pageContent.trim()) {
+                    summaryModalContent.innerHTML = '<p>Não foi possível extrair conteúdo da página para resumir.</p>';
+                    summarizeSpinner.classList.add('hidden');
+                    return;
+                }
+                
+                const prompt = `Resume o seguinte conteúdo sobre WordPress em Português (Portugal), de forma concisa e informativa, idealmente em 3 a 5 parágrafos. O resumo deve capturar os pontos principais e ser útil para alguém que quer uma visão geral rápida do tema:\n\n${pageContent}`;
+                
+                // Reutilizando a função callGeminiAPI, mas adaptando para o modal
+                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                const payload = { contents: chatHistory };
+                const apiKey = "AIzaSyAcEn6HsDrVDvuruGajI6Ro5cyyDq-8XTc"; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+                    const result = await response.json();
+                    if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0]) {
+                        summaryModalContent.innerHTML = `<pre>${result.candidates[0].content.parts[0].text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>`;
+                    } else {
+                        summaryModalContent.innerHTML = '<p>Não foi possível gerar o resumo. Resposta da API inválida.</p>';
+                    }
+                } catch (error) {
+                    console.error('Erro ao resumir:', error);
+                    summaryModalContent.innerHTML = `<p>Ocorreu um erro ao gerar o resumo: ${error.message}.</p>`;
+                } finally {
+                     summarizeSpinner.classList.add('hidden');
+                }
+            });
+        }
+
+        if (closeSummaryModalBtn) {
+            closeSummaryModalBtn.addEventListener('click', () => {
+                summaryModal.classList.remove('show');
+            });
+        }
+        // Fechar modal ao clicar fora
+        window.addEventListener('click', (event) => {
+            if (event.target == summaryModal) {
+                summaryModal.classList.remove('show');
+            }
+        });
+
+
+        // Gerador de Ideias para Plugins
+        const generatePluginIdeaBtn = document.getElementById('generatePluginIdeaBtn');
+        const pluginIdeaInput = document.getElementById('pluginIdeaInput');
+
+        if (generatePluginIdeaBtn && pluginIdeaInput) {
+            generatePluginIdeaBtn.addEventListener('click', () => {
+                const userNeed = pluginIdeaInput.value.trim();
+                if (!userNeed) {
+                    alert("Por favor, descreva a sua necessidade para o plugin.");
+                    return;
+                }
+                const prompt = `Baseado na seguinte necessidade para um site WordPress: "${userNeed}", sugira 3 ideias de plugins WordPress em Português (Portugal). Para cada ideia, inclua um nome criativo para o plugin e uma breve descrição (1-2 frases) da sua funcionalidade principal. Formate a resposta claramente para cada plugin.`;
+                callGeminiAPI(prompt, 'pluginIdeaResults', 'pluginIdeaSpinner');
+            });
+        }
+
+        // Gerador de Nomes para Blogs/Sites
+        const generateBlogNameBtn = document.getElementById('generateBlogNameBtn');
+        const blogNameInput = document.getElementById('blogNameInput');
+
+        if (generateBlogNameBtn && blogNameInput) {
+            generateBlogNameBtn.addEventListener('click', () => {
+                const blogTopic = blogNameInput.value.trim();
+                if (!blogTopic) {
+                    alert("Por favor, insira palavras-chave ou uma descrição para o seu blog/site.");
+                    return;
+                }
+                const prompt = `Sugira 7 nomes criativos em Português (Portugal) para um blog ou site sobre "${blogTopic}". Os nomes devem ser curtos, memoráveis e, se possível, indicar o tema. Apresente os nomes como uma lista.`;
+                callGeminiAPI(prompt, 'blogNameResults', 'blogNameSpinner');
+            });
+        }
+
+    </script>
 </body>
 </html>
