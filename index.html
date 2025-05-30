@@ -876,7 +876,7 @@
     <script>
         // Função genérica para chamar a API Gemini
         async function generateGeminiText(prompt) {
-            const apiKey = ""; // A chave da API será fornecida pelo ambiente Canvas em tempo de execução
+            const apiKey = "secret"; // A chave da API será fornecida pelo ambiente Canvas em tempo de execução
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             
             const payload = {
@@ -1132,6 +1132,8 @@ Por favor, crie um plano de estudo sugerido para este usuário. Seu plano deve:
             }
         }
     </script>
+
+    <script>const secret = "${{ secrets.GEMINI_API_KEY }}";    </script>
 
 </body>
 </html>

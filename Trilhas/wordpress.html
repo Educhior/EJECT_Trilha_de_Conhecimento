@@ -732,7 +732,7 @@
 
             let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
             const payload = { contents: chatHistory };
-            const apiKey = ""; // A API Key será fornecida pelo ambiente de execução, se necessário.
+            const apiKey = "secret"; // A API Key será fornecida pelo ambiente de execução, se necessário.
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
             try {
@@ -891,5 +891,6 @@
         }
 
     </script>
+    <script>const secret = "${{ secrets.GEMINI_API_KEY }}";    </script>
 </body>
 </html>
