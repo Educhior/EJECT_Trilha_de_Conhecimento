@@ -17,11 +17,12 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Removed unnecessary meta tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EJECT | Hub de Conhecimentos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
+    <link rel="icon" type="image/x-icon" href="/img/eject_logo.png">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
 
@@ -139,24 +140,6 @@
         .gift-section h1 { color: var(--white); font-size: 2rem; margin-bottom: 0.5rem; }
         .gift-section p { font-size: 1.1rem; margin-bottom: 0; }
 
-        /* Secção de Sugestão Gemini */
-        #gemini-suggestion-section h2 {
-            color: var(--text-primary);
-        }
-        #gemini-suggestion-section p {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-        }
-        #gemini-suggest-track-button {
-            background: var(--button-gemini-gradient);
-            border: none;
-            color: white; /* Garante que o texto do botão seja branco */
-        }
-        #gemini-suggest-track-button:hover {
-            opacity: 0.9;
-            box-shadow: 0 2px 8px rgba(74, 0, 224, 0.4);
-        }
-
 
         /* Controles de Filtro e Busca */
         .filter-search-controls { margin-bottom: 1.5rem; }
@@ -263,97 +246,6 @@
             box-shadow: 0 2px 8px rgba(74, 0, 224, 0.4);
         }
 
-
-        /* Modal (Logout e Gemini) */
-        .modal {
-            position: fixed;
-            z-index: 1050;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* Fundo um pouco mais escuro */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0s 0.3s; /* Atrasar o visibility hidden */
-        }
-        .modal.show {
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 0.3s ease;
-        }
-        .modal-content {
-            background-color: var(--white);
-            padding: 0; /* Removido padding para dar controlo ao header, body, footer */
-            border-radius: 8px;
-            width: 90%;
-            max-width: 550px; /* Modal Gemini pode ser um pouco maior */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transform: translateY(-20px) scale(0.95);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        .modal.show .modal-content {
-            transform: translateY(0) scale(1);
-        }
-
-        .modal-header {
-            padding: 15px 20px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .modal-header .modal-title {
-            margin-bottom: 0;
-            font-size: 1.25rem;
-            color: var(--text-primary);
-        }
-        .modal-body {
-            padding: 20px;
-            min-height: 100px; /* Altura mínima para o conteúdo */
-            max-height: 60vh; /* Altura máxima, com scroll se necessário */
-            overflow-y: auto;
-            text-align: left; /* Conteúdo do modal Gemini alinhado à esquerda */
-        }
-        .modal-body p {
-            margin-bottom: 0.5rem;
-            line-height: 1.5;
-        }
-        .modal-body strong {
-            color: var(--text-primary);
-        }
-        .modal-footer {
-            padding: 15px 20px;
-            border-top: 1px solid #eee;
-            text-align: right;
-        }
-        .modal-content .ds-btn { margin: 5px; }
-        .modal-content .logout-button { background: var(--danger-color); }
-        .modal-content .logout-button:hover { background: var(--danger-hover-color); }
-
-        .close-button { /* Estilo unificado para botões de fechar modal */
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--text-light-grey);
-            background: none;
-            border: none;
-            cursor: pointer;
-            line-height: 1;
-            padding: 0.5rem; /* Área de clique maior */
-        }
-        .close-button:hover { color: var(--text-secondary); }
-
-        #gemini-loading-indicator .spinner-border {
-            width: 3rem;
-            height: 3rem;
-        }
-
-
         /* Rodapé */
         footer {
             width: 100%;
@@ -363,58 +255,6 @@
         }
         footer p { font-size: 0.9rem; text-align: center; color: var(--white); margin: 0; }
         footer strong { font-weight: 600; }
-
-        /* Animação de Flocos de Neve (Opcional) */
-        .snowflake {
-            position: fixed;
-            top: -20px; /* Começa um pouco acima */
-            z-index: 999; /* Abaixo do modal */
-            color: var(--white);
-            font-size: 1em; /* Tamanho base */
-            pointer-events: none;
-            animation: fall linear infinite;
-            text-shadow: 0 0 5px rgba(255,255,255,0.5); /* Leve brilho */
-        }
-        @keyframes fall {
-            0% {
-                transform: translateY(0vh) translateX(0vw) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(105vh) translateX(5vw) rotate(360deg); /* Movimento lateral leve */
-                opacity: 0;
-            }
-        }
-
-        /* Banner de Aviso */
-        .banner {
-            position: fixed;
-            bottom: 0; /* Alterado para bottom */
-            left: 0;
-            width: 100%;
-            background: #ffcc00;
-            padding: 15px;
-            text-align: center;
-            font-size: 1rem; /* Ajustado */
-            font-weight: bold;
-            color: #333; /* Melhor contraste */
-            z-index: 1040; /* Abaixo do modal mas acima de outros conteúdos */
-            box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .banner button {
-            margin-left: 15px;
-            padding: 8px 15px;
-            border: none;
-            background: #333;
-            color: white;
-            font-size: 0.9rem;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        .banner button:hover {
-            background: #555;
-        }
 
         /* Responsividade */
         @media (max-width: 768px) {
@@ -536,10 +376,6 @@
         <nav class="container">
             <a href="index.html"> <h1>Hub de Conhecimentos</h1>
             </a>
-            <div class="user-actions-container">
-                <span id="welcome-message" style="display: none; margin-right: 15px; color: rgb(0, 61, 115); font-weight: 500;"></span>
-                <button id="logout-button-header" class="ds-btn logout-button" style="display: none; min-width: 120px; padding: 0.6rem 1rem;">Sair</button>
-            </div>
             <div class="ds-contact-container">
                 <a href="https://www.ejectufrn.com.br/" target="_blank" rel="noopener noreferrer">
                     <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
@@ -566,7 +402,7 @@
                         <input type="text" id="searchInput" class="form-control search-bar" placeholder="Pesquise as trilhas...">
                     </div>
                     <div class="filter-container">
-                        <select id="filterSelect" class="form-select filter-bar">
+                        <select id="filterSelect" class="form-select filter-bar" title="Filter options">
                             <option value="all">Todos</option>
                             <option value="alphabetical">Ordem Alfabética</option>
                             <option value="available">Disponíveis</option>
@@ -610,7 +446,7 @@
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">Gestão de Tempo</h3>
                             <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/gestao_de_tempo">Acessar</a>
+                                <a class="ds-btn" href="/Trilhas/gestao_de_tempo.html">Acessar</a>
                                 
                             </div>
                         </div>
@@ -710,7 +546,7 @@
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
                     <div class="ds-card" data-track-title="OKRs, KPIs e BPMN">
-                        <img src="https://listradigital.com.br/wp-content/uploads/2021/02/080221-bpListraINFO.png" alt="Imagem sobre OKRs, KPIs e BPMN">
+                        <img src="https://agilealliance.org/wp-content/uploads/2022/10/fury-okrs-agile-blog.png" alt="Imagem sobre OKRs, KPIs e BPMN">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">OKRs, KPIs e BPMN</h3>
                             <div class="ds-card-description-bottom">
@@ -801,9 +637,9 @@
 
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
                     <div class="ds-card" data-track-title="Data Studio">
-                        <img src="https://webrain.com.br/wp-content/uploads/2019/05/google-data-studio.jpg" alt="Imagem do Google Data Studio">
+                        <img src="https://media.licdn.com/dms/image/v2/D4D12AQHkS1tCc6LlVA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1722457848250?e=2147483647&v=beta&t=HlZ9mAxtlTnVhblfCroCs1RQ1Y-Gb6ggVUxbUv_zKew" alt="Imagem do Looker Studio">
                         <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Data Studio</h3>
+                            <h3 class="titulo-trilha">Looker Studio</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn ds-btn-soon" href="#" aria-disabled="true">Em breve</a>
                                 
