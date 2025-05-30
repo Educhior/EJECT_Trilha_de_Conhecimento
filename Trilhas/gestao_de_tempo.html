@@ -601,7 +601,7 @@
             smartGoalResultDiv.style.display = 'none';
             geminiApiMessageDiv.textContent = ''; // Limpa mensagens anteriores
 
-            const apiKey = "${{ secrets.GEMINI_API_KEY }}"; // Chave da API Gemini (deixar em branco conforme instruído)
+            const apiKey = "process.env.GEMINI_API_KEY"; // Substitua pela sua chave de API real
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
             // Prompt para a API Gemini
