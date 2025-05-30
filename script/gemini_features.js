@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardContainer = document.getElementById('cardContainer');
 
     // Chave da API (deixar em branco para o ambiente injetar)
-    const apiKey = "AIzaSyAcEn6HsDrVDvuruGajI6Ro5cyyDq-8XTc"; // Se precisar de uma chave para testes locais, coloque-a aqui.
+    const apiKey = ""; // Se precisar de uma chave para testes locais, coloque-a aqui.
     const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
     // Mapeamento simples de descrições de trilhas para resumos mais direcionados
