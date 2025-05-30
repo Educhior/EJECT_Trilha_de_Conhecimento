@@ -17,11 +17,11 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <!-- Removed unnecessary meta tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EJECT | Hub de Conhecimentos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="/img/eject_logo.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
@@ -36,10 +36,19 @@
             --white: #fff;
             --star-yellow: #FFBB3A;
             --button-gradient: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%);
-            --button-gemini-gradient: linear-gradient(92.07deg, #4A00E0 1.84%, #8E2DE2 100%); /* Gradiente roxo para botões Gemini */
+            --button-gemini-gradient: linear-gradient(92.07deg, #4A00E0 1.84%, #8E2DE2 100%);
             --shadow-color: rgb(224, 229, 241);
             --danger-color: #ff4757;
             --danger-hover-color: #ff6b81;
+            --card-bg-color: var(--white);
+            --modal-bg-color: #fefefe;
+            --modal-border-color: #888;
+            --modal-header-border-color: #eee;
+            --input-bg-color: var(--white);
+            --input-border-color: var(--text-light-grey);
+            --input-focus-border-color: rgb(9, 149, 219);
+            --input-focus-shadow-color: rgba(9, 149, 219, 0.25);
+            --placeholder-color: var(--text-light-grey);
         }
 
         /* Reset de estilo e configurações base */
@@ -50,7 +59,7 @@
         }
 
         html {
-            font-size: 16px;
+            font-size: 16px; /* Base for rem units */
         }
 
         body {
@@ -77,7 +86,7 @@
             color: var(--text-primary);
         }
         h1 { font-size: 2.25rem; }
-        h2 { font-size: 1.75rem; }
+        h2 { font-size: 1.75rem; margin-top: 1.5rem; margin-bottom: 1rem;}
         h3.titulo-trilha { font-size: 1.25rem; margin-bottom: 0.75rem; }
 
         /* Estilos de links */
@@ -115,10 +124,6 @@
             font-size: 1.75rem;
             margin: 0;
         }
-        .user-actions-container {
-            display: flex;
-            align-items: center;
-        }
         .ds-contact-container img {
             height: 45px;
             margin-left: 15px;
@@ -132,17 +137,17 @@
             align-items: center;
             text-align: center;
             background: linear-gradient(45deg, #ffcc00, #ff33cc, #6633ff, #33ccff);
-            color: var(--white);
+            color: #ffffff; /* Explicit white for text on gradient */
             padding: 25px 20px;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        .gift-section h1 { color: var(--white); font-size: 2rem; margin-bottom: 0.5rem; }
-        .gift-section p { font-size: 1.1rem; margin-bottom: 0; }
+        .gift-section h1 { color: #ffffff; font-size: 2rem; margin-bottom: 0.5rem; }
+        .gift-section p { color: #ffffff; font-size: 1.1rem; margin-bottom: 0; }
 
 
         /* Controles de Filtro e Busca */
-        .filter-search-controls { margin-bottom: 1.5rem; }
+        .filter-search-controls { margin-bottom: 1.5rem; margin-top: 1.5rem; }
         .filter-search-container {
             display: flex;
             justify-content: center;
@@ -161,25 +166,28 @@
             padding: 10px 12px;
             font-size: 1rem;
             border-radius: 8px;
-            border: 1px solid var(--text-light-grey);
+            background-color: var(--input-bg-color);
+            color: var(--text-secondary);
+            border: 1px solid var(--input-border-color);
             transition: border-color 0.3s, box-shadow 0.3s;
         }
         .search-bar:focus, .filter-bar:focus {
-            border-color: rgb(9, 149, 219);
-            box-shadow: 0 0 0 0.2rem rgba(9, 149, 219, 0.25);
+            border-color: var(--input-focus-border-color);
+            box-shadow: 0 0 0 0.2rem var(--input-focus-shadow-color);
             outline: none;
         }
-        .search-bar::placeholder { color: var(--text-light-grey); opacity: 0.8; }
+        .search-bar::placeholder { color: var(--placeholder-color); opacity: 0.8; }
 
         /* Estilos dos Cards */
         .ds-card {
-            background: var(--white);
+            background: var(--card-bg-color);
             border-radius: 8px;
             box-shadow: var(--shadow-color) 0px 4px 8px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
-            height: 100%;
+            height: 100%; 
+            width: 100%; 
         }
         .ds-card:hover {
             transform: translateY(-5px);
@@ -187,7 +195,7 @@
         }
         .ds-card img {
             width: 100%;
-            height: 200px;
+            height: 180px; /* Adjusted height for better card balance with two buttons */
             object-fit: cover;
             border-radius: 8px 8px 0 0;
         }
@@ -202,7 +210,10 @@
         .ds-card-description-bottom {
             margin-top: auto;
             padding-top: 10px;
-            width: 100%; /* Para que os botões possam usar width: 100% se necessário */
+            width: 100%; 
+            display: flex;
+            flex-direction: column; /* Stack buttons vertically */
+            gap: 10px; /* Space between buttons */
         }
 
         /* Botões */
@@ -210,22 +221,24 @@
             font-size: 0.9rem;
             font-weight: bold;
             text-transform: uppercase;
-            color: var(--white) !important;
+            color: #ffffff !important; /* Ensure text is white */
             background: var(--button-gradient);
             padding: 0.7rem 1.2rem;
             border-radius: 8px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; /* Added background transition */
             display: inline-flex;
             align-items: center;
             justify-content: center;
             min-width: 130px;
+            width: 100%; /* Make buttons take full width of their container */
             border: none;
             text-decoration: none !important;
+            line-height: 1.5; /* Ensure text is vertically centered */
         }
         .ds-btn:hover, .ds-btn:focus {
             transform: scale(1.03);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            color: var(--white) !important;
+            color: #ffffff !important;
             text-decoration: none !important;
         }
         .ds-btn-soon {
@@ -237,14 +250,168 @@
 
         .gemini-summarize-btn {
             background: var(--button-gemini-gradient);
-            width: calc(100% - 10px); /* Ocupar largura disponível, com pequena margem */
-            margin-left: 5px;
-            margin-right: 5px;
         }
         .gemini-summarize-btn:hover {
             opacity: 0.9;
             box-shadow: 0 2px 8px rgba(74, 0, 224, 0.4);
         }
+        
+        /* Carousel Styles */
+        .carousel-container {
+            position: relative; 
+            margin-bottom: 1.5rem; 
+        }
+        
+        .carousel {
+            display: flex;
+            overflow-x: auto; 
+            scroll-snap-type: x mandatory; 
+            gap: 1.5rem; 
+            padding: 1rem 0; 
+            scroll-behavior: smooth; 
+            -webkit-overflow-scrolling: touch; 
+        }
+
+        .carousel::-webkit-scrollbar { display: none; }
+        .carousel { -ms-overflow-style: none;  scrollbar-width: none; }
+
+        .carousel > .col-sm-6.col-lg-4.col-xl-3 {
+            scroll-snap-align: center; 
+            flex: 0 0 auto; 
+        }
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--card-bg-color);
+            color: var(--text-primary);
+            border: 1px solid var(--text-light-grey);
+            border-radius: 50%;
+            width: 44px; 
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            z-index: 10; 
+            font-size: 1.5rem; 
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+
+        .nav-button:hover {
+            background: #f0f0f0; /* Lighter hover for light mode */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .nav-button:active { transform: translateY(-50%) scale(0.95); }
+        .nav-prev { left: -22px; }
+        .nav-next { right: -22px; }
+
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1050; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.5); 
+        }
+        .modal-content {
+            background-color: var(--modal-bg-color);
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid var(--modal-border-color);
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .modal-header {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--modal-header-border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-title {
+            margin: 0;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+        }
+        .close-button {
+            color: var(--text-light-grey);
+            font-size: 28px;
+            font-weight: bold;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+        }
+        .close-button:hover, .close-button:focus {
+            color: var(--text-primary); 
+            text-decoration: none;
+        }
+        .modal-body { padding: 15px; min-height: 100px; }
+
+        
+        /* Gemini Loading Indicator Styles */
+        #geminiLoadingIndicator, #studyPlanLoadingIndicator {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        .spinner-border { width: 3rem; height: 3rem; color: var(--text-primary); }
+        #geminiLoadingIndicator p, #studyPlanLoadingIndicator p { margin-top: 10px; color: var(--text-secondary); }
+
+        /* Gemini Study Planner Section */
+        #geminiStudyPlannerSection {
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            box-shadow: var(--shadow-color) 0px 4px 8px;
+            
+        }
+        
+        #geminiStudyPlannerSection h2 { color: var(--text-primary); }
+        #geminiStudyPlannerSection p { color: var(--text-secondary); }
+        #studyGoalInput {
+            background-color: var(--input-bg-color);
+            color: var(--text-secondary);
+            border: 1px solid var(--input-border-color);
+            border-radius: 8px;
+        }
+        #studyGoalInput:focus {
+            border-color: var(--input-focus-border-color);
+            box-shadow: 0 0 0 0.2rem var(--input-focus-shadow-color);
+            
+        }
+        #studyGoalInput::placeholder { color: var(--placeholder-color); }
+        
+        #generateStudyPlanBtn { 
+            background: var(--button-gemini-gradient); 
+            padding: 0.8rem 1.5rem; /* Increased padding */
+            font-size: 1rem; /* Slightly larger font */
+            border-radius: 8px;
+        }
+        #generateStudyPlanBtn:hover {
+            opacity: 0.9;
+            box-shadow: 0 4px 12px rgba(74, 0, 224, 0.5); /* Enhanced shadow */
+        }
+
+        #studyPlanOutput { 
+            display:none; 
+            background-color: rgba(0,0,0,0.03); /* Slightly different background for output */
+            color: var(--text-secondary);
+        }
+         #studyPlanOutput h4 { color: var(--text-primary); }
+
 
         /* Rodapé */
         footer {
@@ -253,32 +420,28 @@
             padding: 1.5rem 1rem;
             margin-top: auto;
         }
-        footer p { font-size: 0.9rem; text-align: center; color: var(--white); margin: 0; }
+        footer p { font-size: 0.9rem; text-align: center; color: #ffffff; margin: 0; }
         footer strong { font-weight: 600; }
 
         /* Responsividade */
         @media (max-width: 768px) {
             nav.container { flex-direction: column; padding: 10px; }
             nav h1 { margin-bottom: 10px; font-size: 1.5rem; }
-            .user-actions-container { margin-bottom: 10px; }
-            .ds-contact-container { margin: 10px auto 0; }
             .filter-search-container { flex-direction: column; gap: 10px; }
             .search-bar, .filter-bar { width: 100%; max-width: none; }
             .gift-section h1 { font-size: 1.8rem; }
             .gift-section p { font-size: 1rem; }
-            .modal-content { width: 95%; }
-            #gemini-suggestion-section .input-group { flex-direction: column; }
-            #gemini-suggestion-section .input-group input { border-radius: 8px !important; margin-bottom: 10px; }
-            #gemini-suggestion-section .input-group button { width: 100%; border-radius: 8px !important; }
-
-            .ds-card-description-bottom {
-                display: flex;
-                flex-direction: column;
-                gap: 10px; /* Espaço entre os botões */
+            
+            .nav-prev { left: 5px; } 
+            .nav-next { right: 5px; }
+            .modal-content { width: 90%; margin: 15% auto;}
+            #geminiStudyPlannerSection .input-group { 
+                
+                padding-top: 10px; 
             }
-            .ds-card-description-bottom .ds-btn {
-                width: 100%; /* Botões ocupam toda a largura */
-            }
+            #geminiStudyPlannerSection .input-group input { border-radius: 8px !important; margin-bottom: 10px; }
+            #geminiStudyPlannerSection .input-group button { width: 100%; border-radius: 8px !important; }
+            #generateStudyPlanBtn { padding: 0.7rem 1.2rem; font-size: 0.9rem;} /* Adjust for mobile */
         }
 
         @media (max-width: 576px) {
@@ -286,8 +449,11 @@
             nav h1 { font-size: 1.3rem; }
             .ds-contact-container img { height: 40px; }
             .ds-btn { font-size: 0.8rem; padding: 0.6rem 1rem; min-width: 110px; }
-            #welcome-message { font-size: 0.9rem; }
-            .modal-header .modal-title { font-size: 1.1rem; }
+            .nav-button { width: 38px; height: 38px; font-size: 1.2rem;}
+            .nav-prev { left: 2px; }
+            .nav-next { right: 2px; }
+            h2 { font-size: 1.5rem; }
+            .modal-content { width: 95%; margin: 20% auto;}
         }
 
         /* Dark Mode */
@@ -297,66 +463,74 @@
                 --color-primary-bg: #121212;
                 --text-primary: #e0e0e0;
                 --text-secondary: #b0b0b0;
-                --text-light-grey: #666;
-                --white: #2c2c2c; /* Fundo de elementos como cards */
-                --shadow-color: rgba(0, 0, 0, 0.4); /* Sombra mais pronunciada */
+                --text-light-grey: #555; /* Darker grey for dark mode */
+                --white: #2c2c2c; 
+                --shadow-color: rgba(0, 0, 0, 0.5); 
                 --button-gradient: linear-gradient(92.07deg, rgb(12, 120, 180) 1.84%, rgb(20, 140, 210) 100%);
-                --button-gemini-gradient: linear-gradient(92.07deg, #580fc0 1.84%, #a04dff 100%); /* Roxo mais claro para dark mode */
+                --button-gemini-gradient: linear-gradient(92.07deg, #580fc0 1.84%, #a04dff 100%); 
+                --card-bg-color: #2c2c2c;
+                --modal-bg-color: #333333;
+                --modal-border-color: #444;
+                --modal-header-border-color: #4f4f4f;
+                --input-bg-color: #3a3a3a;
+                --input-border-color: #555;
+                --input-focus-border-color: #64b5f6;
+                --input-focus-shadow-color: rgba(100, 181, 246, 0.25);
+                --placeholder-color: #888;
             }
 
             body { background: var(--color-primary-bg); color: var(--text-primary); }
             header { background: var(--background); box-shadow: var(--shadow-color) 0px 4px 10px 0px; }
-            nav h1, #welcome-message { color: var(--text-primary); }
+            nav h1 { color: var(--text-primary); }
             a { color: #64b5f6; }
             a:hover { color: #90caf9; }
 
-            #gemini-suggestion-section h2 { color: var(--text-primary); }
-            #gemini-suggestion-section p { color: var(--text-secondary); }
-            #gemini-suggest-track-button { background: var(--button-gemini-gradient); color: white; }
-
-
-            .ds-card { background: var(--white); box-shadow: var(--shadow-color) 0px 4px 8px; }
+            .ds-card { background: var(--card-bg-color); box-shadow: var(--shadow-color) 0px 4px 8px; }
             .ds-card-description h3 { color: var(--text-primary); }
 
-            .search-bar, .filter-bar {
-                background-color: #333;
+            .search-bar, .filter-bar, #studyGoalInput {
+                background-color: var(--input-bg-color);
                 color: var(--text-primary);
-                border: 1px solid #555;
+                border: 1px solid var(--input-border-color);
             }
-            .search-bar:focus, .filter-bar:focus {
-                border-color: #64b5f6;
-                box-shadow: 0 0 0 0.2rem rgba(100, 181, 246, 0.25);
+            .search-bar:focus, .filter-bar:focus, #studyGoalInput:focus {
+                border-color: var(--input-focus-border-color);
+                box-shadow: 0 0 0 0.2rem var(--input-focus-shadow-color);
             }
-            .search-bar::placeholder { color: #888; }
+            .search-bar::placeholder, #studyGoalInput::placeholder { color: var(--placeholder-color); }
 
             .ds-btn { background: var(--button-gradient); color: #ffffff !important; }
             .ds-btn:hover, .ds-btn:focus { color: #ffffff !important; }
             .ds-btn-soon { background: var(--text-light-grey); color: var(--text-primary) !important; }
-            .gemini-summarize-btn { background: var(--button-gemini-gradient); }
-
-
-            .modal-content { background-color: #333; color: var(--text-primary); }
-            .modal-header { border-bottom: 1px solid #444; }
-            .modal-header .modal-title { color: var(--text-primary); }
-            .modal-body p { color: var(--text-secondary); }
-            .modal-body strong { color: #82b1ff; } /* Cor de destaque para strong no dark mode */
-            .modal-footer { border-top: 1px solid #444; }
-            .close-button { color: var(--text-light-grey); }
-            .close-button:hover { color: var(--text-primary); }
-            .modal-content .logout-button { background: var(--danger-color); }
-            .modal-content .logout-button:hover { background: var(--danger-hover-color); }
-            #gemini-loading-indicator .spinner-border { color: #82b1ff !important; }
+            .gemini-summarize-btn, #generateStudyPlanBtn { background: var(--button-gemini-gradient); }
+            #generateStudyPlanBtn:hover {
+                 box-shadow: 0 4px 12px rgba(88, 15, 192, 0.6); /* Adjusted shadow for dark mode */
+            }
 
 
             footer { background-color: #1c1c1c; }
             footer p { color: var(--text-secondary); }
 
-            .gift-section { color: #ffffff; } /* Manter texto branco no gradiente */
+            .gift-section { color: #ffffff; } 
             .gift-section h1, .gift-section p { color: #ffffff; }
-
-            .banner { background: #424242; color: #e0e0e0; }
-            .banner button { background: #555; color: #e0e0e0; }
-            .banner button:hover { background: #666; }
+            
+            .nav-button {
+                background: var(--text-light-grey); /* Darker background for buttons */
+                color: var(--background); /* Light text for buttons */
+                border-color: #444;
+            }
+            .nav-button:hover {
+                background: #555; /* Slightly lighter hover for dark mode buttons */
+            }
+            .modal-content { background-color: var(--modal-bg-color); border-color: var(--modal-border-color); }
+            .modal-header { border-bottom-color: var(--modal-header-border-color); }
+            .modal-title { color: var(--text-primary); }
+            .close-button { color: var(--text-light-grey); }
+            .close-button:hover { color: var(--text-primary); }
+            .spinner-border { color: var(--text-primary) !important; }
+            #geminiLoadingIndicator p, #studyPlanLoadingIndicator p { color: var(--text-secondary); }
+            #studyPlanOutput { background-color: rgba(255,255,255,0.05); color: var(--text-secondary); }
+            #studyPlanOutput h4 { color: var(--text-primary); }
         }
     </style>
 </head>
@@ -384,22 +558,135 @@
         </nav>
     </header>
 
-    
-
     <main>
-        <section id="ds-card-list" class="container">
+        <section id="ds-card-list-section" class="container">
             <br>
             <section class="gift-section">
                 <h1>Hub de Conhecimentos</h1>
                 <p>Boas-vindas, Astronauta! Selecione uma trilha para começar o aprendizado.</p>
             </section> <br>
 
-            
+            <section id="geminiStudyPlannerSection" class="container mt-4 mb-4 p-4 rounded shadow-sm">
+                <h2 class="text-center mb-3">✨ Planejador de Estudos com IA</h2>
+                <p class="text-center mb-3">Diga-nos seu objetivo de aprendizado e a IA sugere um roteiro de estudos com as trilhas do hub!</p>
+                <div class="input-group mb-3">
+                    <input type="text" id="studyGoalInput" class="form-control form-control-lg" placeholder="Ex: Quero aprender desenvolvimento web full-stack">
+                    <button class="btn ds-btn btn-lg" type="button" id="generateStudyPlanBtn">✨ Gerar Plano</button>
+                </div>
+                <div id="studyPlanLoadingIndicator" class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Carregando...</span>
+                    </div>
+                    <p>Gerando seu plano de estudos com a ajuda do Gemini...</p>
+                </div>
+                <div id="studyPlanOutputContainer">
+                    <div id="studyPlanOutput" class="mt-3 p-3 border rounded">
+                        <h4>Plano de Estudo Sugerido:</h4>
+                        <p id="studyPlanText" style="white-space: pre-wrap;"></p>
+                    </div>
+                </div>
+                <div id="studyPlanError" class="mt-3 alert alert-danger" style="display:none;"></div>
+            </section>
 
+
+            <section> <h2>🏆 Top 10</h2>
+                <div class="carousel-container">
+                    <div class="nav-button nav-prev" onclick="scrollCarousel(-1, 'trilhaProjetosCarousel')" aria-label="Trilha Anterior">&#8592;</div>
+                    <div class="carousel" id="trilhaProjetosCarousel">
+                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                            <div class="ds-card" data-track-title="EJECT 15 Anos">
+                                <img src="https://placehold.co/600x400/8A2BE2/FFFFFF?text=EJECT+15+Anos" alt="Banner comemorativo EJECT 15 Anos">
+                                <div class="ds-card-description">
+                                    <h3 class="titulo-trilha">EJECT 15 Anos</h3>
+                                    <div class="ds-card-description-bottom">
+                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/anivessario/presente01/index" aria-label="Acessar conteúdo especial EJECT 15 Anos">Acessar Especial 🎁</a>
+                                        <button class="ds-btn gemini-summarize-btn" data-track-title="EJECT 15 Anos">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                            <div class="ds-card" data-track-title="GIT e Github">
+                                <img src="https://hermes.dio.me/articles/cover/d2489f96-d56f-4b82-bc7f-84fbc9fb1368.jpg" alt="Imagem do GitHub">
+                                <div class="ds-card-description">
+                                    <h3 class="titulo-trilha">GIT e Github</h3>
+                                    <div class="ds-card-description-bottom">
+                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/git_e_github">Acessar</a>
+                                        <button class="ds-btn gemini-summarize-btn" data-track-title="GIT e Github">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                            <div class="ds-card" data-track-title="Gestão de Tempo">
+                                <img src="https://timeular.com/wp-content/uploads/2023/11/Copy-of-Copy-of-Blog-image-7.png" alt="Imagem da trilha de gestão de tempo">
+                                <div class="ds-card-description">
+                                    <h3 class="titulo-trilha">Gestão de Tempo</h3>
+                                    <div class="ds-card-description-bottom">
+                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/gestao_de_tempo.html">Acessar</a>
+                                        <button class="ds-btn gemini-summarize-btn" data-track-title="Gestão de Tempo">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                            <div class="ds-card" data-track-title="Gestão de Pessoas">
+                                <img src="https://media.licdn.com/dms/image/D4D12AQHkxwPuNCCBLA/article-cover_image-shrink_600_2000/0/1696281571014?e=2147483647&v=beta&t=jx27ZVMQKEi4EroaGoApIr5mcpFvcZPs-DnxmjSOxnY" alt="Imagem da trilha de desenvolvimento humano">
+                                <div class="ds-card-description">
+                                    <h3 class="titulo-trilha">Gestão de Pessoas</h3>
+                                    <div class="ds-card-description-bottom">
+                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/desenvolvimento_humano">Acessar</a>
+                                        <button class="ds-btn gemini-summarize-btn" data-track-title="Gestão de Pessoas">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                            <div class="ds-card" data-track-title="Marketing Comercial">
+                                <img src="https://media.licdn.com/dms/image/D5612AQFrB74fzNtosA/article-cover_image-shrink_720_1280/0/1685585245706?e=2147483647&v=beta&t=KSjXVDN59S9EFVnoue5f4C_mn4rgg536TURjE9kq_QI" alt="Imagem da trilha de marketing comercial">
+                                <div class="ds-card-description">
+                                    <h3 class="titulo-trilha">Marketing Comercial</h3>
+                                    <div class="ds-card-description-bottom">
+                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/marketing_comercial">Acessar</a>
+                                        <button class="ds-btn gemini-summarize-btn" data-track-title="Marketing Comercial">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                            <div class="ds-card" data-track-title="Scrum">
+                                <img src="https://erp-disk.ams3.digitaloceanspaces.com/portadas-tutoriales/small_portada_cm1gdlxji0065017b0k930xiv.webp" alt="Imagem do Scrum">
+                                <div class="ds-card-description">
+                                    <h3 class="titulo-trilha">Scrum</h3>
+                                    <div class="ds-card-description-bottom">
+                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/Scrum">Acessar</a>
+                                        <button class="ds-btn gemini-summarize-btn" data-track-title="Scrum">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                            <div class="ds-card" data-track-title="Django & Rest">
+                                <img src="https://imagedelivery.net/qc7VvyphMGWFiPVvTbB-ww/swapps.com/2016/02/simply-django-announcements.jpg/w=1024,h=576" alt="Imagem do framework Django">
+                                <div class="ds-card-description">
+                                    <h3 class="titulo-trilha">Django & Rest</h3>
+                                    <div class="ds-card-description-bottom">
+                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/django">ACESSAR</a>
+                                        <button class="ds-btn gemini-summarize-btn" data-track-title="Django & Rest">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-button nav-next" onclick="scrollCarousel(1, 'trilhaProjetosCarousel')" aria-label="Próxima Trilha">&#8594;</div>
+                </div>
+            </section>
+
+            <h2>Todas as Trilhas (Grid)</h2>
             <section class="filter-search-controls">
                 <div class="filter-search-container">
                     <div class="search-container">
-                        <input type="text" id="searchInput" class="form-control search-bar" placeholder="Pesquise as trilhas...">
+                        <input type="text" id="searchInput" class="form-control search-bar" placeholder="Pesquise nas trilhas abaixo...">
                     </div>
                     <div class="filter-container">
                         <select id="filterSelect" class="form-select filter-bar" title="Filter options">
@@ -415,91 +702,13 @@
 
             <div class="row" id="cardContainer">
                 <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="EJECT 15 Anos">
-                        <img src="https://placehold.co/600x400/8A2BE2/FFFFFF?text=EJECT+15+Anos" alt="Banner comemorativo EJECT 15 Anos">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">EJECT 15 Anos</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/anivessario/presente01/index" aria-label="Acessar conteúdo especial EJECT 15 Anos">Acessar Especial 🎁</a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="GIT e Github">
-                        <img src="https://hermes.dio.me/articles/cover/d2489f96-d56f-4b82-bc7f-84fbc9fb1368.jpg" alt="Imagem do GitHub">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">GIT e Github</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/git_e_github">Acessar</a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Gestão de Tempo">
-                        <img src="https://timeular.com/wp-content/uploads/2023/11/Copy-of-Copy-of-Blog-image-7.png" alt="Imagem da trilha de gestão de tempo">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Gestão de Tempo</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/gestao_de_tempo.html">Acessar</a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Gestão de Pessoas">
-                        <img src="https://media.licdn.com/dms/image/D4D12AQHkxwPuNCCBLA/article-cover_image-shrink_600_2000/0/1696281571014?e=2147483647&v=beta&t=jx27ZVMQKEi4EroaGoApIr5mcpFvcZPs-DnxmjSOxnY" alt="Imagem da trilha de desenvolvimento humano">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Gestão de Pessoas</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/desenvolvimento_humano">Acessar</a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Marketing Comercial">
-                        <img src="https://media.licdn.com/dms/image/D5612AQFrB74fzNtosA/article-cover_image-shrink_720_1280/0/1685585245706?e=2147483647&v=beta&t=KSjXVDN59S9EFVnoue5f4C_mn4rgg536TURjE9kq_QI" alt="Imagem da trilha de marketing comercial">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Marketing Comercial</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/marketing_comercial">Acessar</a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Scrum">
-                        <img src="https://erp-disk.ams3.digitaloceanspaces.com/portadas-tutoriales/small_portada_cm1gdlxji0065017b0k930xiv.webp" alt="Imagem do Scrum">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Scrum</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/Scrum">Acessar</a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
                     <div class="ds-card" data-track-title="Financeiro">
                         <img src="https://blog.quantosobra.com.br/wp-content/uploads/2023/04/capa-controle-financeiro-quantosobra.png" alt="Imagem do Financeiro">
                         <div class="ds-card-description">
                             <h3 class="titulo-trilha">Financeiro</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/financeiro">Acessar</a>
-                                
+                                <button class="ds-btn gemini-summarize-btn" data-track-title="Financeiro">✨ Resumir Trilha</button>
                             </div>
                         </div>
                     </div>
@@ -512,7 +721,7 @@
                             <h3 class="titulo-trilha">História da EJECT</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/historia_eject">Acessar</a>
-                                
+                                <button class="ds-btn gemini-summarize-btn" data-track-title="História da EJECT">✨ Resumir Trilha</button>
                             </div>
                         </div>
                     </div>
@@ -525,7 +734,7 @@
                             <h3 class="titulo-trilha">HTML e CSS</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/html_e_css">Acessar</a>
-                                
+                                <button class="ds-btn gemini-summarize-btn" data-track-title="HTML e CSS">✨ Resumir Trilha</button>
                             </div>
                         </div>
                     </div>
@@ -538,7 +747,7 @@
                             <h3 class="titulo-trilha">Vue.js</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/vue">Acessar</a>
-                                
+                                <button class="ds-btn gemini-summarize-btn" data-track-title="Vue.js">✨ Resumir Trilha</button>
                             </div>
                         </div>
                     </div>
@@ -551,7 +760,7 @@
                             <h3 class="titulo-trilha">OKRs, KPIs e BPMN</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/okrs_kpis_e_bpmn">Acessar</a>
-                                
+                                <button class="ds-btn gemini-summarize-btn" data-track-title="OKRs, KPIs e BPMN">✨ Resumir Trilha</button>
                             </div>
                         </div>
                     </div>
@@ -564,7 +773,7 @@
                             <h3 class="titulo-trilha">Wordpress</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/wordpress">Acessar</a>
-                                
+                                <button class="ds-btn gemini-summarize-btn" data-track-title="Wordpress">✨ Resumir Trilha</button>
                             </div>
                         </div>
                     </div>
@@ -577,7 +786,7 @@
                             <h3 class="titulo-trilha">JavaScript</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/javaScript">Acessar</a>
-                                
+                                <button class="ds-btn gemini-summarize-btn" data-track-title="JavaScript">✨ Resumir Trilha</button>
                             </div>
                         </div>
                     </div>
@@ -590,7 +799,7 @@
                             <h3 class="titulo-trilha">TypeScript</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/typescript">Acessar</a>
-                                
+                                <button class="ds-btn gemini-summarize-btn" data-track-title="TypeScript">✨ Resumir Trilha</button>
                             </div>
                         </div>
                     </div>
@@ -603,7 +812,7 @@
                             <h3 class="titulo-trilha">UX e UI</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/ux_ui">Acessar</a>
-                                
+                                <button class="ds-btn gemini-summarize-btn" data-track-title="UX e UI">✨ Resumir Trilha</button>
                             </div>
                         </div>
                     </div>
@@ -616,20 +825,7 @@
                             <h3 class="titulo-trilha">Python</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn ds-btn-soon" href="#" aria-disabled="true">Em breve</a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Django & Rest">
-                        <img src="https://imagedelivery.net/qc7VvyphMGWFiPVvTbB-ww/swapps.com/2016/02/simply-django-announcements.jpg/w=1024,h=576" alt="Imagem do framework Django">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Django & Rest</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/django">ACESSAR</a>
-                                
+                                <button class="ds-btn gemini-summarize-btn" data-track-title="Python">✨ Resumir Trilha</button>
                             </div>
                         </div>
                     </div>
@@ -642,37 +838,226 @@
                             <h3 class="titulo-trilha">Looker Studio</h3>
                             <div class="ds-card-description-bottom">
                                 <a class="ds-btn ds-btn-soon" href="#" aria-disabled="true">Em breve</a>
-                                
+                                <button class="ds-btn gemini-summarize-btn" data-track-title="Data Studio">✨ Resumir Trilha</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> </section>
+            </div> 
+        </section>
     </main>
+
+    <div id="geminiSummaryModal" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="geminiSummaryModalTitle">✨ Resumo da Trilha</h5>
+                    <button type="button" class="btn-close close-button" onclick="closeSummaryModal()" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="geminiLoadingIndicator">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                        <p>Gerando resumo com a ajuda do Gemini...</p>
+                    </div>
+                    <p id="geminiSummaryText" style="white-space: pre-wrap;"></p>
+                    <p id="geminiSummaryError" class="text-danger" style="display:none;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <footer>
         <p>Feito com <strong>foco</strong> e <strong>compromisso</strong> pela EJECT© 2024-2025 - Todos os direitos reservados.</p>
     </footer>
-
     
-
-    
-
-    
-
     <script>
-        // Este script é para a funcionalidade de pesquisa e filtro existente.
+        // Função genérica para chamar a API Gemini
+        async function generateGeminiText(prompt) {
+            const apiKey = ""; // A chave da API será fornecida pelo ambiente Canvas em tempo de execução
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ role: "user", parts: [{ text: prompt }] }]
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    console.error("Gemini API Error Response:", errorBody);
+                    let errorMessage = `Falha na requisição à API: ${response.status}`;
+                    try {
+                        const parsedError = JSON.parse(errorBody);
+                        if (parsedError.error && parsedError.error.message) {
+                            errorMessage += ` - ${parsedError.error.message}`;
+                        }
+                    } catch (e) { /* Ignore parsing error if not JSON */ }
+                    throw new Error(errorMessage);
+                }
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    console.error("Estrutura de resposta inesperada da API Gemini:", result);
+                    if (result.promptFeedback && result.promptFeedback.blockReason) {
+                         throw new Error(`Conteúdo bloqueado pela API: ${result.promptFeedback.blockReason} ${result.promptFeedback.blockReasonMessage ? '- ' + result.promptFeedback.blockReasonMessage : ''}`);
+                    }
+                    throw new Error("Não foi possível obter uma resposta da IA. A resposta não continha o texto esperado.");
+                }
+            } catch (error) {
+                console.error("Erro ao chamar a API Gemini:", error);
+                throw error; 
+            }
+        }
+
+        // --- Lógica para Modal de Resumo da Trilha ---
+        const summaryModal = document.getElementById('geminiSummaryModal');
+        const summaryTextElement = document.getElementById('geminiSummaryText');
+        const summaryErrorElement = document.getElementById('geminiSummaryError');
+        const summaryLoadingIndicator = document.getElementById('geminiLoadingIndicator');
+        const summaryModalTitle = document.getElementById('geminiSummaryModalTitle');
+
+        function openSummaryModal(trackTitle) {
+            if (!summaryModal || !summaryTextElement || !summaryLoadingIndicator || !summaryModalTitle || !summaryErrorElement) {
+                console.error("Elementos do modal de resumo não encontrados.");
+                return;
+            }
+            summaryModalTitle.textContent = `✨ Resumo da Trilha: ${trackTitle}`;
+            summaryTextElement.textContent = '';
+            summaryTextElement.style.display = 'none';
+            summaryErrorElement.textContent = '';
+            summaryErrorElement.style.display = 'none';
+            summaryLoadingIndicator.style.display = 'flex';
+            summaryModal.style.display = 'block';
+
+            const prompt = `Gere um resumo conciso e informativo sobre o que uma pessoa pode aprender ou esperar da trilha de conhecimento chamada "${trackTitle}". O resumo deve ter entre 2 a 4 frases e ser útil para quem está decidindo se deve acessar a trilha. Responda em Português do Brasil.`;
+
+            generateGeminiText(prompt)
+                .then(summary => {
+                    summaryTextElement.textContent = summary;
+                    summaryTextElement.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error("Erro ao gerar resumo:", error);
+                    summaryErrorElement.textContent = `Desculpe, não foi possível gerar o resumo: ${error.message}. Tente novamente mais tarde.`;
+                    summaryErrorElement.style.display = 'block';
+                })
+                .finally(() => {
+                    summaryLoadingIndicator.style.display = 'none';
+                });
+        }
+
+        function closeSummaryModal() {
+            if (summaryModal) {
+                summaryModal.style.display = 'none';
+            }
+        }
+        
+        // --- Lógica para Planejador de Estudos com IA ---
+        const studyGoalInput = document.getElementById('studyGoalInput');
+        const generateStudyPlanBtn = document.getElementById('generateStudyPlanBtn');
+        const studyPlanLoadingIndicator = document.getElementById('studyPlanLoadingIndicator');
+        const studyPlanOutputContainer = document.getElementById('studyPlanOutputContainer');
+        const studyPlanOutput = document.getElementById('studyPlanOutput');
+        const studyPlanTextElement = document.getElementById('studyPlanText');
+        const studyPlanErrorElement = document.getElementById('studyPlanError');
+
+        if (generateStudyPlanBtn) {
+            generateStudyPlanBtn.addEventListener('click', () => {
+                const studyGoal = studyGoalInput.value.trim();
+                if (!studyGoal) {
+                    studyPlanErrorElement.textContent = "Por favor, insira seu objetivo de aprendizado.";
+                    studyPlanErrorElement.style.display = 'block';
+                    studyPlanOutputContainer.style.display = 'none';
+                    return;
+                }
+
+                studyPlanLoadingIndicator.style.display = 'flex';
+                studyPlanOutputContainer.style.display = 'none';
+                studyPlanErrorElement.style.display = 'none';
+
+                const allTrackTitles = Array.from(document.querySelectorAll('.ds-card'))
+                                           .map(card => card.dataset.trackTitle)
+                                           .filter(title => title) // Remove undefined/empty titles
+                                           .join('; ');
+
+                const prompt = `Como um assistente de planejamento de estudos para o Hub de Conhecimentos da EJECT, meu objetivo é ajudar um usuário a alcançar o seguinte objetivo de aprendizado: "${studyGoal}".
+
+As trilhas de conhecimento disponíveis no hub são: ${allTrackTitles}.
+
+Por favor, crie um plano de estudo sugerido para este usuário. Seu plano deve:
+1.  Identificar de 2 a 4 trilhas do hub que sejam MAIS RELEVANTES para o objetivo do usuário.
+2.  Para cada trilha sugerida, explique brevemente (1-2 frases) por que ela é relevante.
+3.  Se houver lacunas significativas (tópicos importantes para o objetivo do usuário que não são cobertos pelas trilhas listadas), mencione de 1 a 2 tópicos adicionais que o usuário deveria considerar estudar por fora.
+4.  Apresente o plano de forma clara, organizada e motivadora. Use bullet points ou uma lista numerada para as sugestões de trilhas.
+5.  Responda em Português do Brasil.`;
+
+                generateGeminiText(prompt)
+                    .then(plan => {
+                        studyPlanTextElement.textContent = plan;
+                        studyPlanOutputContainer.style.display = 'block';
+                        studyPlanOutput.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error("Erro ao gerar plano de estudo:", error);
+                        studyPlanErrorElement.textContent = `Desculpe, não foi possível gerar o plano de estudo: ${error.message}. Tente novamente mais tarde.`;
+                        studyPlanErrorElement.style.display = 'block';
+                    })
+                    .finally(() => {
+                        studyPlanLoadingIndicator.style.display = 'none';
+                    });
+            });
+        }
+
+
+        // Script for search and filter functionality (for the grid of cards).
         document.addEventListener('DOMContentLoaded', function() {
+            // Attach event listeners to "Resumir Trilha" buttons
+            document.querySelectorAll('.gemini-summarize-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const trackTitle = this.dataset.trackTitle;
+                    if (trackTitle) {
+                        openSummaryModal(trackTitle);
+                    } else {
+                        console.error("Título da trilha não encontrado no botão.");
+                    }
+                });
+            });
+            
+            // Close modal if clicked outside of modal-content
+            if (summaryModal) {
+                summaryModal.addEventListener('click', function(event) {
+                    if (event.target === summaryModal) {
+                        closeSummaryModal();
+                    }
+                });
+            }
+
+
             const searchInput = document.getElementById('searchInput');
             if (searchInput) {
                 searchInput.addEventListener('input', function() {
                     const query = this.value.toLowerCase().trim();
-                    const cards = document.querySelectorAll('#cardContainer .col-sm-6');
+                    const cards = document.querySelectorAll('#cardContainer .col-sm-6.col-lg-4.col-xl-3.mb-3');
                     cards.forEach(cardCol => {
                         const titleElement = cardCol.querySelector('.titulo-trilha');
                         if (titleElement) {
                             const title = titleElement.textContent.toLowerCase();
                             cardCol.style.display = title.includes(query) ? '' : 'none';
+                        } else {
+                            cardCol.style.display = 'none'; 
                         }
                     });
                 });
@@ -683,13 +1068,13 @@
                 filterSelect.addEventListener('change', function() {
                     const filterValue = this.value;
                     const cardContainer = document.getElementById('cardContainer');
-                    const cardsCols = Array.from(cardContainer.querySelectorAll('.col-sm-6'));
+                    const cardsCols = Array.from(cardContainer.querySelectorAll('.col-sm-6.col-lg-4.col-xl-3.mb-3'));
 
-                    cardsCols.forEach(cardCol => cardCol.style.display = ''); // Mostrar todos primeiro
+                    cardsCols.forEach(cardCol => cardCol.style.display = ''); 
 
                     if (filterValue === 'available' || filterValue === 'soon') {
                         cardsCols.forEach(cardCol => {
-                            const button = cardCol.querySelector('.ds-btn'); // O botão "Acessar" ou "Em breve"
+                            const button = cardCol.querySelector('.ds-btn:not(.gemini-summarize-btn)'); // Exclude summarize button for this logic
                             if (button) {
                                 const isSoon = button.classList.contains('ds-btn-soon') || button.textContent.toLowerCase().includes('em breve');
                                 if ((filterValue === 'available' && isSoon) || (filterValue === 'soon' && !isSoon)) {
@@ -701,26 +1086,50 @@
 
                     if (filterValue === 'alphabetical') {
                         const visibleCardsCols = cardsCols.filter(col => col.style.display !== 'none');
+                        
                         visibleCardsCols.sort((a, b) => {
-                            const titleA = a.querySelector('.titulo-trilha').textContent.trim();
-                            const titleB = b.querySelector('.titulo-trilha').textContent.trim();
+                            const titleAEl = a.querySelector('.titulo-trilha');
+                            const titleBEl = b.querySelector('.titulo-trilha');
+                            const titleA = titleAEl ? titleAEl.textContent.trim().toLowerCase() : '';
+                            const titleB = titleBEl ? titleBEl.textContent.trim().toLowerCase() : '';
                             return titleA.localeCompare(titleB);
                         });
                         visibleCardsCols.forEach(cardCol => cardContainer.appendChild(cardCol));
                     }
                 });
             }
-
-            if (!localStorage.getItem("avisoConfirmado")) {
-                const avisoBanner = document.getElementById("avisoBanner");
-                if (avisoBanner) avisoBanner.style.display = "block";
-            }
         });
 
-        function fecharBanner() {
-            const avisoBanner = document.getElementById("avisoBanner");
-            if (avisoBanner) avisoBanner.style.display = "none";
-            localStorage.setItem("avisoConfirmado", "true");
+        // Carousel scroll function
+        function scrollCarousel(direction, carouselId) {
+            const carouselElement = document.getElementById(carouselId);
+            if (!carouselElement) {
+                console.error(`Carousel element with ID "${carouselId}" not found.`);
+                return;
+            }
+            const firstSlide = carouselElement.querySelector('.col-sm-6.col-lg-4.col-xl-3.mb-3');
+            
+            if (firstSlide) {
+                const slideWidth = firstSlide.offsetWidth; 
+                const carouselStyle = getComputedStyle(carouselElement);
+                const gapValue = carouselStyle.gap; 
+                let gap = 0;
+
+                if (gapValue && gapValue !== 'normal') {
+                    if (gapValue.includes('rem')) {
+                        gap = parseFloat(gapValue) * parseFloat(getComputedStyle(document.documentElement).fontSize);
+                    } else if (gapValue.includes('px')) {
+                        gap = parseFloat(gapValue);
+                    }
+                }
+                
+                carouselElement.scrollBy({
+                    left: direction * (slideWidth + gap), 
+                    behavior: 'smooth'
+                });
+            } else {
+                console.warn(`No card items found in the carousel "${carouselId}" to calculate scroll distance.`);
+            }
         }
     </script>
 
