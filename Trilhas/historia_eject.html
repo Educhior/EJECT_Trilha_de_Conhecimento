@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>EJECT | História da EJECT</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/eject_logo.png">
+        <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             /* Importação da fonte */
@@ -21,9 +21,9 @@
                 --white: #fff;
                 --star-yellow: #FFBB3A;
                 --button-gradient: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%);
-                --button-gemini-gradient: linear-gradient(92.07deg, #4B0082 1.84%, #8A2BE2 100%); /* Indigo to BlueViolet */
+                --button-gemini-gradient: linear-gradient(92.07deg, #4B0082 1.84%, #8A2BE2 100%); 
                 --shadow-color: rgb(224, 229, 241);
-                --shadow-strong-color: rgba(0, 30, 58, 0.15); /* Sombra mais escura para o player */
+                --shadow-strong-color: rgba(0, 30, 58, 0.18); 
                 --danger-color: #ff4757;
                 --danger-hover-color: #ff6b81;
                 --gemini-purple: #6A1B9A; 
@@ -31,8 +31,12 @@
                 --warning-color: #ffc107;
                 --info-color: #17a2b8;
                 --podcast-player-bg: var(--white);
-                --podcast-player-accent: var(--text-primary);
-                --podcast-cover-bg: #e9ecef; /* Cor de fundo para o placeholder da capa */
+                --podcast-player-accent: var(--text-primary); 
+                --podcast-cover-bg: #e0e8f0; 
+                --podcast-progress-bg: #d0d9e3; 
+                --podcast-progress-fill: var(--podcast-player-accent);
+                --member-card-bg: var(--white);
+                --member-photo-bg: #e0e8f0;
             }
     
             /* Reset de estilo */
@@ -321,8 +325,8 @@
                 margin-bottom: 1rem;
             }
     
-           /* Podcast Player Styling - Estilo Spotify-like Melhorado e Dinâmico */
-           .podcast-section-container {
+            /* Podcast Player Styling */
+            .podcast-section-container {
                 background-color: transparent;
                 padding: 1rem 0;
                 margin-bottom: 2.5rem;
@@ -508,34 +512,6 @@
                 font-size: 1rem; 
                 color: var(--text-secondary);
             }
-            /* Tentativa de estilizar a barra de progresso (pode não funcionar em todos os browsers) */
-            .podcast-player-card audio::-webkit-media-controls-panel {
-                background-color: rgba(255, 255, 255, 0.9);
-                border-radius: 5px;
-            }
-            .podcast-player-card audio::-webkit-media-controls-timeline {
-                background-color: var(--shadow-color);
-                border-radius: 3px;
-                margin: 0 10px;
-            }
-             .podcast-player-card audio::-webkit-media-controls-current-time-display,
-             .podcast-player-card audio::-webkit-media-controls-time-remaining-display {
-                color: var(--text-secondary);
-                font-size: 0.8rem;
-            }
-
-
-            .podcast-section-container h2 {
-                text-align: center;
-                margin-bottom: 1rem; /* Menos espaço */
-                font-weight: 600; 
-            }
-            .podcast-section-container > p { 
-                text-align: center;
-                margin-bottom: 1.5rem; /* Menos espaço */
-                font-size: 1rem; /* Ligeiramente menor */
-                color: var(--text-secondary);
-            }
 
             /* Breadcrumb */
             .breadcrumb {
@@ -562,21 +538,80 @@
                 margin-bottom: 1.5rem;
                 color: #333;
             }
-    
-            /* Responsividade */
-            @media (min-width: 768px) { /* Em telas maiores, capa ao lado dos controlos */
-                .podcast-player-card {
-                    flex-direction: row;
-                    text-align: left;
-                }
-                 .podcast-info-controls {
-                    align-items: flex-start;
-                }
-                .podcast-title, .podcast-show-name {
-                    text-align: left;
-                }
+
+            /* Secção Membros da Empresa */
+            .members-section {
+                padding: 2rem 0;
+                background-color: var(--background); /* Fundo suave para a secção inteira */
+            }
+            .year-section {
+                margin-bottom: 3rem;
+            }
+            .year-title {
+                text-align: center;
+                font-size: 1.8rem;
+                font-weight: 700;
+                color: var(--text-primary);
+                margin-bottom: 2rem;
+                position: relative;
+                padding-bottom: 0.5rem;
+            }
+            .year-title::after { /* Linha decorativa abaixo do título do ano */
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 3px;
+                background-color: var(--podcast-player-accent);
+                border-radius: 2px;
             }
 
+            .members-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Grid responsivo */
+                gap: 1.5rem;
+            }
+
+            .member-card {
+                background-color: var(--member-card-bg);
+                border-radius: 0.75rem;
+                box-shadow: 0 5px 15px var(--shadow-strong-color);
+                padding: 1.25rem;
+                text-align: center;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .member-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 10px 25px var(--shadow-strong-color);
+            }
+
+            .member-photo {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%; /* Fotos redondas */
+                object-fit: cover; /* Garante que a foto preencha o círculo */
+                margin: 0 auto 1rem auto;
+                border: 3px solid var(--white);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                background-color: var(--member-photo-bg); /* Fundo para placeholders */
+            }
+
+            .member-name {
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: var(--text-primary);
+                margin-bottom: 0.25rem;
+            }
+
+            .member-role {
+                font-size: 0.9rem;
+                color: var(--text-secondary);
+                margin-bottom: 0;
+            }
+    
+            /* Responsividade */
             @media (max-width: 1024px) {
                 main.container { 
                     padding-left: 15px;
@@ -615,24 +650,35 @@
                     height: 25px;
                     font-size: 0.7rem;
                 }
-                .podcast-section-container {
-                    padding: 1.5rem;
-                }
                 .podcast-player-card {
-                    padding: 1rem;
+                    flex-direction: column; 
+                    padding: 1.25rem; 
+                    max-width: 95%; 
                 }
                 .podcast-cover-art {
-                    width: 100px;
-                    height: 100px;
+                    width: 120px; 
+                    height: 120px;
+                    margin-bottom: 1rem; 
                 }
                  .podcast-cover-art .fa-headphones-simple {
-                    font-size: 3rem;
+                    font-size: 3.5rem; 
+                }
+                .podcast-info-controls {
+                    text-align: center; 
+                    align-items: center;
                 }
                 .podcast-title {
-                    font-size: 1.1rem;
+                    font-size: 1.1rem; 
                 }
                  .podcast-show-name {
-                    font-size: 0.85rem;
+                    font-size: 0.8rem; 
+                }
+                .members-grid {
+                    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Ajuste para mobile */
+                }
+                .member-photo {
+                    width: 100px;
+                    height: 100px;
                 }
             }
         </style>
@@ -668,7 +714,7 @@
 
         <section class="mb-5" id="section-historia-eject">
             <h2>História da EJECT</h2> 
-            <p id="historia-eject-text">A <strong>EJECT</strong>, Empresa Júnior da Escola de Ciências e Tecnologia da Universidade Federal do Rio Grande do Norte (UFRN), foi fundada em <strong>15 de julho de 2010</strong> por 14 estudantes. A iniciativa teve origem com o discente <strong>Victor Fonseca</strong>, que contou com o apoio de 12 colegas e a orientação dos professores <strong>Rex Antônio</strong> e <strong>Efrain Pantaleón.</strong> O principal objetivo da EJECT era <strong>inserir os profissionais de Ciências e Tecnologia no mercado de trabalho</strong>, oferecendo-lhes a oportunidade de atuar na área profissional durante a graduação. Destaca-se por ser a <strong>primeira empresa júnior do curso de Ciências e Tecnologia no Brasil.</strong></p> 
+            <p id="historia-eject-text">A <strong>EJECT</strong>, Empresa Júnior da Escola de Ciências e Tecnologia da Universidade Federal do Rio Grande do Norte (UFRN), foi fundada em <strong>15 de julho de 2010</strong> por 14 estudantes. A iniciativa teve origem com o discente <strong>Victor Fonseca</strong>, que contou com o apoio de 12 colegas e a orientação dos professores <strong>Rex Antônio</strong> e <strong>Efrain Pantaleón.</strong> O principal objetivo da EJECT era <strong>inserir os profissionais de Ciências e Tecnologia no mercado de trabalho</strong>, oferecendo-lhes a oportunidade de atuar na área profissional durante a graduação. Destaca-se por ser a <strong>primeira empresa júnior do curso de Ciências e Tecnologia no Brasil.</strong></p>
             <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT comemorativo" class="img-fluid rounded my-3" style="max-width: 80%; height: auto; display: block; margin-left: auto; margin-right: auto;"> 
         </section>
 
@@ -803,7 +849,6 @@
                         <strong>Futuro Promissor:</strong> Em andamento, com foco em novas conquistas e desenvolvimento contínuo.
                     </div>
                 </li>
-                
             </ul>
 
             <h3 class="mt-5">Cultura Organizacional: O Motor das Melhorias</h3> 
@@ -812,7 +857,7 @@
         </section>
 
         <section class="mb-5 podcast-section-container">
-            <h2>🎙️ Podcast: A História da EJECT em Áudio</h2>
+            <h2>Podcast: A História da EJECT em Áudio 🎙️</h2>
             <p>Ouça um episódio especial onde mergulhamos mais fundo nos momentos marcantes, desafios superados e nas vozes que construíram a EJECT. Uma experiência sonora para complementar a sua leitura!</p>
             
             <div class="podcast-player-card">
@@ -824,48 +869,125 @@
                         <h4 class="podcast-title">Episódio 1: A História da EJECT</h4>
                         <p class="podcast-show-name">EJECT Talks</p>
                     </div>
-                    <audio controls controlsList="nodownload" src="/EJECT_Trilha_de_Conhecimento/audio/Áudio do WhatsApp de 2025-05-24 à(s) 21.32.50_8ace87b3.mp3">
+                    <audio controls controlsList="nodownload" src="/audio/Áudio do WhatsApp de 2025-05-24 à(s) 21.32.50_8ace87b3.mp3">
                         O seu navegador não suporta o elemento de áudio. Considere atualizá-lo ou utilizar um navegador diferente.
                     </audio>
                 </div>
             </div>
         </section>
 
+        <section class="members-section">
+            <div class="container"> <h2 class="text-center mb-5">Conheça os Membros da EJECT ao Longo dos Anos</h2>
 
-<!--
-        <section>
-            <h2>Membros e Pós-Juniore da EJECT</h2> <br>
-            
-            <section class="mb-5">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <img src="/img/membro1.jpg" class="card-img-top" alt="Membro 1" style="height: 300px;">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Membro 1</h5>
-                                </div>
+                <section class="year-section">
+                    <h3 class="year-title">2024</h3>
+                    <div class="members-grid">
+                        <div class="member-card">
+                            <img src="https://placehold.co/240x240/003d73/ffffff?text=Membro+1" alt="Foto do Membro 1" class="member-photo">
+                            <div class="member-info">
+                                <h5 class="member-name">Carlos Henrique</h5>
+                                <p class="member-role">Presidente</p>
                             </div>
                         </div>
-                        // ... outros cards ...
+                        <div class="member-card">
+                            <img src="https://placehold.co/240x240/003d73/ffffff?text=Membro+1" alt="Foto do Membro 1" class="member-photo">
+                            <div class="member-info">
+                                <h5 class="member-name">Maria Luiza</h5>
+                                <p class="member-role">Diretora de Vice Presidência</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <img src="https://placehold.co/240x240/17a2b8/ffffff?text=Membro+2" alt="Foto do Membro 2" class="member-photo">
+                            <div class="member-info">
+                                <h5 class="member-name">Pedro Otávio</h5>
+                                <p class="member-role">Diretor de Projetos</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <img src="https://placehold.co/240x240/28a745/ffffff?text=Membro+3" alt="Foto do Membro 3" class="member-photo">
+                            <div class="member-info">
+                                <h5 class="member-name">Ronald Guilherme</h5>
+                                <p class="member-role">Diretora de Marketing</p>
+                            </div>
+                        </div>
+                         <div class="member-card">
+                            <img src="https://placehold.co/240x240/ffc107/000000?text=Membro+4" alt="Foto do Membro 4" class="member-photo">
+                            <div class="member-info">
+                                <h5 class="member-name">João Victor Albano</h5>
+                                <p class="member-role">Gerente de Projetos</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <img src="https://placehold.co/240x240/ffc107/000000?text=Membro+4" alt="Foto do Membro 4" class="member-photo">
+                            <div class="member-info">
+                                <h5 class="member-name">Maria Larissa</h5>
+                                <p class="member-role">Assessora do Administrativo Financeiro</p>
+                            </div>
+                        </div>
                     </div>
+                </section>
+
+                <section class="year-section">
+                    <h3 class="year-title">2023</h3>
+                    <div class="members-grid">
+                        <div class="member-card">
+                            <img src="https://placehold.co/240x240/003d73/ffffff?text=Membro+1" alt="Foto do Membro 1" class="member-photo">
+                            <div class="member-info">
+                                <h5 class="member-name">Carlos Henrique</h5>
+                                <p class="member-role">Presidente</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <img src="https://placehold.co/240x240/17a2b8/ffffff?text=Membro+2" alt="Foto do Membro 2" class="member-photo">
+                            <div class="member-info">
+                                <h5 class="member-name">Bruno Costa</h5>
+                                <p class="member-role">Diretor de Projetos</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <img src="https://placehold.co/240x240/28a745/ffffff?text=Membro+3" alt="Foto do Membro 3" class="member-photo">
+                            <div class="member-info">
+                                <h5 class="member-name">Carla Dias</h5>
+                                <p class="member-role">Diretora de Marketing</p>
+                            </div>
+                        </div>
+                         <div class="member-card">
+                            <img src="https://placehold.co/240x240/ffc107/000000?text=Membro+4" alt="Foto do Membro 4" class="member-photo">
+                            <div class="member-info">
+                                <h5 class="member-name">Daniel Faria</h5>
+                                <p class="member-role">Consultor de TI</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="year-section">
+                    <h3 class="year-title">2022</h3>
+                    <div class="members-grid">
+                        <div class="member-card">
+                            <img src="https://placehold.co/240x240/6f42c1/ffffff?text=Membro+A" alt="Foto do Membro A" class="member-photo">
+                            <div class="member-info">
+                                <h5 class="member-name">Fernanda Lima</h5>
+                                <p class="member-role">Presidente</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <img src="https://placehold.co/240x240/fd7e14/ffffff?text=Membro+B" alt="Foto do Membro B" class="member-photo">
+                            <div class="member-info">
+                                <h5 class="member-name">Gustavo Pereira</h5>
+                                <p class="member-role">Diretor Financeiro</p>
+                            </div>
+                        </div>
+                        </div>
+                </section>
                 </div>
-            </section>
         </section>
--->
     </main>
     
     <footer>
         <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
     </footer>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>    
+
     
-    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" xintegrity="sha384-Oi5As4NWzRIhBUZ1wIuDoA4n/mTNB1r9lfDLOIk9TnK8E2K9jqb9K1Xzr0D04vwi" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" xintegrity="sha384-ZVP8xW+Pc+2q5mfDfWvCh7VR8EyXIfEoCGT1E2M3js4NN1z7oT8FSCw7xM2DkAu" crossorigin="anonymous"></script>
-
 </body>
 </html>
