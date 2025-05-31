@@ -1,544 +1,105 @@
 <!DOCTYPE html>
-<!--
-███████╗     ██╗███████╗ ██████╗████████╗
-██╔════╝     ██║██╔════╝██╔════╝╚══██╔══╝
-█████╗       ██║█████╗  ██║        ██║
-██╔══╝  ██   ██║██╔══╝  ██║        ██║
-███████╗╚█████╔╝███████╗╚██████╗   ██║
-╚══════╝ ╚════╝ ╚══════╝ ╚═════╝   ╚═╝
-
-██╗   ██╗███████╗██████╗ ███╗   ██╗
-██║   ██║██╔════╝██╔══██╗████╗  ██║
-██║   ██║█████╗  ██████╔╝██╔██╗ ██║
-██║   ██║██╔══╝  ██╔══██╗██║╚██╗██║
-╚██████╔╝██║     ██║  ██║██║ ╚████║
- ╚═════╝ ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝
--->
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EJECT | Hub de Conhecimentos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/eject_logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
 
-        /* Variáveis de cor */
-        :root {
-            --background: rgb(245, 251, 255);
-            --color-primary-bg: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
-            --text-primary: rgb(0, 61, 115);
-            --text-secondary: #4a4a4a;
-            --text-light-grey: #aaa;
-            --white: #fff;
-            --star-yellow: #FFBB3A;
-            --button-gradient: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%);
-            --button-gemini-gradient: linear-gradient(92.07deg, #4A00E0 1.84%, #8E2DE2 100%);
-            --shadow-color: rgb(224, 229, 241);
-            --danger-color: #ff4757;
-            --danger-hover-color: #ff6b81;
-            --card-bg-color: var(--white);
-            --modal-bg-color: #fefefe;
-            --modal-border-color: #888;
-            --modal-header-border-color: #eee;
-            --input-bg-color: var(--white);
-            --input-border-color: var(--text-light-grey);
-            --input-focus-border-color: rgb(9, 149, 219);
-            --input-focus-shadow-color: rgba(9, 149, 219, 0.25);
-            --placeholder-color: var(--text-light-grey);
+    <script>
+        // Tailwind Custom Configuration
+        tailwind.config = {
+            darkMode: 'media', // or 'class' if you want to toggle manually
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Exo 2"', 'sans-serif'],
+                    },
+                    colors: {
+                        'eject-blue-dark': 'rgb(0, 61, 115)',
+                        'eject-blue-light': 'rgb(17, 167, 241)',
+                        'eject-text-primary-light': 'rgb(0, 61, 115)',
+                        'eject-text-primary-dark': '#e0e0e0',
+                        'eject-text-secondary-light': '#4a4a4a',
+                        'eject-text-secondary-dark': '#b0b0b0',
+                        'eject-bg-light': 'rgb(245, 251, 255)',
+                        'eject-bg-dark': '#1e1e1e',
+                        'eject-card-bg-light': '#ffffff',
+                        'eject-card-bg-dark': '#2c2c2c',
+                        'eject-input-bg-light': '#ffffff',
+                        'eject-input-bg-dark': '#3a3a3a',
+                        'eject-input-border-light': '#aaa',
+                        'eject-input-border-dark': '#555',
+                        'eject-input-focus-light': 'rgb(9, 149, 219)',
+                        'eject-input-focus-dark': '#64b5f6',
+                        'eject-placeholder-light': '#aaa',
+                        'eject-placeholder-dark': '#888',
+                        'eject-modal-bg-light': '#fefefe',
+                        'eject-modal-bg-dark': '#333333',
+                        'eject-modal-border-light': '#888',
+                        'eject-modal-border-dark': '#444',
+                        'eject-modal-header-border-light': '#eee',
+                        'eject-modal-header-border-dark': '#4f4f4f',
+                    },
+                    backgroundImage: {
+                        'eject-body-gradient-light': 'linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%)',
+                        'eject-body-gradient-dark': 'linear-gradient(275.04deg, #1a202c 1.05%, #121212 100%)', // Example dark gradient
+                        'eject-button-gradient-light': 'linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%)',
+                        'eject-button-gradient-dark': 'linear-gradient(92.07deg, rgb(12, 120, 180) 1.84%, rgb(20, 140, 210) 100%)',
+                        'eject-gemini-gradient-light': 'linear-gradient(92.07deg, #4A00E0 1.84%, #8E2DE2 100%)',
+                        'eject-gemini-gradient-dark': 'linear-gradient(92.07deg, #580fc0 1.84%, #a04dff 100%)',
+                        'eject-gift-gradient': 'linear-gradient(45deg, #ffcc00, #ff33cc, #6633ff, #33ccff)',
+                    }
+                }
+            }
         }
-
-        /* Reset de estilo e configurações base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+          /* For hiding scrollbars, if needed for the carousel */
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
+          .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+          }
         }
-
-        html {
-            font-size: 16px; /* Base for rem units */
-        }
-
         body {
-            font-family: "Exo 2", sans-serif;
-            width: 100%;
-            min-height: 100vh;
-            background: var(--color-primary-bg);
-            color: var(--text-secondary);
-            display: flex;
-            flex-direction: column;
-            line-height: 1.6;
+            @apply font-sans w-full min-h-screen flex flex-col leading-relaxed;
+            @apply bg-eject-body-gradient-light text-eject-text-secondary-light;
+            @apply dark:bg-eject-body-gradient-dark dark:text-eject-text-secondary-dark;
         }
-
-        main {
-            flex: 1;
-            padding: 20px 0;
+        /* Define custom component-like base styles if needed, or apply directly */
+        .ds-btn-base {
+            @apply text-sm font-bold uppercase text-white py-2.5 px-5 rounded-lg transition-all duration-200 ease-in-out inline-flex items-center justify-center min-w-[130px] w-full no-underline hover:scale-105 focus:scale-105;
         }
-
-        /* Estilos de título */
-        h1, h2, h3, h4, h5, h6 {
-            margin-top: 0;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
+        .ds-btn-primary {
+            @apply ds-btn-base bg-eject-button-gradient-light dark:bg-eject-button-gradient-dark hover:shadow-md;
         }
-        h1 { font-size: 2.25rem; }
-        h2 { font-size: 1.75rem; margin-top: 1.5rem; margin-bottom: 1rem;}
-        h3.titulo-trilha { font-size: 1.25rem; margin-bottom: 0.75rem; }
-
-        /* Estilos de links */
-        a {
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        a:hover {
-            color: rgb(17, 167, 241);
-            text-decoration: underline;
-        }
-
-        /* Cabeçalho */
-        header {
-            width: 100%;
-            min-height: 90px;
-            background: var(--background);
-            box-shadow: var(--shadow-color) 0px 4px 10px 0px;
-            display: flex;
-            align-items: center;
-            padding: 0 1rem;
-        }
-        nav.container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        nav h1 {
-            font-weight: bold;
-            color: var(--text-primary);
-            font-size: 1.75rem;
-            margin: 0;
-        }
-        .ds-contact-container img {
-            height: 45px;
-            margin-left: 15px;
-        }
-
-        /* Secção de Boas-vindas */
-        .gift-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(45deg, #ffcc00, #ff33cc, #6633ff, #33ccff);
-            color: #ffffff; /* Explicit white for text on gradient */
-            padding: 25px 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .gift-section h1 { color: #ffffff; font-size: 2rem; margin-bottom: 0.5rem; }
-        .gift-section p { color: #ffffff; font-size: 1.1rem; margin-bottom: 0; }
-
-
-        /* Controles de Filtro e Busca */
-        .filter-search-controls { margin-bottom: 1.5rem; margin-top: 1.5rem; }
-        .filter-search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .search-container, .filter-container {
-            flex-grow: 1;
-            min-width: 200px;
-        }
-        .search-bar, .filter-bar {
-            width: 100%;
-            padding: 10px 12px;
-            font-size: 1rem;
-            border-radius: 8px;
-            background-color: var(--input-bg-color);
-            color: var(--text-secondary);
-            border: 1px solid var(--input-border-color);
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        .search-bar:focus, .filter-bar:focus {
-            border-color: var(--input-focus-border-color);
-            box-shadow: 0 0 0 0.2rem var(--input-focus-shadow-color);
-            outline: none;
-        }
-        .search-bar::placeholder { color: var(--placeholder-color); opacity: 0.8; }
-
-        /* Estilos dos Cards */
-        .ds-card {
-            background: var(--card-bg-color);
-            border-radius: 8px;
-            box-shadow: var(--shadow-color) 0px 4px 8px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            height: 100%; 
-            width: 100%; 
-        }
-        .ds-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-color) 0px 8px 16px;
-        }
-        .ds-card img {
-            width: 100%;
-            height: 180px; /* Adjusted height for better card balance with two buttons */
-            object-fit: cover;
-            border-radius: 8px 8px 0 0;
-        }
-        .ds-card-description {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            flex-grow: 1;
-        }
-        .ds-card-description-bottom {
-            margin-top: auto;
-            padding-top: 10px;
-            width: 100%; 
-            display: flex;
-            flex-direction: column; /* Stack buttons vertically */
-            gap: 10px; /* Space between buttons */
-        }
-
-        /* Botões */
-        .ds-btn {
-            font-size: 0.9rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: #ffffff !important; /* Ensure text is white */
-            background: var(--button-gradient);
-            padding: 0.7rem 1.2rem;
-            border-radius: 8px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; /* Added background transition */
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 130px;
-            width: 100%; /* Make buttons take full width of their container */
-            border: none;
-            text-decoration: none !important;
-            line-height: 1.5; /* Ensure text is vertically centered */
-        }
-        .ds-btn:hover, .ds-btn:focus {
-            transform: scale(1.03);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            color: #ffffff !important;
-            text-decoration: none !important;
+        .ds-btn-gemini {
+            @apply ds-btn-base bg-eject-gemini-gradient-light dark:bg-eject-gemini-gradient-dark hover:opacity-90 hover:shadow-lg hover:shadow-purple-500/30 dark:hover:shadow-purple-400/40;
         }
         .ds-btn-soon {
-            background: var(--text-light-grey);
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-        .ds-btn-soon:hover { transform: none; box-shadow: none; }
-
-        .gemini-summarize-btn {
-            background: var(--button-gemini-gradient);
-        }
-        .gemini-summarize-btn:hover {
-            opacity: 0.9;
-            box-shadow: 0 2px 8px rgba(74, 0, 224, 0.4);
-        }
-        
-        /* Carousel Styles */
-        .carousel-container {
-            position: relative; 
-            margin-bottom: 1.5rem; 
-        }
-        
-        .carousel {
-            display: flex;
-            overflow-x: auto; 
-            scroll-snap-type: x mandatory; 
-            gap: 1.5rem; 
-            padding: 1rem 0; 
-            scroll-behavior: smooth; 
-            -webkit-overflow-scrolling: touch; 
+            @apply ds-btn-base bg-gray-400 dark:bg-gray-500 text-gray-800 dark:text-gray-300 cursor-not-allowed opacity-70 hover:transform-none hover:shadow-none;
         }
 
-        .carousel::-webkit-scrollbar { display: none; }
-        .carousel { -ms-overflow-style: none;  scrollbar-width: none; }
-
-        .carousel > .col-sm-6.col-lg-4.col-xl-3 {
-            scroll-snap-align: center; 
-            flex: 0 0 auto; 
-        }
-
-        .nav-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--card-bg-color);
-            color: var(--text-primary);
-            border: 1px solid var(--text-light-grey);
-            border-radius: 50%;
-            width: 44px; 
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-            z-index: 10; 
-            font-size: 1.5rem; 
-            transition: background-color 0.2s, box-shadow 0.2s;
-        }
-
-        .nav-button:hover {
-            background: #f0f0f0; /* Lighter hover for light mode */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        .nav-button:active { transform: translateY(-50%) scale(0.95); }
-        .nav-prev { left: -22px; }
-        .nav-next { right: -22px; }
-
-        /* Modal Styles */
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1050; 
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto; 
-            background-color: rgba(0,0,0,0.5); 
-        }
-        .modal-content {
-            background-color: var(--modal-bg-color);
-            margin: 10% auto;
-            padding: 20px;
-            border: 1px solid var(--modal-border-color);
-            width: 80%;
-            max-width: 600px;
-            border-radius: 8px;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        .modal-header {
-            padding: 10px 15px;
-            border-bottom: 1px solid var(--modal-header-border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .modal-title {
-            margin: 0;
-            font-size: 1.25rem;
-            color: var(--text-primary);
-        }
-        .close-button {
-            color: var(--text-light-grey);
-            font-size: 28px;
-            font-weight: bold;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-        }
-        .close-button:hover, .close-button:focus {
-            color: var(--text-primary); 
-            text-decoration: none;
-        }
-        .modal-body { padding: 15px; min-height: 100px; }
-
-        
-        /* Gemini Loading Indicator Styles */
-        #geminiLoadingIndicator, #studyPlanLoadingIndicator {
-            display: none; /* Hidden by default */
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            text-align: center;
-        }
-        .spinner-border { width: 3rem; height: 3rem; color: var(--text-primary); }
-        #geminiLoadingIndicator p, #studyPlanLoadingIndicator p { margin-top: 10px; color: var(--text-secondary); }
-
-        /* Gemini Study Planner Section */
-        #geminiStudyPlannerSection {
-            background-color: var(--card-bg-color);
-            border-radius: 10px;
-            box-shadow: var(--shadow-color) 0px 4px 8px;
-            
-        }
-        
-        #geminiStudyPlannerSection h2 { color: var(--text-primary); }
-        #geminiStudyPlannerSection p { color: var(--text-secondary); }
-        #studyGoalInput {
-            background-color: var(--input-bg-color);
-            color: var(--text-secondary);
-            border: 1px solid var(--input-border-color);
-            border-radius: 8px;
-        }
-        #studyGoalInput:focus {
-            border-color: var(--input-focus-border-color);
-            box-shadow: 0 0 0 0.2rem var(--input-focus-shadow-color);
-            
-        }
-        #studyGoalInput::placeholder { color: var(--placeholder-color); }
-        
-        #generateStudyPlanBtn { 
-            background: var(--button-gemini-gradient); 
-            padding: 0.8rem 1.5rem; /* Increased padding */
-            font-size: 1rem; /* Slightly larger font */
-            border-radius: 8px;
-        }
-        #generateStudyPlanBtn:hover {
-            opacity: 0.9;
-            box-shadow: 0 4px 12px rgba(74, 0, 224, 0.5); /* Enhanced shadow */
-        }
-
-        #studyPlanOutput { 
-            display:none; 
-            background-color: rgba(0,0,0,0.03); /* Slightly different background for output */
-            color: var(--text-secondary);
-        }
-         #studyPlanOutput h4 { color: var(--text-primary); }
-
-
-        /* Rodapé */
-        footer {
-            width: 100%;
-            background-color: rgb(10, 55, 78);
-            padding: 1.5rem 1rem;
-            margin-top: auto;
-        }
-        footer p { font-size: 0.9rem; text-align: center; color: #ffffff; margin: 0; }
-        footer strong { font-weight: 600; }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            nav.container { flex-direction: column; padding: 10px; }
-            nav h1 { margin-bottom: 10px; font-size: 1.5rem; }
-            .filter-search-container { flex-direction: column; gap: 10px; }
-            .search-bar, .filter-bar { width: 100%; max-width: none; }
-            .gift-section h1 { font-size: 1.8rem; }
-            .gift-section p { font-size: 1rem; }
-            
-            .nav-prev { left: 5px; } 
-            .nav-next { right: 5px; }
-            .modal-content { width: 90%; margin: 15% auto;}
-            #geminiStudyPlannerSection .input-group { 
-                
-                padding-top: 10px; 
-            }
-            #geminiStudyPlannerSection .input-group input { border-radius: 8px !important; margin-bottom: 10px; }
-            #geminiStudyPlannerSection .input-group button { width: 100%; border-radius: 8px !important; }
-            #generateStudyPlanBtn { padding: 0.7rem 1.2rem; font-size: 0.9rem;} /* Adjust for mobile */
-        }
-
-        @media (max-width: 576px) {
-            header { padding: 0 0.5rem; }
-            nav h1 { font-size: 1.3rem; }
-            .ds-contact-container img { height: 40px; }
-            .ds-btn { font-size: 0.8rem; padding: 0.6rem 1rem; min-width: 110px; }
-            .nav-button { width: 38px; height: 38px; font-size: 1.2rem;}
-            .nav-prev { left: 2px; }
-            .nav-next { right: 2px; }
-            h2 { font-size: 1.5rem; }
-            .modal-content { width: 95%; margin: 20% auto;}
-        }
-
-        /* Dark Mode */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --background: #1e1e1e;
-                --color-primary-bg: #121212;
-                --text-primary: #e0e0e0;
-                --text-secondary: #b0b0b0;
-                --text-light-grey: #555; /* Darker grey for dark mode */
-                --white: #2c2c2c; 
-                --shadow-color: rgba(0, 0, 0, 0.5); 
-                --button-gradient: linear-gradient(92.07deg, rgb(12, 120, 180) 1.84%, rgb(20, 140, 210) 100%);
-                --button-gemini-gradient: linear-gradient(92.07deg, #580fc0 1.84%, #a04dff 100%); 
-                --card-bg-color: #2c2c2c;
-                --modal-bg-color: #333333;
-                --modal-border-color: #444;
-                --modal-header-border-color: #4f4f4f;
-                --input-bg-color: #3a3a3a;
-                --input-border-color: #555;
-                --input-focus-border-color: #64b5f6;
-                --input-focus-shadow-color: rgba(100, 181, 246, 0.25);
-                --placeholder-color: #888;
-            }
-
-            body { background: var(--color-primary-bg); color: var(--text-primary); }
-            header { background: var(--background); box-shadow: var(--shadow-color) 0px 4px 10px 0px; }
-            nav h1 { color: var(--text-primary); }
-            a { color: #64b5f6; }
-            a:hover { color: #90caf9; }
-
-            .ds-card { background: var(--card-bg-color); box-shadow: var(--shadow-color) 0px 4px 8px; }
-            .ds-card-description h3 { color: var(--text-primary); }
-
-            .search-bar, .filter-bar, #studyGoalInput {
-                background-color: var(--input-bg-color);
-                color: var(--text-primary);
-                border: 1px solid var(--input-border-color);
-            }
-            .search-bar:focus, .filter-bar:focus, #studyGoalInput:focus {
-                border-color: var(--input-focus-border-color);
-                box-shadow: 0 0 0 0.2rem var(--input-focus-shadow-color);
-            }
-            .search-bar::placeholder, #studyGoalInput::placeholder { color: var(--placeholder-color); }
-
-            .ds-btn { background: var(--button-gradient); color: #ffffff !important; }
-            .ds-btn:hover, .ds-btn:focus { color: #ffffff !important; }
-            .ds-btn-soon { background: var(--text-light-grey); color: var(--text-primary) !important; }
-            .gemini-summarize-btn, #generateStudyPlanBtn { background: var(--button-gemini-gradient); }
-            #generateStudyPlanBtn:hover {
-                 box-shadow: 0 4px 12px rgba(88, 15, 192, 0.6); /* Adjusted shadow for dark mode */
-            }
-
-
-            footer { background-color: #1c1c1c; }
-            footer p { color: var(--text-secondary); }
-
-            .gift-section { color: #ffffff; } 
-            .gift-section h1, .gift-section p { color: #ffffff; }
-            
-            .nav-button {
-                background: var(--text-light-grey); /* Darker background for buttons */
-                color: var(--background); /* Light text for buttons */
-                border-color: #444;
-            }
-            .nav-button:hover {
-                background: #555; /* Slightly lighter hover for dark mode buttons */
-            }
-            .modal-content { background-color: var(--modal-bg-color); border-color: var(--modal-border-color); }
-            .modal-header { border-bottom-color: var(--modal-header-border-color); }
-            .modal-title { color: var(--text-primary); }
-            .close-button { color: var(--text-light-grey); }
-            .close-button:hover { color: var(--text-primary); }
-            .spinner-border { color: var(--text-primary) !important; }
-            #geminiLoadingIndicator p, #studyPlanLoadingIndicator p { color: var(--text-secondary); }
-            #studyPlanOutput { background-color: rgba(255,255,255,0.05); color: var(--text-secondary); }
-            #studyPlanOutput h4 { color: var(--text-primary); }
+        .input-styled {
+            @apply w-full py-2.5 px-3 text-base rounded-lg border transition-colors duration-300;
+            @apply bg-eject-input-bg-light text-eject-text-secondary-light border-eject-input-border-light placeholder-eject-placeholder-light;
+            @apply dark:bg-eject-input-bg-dark dark:text-eject-text-primary-dark dark:border-eject-input-border-dark dark:placeholder-eject-placeholder-dark;
+            @apply focus:outline-none focus:ring-2 focus:border-eject-input-focus-light dark:focus:border-eject-input-focus-dark focus:ring-eject-input-focus-light/25 dark:focus:ring-eject-input-focus-dark/25;
         }
     </style>
+
 </head>
-<body>
-    <div vw class="enabled">
+<body class="font-sans"> <div vw class="enabled">
         <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper>
-          <div class="vw-plugin-top-wrapper"></div>
+            <div class="vw-plugin-top-wrapper"></div>
         </div>
     </div>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
@@ -546,150 +107,150 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
-    <header>
-        <nav class="container">
-            <a href="index.html"> <h1>Hub de Conhecimentos</h1>
+    <header class="w-full min-h-[90px] flex items-center px-4 shadow-lg bg-eject-bg-light dark:bg-eject-bg-dark shadow-slate-200/50 dark:shadow-black/30">
+        <nav class="w-full max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center py-2 md:py-0">
+            <a href="index.html" class="no-underline">
+                <h1 class="font-bold text-eject-text-primary-light dark:text-eject-text-primary-dark text-2xl md:text-3xl m-0 mb-2 md:mb-0">Hub de Conhecimentos</h1>
             </a>
             <div class="ds-contact-container">
                 <a href="https://www.ejectufrn.com.br/" target="_blank" rel="noopener noreferrer">
-                    <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT" class="h-10 md:h-11 ml-0 md:ml-4" onerror="this.onerror=null;this.src='https://placehold.co/100x45/cccccc/ffffff?text=EJECT';">
                 </a>
             </div>
         </nav>
     </header>
 
-    <main>
-        <section id="ds-card-list-section" class="container">
+    <main class="flex-1 py-5">
+        <section id="ds-card-list-section" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <br>
-            <section class="gift-section">
-                <h1>Hub de Conhecimentos</h1>
-                <p>Boas-vindas, Astronauta! Selecione uma trilha para começar o aprendizado.</p>
+            <section class="gift-section flex flex-col justify-center items-center text-center text-white p-6 rounded-2xl shadow-lg bg-eject-gift-gradient">
+                <h1 class="text-3xl md:text-[2rem] mb-2 font-semibold">Hub de Conhecimentos</h1>
+                <p class="text-lg md:text-[1.1rem] mb-0">Boas-vindas, Astronauta! Selecione uma trilha para começar o aprendizado.</p>
             </section> <br>
 
-            <section id="geminiStudyPlannerSection" class="container mt-4 mb-4 p-4 rounded shadow-sm">
-                <h2 class="text-center mb-3">✨ Planejador de Estudos com IA</h2>
-                <p class="text-center mb-3">Diga-nos seu objetivo de aprendizado e a IA sugere um roteiro de estudos com as trilhas do hub!</p>
-                <div class="input-group mb-3">
-                    <input type="text" id="studyGoalInput" class="form-control form-control-lg" placeholder="Ex: Quero aprender desenvolvimento web full-stack">
-                    <button class="btn ds-btn btn-lg" type="button" id="generateStudyPlanBtn">✨ Gerar Plano</button>
+            <section id="geminiStudyPlannerSection" class="mt-4 mb-8 p-4 rounded-xl shadow-md bg-eject-card-bg-light dark:bg-eject-card-bg-dark">
+                <h2 class="text-2xl lg:text-3xl text-center mb-3 font-semibold text-eject-text-primary-light dark:text-eject-text-primary-dark">✨ Planejador de Estudos com IA</h2>
+                <p class="text-center mb-4 text-eject-text-secondary-light dark:text-eject-text-secondary-dark">Diga-nos seu objetivo de aprendizado e a IA sugere um roteiro de estudos com as trilhas do hub!</p>
+                <div class="flex flex-col sm:flex-row items-stretch mb-3 gap-2 sm:gap-0">
+                    <input type="text" id="studyGoalInput" class="input-styled text-lg py-3 sm:rounded-r-none flex-grow" placeholder="Ex: Quero aprender desenvolvimento web full-stack">
+                    <button class="ds-btn-gemini py-3 px-6 text-base sm:rounded-l-none w-full sm:w-auto" type="button" id="generateStudyPlanBtn">✨ Gerar Plano</button>
                 </div>
-                <div id="studyPlanLoadingIndicator" class="text-center">
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Carregando...</span>
+                <div id="studyPlanLoadingIndicator" class="hidden flex-col items-center justify-center p-5 text-center">
+                    <div class="w-10 h-10 border-4 border-eject-text-primary-light dark:border-eject-text-primary-dark border-t-transparent rounded-full animate-spin" role="status">
+                        <span class="sr-only">Carregando...</span>
                     </div>
-                    <p>Gerando seu plano de estudos com a ajuda do Gemini...</p>
+                    <p class="mt-2.5 text-eject-text-secondary-light dark:text-eject-text-secondary-dark">Gerando seu plano de estudos com a ajuda do Gemini...</p>
                 </div>
-                <div id="studyPlanOutputContainer">
-                    <div id="studyPlanOutput" class="mt-3 p-3 border rounded">
-                        <h4>Plano de Estudo Sugerido:</h4>
-                        <p id="studyPlanText" style="white-space: pre-wrap;"></p>
+                <div id="studyPlanOutputContainer" style="display:none;"> <div id="studyPlanOutput" class="mt-3 p-4 border rounded-lg bg-gray-500/5 dark:bg-white/5 text-eject-text-secondary-light dark:text-eject-text-secondary-dark border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-semibold mb-2 text-eject-text-primary-light dark:text-eject-text-primary-dark">Plano de Estudo Sugerido:</h4>
+                        <p id="studyPlanText" class="whitespace-pre-wrap text-sm"></p>
                     </div>
                 </div>
-                <div id="studyPlanError" class="mt-3 alert alert-danger" style="display:none;"></div>
+                <div id="studyPlanError" class="mt-3 p-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" style="display:none;" role="alert"></div>
             </section>
 
-
-            <section> <h2>🏆 Top 10</h2>
-                <div class="carousel-container">
-                    <div class="nav-button nav-prev" onclick="scrollCarousel(-1, 'trilhaProjetosCarousel')" aria-label="Trilha Anterior">&#8592;</div>
-                    <div class="carousel" id="trilhaProjetosCarousel">
-                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                            <div class="ds-card" data-track-title="EJECT 15 Anos">
-                                <img src="https://placehold.co/600x400/8A2BE2/FFFFFF?text=EJECT+15+Anos" alt="Banner comemorativo EJECT 15 Anos">
-                                <div class="ds-card-description">
-                                    <h3 class="titulo-trilha">EJECT 15 Anos</h3>
-                                    <div class="ds-card-description-bottom">
-                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/anivessario/presente01/index" aria-label="Acessar conteúdo especial EJECT 15 Anos">Acessar Especial 🎁</a>
-                                        <button class="ds-btn gemini-summarize-btn" data-track-title="EJECT 15 Anos">✨ Resumir Trilha</button>
+            <section class="mb-8">
+                <h2 class="text-2xl lg:text-3xl mt-6 mb-4 font-semibold text-eject-text-primary-light dark:text-eject-text-primary-dark">🏆 Top 10</h2>
+                <div class="carousel-container relative">
+                    <button class="nav-button absolute top-1/2 -translate-y-1/2 left-[-15px] md:left-[-22px] bg-eject-card-bg-light dark:bg-eject-card-bg-dark text-eject-text-primary-light dark:text-eject-text-primary-dark border border-gray-300 dark:border-gray-600 rounded-full w-9 h-9 md:w-11 md:h-11 flex items-center justify-center cursor-pointer shadow-md z-10 text-xl md:text-2xl transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 active:scale-95" onclick="scrollCarousel(-1, 'trilhaProjetosCarousel')" aria-label="Trilha Anterior">&#8592;</button>
+                    <div id="trilhaProjetosCarousel" class="carousel flex overflow-x-auto snap-x snap-mandatory gap-6 py-4 scroll-smooth scrollbar-hide">
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                            <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="EJECT 15 Anos">
+                                <img src="https://placehold.co/600x400/8A2BE2/FFFFFF?text=EJECT+15+Anos" alt="Banner comemorativo EJECT 15 Anos" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">EJECT 15 Anos</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/anivessario/presente01/index" aria-label="Acessar conteúdo especial EJECT 15 Anos">Acessar Especial 🎁</a>
+                                        <button class="ds-btn-gemini" data-track-title="EJECT 15 Anos">✨ Resumir Trilha</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                            <div class="ds-card" data-track-title="GIT e Github">
-                                <img src="https://hermes.dio.me/articles/cover/d2489f96-d56f-4b82-bc7f-84fbc9fb1368.jpg" alt="Imagem do GitHub">
-                                <div class="ds-card-description">
-                                    <h3 class="titulo-trilha">GIT e Github</h3>
-                                    <div class="ds-card-description-bottom">
-                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/git_e_github">Acessar</a>
-                                        <button class="ds-btn gemini-summarize-btn" data-track-title="GIT e Github">✨ Resumir Trilha</button>
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                            <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="GIT e Github">
+                                <img src="https://hermes.dio.me/articles/cover/d2489f96-d56f-4b82-bc7f-84fbc9fb1368.jpg" alt="Imagem do GitHub" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">GIT e Github</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/git_e_github">Acessar</a>
+                                        <button class="ds-btn-gemini" data-track-title="GIT e Github">✨ Resumir Trilha</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                            <div class="ds-card" data-track-title="Gestão de Tempo">
-                                <img src="https://timeular.com/wp-content/uploads/2023/11/Copy-of-Copy-of-Blog-image-7.png" alt="Imagem da trilha de gestão de tempo">
-                                <div class="ds-card-description">
-                                    <h3 class="titulo-trilha">Gestão de Tempo</h3>
-                                    <div class="ds-card-description-bottom">
-                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/gestao_de_tempo.html">Acessar</a>
-                                        <button class="ds-btn gemini-summarize-btn" data-track-title="Gestão de Tempo">✨ Resumir Trilha</button>
+                         <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                            <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Gestão de Tempo">
+                                <img src="https://timeular.com/wp-content/uploads/2023/11/Copy-of-Copy-of-Blog-image-7.png" alt="Imagem da trilha de gestão de tempo" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Gestão de Tempo</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/gestao_de_tempo.html">Acessar</a>
+                                        <button class="ds-btn-gemini" data-track-title="Gestão de Tempo">✨ Resumir Trilha</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                            <div class="ds-card" data-track-title="Gestão de Pessoas">
-                                <img src="https://media.licdn.com/dms/image/D4D12AQHkxwPuNCCBLA/article-cover_image-shrink_600_2000/0/1696281571014?e=2147483647&v=beta&t=jx27ZVMQKEi4EroaGoApIr5mcpFvcZPs-DnxmjSOxnY" alt="Imagem da trilha de desenvolvimento humano">
-                                <div class="ds-card-description">
-                                    <h3 class="titulo-trilha">Gestão de Pessoas</h3>
-                                    <div class="ds-card-description-bottom">
-                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/desenvolvimento_humano">Acessar</a>
-                                        <button class="ds-btn gemini-summarize-btn" data-track-title="Gestão de Pessoas">✨ Resumir Trilha</button>
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                            <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Gestão de Pessoas">
+                                <img src="https://media.licdn.com/dms/image/D4D12AQHkxwPuNCCBLA/article-cover_image-shrink_600_2000/0/1696281571014?e=2147483647&v=beta&t=jx27ZVMQKEi4EroaGoApIr5mcpFvcZPs-DnxmjSOxnY" alt="Imagem da trilha de desenvolvimento humano" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Gestão de Pessoas</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/desenvolvimento_humano">Acessar</a>
+                                        <button class="ds-btn-gemini" data-track-title="Gestão de Pessoas">✨ Resumir Trilha</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                            <div class="ds-card" data-track-title="Marketing Comercial">
-                                <img src="https://media.licdn.com/dms/image/D5612AQFrB74fzNtosA/article-cover_image-shrink_720_1280/0/1685585245706?e=2147483647&v=beta&t=KSjXVDN59S9EFVnoue5f4C_mn4rgg536TURjE9kq_QI" alt="Imagem da trilha de marketing comercial">
-                                <div class="ds-card-description">
-                                    <h3 class="titulo-trilha">Marketing Comercial</h3>
-                                    <div class="ds-card-description-bottom">
-                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/marketing_comercial">Acessar</a>
-                                        <button class="ds-btn gemini-summarize-btn" data-track-title="Marketing Comercial">✨ Resumir Trilha</button>
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                            <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Marketing Comercial">
+                                <img src="https://media.licdn.com/dms/image/D5612AQFrB74fzNtosA/article-cover_image-shrink_720_1280/0/1685585245706?e=2147483647&v=beta&t=KSjXVDN59S9EFVnoue5f4C_mn4rgg536TURjE9kq_QI" alt="Imagem da trilha de marketing comercial" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Marketing Comercial</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/marketing_comercial">Acessar</a>
+                                        <button class="ds-btn-gemini" data-track-title="Marketing Comercial">✨ Resumir Trilha</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                            <div class="ds-card" data-track-title="Scrum">
-                                <img src="https://erp-disk.ams3.digitaloceanspaces.com/portadas-tutoriales/small_portada_cm1gdlxji0065017b0k930xiv.webp" alt="Imagem do Scrum">
-                                <div class="ds-card-description">
-                                    <h3 class="titulo-trilha">Scrum</h3>
-                                    <div class="ds-card-description-bottom">
-                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/Scrum">Acessar</a>
-                                        <button class="ds-btn gemini-summarize-btn" data-track-title="Scrum">✨ Resumir Trilha</button>
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                             <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Scrum">
+                                <img src="https://erp-disk.ams3.digitaloceanspaces.com/portadas-tutoriales/small_portada_cm1gdlxji0065017b0k930xiv.webp" alt="Imagem do Scrum" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Scrum</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/Scrum">Acessar</a>
+                                        <button class="ds-btn-gemini" data-track-title="Scrum">✨ Resumir Trilha</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                            <div class="ds-card" data-track-title="Django & Rest">
-                                <img src="https://imagedelivery.net/qc7VvyphMGWFiPVvTbB-ww/swapps.com/2016/02/simply-django-announcements.jpg/w=1024,h=576" alt="Imagem do framework Django">
-                                <div class="ds-card-description">
-                                    <h3 class="titulo-trilha">Django & Rest</h3>
-                                    <div class="ds-card-description-bottom">
-                                        <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/django">ACESSAR</a>
-                                        <button class="ds-btn gemini-summarize-btn" data-track-title="Django & Rest">✨ Resumir Trilha</button>
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                            <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Django & Rest">
+                                <img src="https://imagedelivery.net/qc7VvyphMGWFiPVvTbB-ww/swapps.com/2016/02/simply-django-announcements.jpg/w=1024,h=576" alt="Imagem do framework Django" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Django & Rest</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/django">ACESSAR</a>
+                                        <button class="ds-btn-gemini" data-track-title="Django & Rest">✨ Resumir Trilha</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="nav-button nav-next" onclick="scrollCarousel(1, 'trilhaProjetosCarousel')" aria-label="Próxima Trilha">&#8594;</div>
+                        </div>
+                    <button class="nav-button absolute top-1/2 -translate-y-1/2 right-[-15px] md:right-[-22px] bg-eject-card-bg-light dark:bg-eject-card-bg-dark text-eject-text-primary-light dark:text-eject-text-primary-dark border border-gray-300 dark:border-gray-600 rounded-full w-9 h-9 md:w-11 md:h-11 flex items-center justify-center cursor-pointer shadow-md z-10 text-xl md:text-2xl transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 active:scale-95" onclick="scrollCarousel(1, 'trilhaProjetosCarousel')" aria-label="Próxima Trilha">&#8594;</button>
                 </div>
             </section>
 
-            <h2>Todas as Trilhas</h2>
-            <section class="filter-search-controls">
-                <div class="filter-search-container">
-                    <div class="search-container">
-                        <input type="text" id="searchInput" class="form-control search-bar" placeholder="Pesquise nas trilhas abaixo...">
+            <h2 class="text-2xl lg:text-3xl mt-8 mb-4 font-semibold text-eject-text-primary-light dark:text-eject-text-primary-dark">Todas as Trilhas</h2>
+            <section class="filter-search-controls my-6">
+                <div class="flex flex-col md:flex-row justify-center items-center gap-4 max-w-3xl mx-auto">
+                    <div class="search-container flex-grow w-full md:w-auto min-w-[200px]">
+                        <input type="text" id="searchInput" class="input-styled" placeholder="Pesquise nas trilhas abaixo...">
                     </div>
-                    <div class="filter-container">
-                        <select id="filterSelect" class="form-select filter-bar" title="Filter options">
+                    <div class="filter-container flex-grow w-full md:w-auto min-w-[200px]">
+                        <select id="filterSelect" class="input-styled appearance-none bg-white dark:bg-gray-700 bg-no-repeat bg-right pr-8" title="Filter options" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%236b7280%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E');">
                             <option value="all">Todos</option>
                             <option value="alphabetical">Ordem Alfabética</option>
                             <option value="available">Disponíveis</option>
@@ -700,274 +261,215 @@
             </section>
             <br>
 
-            <div class="row" id="cardContainer">
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="EJECT 15 Anos">
-                        <img src="https://placehold.co/600x400/8A2BE2/FFFFFF?text=EJECT+15+Anos" alt="Banner comemorativo EJECT 15 Anos">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">EJECT 15 Anos</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/anivessario/presente01/index" aria-label="Acessar conteúdo especial EJECT 15 Anos">Acessar Especial 🎁</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="EJECT 15 Anos">✨ Resumir Trilha</button>
-                            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="cardContainer">
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="EJECT 15 Anos">
+                    <img src="https://placehold.co/600x400/8A2BE2/FFFFFF?text=EJECT+15+Anos" alt="Banner comemorativo EJECT 15 Anos" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">EJECT 15 Anos</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/anivessario/presente01/index" aria-label="Acessar conteúdo especial EJECT 15 Anos">Acessar Especial 🎁</a>
+                            <button class="ds-btn-gemini" data-track-title="EJECT 15 Anos">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="GIT e Github">
-                        <img src="https://hermes.dio.me/articles/cover/d2489f96-d56f-4b82-bc7f-84fbc9fb1368.jpg" alt="Imagem do GitHub">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">GIT e Github</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/git_e_github">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="GIT e Github">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="GIT e Github">
+                    <img src="https://hermes.dio.me/articles/cover/d2489f96-d56f-4b82-bc7f-84fbc9fb1368.jpg" alt="Imagem do GitHub" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">GIT e Github</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/git_e_github" aria-label="Acessar trilha GIT e Github">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="GIT e Github">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Gestão de Tempo">
-                        <img src="https://timeular.com/wp-content/uploads/2023/11/Copy-of-Copy-of-Blog-image-7.png" alt="Imagem da trilha de gestão de tempo">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Gestão de Tempo</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/gestao_de_tempo.html">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="Gestão de Tempo">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Gestão de Tempo">
+                    <img src="https://timeular.com/wp-content/uploads/2023/11/Copy-of-Copy-of-Blog-image-7.png" alt="Imagem da trilha de gestão de tempo" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Gestão de Tempo</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/gestao_de_tempo.html" aria-label="Acessar trilha Gestão de Tempo">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Gestão de Tempo">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Gestão de Pessoas">
-                        <img src="https://media.licdn.com/dms/image/D4D12AQHkxwPuNCCBLA/article-cover_image-shrink_600_2000/0/1696281571014?e=2147483647&v=beta&t=jx27ZVMQKEi4EroaGoApIr5mcpFvcZPs-DnxmjSOxnY" alt="Imagem da trilha de desenvolvimento humano">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Gestão de Pessoas</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/desenvolvimento_humano">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="Gestão de Pessoas">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Gestão de Pessoas">
+                    <img src="https://media.licdn.com/dms/image/D4D12AQHkxwPuNCCBLA/article-cover_image-shrink_600_2000/0/1696281571014?e=2147483647&v=beta&t=jx27ZVMQKEi4EroaGoApIr5mcpFvcZPs-DnxmjSOxnY" alt="Imagem da trilha de desenvolvimento humano" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Gestão de Pessoas</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/desenvolvimento_humano" aria-label="Acessar trilha Gestão de Pessoas">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Gestão de Pessoas">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Marketing Comercial">
-                        <img src="https://media.licdn.com/dms/image/D5612AQFrB74fzNtosA/article-cover_image-shrink_720_1280/0/1685585245706?e=2147483647&v=beta&t=KSjXVDN59S9EFVnoue5f4C_mn4rgg536TURjE9kq_QI" alt="Imagem da trilha de marketing comercial">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Marketing Comercial</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/marketing_comercial">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="Marketing Comercial">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Marketing Comercial">
+                    <img src="https://media.licdn.com/dms/image/D5612AQFrB74fzNtosA/article-cover_image-shrink_720_1280/0/1685585245706?e=2147483647&v=beta&t=KSjXVDN59S9EFVnoue5f4C_mn4rgg536TURjE9kq_QI" alt="Imagem da trilha de marketing comercial" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Marketing Comercial</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/marketing_comercial" aria-label="Acessar trilha Marketing Comercial">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Marketing Comercial">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Scrum">
-                        <img src="https://erp-disk.ams3.digitaloceanspaces.com/portadas-tutoriales/small_portada_cm1gdlxji0065017b0k930xiv.webp" alt="Imagem do Scrum">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Scrum</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/Scrum">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="Scrum">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Scrum">
+                    <img src="https://erp-disk.ams3.digitaloceanspaces.com/portadas-tutoriales/small_portada_cm1gdlxji0065017b0k930xiv.webp" alt="Imagem do Scrum" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Scrum</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/Scrum" aria-label="Acessar trilha Scrum">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Scrum">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Django & Rest">
-                        <img src="https://imagedelivery.net/qc7VvyphMGWFiPVvTbB-ww/swapps.com/2016/02/simply-django-announcements.jpg/w=1024,h=576" alt="Imagem do framework Django">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Django & Rest</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/django">ACESSAR</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="Django & Rest">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Django & Rest">
+                    <img src="https://imagedelivery.net/qc7VvyphMGWFiPVvTbB-ww/swapps.com/2016/02/simply-django-announcements.jpg/w=1024,h=576" alt="Imagem do framework Django" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Django & Rest</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/django" aria-label="Acessar trilha Django & Rest">ACESSAR</a>
+                            <button class="ds-btn-gemini" data-track-title="Django & Rest">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Financeiro">
-                        <img src="https://blog.quantosobra.com.br/wp-content/uploads/2023/04/capa-controle-financeiro-quantosobra.png" alt="Imagem do Financeiro">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Financeiro</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/financeiro">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="Financeiro">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Financeiro">
+                    <img src="https://blog.quantosobra.com.br/wp-content/uploads/2023/04/capa-controle-financeiro-quantosobra.png" alt="Imagem do Financeiro" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Financeiro</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/financeiro" aria-label="Acessar trilha Financeiro">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Financeiro">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="História da EJECT">
-                        <img src="https://placehold.co/600x400/003366/FFFFFF?text=História+da+EJECT" alt="Imagem sobre a História da EJECT">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">História da EJECT</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/historia_eject">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="História da EJECT">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="História da EJECT">
+                    <img src="https://placehold.co/600x400/003366/FFFFFF?text=História+da+EJECT" alt="Imagem sobre a História da EJECT" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">História da EJECT</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/historia_eject" aria-label="Acessar trilha História da EJECT">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="História da EJECT">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="HTML e CSS">
-                        <img src="https://hotmart.s3.amazonaws.com/product_pictures/d2badee3-49a9-4627-9f7d-a5e51ae35384/sitehtmlcss1024x579.jpg" alt="Imagem do HTML e CSS">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">HTML e CSS</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/html_e_css">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="HTML e CSS">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="HTML e CSS">
+                    <img src="https://hotmart.s3.amazonaws.com/product_pictures/d2badee3-49a9-4627-9f7d-a5e51ae35384/sitehtmlcss1024x579.jpg" alt="Imagem do HTML e CSS" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">HTML e CSS</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/html_e_css" aria-label="Acessar trilha HTML e CSS">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="HTML e CSS">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Vue.js">
-                        <img src="https://dkrn4sk0rn31v.cloudfront.net/uploads/2020/06/VUE.png" alt="Imagem da linguagem Vue.js">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Vue.js</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/vue">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="Vue.js">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Vue.js">
+                    <img src="https://dkrn4sk0rn31v.cloudfront.net/uploads/2020/06/VUE.png" alt="Imagem da linguagem Vue.js" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Vue.js</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/vue" aria-label="Acessar trilha Vue.js">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Vue.js">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="OKRs, KPIs e BPMN">
-                        <img src="https://agilealliance.org/wp-content/uploads/2022/10/fury-okrs-agile-blog.png" alt="Imagem sobre OKRs, KPIs e BPMN">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">OKRs, KPIs e BPMN</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/okrs_kpis_e_bpmn">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="OKRs, KPIs e BPMN">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="OKRs, KPIs e BPMN">
+                    <img src="https://agilealliance.org/wp-content/uploads/2022/10/fury-okrs-agile-blog.png" alt="Imagem sobre OKRs, KPIs e BPMN" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">OKRs, KPIs e BPMN</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/okrs_kpis_e_bpmn" aria-label="Acessar trilha OKRs, KPIs e BPMN">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="OKRs, KPIs e BPMN">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Wordpress">
-                        <img src="https://cityhost.ua/upload_img/blog5f352fc3b2393_wp.png" alt="Imagem do Wordpress">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Wordpress</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/wordpress">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="Wordpress">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Wordpress">
+                    <img src="https://cityhost.ua/upload_img/blog5f352fc3b2393_wp.png" alt="Imagem do Wordpress" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Wordpress</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/wordpress" aria-label="Acessar trilha Wordpress">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Wordpress">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="JavaScript">
-                        <img src="https://coodesh.com/blog/wp-content/uploads/2023/03/IDE-para-JavaScript.png" alt="Imagem da linguagem JavaScript">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">JavaScript</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/javaScript">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="JavaScript">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="JavaScript">
+                    <img src="https://coodesh.com/blog/wp-content/uploads/2023/03/IDE-para-JavaScript.png" alt="Imagem da linguagem JavaScript" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">JavaScript</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/javaScript" aria-label="Acessar trilha JavaScript">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="JavaScript">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="TypeScript">
-                        <img src="https://static.wixstatic.com/media/c60f10_9605a49c09e948e6bf0195ac2738df23~mv2.png/v1/fit/w_1000,h_1000,al_c,q_80/file.jpg" alt="Imagem do TypeScript">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">TypeScript</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/typescript">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="TypeScript">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="TypeScript">
+                    <img src="https://static.wixstatic.com/media/c60f10_9605a49c09e948e6bf0195ac2738df23~mv2.png/v1/fit/w_1000,h_1000,al_c,q_80/file.jpg" alt="Imagem do TypeScript" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">TypeScript</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/typescript" aria-label="Acessar trilha TypeScript">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="TypeScript">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="UX e UI">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLbQDxmV2E6ZfAlhNMrPE1o-sPSIFiAjmngg&s" alt="Imagem de UX e UI">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">UX e UI</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn" href="/EJECT_Trilha_de_Conhecimento/Trilhas/ux_ui">Acessar</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="UX e UI">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="UX e UI">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLbQDxmV2E6ZfAlhNMrPE1o-sPSIFiAjmngg&s" alt="Imagem de UX e UI" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">UX e UI</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/ux_ui" aria-label="Acessar trilha UX e UI">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="UX e UI">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Python">
-                        <img src="https://marquesfernandes.com/wp-content/uploads/2020/08/kwi4bvgzths31.jpg" alt="Imagem da linguagem Python">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Python</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn ds-btn-soon" href="#" aria-disabled="true">Em breve</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="Python">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Python">
+                    <img src="https://marquesfernandes.com/wp-content/uploads/2020/08/kwi4bvgzths31.jpg" alt="Imagem da linguagem Python" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Python</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-soon" href="#" aria-label="Trilha Python em breve" aria-disabled="true">Em breve</a>
+                            <button class="ds-btn-gemini" data-track-title="Python">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div class="ds-card" data-track-title="Data Studio">
-                        <img src="https://media.licdn.com/dms/image/v2/D4D12AQHkS1tCc6LlVA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1722457848250?e=2147483647&v=beta&t=HlZ9mAxtlTnVhblfCroCs1RQ1Y-Gb6ggVUxbUv_zKew" alt="Imagem do Looker Studio">
-                        <div class="ds-card-description">
-                            <h3 class="titulo-trilha">Looker Studio</h3>
-                            <div class="ds-card-description-bottom">
-                                <a class="ds-btn ds-btn-soon" href="#" aria-disabled="true">Em breve</a>
-                                <button class="ds-btn gemini-summarize-btn" data-track-title="Data Studio">✨ Resumir Trilha</button>
-                            </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1" data-track-title="Looker Studio"> <img src="https://media.licdn.com/dms/image/v2/D4D12AQHkS1tCc6LlVA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1722457848250?e=2147483647&v=beta&t=HlZ9mAxtlTnVhblfCroCs1RQ1Y-Gb6ggVUxbUv_zKew" alt="Imagem do Looker Studio" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Looker Studio</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-soon" href="#" aria-label="Trilha Looker Studio em breve" aria-disabled="true">Em breve</a>
+                            <button class="ds-btn-gemini" data-track-title="Looker Studio">✨ Resumir Trilha</button>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </section>
     </main>
 
-    <div id="geminiSummaryModal" class="modal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="geminiSummaryModalTitle">✨ Resumo da Trilha</h5>
-                    <button type="button" class="btn-close close-button" onclick="closeSummaryModal()" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="geminiLoadingIndicator">
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Carregando...</span>
-                        </div>
-                        <p>Gerando resumo com a ajuda do Gemini...</p>
+    <div id="geminiSummaryModal" class="hidden fixed inset-0 z-50 w-full h-full overflow-auto bg-black/60 items-center justify-center" tabindex="-1"> <div class="bg-eject-modal-bg-light dark:bg-eject-modal-bg-dark mx-auto my-[10%] p-0 border border-eject-modal-border-light dark:border-eject-modal-border-dark w-11/12 sm:w-4/5 max-w-2xl rounded-lg relative shadow-xl flex flex-col">
+            <div class="px-4 py-3 border-b border-eject-modal-header-border-light dark:border-eject-modal-header-border-dark flex justify-between items-center">
+                <h5 class="modal-title text-xl font-semibold text-eject-text-primary-light dark:text-eject-text-primary-dark" id="geminiSummaryModalTitle">✨ Resumo da Trilha</h5>
+                <button type="button" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-3xl font-light bg-transparent border-none cursor-pointer p-1 leading-none" onclick="closeSummaryModal()" aria-label="Fechar">&times;</button>
+            </div>
+            <div class="p-4 min-h-[100px] overflow-y-auto">
+                <div id="geminiLoadingIndicator" class="hidden flex-col items-center justify-center p-5 text-center"> <div class="w-10 h-10 border-4 border-eject-text-primary-light dark:border-eject-text-primary-dark border-t-transparent rounded-full animate-spin" role="status">
+                        <span class="sr-only">Carregando...</span>
                     </div>
-                    <p id="geminiSummaryText" style="white-space: pre-wrap;"></p>
-                    <p id="geminiSummaryError" class="text-danger" style="display:none;"></p>
+                    <p class="mt-2.5 text-eject-text-secondary-light dark:text-eject-text-secondary-dark">Gerando resumo com a ajuda do Gemini...</p>
                 </div>
+                <p id="geminiSummaryText" class="whitespace-pre-wrap text-eject-text-secondary-light dark:text-eject-text-secondary-dark"></p>
+                <p id="geminiSummaryError" class="text-red-600 dark:text-red-400" style="display:none;"></p>
             </div>
         </div>
     </div>
 
-
-    <footer>
-        <p>Feito com <strong>foco</strong> e <strong>compromisso</strong> pela EJECT© 2024-2025 - Todos os direitos reservados.</p>
+    <footer class="w-full bg-slate-800 dark:bg-gray-900 py-6 px-4 mt-auto">
+        <p class="text-sm text-center text-gray-300 dark:text-gray-400 m-0">Feito com <strong class="font-semibold">foco</strong> e <strong class="font-semibold">compromisso</strong> pela EJECT© 2024-2025 - Todos os direitos reservados.</p>
     </footer>
-    
+
     <script>
-        // Função genérica para chamar a API Gemini
+        // Gemini API Call Function (unchanged, but ensure API key handling is secure in a real app)
         async function generateGeminiText(prompt) {
-            const apiKey = "AIzaSyAnojN8ZpEjiHaUVlZbgdalGVKdJwkIrRI"; // A chave da API será fornecida pelo ambiente Canvas em tempo de execução
+            const apiKey = "AIzaSyAnojN8ZpEjiHaUVlZbgdalGVKdJwkIrRI"; // API key is managed by the Canvas environment.
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             
             const payload = {
@@ -1013,7 +515,7 @@
             }
         }
 
-        // --- Lógica para Modal de Resumo da Trilha ---
+        // Modal Logic
         const summaryModal = document.getElementById('geminiSummaryModal');
         const summaryTextElement = document.getElementById('geminiSummaryText');
         const summaryErrorElement = document.getElementById('geminiSummaryError');
@@ -1030,8 +532,12 @@
             summaryTextElement.style.display = 'none';
             summaryErrorElement.textContent = '';
             summaryErrorElement.style.display = 'none';
-            summaryLoadingIndicator.style.display = 'flex';
-            summaryModal.style.display = 'block';
+            
+            summaryLoadingIndicator.classList.remove('hidden');
+            summaryLoadingIndicator.classList.add('flex');
+            summaryModal.classList.remove('hidden');
+            summaryModal.classList.add('flex');
+
 
             const prompt = `Gere um resumo conciso e informativo sobre o que uma pessoa pode aprender ou esperar da trilha de conhecimento chamada "${trackTitle}". O resumo deve ter entre 2 a 4 frases e ser útil para quem está decidindo se deve acessar a trilha. Responda em Português do Brasil.`;
 
@@ -1046,22 +552,24 @@
                     summaryErrorElement.style.display = 'block';
                 })
                 .finally(() => {
-                    summaryLoadingIndicator.style.display = 'none';
+                    summaryLoadingIndicator.classList.add('hidden');
+                    summaryLoadingIndicator.classList.remove('flex');
                 });
         }
 
         function closeSummaryModal() {
             if (summaryModal) {
-                summaryModal.style.display = 'none';
+                summaryModal.classList.add('hidden');
+                summaryModal.classList.remove('flex');
             }
         }
         
-        // --- Lógica para Planejador de Estudos com IA ---
+        // Study Planner Logic
         const studyGoalInput = document.getElementById('studyGoalInput');
         const generateStudyPlanBtn = document.getElementById('generateStudyPlanBtn');
         const studyPlanLoadingIndicator = document.getElementById('studyPlanLoadingIndicator');
         const studyPlanOutputContainer = document.getElementById('studyPlanOutputContainer');
-        const studyPlanOutput = document.getElementById('studyPlanOutput');
+        const studyPlanOutput = document.getElementById('studyPlanOutput'); 
         const studyPlanTextElement = document.getElementById('studyPlanText');
         const studyPlanErrorElement = document.getElementById('studyPlanError');
 
@@ -1075,14 +583,15 @@
                     return;
                 }
 
-                studyPlanLoadingIndicator.style.display = 'flex';
+                studyPlanLoadingIndicator.classList.remove('hidden');
+                studyPlanLoadingIndicator.classList.add('flex');
                 studyPlanOutputContainer.style.display = 'none';
                 studyPlanErrorElement.style.display = 'none';
 
-                const allTrackTitles = Array.from(document.querySelectorAll('.ds-card'))
-                                           .map(card => card.dataset.trackTitle)
-                                           .filter(title => title) // Remove undefined/empty titles
-                                           .join('; ');
+                const allTrackTitles = Array.from(document.querySelectorAll('#cardContainer .ds-card')) // Ensure we select from the correct container
+                                            .map(card => card.dataset.trackTitle)
+                                            .filter(title => title) 
+                                            .join('; ');
 
                 const prompt = `Como um assistente de planejamento de estudos para o Hub de Conhecimentos da EJECT, meu objetivo é ajudar um usuário a alcançar o seguinte objetivo de aprendizado: "${studyGoal}".
 
@@ -1099,7 +608,6 @@ Por favor, crie um plano de estudo sugerido para este usuário. Seu plano deve:
                     .then(plan => {
                         studyPlanTextElement.textContent = plan;
                         studyPlanOutputContainer.style.display = 'block';
-                        studyPlanOutput.style.display = 'block';
                     })
                     .catch(error => {
                         console.error("Erro ao gerar plano de estudo:", error);
@@ -1107,16 +615,15 @@ Por favor, crie um plano de estudo sugerido para este usuário. Seu plano deve:
                         studyPlanErrorElement.style.display = 'block';
                     })
                     .finally(() => {
-                        studyPlanLoadingIndicator.style.display = 'none';
+                        studyPlanLoadingIndicator.classList.add('hidden');
+                        studyPlanLoadingIndicator.classList.remove('flex');
                     });
             });
         }
 
-
-        // Script for search and filter functionality (for the grid of cards).
+        // Search, Filter, and Modal Event Listeners
         document.addEventListener('DOMContentLoaded', function() {
-            // Attach event listeners to "Resumir Trilha" buttons
-            document.querySelectorAll('.gemini-summarize-btn').forEach(button => {
+            document.querySelectorAll('.ds-btn-gemini[data-track-title]').forEach(button => {
                 button.addEventListener('click', function() {
                     const trackTitle = this.dataset.trackTitle;
                     if (trackTitle) {
@@ -1127,7 +634,6 @@ Por favor, crie um plano de estudo sugerido para este usuário. Seu plano deve:
                 });
             });
             
-            // Close modal if clicked outside of modal-content
             if (summaryModal) {
                 summaryModal.addEventListener('click', function(event) {
                     if (event.target === summaryModal) {
@@ -1136,14 +642,13 @@ Por favor, crie um plano de estudo sugerido para este usuário. Seu plano deve:
                 });
             }
 
-
             const searchInput = document.getElementById('searchInput');
             if (searchInput) {
                 searchInput.addEventListener('input', function() {
                     const query = this.value.toLowerCase().trim();
-                    const cards = document.querySelectorAll('#cardContainer .col-sm-6.col-lg-4.col-xl-3.mb-3');
+                    const cards = document.querySelectorAll('#cardContainer > div.ds-card'); 
                     cards.forEach(cardCol => {
-                        const titleElement = cardCol.querySelector('.titulo-trilha');
+                        const titleElement = cardCol.querySelector('h3'); 
                         if (titleElement) {
                             const title = titleElement.textContent.toLowerCase();
                             cardCol.style.display = title.includes(query) ? '' : 'none';
@@ -1159,13 +664,13 @@ Por favor, crie um plano de estudo sugerido para este usuário. Seu plano deve:
                 filterSelect.addEventListener('change', function() {
                     const filterValue = this.value;
                     const cardContainer = document.getElementById('cardContainer');
-                    const cardsCols = Array.from(cardContainer.querySelectorAll('.col-sm-6.col-lg-4.col-xl-3.mb-3'));
+                    const cardsCols = Array.from(cardContainer.children); 
 
                     cardsCols.forEach(cardCol => cardCol.style.display = ''); 
 
                     if (filterValue === 'available' || filterValue === 'soon') {
                         cardsCols.forEach(cardCol => {
-                            const button = cardCol.querySelector('.ds-btn:not(.gemini-summarize-btn)'); // Exclude summarize button for this logic
+                            const button = cardCol.querySelector('a.ds-btn-base'); 
                             if (button) {
                                 const isSoon = button.classList.contains('ds-btn-soon') || button.textContent.toLowerCase().includes('em breve');
                                 if ((filterValue === 'available' && isSoon) || (filterValue === 'soon' && !isSoon)) {
@@ -1179,8 +684,8 @@ Por favor, crie um plano de estudo sugerido para este usuário. Seu plano deve:
                         const visibleCardsCols = cardsCols.filter(col => col.style.display !== 'none');
                         
                         visibleCardsCols.sort((a, b) => {
-                            const titleAEl = a.querySelector('.titulo-trilha');
-                            const titleBEl = b.querySelector('.titulo-trilha');
+                            const titleAEl = a.querySelector('h3');
+                            const titleBEl = b.querySelector('h3');
                             const titleA = titleAEl ? titleAEl.textContent.trim().toLowerCase() : '';
                             const titleB = titleBEl ? titleBEl.textContent.trim().toLowerCase() : '';
                             return titleA.localeCompare(titleB);
@@ -1198,7 +703,7 @@ Por favor, crie um plano de estudo sugerido para este usuário. Seu plano deve:
                 console.error(`Carousel element with ID "${carouselId}" not found.`);
                 return;
             }
-            const firstSlide = carouselElement.querySelector('.col-sm-6.col-lg-4.col-xl-3.mb-3');
+            const firstSlide = carouselElement.querySelector('.shrink-0.snap-center:not([style*="display: none"])');
             
             if (firstSlide) {
                 const slideWidth = firstSlide.offsetWidth; 
@@ -1219,10 +724,10 @@ Por favor, crie um plano de estudo sugerido para este usuário. Seu plano deve:
                     behavior: 'smooth'
                 });
             } else {
-                console.warn(`No card items found in the carousel "${carouselId}" to calculate scroll distance.`);
+                carouselElement.scrollBy({ left: direction * carouselElement.offsetWidth * 0.8, behavior: 'smooth' });
+                console.warn(`No card items found or visible in the carousel "${carouselId}" to calculate precise scroll distance. Using fallback.`);
             }
         }
     </script>
-
 </body>
 </html>
