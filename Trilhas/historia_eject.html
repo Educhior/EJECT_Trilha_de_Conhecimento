@@ -4,12 +4,640 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>EJECT | História da EJECT</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/trilhas_styles.css">
-        <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/eject_logo.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+            /* Importação da fonte */
+            @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
+    
+            /* Variáveis de cor */
+            :root {
+                --background: rgb(245, 251, 255);
+                --color-primary-bg: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
+                --text-primary: rgb(0, 61, 115);
+                --text-secondary: #4a4a4a;
+                --text-light-grey: #aaa;
+                --white: #fff;
+                --star-yellow: #FFBB3A;
+                --button-gradient: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%);
+                --button-gemini-gradient: linear-gradient(92.07deg, #4B0082 1.84%, #8A2BE2 100%); /* Indigo to BlueViolet */
+                --shadow-color: rgb(224, 229, 241);
+                --shadow-strong-color: rgba(0, 30, 58, 0.15); /* Sombra mais escura para o player */
+                --danger-color: #ff4757;
+                --danger-hover-color: #ff6b81;
+                --gemini-purple: #6A1B9A; 
+                --success-color: #28a745;
+                --warning-color: #ffc107;
+                --info-color: #17a2b8;
+                --podcast-player-bg: var(--white);
+                --podcast-player-accent: var(--text-primary);
+                --podcast-cover-bg: #e9ecef; /* Cor de fundo para o placeholder da capa */
+            }
+    
+            /* Reset de estilo */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+    
+            /* Configurações de fonte e corpo */
+            html {
+                font-size: 16px;
+            }
+
+            body {
+                font-family: "Exo 2", sans-serif;
+                width: 100%;
+                min-height: 100vh; 
+                background: var(--color-primary-bg); 
+                color: var(--text-secondary);
+                display: flex;
+                flex-direction: column;
+                line-height: 1.6;
+            }
+    
+            main {
+                flex: 1; 
+            }
+    
+            /* Estilos de título */
+            h1, h2, h3, h4, h5, h6 {
+                margin-top: 0; 
+                margin-bottom: 0.75rem; 
+                font-weight: 600; 
+                color: var(--text-primary); 
+            }
+    
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.75rem; }
+            h4 { font-size: 1.5rem; }
+            h5 { font-size: 1.25rem; }
+            h6 { font-size: 1rem; }
+    
+    
+            /* Estilos de links */
+            a {
+                text-decoration: none;
+                color: rgb(9, 149, 219); 
+                transition: color 0.2s ease-in-out;
+            }
+
+            a:hover {
+                 color: rgb(5, 110, 170); 
+            }
+    
+            /* Header */
+            header {
+                width: 100%;
+                min-height: 90px; 
+                background: var(--background);
+                box-shadow: var(--shadow-color) 0px 4px 10px 0px;
+                display: flex;
+                align-items: center;
+                padding: 0 1rem; 
+            }
+
+            header nav.container { 
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                max-width: 1200px; 
+                margin: 0 auto; 
+            }
+
+            header nav h1 {
+                font-weight: bold;
+                color: var(--text-primary);
+                font-size: 1.75rem; 
+                margin: 0; 
+            }
+    
+            .ds-contact-container {
+                display: flex;
+                align-items: center;
+            }
+    
+            .ds-contact-container img {
+                margin-left: 10px; 
+                height: 50px;
+            }
+    
+            /* Estilos para listas */
+            ul {
+                padding-left: 1.5rem; 
+            }
+    
+            li {
+                margin-bottom: 0.5rem; 
+            }
+
+            .timeline {
+                list-style-type: none;
+                padding-left: 0;
+                position: relative;
+            }
+            .timeline:before {
+                content: '';
+                position: absolute;
+                left: 20px;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background-color: var(--text-primary);
+                opacity: 0.3;
+            }
+
+            .timeline-item {
+                margin-bottom: 2rem;
+                position: relative;
+                padding-left: 45px; 
+            }
+
+            .timeline-item:last-child {
+                margin-bottom: 0;
+            }
+            
+            .timeline-icon {
+                position: absolute;
+                left: 8px; 
+                top: 0px;
+                width: 25px; 
+                height: 25px; 
+                border-radius: 50%;
+                background-color: var(--text-primary);
+                color: var(--white);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.8rem;
+                font-weight: bold;
+                border: 2px solid var(--background); 
+            }
+             .timeline-icon-default {
+                background-color: var(--text-light-grey);
+             }
+            .timeline-icon-success {
+                background-color: var(--success-color);
+            }
+            .timeline-icon-warning {
+                background-color: var(--warning-color);
+            }
+            .timeline-icon-info {
+                background-color: var(--info-color);
+            }
+
+
+            .timeline-content {
+                background-color: var(--white);
+                padding: 1rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+            .timeline-content strong {
+                font-weight: 600;
+                color: var(--text-primary);
+            }
+            .timeline-content .text-muted {
+                font-size: 0.9rem;
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+    
+            /* Estilos de botão */
+            .btn-gemini {
+                background: var(--button-gemini-gradient);
+                color: var(--white);
+                border: none;
+                padding: 0.6rem 1rem;
+                border-radius: 8px;
+                font-weight: 500;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .btn-gemini:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                color: var(--white);
+            }
+            .btn-gemini:disabled {
+                background: var(--text-light-grey);
+                cursor: not-allowed;
+            }
+
+            .ds-btn, .login-button, .logout-button {
+                font-size: 1rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: var(--white);
+                background: var(--button-gradient); 
+                padding: 0.8rem 1.2rem;
+                border-radius: 10px;
+                transition: all 0.3s ease;
+                display: inline-flex; 
+                align-items: center;
+                justify-content: center;
+                min-width: 150px;
+                min-height: 50px;
+                border: none; 
+            }
+    
+            .ds-btn:hover, .login-button:hover, .logout-button:hover {
+                transform: scale(1.05);
+                color: var(--white); 
+            }
+    
+            /* Footer */
+            footer {
+                width: 100%;
+                background-color: rgb(10, 55, 78);
+                padding: 2rem 1rem; 
+            }
+    
+            footer p {
+                font-size: 1rem;
+                text-align: center;
+                color: var(--white);
+                margin-bottom: 0; 
+            }
+    
+            .login-button:focus, .logout-button:focus, .ds-btn:focus, .btn:focus, .btn-gemini:focus { 
+                outline: 2px solid rgb(9, 149, 219);
+                box-shadow: 0 0 0 0.25rem rgba(9, 149, 219, 0.5); 
+            }
+    
+            /* Estilo do destaque */
+            .destaque {
+                color: rgb(206, 34, 177);
+                font-weight: bold;
+            }
+             .highlight-success {
+                color: var(--success-color);
+                font-weight: bold;
+            }
+            .highlight-warning {
+                color: var(--warning-color);
+                font-weight: bold;
+            }
+             .highlight-info {
+                color: var(--info-color);
+                font-weight: bold;
+            }
+    
+            /* Estilo para a tag <code> */
+            code {
+                background-color: #e9ecef; 
+                color: #c7254e; 
+                padding: 0.2rem 0.4rem;
+                border-radius: 0.2rem;
+                font-size: 0.875em; 
+            }
+    
+            pre { 
+                background-color: #f8f9fa;
+                border: 1px solid #dee2e6;
+                border-radius: 0.25rem;
+                padding: 1rem;
+                overflow-x: auto;
+                white-space: pre-wrap; 
+                word-wrap: break-word; 
+            }
+
+            pre code { 
+                background-color: transparent; 
+                color: inherit; 
+                padding: 0;
+                border-radius: 0;
+                font-size: inherit; 
+                border: none; 
+            }
+    
+            /* Ajustes gerais de parágrafo */
+            p {
+                line-height: 1.7; 
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+    
+           /* Podcast Player Styling - Estilo Spotify-like Melhorado e Dinâmico */
+           .podcast-section-container {
+                background-color: transparent;
+                padding: 1rem 0;
+                margin-bottom: 2.5rem;
+            }
+            
+            .podcast-player-card {
+                background-color: var(--podcast-player-bg);
+                border-radius: 0.85rem; 
+                padding: 1.5rem; 
+                box-shadow: 0 10px 30px var(--shadow-strong-color); 
+                display: flex;
+                flex-direction: row; 
+                align-items: center;
+                gap: 1.5rem; 
+                max-width: 700px; 
+                margin-left: auto;
+                margin-right: auto;
+                transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+                position: relative;
+                overflow: hidden; 
+            }
+            .podcast-player-card:before { 
+                content: "";
+                position: absolute;
+                top: -60%; 
+                left: -60%;
+                width: 220%;
+                height: 220%;
+                background: radial-gradient(circle, rgba(0, 61, 115, 0.08) 0%, rgba(0, 61, 115, 0) 65%); 
+                transform: rotate(0deg) scale(0.8); 
+                transition: transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.8s ease;
+                z-index: 0;
+                opacity: 0;
+                pointer-events: none; 
+            }
+            .podcast-player-card:hover:before {
+                transform: rotate(360deg) scale(1);
+                opacity: 1;
+            }
+            .podcast-player-card:hover {
+                transform: translateY(-5px) scale(1.02); 
+                box-shadow: 0 15px 35px var(--shadow-strong-color);
+            }
+
+
+            .podcast-cover-art {
+                width: 100px; 
+                height: 100px;
+                background-color: var(--podcast-cover-bg);
+                border-radius: 0.5rem; 
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden; 
+                flex-shrink: 0; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.12); 
+                transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                z-index: 1; 
+                border: 2px solid var(--white); 
+            }
+             .podcast-cover-art:hover {
+                transform: scale(1.1) rotate(3deg); 
+                box-shadow: 0 6px 15px rgba(0,0,0,0.18);
+            }
+            .podcast-cover-art img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; 
+            }
+            .podcast-cover-art .fa-headphones-simple { 
+                font-size: 3.5rem; 
+                color: var(--text-light-grey);
+                opacity: 0.5;
+            }
+
+            .podcast-info-controls {
+                flex-grow: 1; 
+                width: auto; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center; 
+                min-height: 100px; 
+                z-index: 1; 
+            }
+
+            .podcast-track-info {
+                margin-bottom: 0.75rem; 
+            }
+
+            .podcast-title {
+                font-size: 1.2rem; 
+                font-weight: 700; 
+                color: var(--text-primary);
+                margin-bottom: 0.2rem; 
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis; 
+            }
+            .podcast-show-name {
+                font-size: 0.9rem; 
+                color: var(--text-secondary);
+                margin-bottom: 0; 
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .podcast-player-card audio {
+                width: 100%;
+                height: 42px; 
+                border-radius: 6px; 
+                accent-color: var(--podcast-player-accent); 
+                background-color: transparent; 
+                outline: none; 
+            }
+            
+            .podcast-player-card audio::-webkit-media-controls-panel {
+                background-color: rgba(230, 238, 247, 0.85); 
+                border-radius: 6px;
+                padding: 0 8px; 
+            }
+            .podcast-player-card audio::-webkit-media-controls-play-button,
+            .podcast-player-card audio::-webkit-media-controls-mute-button {
+                background-color: transparent; 
+                border-radius: 50%;
+                transition: background-color 0.2s ease, transform 0.2s ease;
+                color: var(--text-primary); 
+            }
+             .podcast-player-card audio::-webkit-media-controls-play-button:hover,
+            .podcast-player-card audio::-webkit-media-controls-mute-button:hover {
+                background-color: rgba(0, 61, 115, 0.15); 
+                transform: scale(1.1);
+            }
+
+            .podcast-player-card audio::-webkit-media-controls-timeline {
+                background-color: var(--podcast-progress-bg);
+                border-radius: 4px; 
+                margin: 0 12px; 
+                height: 8px; 
+                box-shadow: inset 0 1px 3px rgba(0,0,0,0.15); 
+                position: relative; 
+                overflow: hidden;
+            }
+             .podcast-player-card audio::-webkit-media-slider-thumb { 
+                -webkit-appearance: none;
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background: var(--podcast-progress-fill);
+                box-shadow: 0 0 5px var(--podcast-progress-fill);
+            }
+            .podcast-player-card audio::-moz-range-thumb {
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background: var(--podcast-progress-fill);
+                border: none;
+                box-shadow: 0 0 5px var(--podcast-progress-fill);
+            }
+
+             .podcast-player-card audio::-webkit-media-controls-timeline::-webkit-progress-value {
+                background-color: var(--podcast-progress-fill);
+                box-shadow: 0 0 8px var(--podcast-progress-fill); 
+            }
+
+
+             .podcast-player-card audio::-webkit-media-controls-current-time-display,
+             .podcast-player-card audio::-webkit-media-controls-time-remaining-display {
+                color: var(--text-primary); 
+                font-size: 0.8rem; 
+                font-weight: 600; 
+            }
+
+
+            .podcast-section-container h2 {
+                text-align: center;
+                margin-bottom: 1rem; 
+                font-weight: 700; 
+            }
+            .podcast-section-container > p { 
+                text-align: center;
+                margin-bottom: 1.5rem; 
+                font-size: 1rem; 
+                color: var(--text-secondary);
+            }
+            /* Tentativa de estilizar a barra de progresso (pode não funcionar em todos os browsers) */
+            .podcast-player-card audio::-webkit-media-controls-panel {
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 5px;
+            }
+            .podcast-player-card audio::-webkit-media-controls-timeline {
+                background-color: var(--shadow-color);
+                border-radius: 3px;
+                margin: 0 10px;
+            }
+             .podcast-player-card audio::-webkit-media-controls-current-time-display,
+             .podcast-player-card audio::-webkit-media-controls-time-remaining-display {
+                color: var(--text-secondary);
+                font-size: 0.8rem;
+            }
+
+
+            .podcast-section-container h2 {
+                text-align: center;
+                margin-bottom: 1rem; /* Menos espaço */
+                font-weight: 600; 
+            }
+            .podcast-section-container > p { 
+                text-align: center;
+                margin-bottom: 1.5rem; /* Menos espaço */
+                font-size: 1rem; /* Ligeiramente menor */
+                color: var(--text-secondary);
+            }
+
+            /* Breadcrumb */
+            .breadcrumb {
+                font-size: 0.875rem; 
+                color: #555;
+                margin-bottom: 1rem; 
+                background-color: transparent; 
+                padding: 0.5rem 0; 
+            }
+    
+            .breadcrumb a {
+                text-decoration: none;
+                color: #0073e6;
+            }
+    
+            .breadcrumb a:hover {
+                text-decoration: underline;
+            }
+    
+            /* Título principal da página (se houver um específico além dos Hx) */
+            .page-title { 
+                font-size: 2rem;
+                font-weight: bold;
+                margin-bottom: 1.5rem;
+                color: #333;
+            }
+    
+            /* Responsividade */
+            @media (min-width: 768px) { /* Em telas maiores, capa ao lado dos controlos */
+                .podcast-player-card {
+                    flex-direction: row;
+                    text-align: left;
+                }
+                 .podcast-info-controls {
+                    align-items: flex-start;
+                }
+                .podcast-title, .podcast-show-name {
+                    text-align: left;
+                }
+            }
+
+            @media (max-width: 1024px) {
+                main.container { 
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+            }
+    
+            @media (max-width: 768px) {
+                h1 { font-size: 2rem; }
+                h2 { font-size: 1.75rem; }
+                h3 { font-size: 1.5rem; }
+
+                header nav.container {
+                    flex-direction: column; 
+                    align-items: center;
+                    padding-top: 0.5rem;
+                    padding-bottom: 0.5rem;
+                }
+                header nav h1 {
+                    font-size: 1.5rem; 
+                    margin-bottom: 0.5rem; 
+                }
+                .ds-contact-container img {
+                    height: 40px; 
+                    margin-left: 0; 
+                }
+                .timeline:before {
+                    left: 12px; 
+                }
+                .timeline-item {
+                    padding-left: 35px; 
+                }
+                .timeline-icon {
+                    left: 0px; 
+                    width: 25px;
+                    height: 25px;
+                    font-size: 0.7rem;
+                }
+                .podcast-section-container {
+                    padding: 1.5rem;
+                }
+                .podcast-player-card {
+                    padding: 1rem;
+                }
+                .podcast-cover-art {
+                    width: 100px;
+                    height: 100px;
+                }
+                 .podcast-cover-art .fa-headphones-simple {
+                    font-size: 3rem;
+                }
+                .podcast-title {
+                    font-size: 1.1rem;
+                }
+                 .podcast-show-name {
+                    font-size: 0.85rem;
+                }
+            }
+        </style>
     </head>
 <body>
-    <!-- Vlibra -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper>
@@ -21,40 +649,34 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
-<header>
-    <nav class="container nav-bar">
-        <div class="ds-contact-container">
-            <a href="https://www.ejectufrn.com.br/">
-                <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
+    <header>
+        <nav class="container">
+            <a href="/EJECT_Trilha_de_Conhecimento/index.html">
+                <h1>Hub de Conhecimentos</h1>
             </a>
-        </div>
-        <div class="login-icon" id="login-container">
-            <a href="/EJECT_Trilha_de_Conhecimento/login" class="login-button" id="login-button">
-                <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
-                Perfil
-            </a>
-        </div>
-
-    </nav>
-</header>
-    <main>
-        <section>
+            <div class="ds-contact-container">
+                <a href="https://www.ejectufrn.com.br/" target="_blank" rel="noopener noreferrer">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main class="container py-4">
+        <section class="mb-3">
             <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
         </section>
 
-        <!-- Conteúdo do Scrum -->
-        <section class="mb-5">
-            <h2>História da EJECT</h2> <br>
-            <p>A <strong>EJECT</strong>, Empresa Júnior da Escola de Ciências e Tecnologia da Universidade Federal do Rio Grande do Norte (UFRN), foi fundada em <strong>15 de julho de 2010</strong> por 14 estudantes. A iniciativa teve origem com o discente <strong>Victor Fonseca</strong>, que contou com o apoio de 12 colegas e a orientação dos professores <strong>Rex Antônio</strong> e <strong>Efrain Pantaleón.</strong> O principal objetivo da EJECT era <strong>inserir os profissionais de Ciências e Tecnologia no mercado de trabalho</strong>, oferecendo-lhes a oportunidade de atuar na área profissional durante a graduação. Destaca-se por ser a <strong>primeira empresa júnior do curso de Ciências e Tecnologia no Brasil.</strong></p> <br>
-            <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Imagem sobre a História da EJECT" style="width: 80%; height: auto; display: flex; margin: auto;"> 
+        <section class="mb-5" id="section-historia-eject">
+            <h2>História da EJECT</h2> 
+            <p id="historia-eject-text">A <strong>EJECT</strong>, Empresa Júnior da Escola de Ciências e Tecnologia da Universidade Federal do Rio Grande do Norte (UFRN), foi fundada em <strong>15 de julho de 2010</strong> por 14 estudantes. A iniciativa teve origem com o discente <strong>Victor Fonseca</strong>, que contou com o apoio de 12 colegas e a orientação dos professores <strong>Rex Antônio</strong> e <strong>Efrain Pantaleón.</strong> O principal objetivo da EJECT era <strong>inserir os profissionais de Ciências e Tecnologia no mercado de trabalho</strong>, oferecendo-lhes a oportunidade de atuar na área profissional durante a graduação. Destaca-se por ser a <strong>primeira empresa júnior do curso de Ciências e Tecnologia no Brasil.</strong></p> 
+            <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT comemorativo" class="img-fluid rounded my-3" style="max-width: 80%; height: auto; display: block; margin-left: auto; margin-right: auto;"> 
         </section>
 
-        <!-- Origem, Missão e Valores -->
-        <section>
-            <h2>Origem, Missão e Valores</h2> <br>
+        <section class="mb-5">
+            <h2>Origem</h2> 
             <ul>
                 <li><strong>2010:</strong> Fundação da EJECT e formação da primeira diretoria executiva, composta por:
-                    <ul> <br>
+                    <ul class="mt-2"> 
                         <li>Victor Fonseca (Presidente)</li>
                         <li>Silvano Lopes (Administrativo-Financeiro)</li>
                         <li>Vanessa Porto (Gestão de Pessoas)</li>
@@ -64,38 +686,33 @@
                     </ul>
                 </li>
             </ul>
-        </section> <br>
-
-        <!-- Missão, Visão e Valores -->
-        <section>
-            <h2>Missão, Visão e Valores</h2> <br>
-            <p><strong>Missão:</strong> 
-                <ul>
-                    <li>Transformar, por meio de microrrevoluções, pessoas em protagonistas do empreendedorismo.</li>
-                </ul>
-            </p>
-            <p><strong>Visão:</strong>
-                <ul>
-                    <li>Ser referência em excelência e impacto na formação de jovens empreendedores.</li>
-                </ul>
-            </p>
-            <p><strong>Valores:</strong> 
-                <ul>
-                    <li><strong>#SouEJECT: </strong> Paixão, felicidade, vontade de mudar, compromisso e foco em resultados.</li>
-                    <li><strong>Empatia: </strong> Compreensão e acolhimento às diferentes realidades.</li>
-                    <li><strong>Pra Cima: </strong> Ousadia, superação de desafios e busca por novas iniciativas.</li>
-                    <li><strong>Compromisso: </strong> Responsabilidade pelas ações individuais e seu impacto na empresa.</li>
-                    <li><strong>Transparência: </strong> Ética e compromisso com a verdade.</li>
-                </ul>
-            </p>
         </section>
 
-        <!-- Mudança de Core Business e Crescimento-->
-        <section>
-            <h2>Mudança de Core Business e Crescimento</h2> <br>
-            <p> A EJECT passou por uma transformação significativa em seu core business ao longo dos anos. Inicialmente, a empresa oferecia uma variedade de serviços, incluindo Meio Ambiente e Inovação. Contudo, em 2016, a EJECT decidiu concentrar seus esforços exclusivamente em soluções digitais, especialmente em Tecnologia da Informação (TI). Essa mudança estratégica resultou em um crescimento notável, com um aumento de 1.073% no faturamento em relação ao ano anterior (2015). </p>
+        <section class="mb-5">
+            <h2>Missão, Visão e Valores</h2> 
+            <p class="mb-2"><strong>Missão:</strong></p>
+            <ul>
+                <li>Transformar, por meio de microrrevoluções, pessoas em protagonistas do empreendedorismo.</li>
+            </ul>
+            <p class="mt-3 mb-2"><strong>Visão:</strong></p>
+            <ul>
+                <li>Ser referência em excelência e impacto na formação de jovens empreendedores.</li>
+            </ul>
+            <p class="mt-3 mb-2"><strong>Valores:</strong></p>
+            <ul>
+                <li><strong>#SouEJECT: </strong> Paixão, felicidade, vontade de mudar, compromisso e foco em resultados.</li>
+                <li><strong>Empatia: </strong> Compreensão e acolhimento às diferentes realidades.</li>
+                <li><strong>Pra Cima: </strong> Ousadia, superação de desafios e busca por novas iniciativas.</li>
+                <li><strong>Compromisso: </strong> Responsabilidade pelas ações individuais e seu impacto na empresa.</li>
+                <li><strong>Transparência: </strong> Ética e compromisso com a verdade.</li>
+            </ul>
+        </section>
+
+        <section class="mb-5" id="section-core-business">
+            <h2>Mudança de Core Business e Crescimento</h2> 
+            <p id="core-business-text"> A EJECT passou por uma transformação significativa em seu core business ao longo dos anos. Inicialmente, a empresa oferecia uma variedade de serviços, incluindo Meio Ambiente e Inovação. Contudo, em 2016, a EJECT decidiu concentrar seus esforços exclusivamente em soluções digitais, especialmente em Tecnologia da Informação (TI). Essa mudança estratégica resultou em um crescimento notável, com um aumento de <span class="highlight-success">1.073% no faturamento</span> em relação ao ano anterior (2015). </p>
             
-            <p>Atualmente, a EJECT oferece os seguintes serviços:</p>
+            <p id="current-services-text">Atualmente, a EJECT oferece os seguintes serviços:</p>
             <ul>
                 <li><strong>Sites Responsivos: </strong> Sites que se adaptam a diferentes dispositivos.</li>
                 <li><strong>Sistemas Web: </strong> Ferramentas para facilitar e automatizar processos empresariais.</li>
@@ -104,32 +721,117 @@
             </ul>
         </section>
 
-        <!-- Marcos Históricos -->
-        <section>
-            <h2>Marcos Históricos e Cultura Organizacional</h2> <br>
-            <p>A EJECT conquistou uma série de marcos importantes ao longo de sua trajetória, incluindo: </p>
-            <ul>
-                <li><strong>2010: </strong> Fundação da EJECT, a primeira Empresa Júnior de Ciências e Tecnologia do Brasil.</li>
-                <li><strong>2011 - 2012: </strong> Período desafiador marcado por reestruturações e dificuldades na EJ</li>
-                <li><strong>2013: </strong> Participação na CIENTEC.</li>
-                <li><strong>2014: </strong> Primeiro case de sucesso aprovado no ESEJ 2014 e federação à RN Júnior.</li>
-                <li><strong>2015: </strong> Realização da primeira SE7E e EJECT WEEKEND, reconhecimento no ENEJ15, elaboração do primeiro planejamento estratégico e premiação na categoria "Comunicação" no Prêmio RN. </li>
-                <li><strong>2016: </strong> Mudança do core business para TI, alto turnover de membros, apresentação no JEWC, reconhecimento como a empresa júnior de alto crescimento da RN e realização do primeiro Compilando (Evento de retrospectiva da EJECT).</li>
-                <li><strong>2017: </strong> Consolidação do core business em TI, alcançando quase R$ 50 mil em projetos, aprovação de cases em várias competições e premiação nas categorias "Foco no Cliente" e "Excelência em Gestão" no Prêmio RN.</li>
-                <li><strong>2018: </strong> Aprovação de cases em eventos como ECEJ e DESTINE’18, premiação nas categorias "Impacto no Ecossistema" e "Vivência Empresarial" no Prêmio RN.</li>
-                <li><strong>2019: </strong> Reformulação do contrato e adição da sub-área de UX/UI Design em projetos, além de um recorde de faturamento mensal.</li>
-                <li><strong>2020: </strong> Celebração dos 10 anos de história, aprovação <span class="destaque">100% feminina</span> no processo seletivo, e início da estruturação dos serviços de E-commerce e Consultoria em Marketing Digital. </li>
-                <li><strong>2021: </strong> Transição e adaptação aos desafios impostos pela pandemia.</li>
-                <li><strong>2022: </strong> Retorno ao Cluster 3, reorganização interna e superação da meta de faturamento.</li>
-                <li><strong>2023: </strong> Reestruturações de processos na EJ</li>
-                <li><strong>2024: </strong> Em andamento...</li>
+        <section class="mb-5">
+            <h2>Marcos Históricos e Melhorias Contínuas</h2> 
+            <p>A trajetória da EJECT é marcada por uma busca constante por evolução e excelência. Abaixo, alguns dos principais marcos e melhorias implementadas ao longo dos anos:</p>
+            
+            <ul class="timeline mt-4">
+                <li class="timeline-item">
+                    <div class="timeline-icon timeline-icon-info">🚀</div>
+                    <div class="timeline-content">
+                        <span class="text-muted">2010</span>
+                        <strong>Fundação da EJECT:</strong> Primeira Empresa Júnior de Ciências e Tecnologia do Brasil, um marco inicial de inovação e empreendedorismo.
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-icon timeline-icon-warning">🛠️</div>
+                    <div class="timeline-content">
+                        <span class="text-muted">2011 - 2012</span>
+                        <strong>Reestruturações Iniciais:</strong> Período de aprendizado e superação de desafios, fundamental para o fortalecimento da EJ.
+                    </div>
+                </li>
+                 <li class="timeline-item">
+                    <div class="timeline-icon timeline-icon-default">🤝</div>
+                    <div class="timeline-content">
+                        <span class="text-muted">2014</span>
+                        <strong>Reconhecimento e Federação:</strong> Primeiro case de sucesso aprovado no ESEJ e federação à RN Júnior, ampliando a rede e visibilidade.
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-icon timeline-icon-success">🏆</div>
+                    <div class="timeline-content">
+                        <span class="text-muted">2015</span>
+                        <strong>Primeiras Conquistas e Planejamento:</strong> Realização da SE7E e EJECT WEEKEND, reconhecimento no ENEJ15, elaboração do primeiro planejamento estratégico e premiação em "Comunicação" no Prêmio RN.
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-icon timeline-icon-info">💡</div>
+                    <div class="timeline-content">
+                        <span class="text-muted">2016</span>
+                        <strong>Foco em TI e Crescimento Exponencial:</strong> Mudança estratégica do core business para TI, resultando em <span class="highlight-success">alto crescimento</span> e reconhecimento como EJ de alto crescimento da RN. Realização do primeiro Compilando.
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-icon timeline-icon-success">📈</div>
+                    <div class="timeline-content">
+                        <span class="text-muted">2017</span>
+                        <strong>Consolidação e Excelência:</strong> Solidificação no mercado de TI, alcançando <span class="highlight-info">quase R$ 50 mil em projetos</span> e premiações em "Foco no Cliente" e "Excelência em Gestão".
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-icon timeline-icon-success">🌍</div>
+                    <div class="timeline-content">
+                        <span class="text-muted">2018</span>
+                        <strong>Impacto e Vivência:</strong> Aprovação de cases em eventos de destaque e premiações em "Impacto no Ecossistema" e "Vivência Empresarial".
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-icon timeline-icon-info">🎨</div>
+                    <div class="timeline-content">
+                        <span class="text-muted">2019</span>
+                        <strong>Inovação em Serviços:</strong> Reformulação contratual e adição da sub-área de <span class="highlight-info">UX/UI Design</span>, além de recorde de faturamento mensal.
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-icon timeline-icon-success">♀️🔟</div>
+                    <div class="timeline-content">
+                        <span class="text-muted">2020</span>
+                        <strong>Celebração e Diversidade:</strong> Comemoração de 10 anos, processo seletivo com <span class="destaque">100% de aprovação feminina</span> e expansão para E-commerce e Marketing Digital.
+                    </div>
+                </li>
+                 <li class="timeline-item">
+                    <div class="timeline-icon timeline-icon-warning">🔄</div>
+                    <div class="timeline-content">
+                        <span class="text-muted">2021 - 2023</span>
+                        <strong>Adaptação e Resiliência:</strong> Período de adaptação à pandemia, reorganizações internas, superação de metas e reestruturações de processos, demonstrando a capacidade de adaptação e melhoria contínua da EJ.
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-icon timeline-icon-default">⏳</div>
+                    <div class="timeline-content">
+                        <span class="text-muted">2025</span>
+                        <strong>Futuro Promissor:</strong> Em andamento, com foco em novas conquistas e desenvolvimento contínuo.
+                    </div>
+                </li>
+                
             </ul>
 
-            <h3>Cultura Organizacional</h3> <br>
-            <p>A EJECT se caracteriza por uma cultura organizacional horizontal, composta por seis células internas: Desenvolvimento Humano, Marketing, Projetos, Administrativo Financeiro, Vice-presidência e Presidência. A empresa valoriza a participação dos membros, o trabalho em equipe, a busca por resultados e a inovação constante. </p>
-            <p>A análise do Playbook de Cultura Organizacional revela um forte senso de comunidade e pertencimento entre os membros, refletido no alto valor atribuído ao conceito "#SouEJECT". A EJECT demonstra um compromisso contínuo com o aprimoramento, com foco em planejamento, organização e adaptação a novas realidades. </p>
-
+            <h3 class="mt-5">Cultura Organizacional: O Motor das Melhorias</h3> 
+            <p>A cultura da EJECT, caracterizada pela horizontalidade e colaboração entre suas seis células (Desenvolvimento Humano, Marketing, Projetos, Administrativo Financeiro, Vice-presidência e Presidência), é um pilar fundamental para as melhorias contínuas. O forte senso de comunidade, expresso pelo "#SouEJECT", impulsiona o engajamento e a busca por resultados.</p>
+            <p>O compromisso com o planejamento, organização e adaptação a novas realidades, evidenciado no Playbook de Cultura Organizacional, garante que a EJECT não apenas alcance marcos históricos, mas também aprenda e evolua com cada desafio e conquista.</p>
         </section>
+
+        <section class="mb-5 podcast-section-container">
+            <h2>🎙️ Podcast: A História da EJECT em Áudio</h2>
+            <p>Ouça um episódio especial onde mergulhamos mais fundo nos momentos marcantes, desafios superados e nas vozes que construíram a EJECT. Uma experiência sonora para complementar a sua leitura!</p>
+            
+            <div class="podcast-player-card">
+                <div class="podcast-cover-art">
+                    <img src="https://placehold.co/180x180/003d73/ffffff?text=EJECT" alt="Capa do Podcast EJECT">
+                </div>
+                <div class="podcast-info-controls">
+                    <div class="podcast-track-info">
+                        <h4 class="podcast-title">Episódio 1: A História da EJECT</h4>
+                        <p class="podcast-show-name">EJECT Talks</p>
+                    </div>
+                    <audio controls controlsList="nodownload" src="/EJECT_Trilha_de_Conhecimento/audio/Áudio do WhatsApp de 2025-05-24 à(s) 21.32.50_8ace87b3.mp3">
+                        O seu navegador não suporta o elemento de áudio. Considere atualizá-lo ou utilizar um navegador diferente.
+                    </audio>
+                </div>
+            </div>
+        </section>
+
+
 <!--
         <section>
             <h2>Membros e Pós-Juniore da EJECT</h2> <br>
@@ -145,54 +847,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <img src="/img/membro2.jpg" class="card-img-top" alt="Membro 2" style="height: 300px;">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Membro 2</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <img src="/img/membro3.jpg" class="card-img-top" alt="Membro 3" style="height: 300px;">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Membro 3</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <img src="/img/membro3.jpg" class="card-img-top" alt="Membro 3" style="height: 300px;">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Membro 3</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <img src="/img/membro3.jpg" class="card-img-top" alt="Membro 3" style="height: 300px;">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Membro 3</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <img src="/img/membro3.jpg" class="card-img-top" alt="Membro 3" style="height: 300px;">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Membro 3</h5>
-                                </div>
-                            </div>
-                        </div>
-                        
+                        // ... outros cards ...
                     </div>
                 </div>
             </section>
         </section>
 -->
-
-        
     </main>
     
     <footer>
@@ -204,7 +864,8 @@
     
     <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-Oi5As4NWzRIhBUZ1wIuDoA4n/mTNB1r9lfDLOIk9TnK8E2K9jqb9K1Xzr0D04vwi" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-ZVP8xW+Pc+2q5mfDfWvCh7VR8EyXIfEoCGT1E2M3js4NN1z7oT8FSCw7xM2DkAu" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" xintegrity="sha384-Oi5As4NWzRIhBUZ1wIuDoA4n/mTNB1r9lfDLOIk9TnK8E2K9jqb9K1Xzr0D04vwi" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" xintegrity="sha384-ZVP8xW+Pc+2q5mfDfWvCh7VR8EyXIfEoCGT1E2M3js4NN1z7oT8FSCw7xM2DkAu" crossorigin="anonymous"></script>
+
 </body>
 </html>
