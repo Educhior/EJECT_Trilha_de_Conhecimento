@@ -583,7 +583,7 @@
                 const prompt = `Com base na seguinte descrição de funcionalidade, gera 3 exemplos de user stories CURTAS e CONCISAS no formato "Como um [tipo de utilizador], eu quero [objetivo] para que [razão/benefício]". Não adiciones introduções ou conclusões, apenas as user stories. Descrição da funcionalidade: "${description}"`;
                 let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
                 const payload = { contents: chatHistory };
-                const apiKey = "";
+                const apiKey = "AIzaSyAcEn6HsDrVDvuruGajI6Ro5cyyDq-8XTc";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
                 try {
                     const response = await fetch(apiUrl, {
