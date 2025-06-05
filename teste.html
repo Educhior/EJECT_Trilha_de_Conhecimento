@@ -1,226 +1,176 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EJECT | Scrum </title>
+    <title>EJECT | Hub de Conhecimentos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/eject_logo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <script>
+        // Tailwind Custom Configuration
+        tailwind.config = {
+            darkMode: 'media', // or 'class' if you want to toggle manually
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Exo 2"', 'sans-serif'],
+                    },
+                    colors: {
+                        'eject-blue-dark': 'rgb(0, 61, 115)',
+                        'eject-blue-light': 'rgb(17, 167, 241)',
+                        'eject-text-primary-light': 'rgb(0, 61, 115)',
+                        'eject-text-primary-dark': '#e0e0e0',
+                        'eject-text-secondary-light': '#4a4a4a',
+                        'eject-text-secondary-dark': '#b0b0b0',
+                        'eject-bg-light': 'rgb(245, 251, 255)',
+                        'eject-bg-dark': '#1e1e1e',
+                        'eject-card-bg-light': '#ffffff',
+                        'eject-card-bg-dark': '#2c2c2c',
+                        'eject-input-bg-light': '#ffffff',
+                        'eject-input-bg-dark': '#3a3a3a',
+                        'eject-input-border-light': '#aaa',
+                        'eject-input-border-dark': '#555',
+                        'eject-input-focus-light': 'rgb(9, 149, 219)',
+                        'eject-input-focus-dark': '#64b5f6',
+                        'eject-placeholder-light': '#aaa',
+                        'eject-placeholder-dark': '#888',
+                        'eject-modal-bg-light': '#fefefe',
+                        'eject-modal-bg-dark': '#333333',
+                        'eject-modal-border-light': '#888',
+                        'eject-modal-border-dark': '#444',
+                        'eject-modal-header-border-light': '#eee',
+                        'eject-modal-header-border-dark': '#4f4f4f',
+                    },
+                    backgroundImage: {
+                        'eject-body-gradient-light': 'linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%)',
+                        'eject-body-gradient-dark': 'linear-gradient(275.04deg, #1a202c 1.05%, #121212 100%)', 
+                        'eject-button-gradient-light': 'linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%)',
+                        'eject-button-gradient-dark': 'linear-gradient(92.07deg, rgb(12, 120, 180) 1.84%, rgb(20, 140, 210) 100%)',
+                        'eject-gemini-gradient-light': 'linear-gradient(92.07deg, #4A00E0 1.84%, #8E2DE2 100%)',
+                        'eject-gemini-gradient-dark': 'linear-gradient(92.07deg, #580fc0 1.84%, #a04dff 100%)',
+                        'eject-gift-gradient': 'linear-gradient(45deg, #ffcc00, #ff33cc, #6633ff, #33ccff)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
+          .scrollbar-hide {
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
+          }
+        }
         body {
-            font-family: "Exo 2", sans-serif;
-            background: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
-            color: white; 
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            transition: background-color 0.3s, color 0.3s;
+            @apply font-sans w-full min-h-screen flex flex-col leading-relaxed;
+            @apply bg-eject-body-gradient-light text-eject-text-secondary-light;
+            @apply dark:bg-eject-body-gradient-dark dark:text-eject-text-secondary-dark;
         }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: #0284c7; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #0369a1; }
-        code {
-            background-color: #e5e7eb; color: #be123c; padding: 0.125rem 0.25rem;
-            border-radius: 0.25rem; font-size: 0.875em;
+        .ds-btn-base {
+            @apply text-sm font-bold uppercase text-white py-2.5 px-5 rounded-lg transition-all duration-200 ease-in-out inline-flex items-center justify-center min-w-[130px] w-full no-underline hover:scale-105 focus:scale-105;
         }
-        .vw-plugin-wrapper { z-index: 1000 !important; }
-        .aspect-w-16 { position: relative; padding-bottom: calc(9 / 16 * 100%); }
-        .aspect-h-9 > * { position: absolute; height: 100%; width: 100%; top: 0; right: 0; bottom: 0; left: 0; }
-
-        .btn-gemini {
-            background: linear-gradient(92.07deg, #652CD1 1.84%, #8E2DE2 100%); color: white;
-            font-weight: 600; padding: 0.625rem 1.25rem; border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            transition: all 0.3s ease; border: none; cursor: pointer;
+        .ds-btn-primary {
+            @apply ds-btn-base bg-eject-button-gradient-light dark:bg-eject-button-gradient-dark hover:shadow-md;
         }
-        .btn-gemini:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(101,44,209,0.4), 0 4px 6px -2px rgba(101,44,209,0.3);
+        .ds-btn-gemini {
+            @apply ds-btn-base bg-eject-gemini-gradient-light dark:bg-eject-gemini-gradient-dark hover:opacity-90 hover:shadow-lg hover:shadow-purple-500/30 dark:hover:shadow-purple-400/40;
         }
-        .btn-gemini:disabled { opacity: 0.7; cursor: not-allowed; }
-
-        .loading-spinner-gemini, .loading-spinner-pdf {
-            border: 4px solid rgba(255,255,255,0.2); width: 24px; height: 24px;
-            border-radius: 50%; border-left-color: #A78BFA;
-            animation: spin 1s ease infinite; margin: 10px auto;
+        .ds-btn-soon {
+            @apply ds-btn-base bg-gray-400 dark:bg-gray-500 text-gray-800 dark:text-gray-300 cursor-not-allowed opacity-70 hover:transform-none hover:shadow-none;
         }
-        .loading-spinner-pdf { border-left-color: #38bdf8; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .modal-backdrop {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.6); display: flex; justify-content: center;
-            align-items: center; z-index: 1050; opacity: 0; visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+        .input-styled {
+            @apply w-full py-2.5 px-3 text-base rounded-lg border transition-colors duration-300;
+            @apply bg-eject-input-bg-light text-eject-text-secondary-light border-eject-input-border-light placeholder-eject-placeholder-light;
+            @apply dark:bg-eject-input-bg-dark dark:text-eject-text-primary-dark dark:border-eject-input-border-dark dark:placeholder-eject-placeholder-dark;
+            @apply focus:outline-none focus:ring-2 focus:border-eject-input-focus-light dark:focus:border-eject-input-focus-dark focus:ring-eject-input-focus-light/25 dark:focus:ring-eject-input-focus-dark/25;
         }
-        .modal-backdrop.active { opacity: 1; visibility: visible; }
-        .modal-content {
-            background-color: white; color: #374151; padding: 2rem;
-            border-radius: 0.75rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            width: 90%; max-width: 500px; 
-            max-height: 90vh; overflow-y: auto; transform: translateY(-50px);
-            transition: transform 0.3s ease;
+        .new-badge {
+            @apply absolute top-2 right-2 bg-pink-500 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-md;
+            /* Tailwind classes for:
+               - absolute positioning
+               - top and right offsets
+               - background color (pink-500 for high visibility)
+               - text color white
+               - small text size
+               - bold font
+               - padding
+               - fully rounded corners
+               - a subtle shadow
+            */
         }
-        .modal-backdrop.active .modal-content { transform: translateY(0); }
-        .modal-header {
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 1rem;
-        }
-        .modal-title { font-size: 1.25rem; font-weight: 600; color: #1e40af; }
-        .modal-close-btn {
-            background: none; border: none; font-size: 1.75rem; font-weight: bold;
-            color: #6b7280; cursor: pointer; padding: 0.5rem; line-height: 1;
-        }
-        .modal-close-btn:hover { color: #1f2937; }
-        .modal-body { margin-bottom: 1.5rem; }
-        .modal-body pre {
-            background-color: #f3f4f6; padding: 1rem; border-radius: 0.5rem;
-            white-space: pre-wrap; word-wrap: break-word; font-size: 0.9rem;
-            max-height: 40vh; overflow-y: auto;
-        }
-        .podcast-iframe-container { margin-top: 0.5rem; }
-        .podcast-iframe-container iframe { max-width: 100%; border-radius: 0.375rem; }
-
-        #qrcodeCanvas {
-            width: 200px; height: 200px; margin: 1.5rem auto; padding: 10px;
-            background-color: white; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        #qrcodeCanvas img { display: block; width: 100% !important; height: 100% !important; }
-        .copy-link-btn { background-color: #0ea5e9; color: white; }
-        .copy-link-btn:hover { background-color: #0284c7; }
-
-        #pdfExportFeedback {
-            position: fixed; bottom: 20px; left: 50%;
-            transform: translateX(-50%); background-color: #22c55e;
-            color: white; padding: 10px 20px; border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 2000;
-            display: none; font-size: 0.9rem;
-        }
-        #pdfExportFeedback.error { background-color: #ef4444; }
-
-        /* Accessibility Panel Styles */
-        #accessibilityToolbar {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1060; 
-        }
-        #accessibilityBtn {
-            background-color: #1e40af; 
-            color: white;
-            border-radius: 50%;
-            width: 56px; 
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        #accessibilityBtn:hover {
-            background-color: #1c3a94; 
-        }
-        #accessibilityPanel {
-            position: absolute;
-            bottom: 70px; 
-            right: 0;
-            width: 280px;
-            background-color: white;
-            color: #374151;
-            border-radius: 0.5rem; 
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-            padding: 1rem;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-        }
-        #accessibilityPanel.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        .accessibility-section { margin-bottom: 1rem; }
-        .accessibility-section h4 {
-            font-size: 0.875rem; 
-            font-weight: 600; 
-            color: #1e40af; 
-            margin-bottom: 0.5rem;
-            border-bottom: 1px solid #e5e7eb;
-            padding-bottom: 0.25rem;
-        }
-        .accessibility-controls button, .accessibility-controls select, .accessibility-controls input[type="range"] {
-            width: 100%;
-            text-align: left;
-            padding: 0.5rem 0.75rem;
-            margin-top: 0.25rem;
-            border-radius: 0.375rem; 
-            border: 1px solid #d1d5db; 
-            background-color: #f9fafb; 
-            color: #374151; 
-            font-size: 0.875rem;
-            transition: background-color 0.2s;
-        }
-        .accessibility-controls button:hover, .accessibility-controls select:hover {
-            background-color: #f3f4f6; 
-        }
-        .accessibility-controls button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        .tts-controls button { margin-right: 0.5rem; width: auto; }
-        .accessibility-controls label {
-            display: block;
-            font-size: 0.75rem; /* text-xs */
-            color: #4b5563; /* text-gray-600 */
-            margin-top: 0.5rem;
-            margin-bottom: 0.125rem;
-        }
-        .accessibility-controls input[type="range"] {
-            padding: 0; /* Remover padding padrão do range */
-            height: 1.25rem; /* Ajustar altura */
-        }
-
-
-        /* High Contrast Themes */
-        body.contrast-bw { background: black !important; color: white !important; }
-        body.contrast-bw header, body.contrast-bw .bg-white { background-color: black !important; color: white !important; border: 1px solid #555 !important; }
-        body.contrast-bw [class*="text-gray-"], body.contrast-bw [class*="text-sky-"], body.contrast-bw [class*="text-violet-"] { color: white !important; }
-        body.contrast-bw .text-sky-700, body.contrast-bw .text-sky-800, body.contrast-bw .text-sky-600, body.contrast-bw .text-violet-700 { color: #FFFF00 !important; } 
-        body.contrast-bw a:not(.btn-gemini):not(.btn-voltar) { color: #FFFF00 !important; text-decoration: underline !important; }
-        body.contrast-bw button:not(#accessibilityBtn):not(.btn-gemini):not(.modal-close-btn):not(.copy-link-btn), body.contrast-bw .btn-voltar { background-color: #222 !important; color: white !important; border: 1px solid white !important; }
-        body.contrast-bw .copy-link-btn { background-color: #222 !important; color: white !important; border: 1px solid white !important; }
-        body.contrast-bw #featureDescription { background-color: #111 !important; color: white !important; border-color: #555 !important; }
-        body.contrast-bw .modal-content { background-color: black !important; color: white !important; border: 1px solid #555 !important;}
-        body.contrast-bw .modal-title { color: #FFFF00 !important; }
-        body.contrast-bw .modal-body pre { background-color: #1a1a1a !important; }
-        body.contrast-bw #pageLinkInput { background-color: #111 !important; color: white !important; }
-
-
-        body.contrast-yb { background: #000000 !important; color: #FFFF00 !important; } 
-        body.contrast-yb header, body.contrast-yb .bg-white { background-color: #000000 !important; color: #FFFF00 !important; border: 1px solid #FFFF00 !important; }
-        body.contrast-yb [class*="text-gray-"], body.contrast-yb [class*="text-sky-"], body.contrast-yb [class*="text-violet-"] { color: #FFFF00 !important; }
-        body.contrast-yb .text-sky-700, body.contrast-yb .text-sky-800, body.contrast-yb .text-sky-600, body.contrast-yb .text-violet-700 { color: #00FFFF !important; } 
-        body.contrast-yb a:not(.btn-gemini):not(.btn-voltar) { color: #00FFFF !important; text-decoration: underline !important; }
-        body.contrast-yb button:not(#accessibilityBtn):not(.btn-gemini):not(.modal-close-btn):not(.copy-link-btn), body.contrast-yb .btn-voltar { background-color: #1a1a1a !important; color: #FFFF00 !important; border: 1px solid #FFFF00 !important; }
-        body.contrast-yb .copy-link-btn { background-color: #1a1a1a !important; color: #FFFF00 !important; border: 1px solid #FFFF00 !important; }
-        body.contrast-yb #featureDescription { background-color: #111 !important; color: #FFFF00 !important; border-color: #FFFF00 !important; }
-        body.contrast-yb .modal-content { background-color: black !important; color: #FFFF00 !important; border: 1px solid #FFFF00 !important;}
-        body.contrast-yb .modal-title { color: #00FFFF !important; }
-        body.contrast-yb .modal-body pre { background-color: #1a1a1a !important; }
-        body.contrast-yb #pageLinkInput { background-color: #111 !important; color: #FFFF00 !important; }
-
     </style>
-</head>
-<body class="antialiased">
+    <!-- Noticeable Widget Styles -->
+    <style type="text/css">
+      #counter {
+        align-items: center;
+        color: rgb(0, 252, 255); /* Cyan color for counter text */
+        display: none; /* Initially hidden, JS will show it */
+        font-size: 12px;
+        font-weight: 800;
+        height: 18px;
+        justify-content: center;
+        margin-left: 8px;
+        padding: 3px;
+        pointer-events: none;
+        position: relative;
+        text-align: center;
+        width: 18px;
+        line-height: 1; /* Ensure text is centered in the small circle */
+      }
+      #counter::after {
+        align-items: center;
+        animation: spin 2.2s infinite linear;
+        background: transparent;
+        bottom: 0;
+        border: 2px dashed rgb(198, 186, 249); /* Light purple dashed border */
+        border-radius: 50%;
+        content: '';
+        display: flex;
+        left: 0;
+        justify-content: center;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+       #noticeable-widget {
+        align-items: center;
+        background-image: linear-gradient(92.07deg, #4A00E0 1.84%, #8E2DE2 100%); /* EJECT Gemini Gradient */
+        border-radius: 8px; /* Consistent with ds-btn */
+        color: white;
+        display: inline-flex;
+        font-size: 13px; /* Similar to text-sm */
+        font-weight: 600; /* Similar to font-bold */
+        /* height: auto; Let padding define height */
+        justify-content: center;
+        padding: 10px 18px; /* Adjusted padding to be closer to ds-btn (py-2.5 px-5) */
+        text-transform: uppercase;
+        user-select: none;
+        flex-shrink: 0; 
+        transition: opacity 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition for hover */
+      }
+      #noticeable-widget:hover {
+        opacity: 0.9;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(74, 0, 224, 0.4); /* Shadow similar to ds-btn-gemini hover */
+      }
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
 
+</head>
+<body class="font-sans"> 
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper>
@@ -232,1052 +182,667 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex items-center">
-                    <a href="/EJECT_Trilha_de_Conhecimento" class="text-2xl font-bold text-sky-700 hover:text-sky-800 transition-colors">
-                        Hub de Conhecimentos
-                    </a>
-                </div>
-                <div class="flex items-center space-x-2 sm:space-x-3">
-                     <button id="exportTasksPdfBtn" title="Exportar Respostas das Tarefas" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                        </svg>
-                    </button>
-                    <button id="exportPdfBtn" title="Exportar Conteúdo para PDF" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                    </button>
-                    <button id="sharePageBtn" title="Partilhar Página" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
-                        </svg>
-                    </button>
-                    <a href="https://www.ejectufrn.com.br/" target="_blank" rel="noopener noreferrer">
-                        <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT" class="h-10">
-                    </a>
-                </div>
+    <header class="w-full min-h-[90px] flex items-center px-4 shadow-lg bg-eject-bg-light dark:bg-eject-bg-dark shadow-slate-200/50 dark:shadow-black/30">
+        <nav class="w-full max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center py-2 md:py-0">
+            <a href="index.html" class="no-underline">
+                <h1 class="font-bold text-eject-text-primary-light dark:text-eject-text-primary-dark text-2xl md:text-3xl m-0 mb-2 md:mb-0">Hub de Conhecimentos</h1>
+            </a>
+            <div class="ds-contact-container flex items-center space-x-4 md:space-x-6">
+                <div id="noticeable-widget">Novidades <span id="counter">1</span></div>
+                <a href="https://www.ejectufrn.com.br/" target="_blank" rel="noopener noreferrer">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT" class="h-10 md:h-11" onerror="this.onerror=null;this.src='https://placehold.co/100x45/cccccc/ffffff?text=EJECT';">
+                </a>
             </div>
         </nav>
     </header>
 
-    <main id="content-container" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <input type="hidden" id="trilha-nome" value="Scrum" />
-        
-        <section class="mb-6">
-            <a href="/EJECT_Trilha_de_Conhecimento" class="inline-flex items-center bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-150 ease-in-out">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                </svg>
-                Voltar
-            </a>
-        </section>
+    <main class="flex-1 py-5">
+        <section id="ds-card-list-section" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <br>
+            <section class="gift-section flex flex-col justify-center items-center text-center text-white p-6 rounded-2xl shadow-lg bg-eject-gift-gradient">
+                <h1 class="text-3xl md:text-[2rem] mb-2 font-semibold">Hub de Conhecimentos</h1>
+                <p class="text-lg md:text-[1.1rem] mb-0">Boas-vindas, Astronauta! Selecione uma trilha para começar o aprendizado.</p>
+            </section> <br>
 
-        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
-            <h1 class="text-4xl font-bold text-sky-800 mb-4">Scrum</h1>
-            <p class="text-lg leading-relaxed text-gray-700">Scrum é um framework ágil utilizado no gerenciamento e desenvolvimento de projetos complexos, principalmente no contexto de desenvolvimento de software. Ele organiza o trabalho em ciclos curtos chamados sprints, promovendo entregas contínuas e a melhoria constante com base em revisões regulares.</p>
-        </section>
-
-        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
-            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
-                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Fundamentos do Scrum</h2>
-            </div>
-            <div class="space-y-4 text-gray-700">
-                <p>O Scrum é sustentado por três pilares fundamentais: transparência, inspeção e adaptação. Vamos desmembrar cada um deles para facilitar o entendimento.</p>
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Transparência</h3>
-                    <p>Todos os aspectos significativos do processo devem ser visíveis para as pessoas envolvidas. <br>Por exemplo, imagine que você está desenvolvendo um aplicativo com uma equipe. A transparência significa que todos os membros da equipe sabem quais tarefas estão em andamento, quais já foram concluídas e o que ainda precisa ser feito. Para isso, utilizam-se ferramentas como o kanban, onde cada tarefa é visualmente apresentada.</p>
+            <section id="geminiStudyPlannerSection" class="mt-4 mb-8 p-4 rounded-xl shadow-md bg-eject-card-bg-light dark:bg-eject-card-bg-dark">
+                <h2 class="text-2xl lg:text-3xl text-center mb-3 font-semibold text-eject-text-primary-light dark:text-eject-text-primary-dark">✨ Planejador de Estudos com IA</h2>
+                <p class="text-center mb-4 text-eject-text-secondary-light dark:text-eject-text-secondary-dark">Diga-nos seu objetivo de aprendizado e a IA sugere um roteiro de estudos com as trilhas do hub!</p>
+                <div class="flex flex-col sm:flex-row items-stretch mb-3 gap-2 sm:gap-0">
+                    <input type="text" id="studyGoalInput" class="input-styled text-lg py-3 sm:rounded-r-none flex-grow" placeholder="Ex: Quero aprender desenvolvimento web full-stack">
+                    <button class="ds-btn-gemini py-3 px-6 text-base sm:rounded-l-none w-full sm:w-auto" type="button" id="generateStudyPlanBtn">✨ Gerar Plano</button>
                 </div>
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Inspeção</h3>
-                    <p>O progresso do trabalho precisa ser inspecionado frequentemente, tanto em termos de produto quanto de processo, para identificar possíveis desvios. Um exemplo disso seria uma revisão periódica dos protótipos ou funcionalidades do produto para garantir que estão alinhados com os objetivos iniciais.</p>
+                <div id="studyPlanLoadingIndicator" class="hidden flex-col items-center justify-center p-5 text-center">
+                    <div class="w-10 h-10 border-4 border-eject-text-primary-light dark:border-eject-text-primary-dark border-t-transparent rounded-full animate-spin" role="status">
+                        <span class="sr-only">Carregando...</span>
+                    </div>
+                    <p class="mt-2.5 text-eject-text-secondary-light dark:text-eject-text-secondary-dark">Gerando seu plano de estudos com a ajuda do Gemini...</p>
                 </div>
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Adaptação</h3>
-                    <p>Caso alguma discrepância seja identificada na inspeção, deve-se ajustar o curso imediatamente. Isso pode ser comparado a um estudante que percebe, ao revisar suas anotações, que não compreendeu bem um tópico. Ele, então, ajusta sua estratégia de estudo antes da próxima prova.</p>
-                </div>
-                <div class="mt-6">
-                    <h4 class="text-lg font-semibold text-sky-700 mb-2">SCRUM O QUE É (de um Jeito BEM Prático)</h4>
-                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
-                        <iframe src="https://www.youtube.com/embed/HlmiVz0SqNQ?si=qWQH1UEq9JbRwWCd" title="SCRUM O QUE É (de um Jeito BEM Prático)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div id="studyPlanOutputContainer" style="display:none;"> 
+                    <div id="studyPlanOutput" class="mt-3 p-4 border rounded-lg bg-gray-500/5 dark:bg-white/5 text-eject-text-secondary-light dark:text-eject-text-secondary-dark border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-semibold mb-2 text-eject-text-primary-light dark:text-eject-text-primary-dark">Plano de Estudo Sugerido:</h4>
+                        <p id="studyPlanText" class="whitespace-pre-wrap text-sm"></p>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <section class="task-section mt-10 mb-10 p-6 bg-sky-50 rounded-xl shadow-lg text-gray-800 border border-sky-200">
-            <h3 class="text-2xl font-semibold text-sky-700 mb-3 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-                Tarefa Prática: Aplicando os Pilares do Scrum
-            </h3>
-            <p class="task-question text-gray-700 mb-4">Reflita sobre um projeto (pessoal, académico ou profissional) em que participou recentemente. Como os três pilares do Scrum (Transparência, Inspeção e Adaptação) poderiam ter sido aplicados ou melhorados nesse projeto para alcançar melhores resultados? Descreva brevemente a sua análise e sugestões.</p>
-            <textarea rows="5" class="task-answer w-full p-3 border border-sky-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400" placeholder="Ex: No projeto X, a transparência poderia ser melhorada com um quadro Kanban visível a todos. A inspeção poderia ser feita através de reuniões semanais de acompanhamento..."></textarea>
-        </section>
+                <div id="studyPlanError" class="mt-3 p-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" style="display:none;" role="alert"></div>
+            </section>
 
-        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
-            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
-                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Papéis no Scrum</h2>
-            </div>
-            <p class="mb-4 text-gray-700">No Scrum, cada pessoa envolvida tem um papel claro com responsabilidades definidas. Estes papéis são desenhados para otimizar a flexibilidade, a criatividade e a produtividade. Vamos conhecer os três papéis essenciais:</p>
-            <div class="space-y-6 text-gray-700">
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Product Owner (Dono do Produto)</h3>
-                    <p class="mb-2">O Product Owner (PO) é a pessoa responsável por maximizar o valor do produto resultante do trabalho do Time Scrum. A forma como isto é feito pode variar amplamente entre organizações, Times Scrum e indivíduos.</p>
-                    <p class="mb-2"><strong>Principais responsabilidades e características:</strong></p>
-                    <ul class="list-disc list-inside space-y-1 mb-3">
-                        <li><strong>Gerir eficazmente o Product Backlog:</strong> Isto inclui desenvolver e comunicar explicitamente a Meta do Produto; criar e comunicar claramente os itens do Product Backlog; ordenar os itens do Product Backlog; e garantir que o Product Backlog é transparente, visível e compreendido.</li>
-                        <li><strong>Ser a voz do cliente:</strong> O PO representa os interesses dos stakeholders e do cliente, garantindo que a equipa constrói o produto certo.</li>
-                        <li><strong>Tomada de decisão:</strong> O PO tem a autoridade final sobre o Product Backlog e as suas prioridades.</li>
-                    </ul>
-                    <div class="p-3 bg-sky-50 border border-sky-200 rounded-md text-sm">
-                        <p class="font-semibold text-sky-700">Analogia: O Timoneiro do Navio e o Mapa do Tesouro</p>
-                        <p class="mt-1">Imagine o Product Owner como o capitão de um navio que possui o mapa de um tesouro valioso (a visão e Meta do Produto). Ele é quem define o destino e a rota mais eficiente para lá chegar (o Product Backlog, com os itens mais valiosos no topo). A tripulação (o Time de Desenvolvimento) confia na sua navegação e nas suas decisões sobre o que fazer a seguir para alcançar o tesouro o mais rápido possível, ajustando o curso (prioridades) conforme as condições do mar (feedback e mudanças no mercado).</p>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Scrum Master</h3>
-                    <p class="mb-2">O Scrum Master é responsável por estabelecer o Scrum como definido no Guia do Scrum. Ele faz isto ajudando todos a compreender a teoria e prática do Scrum, tanto no Time Scrum como na organização.</p>
-                     <p class="mb-2"><strong>Principais responsabilidades e características:</strong></p>
-                    <ul class="list-disc list-inside space-y-1 mb-3">
-                        <li><strong>Líder servidor:</strong> O Scrum Master serve o Time Scrum, o Product Owner e a organização de várias formas.</li>
-                        <li><strong>Remover impedimentos:</strong> Ajuda a remover obstáculos que possam impedir o progresso do Time Scrum.</li>
-                        <li><strong>Facilitador:</strong> Garante que todos os eventos Scrum ocorrem, são positivos, produtivos e mantidos dentro do time-box.</li>
-                        <li><strong>Promotor do Scrum:</strong> Ajuda a equipa e a organização a adotar e aprimorar as práticas Scrum.</li>
-                    </ul>
-                    <div class="p-3 bg-green-50 border border-green-200 rounded-md text-sm">
-                        <p class="font-semibold text-green-700">Analogia: O Jardineiro Experiente</p>
-                        <p class="mt-1">Pense no Scrum Master como um jardineiro dedicado que cuida do "ecossistema" onde a equipa (as plantas) pode crescer e florescer. Ele não dita como as plantas devem crescer (não é um gerente de projeto tradicional), mas assegura que têm solo fértil (ambiente Scrum saudável), água e nutrientes (recursos e conhecimento), luz solar suficiente (transparência) e remove as ervas daninhas (impedimentos). O seu objetivo é ajudar cada "planta" a atingir o seu potencial máximo e o jardim como um todo a ser produtivo.</p>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Time de Desenvolvimento (Developers)</h3>
-                    <p class="mb-2">Os Developers são as pessoas no Time Scrum que estão comprometidas em criar qualquer aspeto de um Incremento utilizável a cada Sprint. As competências específicas necessárias aos Developers são frequentemente amplas e podem variar com o domínio do trabalho.</p>
-                     <p class="mb-2"><strong>Principais responsabilidades e características:</strong></p>
-                    <ul class="list-disc list-inside space-y-1 mb-3">
-                        <li><strong>Criar o Incremento:</strong> São responsáveis por todo o trabalho necessário para entregar um Incremento "Pronto" (Done) ao final de cada Sprint.</li>
-                        <li><strong>Auto-organizados:</strong> Decidem internamente como melhor transformar os itens do Product Backlog selecionados para a Sprint num Incremento de valor. Ninguém, nem mesmo o Scrum Master, lhes diz como fazer o trabalho.</li>
-                        <li><strong>Multifuncionais:</strong> Como equipa, possuem todas as competências necessárias para criar o produto.</li>
-                        <li><strong>Responsabilidade partilhada:</strong> São coletivamente responsáveis pela qualidade e entrega do Incremento.</li>
-                    </ul>
-                    <div class="p-3 bg-amber-50 border border-amber-200 rounded-md text-sm">
-                        <p class="font-semibold text-amber-700">Analogia: Uma Banda de Jazz</p>
-                        <p class="mt-1">O Time de Desenvolvimento (Developers) pode ser comparado a uma banda de jazz. Cada músico é um especialista no seu instrumento (as suas competências individuais), mas o sucesso da performance depende da sua capacidade de tocar em harmonia, ouvir uns aos outros, improvisar quando necessário (auto-organização) e colaborar para criar uma música fantástica (o Incremento do produto). Não há um maestro a ditar cada nota individualmente; eles trabalham juntos, guiados pela melodia principal (Meta da Sprint), para encantar a audiência (entregar valor).</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="task-section mt-10 mb-10 p-6 bg-sky-50 rounded-xl shadow-lg text-gray-800 border border-sky-200">
-            <h3 class="text-2xl font-semibold text-sky-700 mb-3 flex items-center">
-                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                Tarefa Prática: Formando a Equipa Scrum Ideal
-            </h3>
-            <p class="task-question text-gray-700 mb-4">Imagine que foi encarregado de formar uma equipa Scrum para um novo projeto: desenvolver uma aplicação móvel que ajuda os utilizadores a encontrar trilhos para caminhadas na natureza. Considerando as responsabilidades de cada papel, descreva o perfil ideal (características, competências chave) para o Product Owner, o Scrum Master e pelo menos três tipos diferentes de Developers que seriam essenciais para esta equipa. Justifique as suas escolhas.</p>
-            <textarea rows="5" class="task-answer w-full p-3 border border-sky-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400" placeholder="Product Owner: (Ex: Apaixonado por natureza, bom comunicador...). Scrum Master: (Ex: Facilitador experiente, bom em resolver conflitos...). Developers: (Ex: Especialista em iOS, especialista em Android, designer UI/UX...)."></textarea>
-        </section>
-
-        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
-            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
-                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Eventos do Scrum</h2>
-            </div>
-            <p class="mb-4 text-gray-700">O Scrum organiza o trabalho em eventos (ou cerimônias), que são essenciais para a entrega de valor contínuo e a melhoria do processo. Estes eventos criam cadência e oportunidades regulares de inspeção e adaptação.</p>
-            <div class="space-y-4 text-gray-700">
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Sprint</h3>
-                    <p>O sprint é o ciclo de trabalho do Scrum, com duração fixa (geralmente entre 1 e 4 semanas), durante o qual um incremento potencialmente utilizável do produto é desenvolvido. Cada sprint tem um objetivo claro, e não se pode alterar o escopo do sprint após ele ter começado. <br><br>
-                    <strong>Exemplo:</strong> Se estamos desenvolvendo um aplicativo de educação, em um sprint de 2 semanas, a equipe pode decidir criar e entregar uma funcionalidade de "quiz" com diferentes níveis de dificuldade. Ao final dessas 2 semanas, o quiz deve estar funcional e pronto para uso ou testes.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Planejamento do Sprint (Sprint Planning)</h3>
-                    <p>O planejamento do sprint é uma reunião que acontece no início de cada sprint, onde o Product Owner apresenta ao time de desenvolvimento os itens do backlog priorizados. A equipe, em conjunto, decide quantos itens podem ser concluídos durante o sprint e elabora um plano para alcançá-los. <br><br>
-                    <strong>Exemplo:</strong> Durante o planejamento do sprint, a equipe decide que, para o sprint atual, irá desenvolver a funcionalidade de "login" e aprimorar a interface do usuário. Eles estimam o tempo necessário para cada tarefa e definem as etapas para alcançar o objetivo do sprint.</p>
-                </div>
-                <div class="mt-6">
-                    <h4 class="text-lg font-semibold text-sky-700 mb-2">Scrum - Como fazer um Planejamento da Sprint na Prática</h4>
-                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
-                        <iframe src="https://www.youtube.com/embed/Pucp6CoCIEk?si=212i1ZNc8p7Jvs2V" title="Planejamento da Sprint na Prática" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mt-6 mb-2">Daily Scrum (Reunião Diária)</h3>
-                    <p>A <strong class="font-semibold text-sky-700">reunião diária</strong> é um encontro curto (máximo de 15 minutos) onde o time de desenvolvimento sincroniza as atividades e ajusta o plano de trabalho para as próximas 24 horas. Cada membro do time responde a três perguntas básicas: O que fiz ontem? O que farei hoje? Há algum impedimento no meu caminho? <br><br>
-                    <strong>Exemplo:</strong> Imagine que estamos no segundo dia do sprint de desenvolvimento da funcionalidade de relatórios financeiros. Durante a reunião diária, um dos desenvolvedores pode mencionar que teve problemas com a integração da funcionalidade ao banco de dados, o que poderá ser discutido e resolvido pela equipe para garantir que o trabalho continue conforme o planejado.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Revisão do Sprint (Sprint Review)</h3>
-                    <p>Ao final de cada sprint, a equipe apresenta o que foi concluído para o Product Owner e stakeholders (partes interessadas). Essa é uma oportunidade para o time receber feedback sobre o que foi desenvolvido e discutir as próximas etapas. <br><br>
-                    <strong>Exemplo:</strong> Durante a revisão do sprint, a equipe de desenvolvimento do aplicativo de finanças pode demonstrar a nova funcionalidade de relatórios para o Product Owner e receber feedback. O Product Owner pode sugerir melhorias antes de a funcionalidade ser liberada para os usuários.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Retrospectiva do Sprint (Sprint Retrospective)</h3>
-                    <p>A retrospectiva do sprint é uma reunião interna onde a equipe reflete sobre o que foi bem-sucedido no sprint e o que pode ser melhorado no próximo. É uma oportunidade para melhoria contínua do processo. <br><br>
-                    <strong>Exemplo:</strong> Na retrospectiva do sprint, a equipe pode discutir que a comunicação entre os desenvolvedores e o designer de UI/UX foi um pouco lenta, e sugerir maneiras de melhorar essa colaboração no próximo sprint.</p>
-                </div>
-                <img src="https://www.sydle.com/blog/assets/post/framework-scrum-5f6dc45f320703787497f887/eventos-scrum.png" alt="Eventos do Scrum" class="w-full sm:w-4/5 max-w-lg mx-auto mt-6 rounded-lg shadow">
-            </div>
-        </section>
-
-        <section class="task-section mt-10 mb-10 p-6 bg-sky-50 rounded-xl shadow-lg text-gray-800 border border-sky-200">
-            <h3 class="text-2xl font-semibold text-sky-700 mb-3 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                Tarefa Prática: Simulando um Evento Scrum
-            </h3>
-            <p class="task-question text-gray-700 mb-4">Escolha UM dos eventos Scrum (Sprint Planning, Daily Scrum, Sprint Review ou Sprint Retrospective). Imagine que é o Scrum Master e precisa facilitar esse evento para uma equipa que está a desenvolver um novo sistema de reservas para um restaurante. Descreva brevemente:</p>
-            <ul class="list-disc list-inside text-gray-700 mb-4 pl-4">
-                <li>Qual o objetivo principal do evento escolhido neste contexto?</li>
-                <li>Quais seriam os principais participantes?</li>
-                <li>Que tópicos ou questões chave abordaria para tornar o evento produtivo e focado?</li>
-            </ul>
-            <textarea rows="5" class="task-answer w-full p-3 border border-sky-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400" placeholder="Ex: Evento: Daily Scrum. Objetivo: Sincronizar a equipa e planear as próximas 24h. Participantes: Time de Desenvolvimento. Tópicos: O que cada um fez ontem para a Meta da Sprint, o que fará hoje, impedimentos..."></textarea>
-        </section>
-
-        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
-            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
-                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Artefatos do Scrum</h2>
-            </div>
-            <p class="mb-4 text-gray-700">Os artefatos são representações tangíveis de informações no Scrum, que servem para garantir a transparência e facilitar as inspeções e adaptações. Os principais artefatos são: <strong class="font-semibold text-sky-700">Product Backlog, Sprint Backlog e Incremento.</strong></p>
-            <div class="space-y-4 text-gray-700">
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Product Backlog</h3>
-                    <p>O Product Backlog é uma lista priorizada de tudo que precisa ser desenvolvido no produto. O Product Owner é o responsável por manter e priorizar essa lista, que está em constante evolução. <br><br>
-                    <strong>Exemplo:</strong> No desenvolvimento de um aplicativo de educação, o Product Backlog pode incluir itens como "Criar sistema de login", "Adicionar funcionalidade de quiz", "Implementar sistema de ranking".</p>
-                    
-                    <div class="mt-8 p-6 border border-violet-300 rounded-xl bg-violet-50 shadow-inner">
-                        <h4 class="text-lg font-semibold text-violet-700 mb-3">✨ Gerador de User Stories com IA</h4>
-                        <p class="text-sm text-violet-600 mb-3">Descreva uma funcionalidade abaixo e clique no botão para gerar exemplos de user stories.</p>
-                        <div>
-                            <label for="featureDescription" class="block text-sm font-medium text-violet-700 mb-1">Descrição da Funcionalidade:</label>
-                            <textarea id="featureDescription" rows="3" class="w-full p-2 border border-violet-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500 text-gray-800" placeholder="Ex: Um sistema de login para utilizadores"></textarea>
+            <section class="mb-8">
+                <h2 class="text-2xl lg:text-3xl mt-6 mb-4 font-semibold text-eject-text-primary-light dark:text-eject-text-primary-dark">🏆 Top 10</h2>
+                <div class="carousel-container relative">
+                    <button class="nav-button absolute top-1/2 -translate-y-1/2 left-[-15px] md:left-[-22px] bg-eject-card-bg-light dark:bg-eject-card-bg-dark text-eject-text-primary-light dark:text-eject-text-primary-dark border border-gray-300 dark:border-gray-600 rounded-full w-9 h-9 md:w-11 md:h-11 flex items-center justify-center cursor-pointer shadow-md z-10 text-xl md:text-2xl transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 active:scale-95" onclick="scrollCarousel(-1, 'trilhaProjetosCarousel')" aria-label="Trilha Anterior">&#8592;</button>
+                    <div id="trilhaProjetosCarousel" class="carousel flex overflow-x-auto snap-x snap-mandatory gap-6 py-4 scroll-smooth scrollbar-hide">
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                            <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="EJECT 15 Anos">
+                                <img src="https://placehold.co/600x400/8A2BE2/FFFFFF?text=EJECT+15+Anos" alt="Banner comemorativo EJECT 15 Anos" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">EJECT 15 Anos</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/anivessario/presente01/index" aria-label="Acessar conteúdo especial EJECT 15 Anos">Acessar Especial 🎁</a>
+                                        <button class="ds-btn-gemini" data-track-title="EJECT 15 Anos">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <button id="generateUserStoriesBtn" class="btn-gemini mt-4 w-full sm:w-auto">
-                            Gerar Exemplos de User Stories
-                        </button>
-                        <div id="userStoriesLoading" class="loading-spinner-gemini hidden mt-4"></div>
-                    </div>
-                    </div>
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                            <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="GIT e Github">
+                                <img src="https://hermes.dio.me/articles/cover/d2489f96-d56f-4b82-bc7f-84fbc9fb1368.jpg" alt="Imagem do GitHub" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">GIT e Github</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/git_e_github">Acessar</a>
+                                        <button class="ds-btn-gemini" data-track-title="GIT e Github">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                            <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Gestão de Tempo">
+                                <img src="https://timeular.com/wp-content/uploads/2023/11/Copy-of-Copy-of-Blog-image-7.png" alt="Imagem da trilha de gestão de tempo" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Gestão de Tempo</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/gestao_de_tempo.html">Acessar</a>
+                                        <button class="ds-btn-gemini" data-track-title="Gestão de Tempo">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                            <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Gestão de Pessoas">
+                                <img src="https://media.licdn.com/dms/image/D4D12AQHkxwPuNCCBLA/article-cover_image-shrink_600_2000/0/1696281571014?e=2147483647&v=beta&t=jx27ZVMQKEi4EroaGoApIr5mcpFvcZPs-DnxmjSOxnY" alt="Imagem da trilha de desenvolvimento humano" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Gestão de Pessoas</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/desenvolvimento_humano">Acessar</a>
+                                        <button class="ds-btn-gemini" data-track-title="Gestão de Pessoas">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                            <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Marketing Comercial">
+                                <img src="https://media.licdn.com/dms/image/D5612AQFrB74fzNtosA/article-cover_image-shrink_720_1280/0/1685585245706?e=2147483647&v=beta&t=KSjXVDN59S9EFVnoue5f4C_mn4rgg536TURjE9kq_QI" alt="Imagem da trilha de marketing comercial" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Marketing Comercial</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/marketing_comercial">Acessar</a>
+                                        <button class="ds-btn-gemini" data-track-title="Marketing Comercial">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                             <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Scrum">
+                                <img src="https://erp-disk.ams3.digitaloceanspaces.com/portadas-tutoriales/small_portada_cm1gdlxji0065017b0k930xiv.webp" alt="Imagem do Scrum" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <span class="new-badge">NOVA</span>
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Scrum</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/Scrum">Acessar</a>
+                                        <button class="ds-btn-gemini" data-track-title="Scrum">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                            <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Django & Rest">
+                                <img src="https://imagedelivery.net/qc7VvyphMGWFiPVvTbB-ww/swapps.com/2016/02/simply-django-announcements.jpg/w=1024,h=576" alt="Imagem do framework Django" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                                <div class="p-4 flex flex-col items-center text-center flex-grow">
+                                    <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Django & Rest</h3>
+                                    <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                                        <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/django">ACESSAR</a>
+                                        <button class="ds-btn-gemini" data-track-title="Django & Rest">✨ Resumir Trilha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    <button class="nav-button absolute top-1/2 -translate-y-1/2 right-[-15px] md:right-[-22px] bg-eject-card-bg-light dark:bg-eject-card-bg-dark text-eject-text-primary-light dark:text-eject-text-primary-dark border border-gray-300 dark:border-gray-600 rounded-full w-9 h-9 md:w-11 md:h-11 flex items-center justify-center cursor-pointer shadow-md z-10 text-xl md:text-2xl transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 active:scale-95" onclick="scrollCarousel(1, 'trilhaProjetosCarousel')" aria-label="Próxima Trilha">&#8594;</button>
+                </div>
+            </section>
 
-                <div class="mt-8"> <h3 class="text-xl font-semibold text-sky-700 mb-2">Sprint Backlog</h3>
-                    <p>O Sprint Backlog é o conjunto de itens do Product Backlog que foram selecionados para o sprint, juntamente com o plano de ação para entregá-los. <br><br>
-                    <strong>Exemplo:</strong> Para o sprint de 2 semanas, a equipe pode selecionar "Criar sistema de login" e "Adicionar funcionalidade de quiz" do Product Backlog para trabalhar durante esse período.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Incremento</h3>
-                    <p>O Incremento é o resultado final do sprint, que deve ser um produto ou funcionalidade utilizável, mesmo que o Product Owner decida não liberá-lo imediatamente. <br><br>
-                    <strong>Exemplo:</strong> Ao final do sprint, o incremento pode ser uma nova funcionalidade de "quiz" que esteja pronta para ser testada pelos usuários, mesmo que ainda não seja lançada oficialmente.</p>
-                </div>
-                <div class="mt-6">
-                    <h4 class="text-lg font-semibold text-sky-700 mb-2">Conheça os 3 Artefatos do Scrum</h4>
-                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
-                        <iframe src="https://www.youtube.com/embed/sJtDuC4AhoI?si=ud66axSdt9H3jXgl" title="Artefatos do Scrum" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <h2 class="text-2xl lg:text-3xl mt-8 mb-4 font-semibold text-eject-text-primary-light dark:text-eject-text-primary-dark">Todas as Trilhas</h2>
+            <section class="filter-search-controls my-6">
+                <div class="flex flex-col md:flex-row justify-center items-center gap-4 max-w-3xl mx-auto">
+                    <div class="search-container flex-grow w-full md:w-auto min-w-[200px]">
+                        <input type="text" id="searchInput" class="input-styled" placeholder="Pesquise nas trilhas abaixo...">
+                    </div>
+                    <div class="filter-container flex-grow w-full md:w-auto min-w-[200px]">
+                        <select id="filterSelect" class="input-styled appearance-none bg-white dark:bg-gray-700 bg-no-repeat bg-right pr-8" title="Filter options" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%236b7280%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E');">
+                            <option value="all">Todos</option>
+                            <option value="alphabetical">Ordem Alfabética</option>
+                            <option value="available">Disponíveis</option>
+                            <option value="soon">Em Breve</option>
+                        </select>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <section class="task-section mt-10 mb-10 p-6 bg-sky-50 rounded-xl shadow-lg text-gray-800 border border-sky-200">
-            <h3 class="text-2xl font-semibold text-sky-700 mb-3 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Tarefa Prática: Trabalhando com Artefatos
-            </h3>
-            <p class="task-question text-gray-700 mb-4">Pense numa funcionalidade simples para um aplicativo que usa frequentemente (ex: "adicionar um lembrete" numa app de notas, "criar uma playlist" numa app de música, "publicar uma foto com filtro" numa rede social). Para esta funcionalidade:</p>
-            <ol class="list-decimal list-inside text-gray-700 mb-4 pl-4 space-y-2">
-                <li>Crie 2-3 itens de Product Backlog (user stories ou tarefas) que representem partes dessa funcionalidade.</li>
-                <li>Imagine que está a iniciar uma Sprint. Selecione UM desses itens para o seu Sprint Backlog.</li>
-                <li>Descreva qual seria o Incremento esperado (o que estaria "Pronto" e potencialmente utilizável) ao final da Sprint para o item selecionado.</li>
-            </ol>
-            <textarea rows="5" class="task-answer w-full p-3 border border-sky-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400" placeholder="1. Itens do Product Backlog:   - Como utilizador, quero poder definir um título para o meu lembrete para que o possa identificar facilmente.   - ... . Item no Sprint Backlog:   - ... . Incremento Esperado:   - ..."></textarea>
-        </section>
+            </section>
+            <br>
 
-
-        <section class="p-6 bg-white rounded-xl shadow-lg text-gray-800">
-            <h2 class="text-3xl font-semibold text-sky-700 mb-6 pb-4 border-b border-gray-200">Referências e Conteúdos Extras</h2>
-            <div class="space-y-6">
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Sites</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li><a href="https://aws.amazon.com/pt/what-is/scrum/#:~:text=O%20Scrum%20%C3%A9%20um%20framework%20para%20fazer%20o%20trabalho%20no,Agile%20para%20gerenciamento%20de%20projetos." target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">O que é o Scrum? (AWS)</a></li>
-                        <li><a href="https://fia.com.br/blog/scrum/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Scrum: o que é e como aplicar a metodologia ágil (FIA)</a></li>
-                        <li><a href="https://caroli.org/scrum-significado-aplicacao-conceitos-e-exemplos/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">SCRUM: significado, aplicação, conceitos e exemplos (Caroli.org)</a></li>
-                    </ul>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="cardContainer">
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="EJECT 15 Anos">
+                    <img src="https://placehold.co/600x400/8A2BE2/FFFFFF?text=EJECT+15+Anos" alt="Banner comemorativo EJECT 15 Anos" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">EJECT 15 Anos</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/anivessario/presente01/index" aria-label="Acessar conteúdo especial EJECT 15 Anos">Acessar Especial 🎁</a>
+                            <button class="ds-btn-gemini" data-track-title="EJECT 15 Anos">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Livros</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li><a href="https://www.amazon.com.br/SCRUM-fazer-dobro-trabalho-metade/dp/8543107164" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Scrum: A arte de fazer o dobro do trabalho na metade do tempo (Amazon)</a></li>
-                        <li><a href="https://www.amazon.com.br/Sprint-M%C3%A9todo-Google-Testar-Aplicar/dp/8551001523" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Sprint: O método usado no Google para testar e aplicar novas ideias (Amazon)</a></li>
-                    </ul>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="GIT e Github">
+                    <img src="https://hermes.dio.me/articles/cover/d2489f96-d56f-4b82-bc7f-84fbc9fb1368.jpg" alt="Imagem do GitHub" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">GIT e Github</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/git_e_github" aria-label="Acessar trilha GIT e Github">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="GIT e Github">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Vídeos</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li><a href="https://www.youtube.com/embed/XU0llRltyFM" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Scrum in 20 mins... (with examples) [YOUTUBE - EN]</a></li>
-                        <li><a href="https://www.youtube.com/embed/I1yZCoq3b0A" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Kanban OU Scrum? QUAL A DIFERENÇA? [YOUTUBE - PT-Br]</a></li>
-                    </ul>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Gestão de Tempo">
+                    <img src="https://timeular.com/wp-content/uploads/2023/11/Copy-of-Copy-of-Blog-image-7.png" alt="Imagem da trilha de gestão de tempo" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Gestão de Tempo</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/gestao_de_tempo.html" aria-label="Acessar trilha Gestão de Tempo">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Gestão de Tempo">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
                 </div>
-                 <div>
-                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Cursos</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li><a href="https://www.alura.com.br/curso-online-scrum-agilidade-seu-projeto" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Scrum: agilidade em seu projeto (Alura)</a></li>
-                        <li><a href="https://www.udemy.com/course/formacao-total-em-scrum/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Certificação Scrum Master: Curso Preparatório COMPLETO (Udemy)</a></li>
-                    </ul>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Gestão de Pessoas">
+                    <img src="https://media.licdn.com/dms/image/D4D12AQHkxwPuNCCBLA/article-cover_image-shrink_600_2000/0/1696281571014?e=2147483647&v=beta&t=jx27ZVMQKEi4EroaGoApIr5mcpFvcZPs-DnxmjSOxnY" alt="Imagem da trilha de desenvolvimento humano" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Gestão de Pessoas</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/desenvolvimento_humano" aria-label="Acessar trilha Gestão de Pessoas">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Gestão de Pessoas">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Podcasts</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li><a href="https://www.youtube.com/embed/examplePodcastID" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">OS VALORES DO SCRUM | PODCAST SEJA ÁGIL [YOUTUBE - PT-Br]</a></li>
-                    </ul>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Marketing Comercial">
+                    <img src="https://media.licdn.com/dms/image/D5612AQFrB74fzNtosA/article-cover_image-shrink_720_1280/0/1685585245706?e=2147483647&v=beta&t=KSjXVDN59S9EFVnoue5f4C_mn4rgg536TURjE9kq_QI" alt="Imagem da trilha de marketing comercial" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Marketing Comercial</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/marketing_comercial" aria-label="Acessar trilha Marketing Comercial">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Marketing Comercial">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Scrum">
+                    <img src="https://erp-disk.ams3.digitaloceanspaces.com/portadas-tutoriales/small_portada_cm1gdlxji0065017b0k930xiv.webp" alt="Imagem do Scrum" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <span class="new-badge">NOVA</span>
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Scrum</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/Scrum" aria-label="Acessar trilha Scrum">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Scrum">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Django & Rest">
+                    <img src="https://imagedelivery.net/qc7VvyphMGWFiPVvTbB-ww/swapps.com/2016/02/simply-django-announcements.jpg/w=1024,h=576" alt="Imagem do framework Django" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Django & Rest</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/django" aria-label="Acessar trilha Django & Rest">ACESSAR</a>
+                            <button class="ds-btn-gemini" data-track-title="Django & Rest">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Financeiro">
+                    <img src="https://blog.quantosobra.com.br/wp-content/uploads/2023/04/capa-controle-financeiro-quantosobra.png" alt="Imagem do Financeiro" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Financeiro</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/financeiro" aria-label="Acessar trilha Financeiro">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Financeiro">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="História da EJECT">
+                    <img src="https://placehold.co/600x400/003366/FFFFFF?text=História+da+EJECT" alt="Imagem sobre a História da EJECT" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">História da EJECT</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/historia_eject" aria-label="Acessar trilha História da EJECT">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="História da EJECT">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="HTML e CSS">
+                    <img src="https://hotmart.s3.amazonaws.com/product_pictures/d2badee3-49a9-4627-9f7d-a5e51ae35384/sitehtmlcss1024x579.jpg" alt="Imagem do HTML e CSS" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">HTML e CSS</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/html_e_css" aria-label="Acessar trilha HTML e CSS">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="HTML e CSS">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Vue.js">
+                    <img src="https://dkrn4sk0rn31v.cloudfront.net/uploads/2020/06/VUE.png" alt="Imagem da linguagem Vue.js" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Vue.js</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/vue" aria-label="Acessar trilha Vue.js">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Vue.js">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="OKRs, KPIs e BPMN">
+                    <img src="https://agilealliance.org/wp-content/uploads/2022/10/fury-okrs-agile-blog.png" alt="Imagem sobre OKRs, KPIs e BPMN" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">OKRs, KPIs e BPMN</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/okrs_kpis_e_bpmn" aria-label="Acessar trilha OKRs, KPIs e BPMN">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="OKRs, KPIs e BPMN">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Wordpress">
+                    <img src="https://cityhost.ua/upload_img/blog5f352fc3b2393_wp.png" alt="Imagem do Wordpress" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Wordpress</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/wordpress" aria-label="Acessar trilha Wordpress">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="Wordpress">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="JavaScript">
+                    <img src="https://coodesh.com/blog/wp-content/uploads/2023/03/IDE-para-JavaScript.png" alt="Imagem da linguagem JavaScript" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">JavaScript</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/javaScript" aria-label="Acessar trilha JavaScript">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="JavaScript">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="TypeScript">
+                    <img src="https://static.wixstatic.com/media/c60f10_9605a49c09e948e6bf0195ac2738df23~mv2.png/v1/fit/w_1000,h_1000,al_c,q_80/file.jpg" alt="Imagem do TypeScript" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">TypeScript</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/typescript" aria-label="Acessar trilha TypeScript">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="TypeScript">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="UX e UI">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLbQDxmV2E6ZfAlhNMrPE1o-sPSIFiAjmngg&s" alt="Imagem de UX e UI" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">UX e UI</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/ux_ui" aria-label="Acessar trilha UX e UI">Acessar</a>
+                            <button class="ds-btn-gemini" data-track-title="UX e UI">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Python">
+                    <img src="https://marquesfernandes.com/wp-content/uploads/2020/08/kwi4bvgzths31.jpg" alt="Imagem da linguagem Python" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Python</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-soon" href="#" aria-label="Trilha Python em breve" aria-disabled="true">Em breve</a>
+                            <button class="ds-btn-gemini" data-track-title="Python">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Looker Studio"> 
+                    <img src="https://media.licdn.com/dms/image/v2/D4D12AQHkS1tCc6LlVA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1722457848250?e=2147483647&v=beta&t=HlZ9mAxtlTnVhblfCroCs1RQ1Y-Gb6ggVUxbUv_zKew" alt="Imagem do Looker Studio" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col items-center text-center flex-grow">
+                        <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Looker Studio</h3>
+                        <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
+                            <a class="ds-btn-soon" href="#" aria-label="Trilha Looker Studio em breve" aria-disabled="true">Em breve</a>
+                            <button class="ds-btn-gemini" data-track-title="Looker Studio">✨ Resumir Trilha</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="bg-sky-900 text-white text-center py-8 mt-12">
-        <p class="text-sm">Feito com <strong class="font-semibold">foco</strong> e <strong class="font-semibold">compromisso</strong> pela EJECT© - Todos os direitos reservados.</p>
+    <div id="geminiSummaryModal" class="hidden fixed inset-0 z-50 w-full h-full overflow-auto bg-black/60 items-center justify-center" tabindex="-1"> 
+        <div class="bg-eject-modal-bg-light dark:bg-eject-modal-bg-dark mx-auto my-[10%] p-0 border border-eject-modal-border-light dark:border-eject-modal-border-dark w-11/12 sm:w-4/5 max-w-2xl rounded-lg relative shadow-xl flex flex-col">
+            <div class="px-4 py-3 border-b border-eject-modal-header-border-light dark:border-eject-modal-header-border-dark flex justify-between items-center">
+                <h5 class="modal-title text-xl font-semibold text-eject-text-primary-light dark:text-eject-text-primary-dark" id="geminiSummaryModalTitle">✨ Resumo da Trilha</h5>
+                <button type="button" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-3xl font-light bg-transparent border-none cursor-pointer p-1 leading-none" onclick="closeSummaryModal()" aria-label="Fechar">&times;</button>
+            </div>
+            <div class="p-4 min-h-[100px] overflow-y-auto">
+                <div id="geminiLoadingIndicator" class="hidden flex-col items-center justify-center p-5 text-center"> 
+                    <div class="w-10 h-10 border-4 border-eject-text-primary-light dark:border-eject-text-primary-dark border-t-transparent rounded-full animate-spin" role="status">
+                        <span class="sr-only">Carregando...</span>
+                    </div>
+                    <p class="mt-2.5 text-eject-text-secondary-light dark:text-eject-text-secondary-dark">Gerando resumo com a ajuda do Gemini...</p>
+                </div>
+                <p id="geminiSummaryText" class="whitespace-pre-wrap text-eject-text-secondary-light dark:text-eject-text-secondary-dark"></p>
+                <p id="geminiSummaryError" class="text-red-600 dark:text-red-400" style="display:none;"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="w-full bg-slate-800 dark:bg-gray-900 py-6 px-4 mt-auto">
+        <p class="text-sm text-center text-gray-300 dark:text-gray-400 m-0">Feito com <strong class="font-semibold">foco</strong> e <strong class="font-semibold">compromisso</strong> pela EJECT© 2024-2025 - Todos os direitos reservados.</p>
     </footer>
 
-    <div id="geminiModal" class="modal-backdrop">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 id="geminiModalTitle" class="modal-title">Resultado da IA</h5>
-                <button type="button" class="modal-close-btn" id="geminiModalCloseBtn">×</button>
-            </div>
-            <div id="geminiModalBody" class="modal-body"></div>
-        </div>
-    </div>
+    <script>
+      !function(){'use strict';const e=['debug','destroy','do','help','identify','is','off','on','ready','render','reset','safe','set'];if(window.noticeable)console.warn('Noticeable SDK code snippet loaded more than once');else{const n=window.noticeable=window.noticeable||[];function t(e){return function(){const t=Array.prototype.slice.call(arguments);return t.unshift(e),n.push(t),n}}function o(){for(let o=0;o<e.length;o++){const c=e[o];n[c]=t(c)}}function c(){const e=document.createElement('script');e.async=!0,e.src='https://sdk.noticeable.io/l.js';const n=document.head;n.insertBefore(e,n.firstChild)}o(),c()}}();
+    </script>
+    <script>
+      const widgetId = '1tRQLcfdBtnBnia3lQ2k'; // Your Noticeable Widget ID
 
-    <div id="shareModal" class="modal-backdrop">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 id="shareModalTitle" class="modal-title">Compartilhar Página</h5>
-                <button type="button" class="modal-close-btn" id="shareModalCloseBtn">×</button>
-            </div>
-            <div id="shareModalBody" class="modal-body text-center">
-                <p class="mb-2 text-sm text-gray-600">Copie o link ou utilize o QR Code:</p>
-                <div class="flex items-center border border-gray-300 rounded-md p-2 mb-4">
-                    <input type="text" id="pageLinkInput" readonly class="w-full p-1.5 border-none focus:ring-0 text-sm text-gray-700 bg-gray-50 rounded-l-md">
-                    <button id="copyLinkBtn" class="copy-link-btn px-4 py-1.5 rounded-r-md text-sm font-medium transition-colors">
-                        Copiar
-                    </button>
-                </div>
-                <div id="qrcodeCanvasContainer" class="flex justify-center">
-                     <div id="qrcodeCanvas"></div> </div>
-                <p id="copyFeedback" class="text-xs text-green-600 mt-2 h-4"></p>
-            </div>
-        </div>
-    </div>
-    <div id="pdfExportFeedback">A preparar PDF...</div>
+      window.noticeable.on('widget:publication:unread_count:changed', widgetId, e => {
+        const element = document.getElementById('counter');
+        if (element) {
+          if (e.detail.value === 0) {
+            element.style.display = 'none';
+          } else {
+            element.style.display = 'inline-flex'; 
+            element.innerText = e.detail.value;
+          }
+        }
+      });
 
-    <div id="accessibilityToolbar">
-        <button id="accessibilityBtn" title="Opções de Acessibilidade">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-5v12c0 .55-.45 1-1 1s-1-.45-1-1v-5h-2v5c0 .55-.45 1-1 1s-1-.45-1-1V9H3V7h18v2z"/>
-            </svg>
-        </button>
-        <div id="accessibilityPanel" class="hidden">
-            <div class="accessibility-section">
-                <h4>Tamanho da Fonte</h4>
-                <div class="accessibility-controls space-y-1">
-                    <button id="increaseFontBtn">Aumentar Fonte (+)</button>
-                    <button id="decreaseFontBtn">Diminuir Fonte (-)</button>
-                    <button id="resetFontBtn">Restaurar Fonte</button>
-                </div>
-            </div>
-            <div class="accessibility-section">
-                <h4>Contraste</h4>
-                <div class="accessibility-controls space-y-1">
-                    <button id="defaultContrastBtn">Padrão</button>
-                    <button id="bwContrastBtn">Preto e Branco</button>
-                    <button id="ybContrastBtn">Amarelo e Preto</button>
-                </div>
-            </div>
-            <div class="accessibility-section">
-                <h4>Leitor de Texto</h4>
-                <div class="accessibility-controls tts-controls flex space-x-1">
-                    <button id="playTTSBtn" title="Ler Conteúdo">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /></svg>
-                        Ler
-                    </button>
-                    <button id="pauseTTSBtn" title="Pausar Leitura">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1H8zm3 0a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1h-1z" clip-rule="evenodd" /></svg>
-                        Pausar
-                    </button>
-                    <button id="stopTTSBtn" title="Parar Leitura">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 00-1 1v1a1 1 0 102 0v-1a1 1 0 00-1-1zm4 0a1 1 0 00-1 1v1a1 1 0 102 0v-1a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
-                        Parar
-                    </button>
-                </div>
-                <div class="accessibility-controls mt-2">
-                    <label for="ttsVoiceSelect">Voz:</label>
-                    <select id="ttsVoiceSelect" disabled><option value="">A carregar vozes...</option></select>
-                </div>
-                <div class="accessibility-controls mt-1">
-                    <label for="ttsRateRange">Velocidade: <span id="ttsRateValue">1</span></label>
-                    <input type="range" id="ttsRateRange" min="0.5" max="2" step="0.1" value="1">
-                </div>
-                <div class="accessibility-controls mt-1">
-                    <label for="ttsPitchRange">Tom: <span id="ttsPitchValue">1</span></label>
-                    <input type="range" id="ttsPitchRange" min="0" max="2" step="0.1" value="1">
-                </div>
-            </div>
-        </div>
-    </div>
+      window.noticeable.on(
+        'widget:trigger_view:mouse_entered', widgetId, () => {
+          window.noticeable.do('widget:open', widgetId);
+      });
+
+      window.noticeable.on(
+        'widget:widget_view:mouse_left', widgetId, () => {
+          window.noticeable.do('widget:close', widgetId);
+      });
+
+      window.noticeable.render("widget", widgetId);
+    </script>
 
 
     <script>
-        // Assegurar que o objeto jsPDF está disponível globalmente se usar a versão UMD
-        const { jsPDF } = window.jspdf;
+        // Gemini API Call Function
+        async function generateGeminiText(prompt) {
+            const apiKey = "AIzaSyAnojN8ZpEjiHaUVlZbgdalGVKdJwkIrRI"; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ role: "user", parts: [{ text: prompt }] }]
+            };
 
-        // --- Gemini API Integration ---
-        const generateUserStoriesBtn = document.getElementById('generateUserStoriesBtn');
-        const featureDescriptionTextarea = document.getElementById('featureDescription');
-        const userStoriesLoadingDiv = document.getElementById('userStoriesLoading');
-        const geminiModal = document.getElementById('geminiModal');
-        const geminiModalTitle = document.getElementById('geminiModalTitle');
-        const geminiModalBody = document.getElementById('geminiModalBody');
-        const geminiModalCloseBtn = document.getElementById('geminiModalCloseBtn');
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
 
-        function showGeminiModal(title, htmlContent) {
-            if (geminiModalTitle) geminiModalTitle.textContent = title;
-            if (geminiModalBody) geminiModalBody.innerHTML = htmlContent;
-            if (geminiModal) geminiModal.classList.add('active');
-        }
-        function hideGeminiModal() {
-            if (geminiModal) geminiModal.classList.remove('active');
-        }
-        if (geminiModalCloseBtn) geminiModalCloseBtn.addEventListener('click', hideGeminiModal);
-        if (geminiModal) geminiModal.addEventListener('click', function(event) {
-            if (event.target === geminiModal) hideGeminiModal();
-        });
-
-        if (generateUserStoriesBtn) {
-            generateUserStoriesBtn.addEventListener('click', async () => {
-                const description = featureDescriptionTextarea.value.trim();
-                if (!description) {
-                    showGeminiModal("Erro de Validação", "<p>Por favor, descreva uma funcionalidade para gerar as user stories.</p>");
-                    return;
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    console.error("Gemini API Error Response:", errorBody);
+                    let errorMessage = `Falha na requisição à API: ${response.status}`;
+                    try {
+                        const parsedError = JSON.parse(errorBody);
+                        if (parsedError.error && parsedError.error.message) {
+                            errorMessage += ` - ${parsedError.error.message}`;
+                        }
+                    } catch (e) { /* Ignore parsing error if not JSON */ }
+                    throw new Error(errorMessage);
                 }
-                userStoriesLoadingDiv.classList.remove('hidden');
-                generateUserStoriesBtn.disabled = true;
-                const prompt = `Com base na seguinte descrição de funcionalidade, gera 3 exemplos de user stories CURTAS e CONCISAS no formato "Como um [tipo de utilizador], eu quero [objetivo] para que [razão/benefício]". Não adiciones introduções ou conclusões, apenas as user stories. Descrição da funcionalidade: "${description}"`;
-                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-                const payload = { contents: chatHistory };
-                const apiKey = "AIzaSyAnojN8ZpEjiHaUVlZbgdalGVKdJwkIrRI";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(`Erro da API: ${response.status} ${response.statusText}. Detalhes: ${errorData?.error?.message || 'Sem detalhes adicionais.'}`);
-                    }
-                    const result = await response.json();
-                    if (result.candidates && result.candidates[0]?.content?.parts?.[0]) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        const formattedText = text.split('\n').map(line => line.trim()).filter(line => line.length > 0).map(line => `<p class="mb-2 p-2 bg-violet-100 rounded">${line}</p>`).join('');
-                        showGeminiModal("✨ Exemplos de User Stories Geradas", `<div class="text-sm">${formattedText || '<p>Não foi possível gerar as user stories.</p>'}</div>`);
-                    } else {
-                        showGeminiModal("Erro", "<p>Não foi possível extrair as user stories da resposta da API.</p>");
-                    }
-                } catch (error) {
-                    showGeminiModal("Erro na API", `<p>Ocorreu um erro: ${error.message}</p>`);
-                } finally {
-                    userStoriesLoadingDiv.classList.add('hidden');
-                    generateUserStoriesBtn.disabled = false;
-                }
-            });
-        }
 
-        // --- Share Page Functionality ---
-        const sharePageBtn = document.getElementById('sharePageBtn');
-        const shareModal = document.getElementById('shareModal');
-        const shareModalCloseBtn = document.getElementById('shareModalCloseBtn');
-        const pageLinkInput = document.getElementById('pageLinkInput');
-        const copyLinkBtn = document.getElementById('copyLinkBtn');
-        const qrcodeCanvas = document.getElementById('qrcodeCanvas');
-        const copyFeedback = document.getElementById('copyFeedback');
-        let qrCodeInstance = null; 
+                const result = await response.json();
 
-        function showShareModal() {
-            if (shareModal && pageLinkInput && qrcodeCanvas) {
-                const pageUrl = window.location.href;
-                pageLinkInput.value = pageUrl;
-                qrcodeCanvas.innerHTML = '';
-                if (typeof QRCode !== 'undefined') { 
-                     qrCodeInstance = new QRCode(qrcodeCanvas, {
-                        text: pageUrl, width: 180, height: 180,
-                        colorDark : "#000000", colorLight : "#ffffff",
-                        correctLevel : QRCode.CorrectLevel.H
-                    });
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    return result.candidates[0].content.parts[0].text;
                 } else {
-                    qrcodeCanvas.innerHTML = '<p class="text-xs text-red-500">Erro ao carregar biblioteca QRCode.</p>';
-                }
-                shareModal.classList.add('active');
-            }
-        }
-        function hideShareModal() {
-            if (shareModal) {
-                shareModal.classList.remove('active');
-                if (copyFeedback) copyFeedback.textContent = ''; 
-            }
-        }
-        if (sharePageBtn) sharePageBtn.addEventListener('click', showShareModal);
-        if (shareModalCloseBtn) shareModalCloseBtn.addEventListener('click', hideShareModal);
-        if (shareModal) shareModal.addEventListener('click', (event) => {
-            if (event.target === shareModal) hideShareModal();
-        });
-        if (copyLinkBtn && pageLinkInput) {
-            copyLinkBtn.addEventListener('click', () => {
-                pageLinkInput.select();
-                pageLinkInput.setSelectionRange(0, 99999); 
-                try {
-                    document.execCommand('copy');
-                    if(copyFeedback) {
-                        copyFeedback.textContent = 'Link copiado!';
-                        copyFeedback.classList.remove('text-red-500');
-                        copyFeedback.classList.add('text-green-600');
+                    console.error("Estrutura de resposta inesperada da API Gemini:", result);
+                    if (result.promptFeedback && result.promptFeedback.blockReason) {
+                         throw new Error(`Conteúdo bloqueado pela API: ${result.promptFeedback.blockReason} ${result.promptFeedback.blockReasonMessage ? '- ' + result.promptFeedback.blockReasonMessage : ''}`);
                     }
-                    setTimeout(() => { if(copyFeedback) copyFeedback.textContent = ''; }, 2000);
-                } catch (err) {
-                    if(copyFeedback) {
-                        copyFeedback.textContent = 'Erro ao copiar.';
-                        copyFeedback.classList.remove('text-green-600');
-                        copyFeedback.classList.add('text-red-500');
-                    }
+                    throw new Error("Não foi possível obter uma resposta da IA. A resposta não continha o texto esperado.");
                 }
-            });
-        }
-
-        // --- PDF Export Functionality ---
-        const exportPdfBtn = document.getElementById('exportPdfBtn');
-        const exportTasksPdfBtn = document.getElementById('exportTasksPdfBtn'); // Novo botão
-        const pdfExportFeedbackEl = document.getElementById('pdfExportFeedback');
-
-        function showPdfFeedback(message, isError = false) {
-            if (pdfExportFeedbackEl) {
-                pdfExportFeedbackEl.textContent = message;
-                pdfExportFeedbackEl.className = 'fixed bottom-5 left-1/2 transform -translate-x-1/2 px-5 py-2.5 rounded-lg shadow-lg text-white text-sm'; 
-                if (isError) {
-                    pdfExportFeedbackEl.classList.add('bg-red-500');
-                } else {
-                    pdfExportFeedbackEl.classList.add('bg-green-500');
-                }
-                pdfExportFeedbackEl.style.display = 'block';
-                setTimeout(() => {
-                    pdfExportFeedbackEl.style.display = 'none';
-                }, 3000);
+            } catch (error) {
+                console.error("Erro ao chamar a API Gemini:", error);
+                throw error; 
             }
         }
 
-        if (exportPdfBtn) {
-            exportPdfBtn.addEventListener('click', async () => {
-                const originalContentElement = document.getElementById('content-container'); 
-                if (!originalContentElement) {
-                    showPdfFeedback("Elemento de conteúdo principal não encontrado.", true);
-                    return;
-                }
-                showPdfFeedback("A preparar PDF do conteúdo, por favor aguarde...");
-                exportPdfBtn.disabled = true;
+        // Modal Logic
+        const summaryModal = document.getElementById('geminiSummaryModal');
+        const summaryTextElement = document.getElementById('geminiSummaryText');
+        const summaryErrorElement = document.getElementById('geminiSummaryError');
+        const summaryLoadingIndicator = document.getElementById('geminiLoadingIndicator');
+        const summaryModalTitle = document.getElementById('geminiSummaryModalTitle');
 
-                const clonedContent = originalContentElement.cloneNode(true);
-                // Remover seções de tarefa do clone do conteúdo principal
-                clonedContent.querySelectorAll('.task-section').forEach(taskEl => taskEl.remove());
-                // Remover painel do gerador de user stories
-                clonedContent.querySelectorAll('.mt-8.p-6.border.border-violet-300').forEach(genEl => genEl.remove());
-
-
-                clonedContent.style.position = 'absolute';
-                clonedContent.style.left = '-9999px'; 
-                clonedContent.style.width = originalContentElement.offsetWidth + 'px'; 
-                clonedContent.style.backgroundColor = 'white';
-                clonedContent.style.padding = '20px'; 
-                clonedContent.style.color = '#1f2937'; 
-                
-                clonedContent.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, strong, span, div:not([class*="bg-"])')
-                    .forEach(el => el.style.color = '#1f2937');
+        function openSummaryModal(trackTitle) {
+            if (!summaryModal || !summaryTextElement || !summaryLoadingIndicator || !summaryModalTitle || !summaryErrorElement) {
+                console.error("Elementos do modal de resumo não encontrados.");
+                return;
+            }
+            summaryModalTitle.textContent = `✨ Resumo da Trilha: ${trackTitle}`;
+            summaryTextElement.textContent = '';
+            summaryTextElement.style.display = 'none';
+            summaryErrorElement.textContent = '';
+            summaryErrorElement.style.display = 'none';
+            
+            summaryLoadingIndicator.classList.remove('hidden');
+            summaryLoadingIndicator.classList.add('flex');
+            summaryModal.classList.remove('hidden');
+            summaryModal.classList.add('flex');
 
 
-                document.body.appendChild(clonedContent);
-                try {
-                    const canvas = await html2canvas(clonedContent, { 
-                        scale: 2, useCORS: true, logging: false, backgroundColor: null,
-                        width: clonedContent.scrollWidth, height: clonedContent.scrollHeight,
-                        windowWidth: clonedContent.scrollWidth, windowHeight: clonedContent.scrollHeight
-                    });
-                    document.body.removeChild(clonedContent); 
-                    const imgData = canvas.toDataURL('image/png');
-                    const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
-                    const imgProps = pdf.getImageProperties(imgData);
-                    const pdfPageWidth = pdf.internal.pageSize.getWidth();
-                    const pdfPageHeight = pdf.internal.pageSize.getHeight();
-                    const margin = 10; 
-                    const usablePdfWidth = pdfPageWidth - (2 * margin);
-                    const usablePdfHeight = pdfPageHeight - (2 * margin);
-                    const imgRenderHeight = (imgProps.height * usablePdfWidth) / imgProps.width;
-                    let heightLeft = imgRenderHeight;
-                    let currentYPosition = margin; 
-                    pdf.addImage(imgData, 'PNG', margin, currentYPosition, usablePdfWidth, imgRenderHeight);
-                    heightLeft -= usablePdfHeight;
-                    while (heightLeft > 0) {
-                        currentYPosition -= usablePdfHeight; 
-                        pdf.addPage();
-                        pdf.addImage(imgData, 'PNG', margin, currentYPosition, usablePdfWidth, imgRenderHeight);
-                        heightLeft -= usablePdfHeight;
-                    }
-                    pdf.save('scrum_conteudo.pdf');
-                    showPdfFeedback("PDF do conteúdo gerado com sucesso!");
-                } catch (error) {
-                    console.error("Erro ao gerar PDF do conteúdo:", error);
-                    showPdfFeedback("Erro ao gerar PDF do conteúdo. Verifique a consola.", true);
-                    if (document.body.contains(clonedContent)) {
-                        document.body.removeChild(clonedContent);
-                    }
-                } finally {
-                    exportPdfBtn.disabled = false;
-                }
-            });
+            const prompt = `Gere um resumo conciso e informativo sobre o que uma pessoa pode aprender ou esperar da trilha de conhecimento chamada "${trackTitle}". O resumo deve ter entre 2 a 4 frases e ser útil para quem está decidindo se deve acessar a trilha. Responda em Português do Brasil.`;
+
+            generateGeminiText(prompt)
+                .then(summary => {
+                    summaryTextElement.textContent = summary;
+                    summaryTextElement.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error("Erro ao gerar resumo:", error);
+                    summaryErrorElement.textContent = `Desculpe, não foi possível gerar o resumo: ${error.message}. Tente novamente mais tarde.`;
+                    summaryErrorElement.style.display = 'block';
+                })
+                .finally(() => {
+                    summaryLoadingIndicator.classList.add('hidden');
+                    summaryLoadingIndicator.classList.remove('flex');
+                });
+        }
+
+        function closeSummaryModal() {
+            if (summaryModal) {
+                summaryModal.classList.add('hidden');
+                summaryModal.classList.remove('flex');
+            }
         }
         
-        // Exportar Respostas das Tarefas para PDF
-        if (exportTasksPdfBtn) {
-            exportTasksPdfBtn.addEventListener('click', () => {
-                const taskSections = document.querySelectorAll('.task-section');
-                if (taskSections.length === 0) {
-                    showPdfFeedback("Nenhuma tarefa encontrada na página.", true);
+        // Study Planner Logic
+        const studyGoalInput = document.getElementById('studyGoalInput');
+        const generateStudyPlanBtn = document.getElementById('generateStudyPlanBtn');
+        const studyPlanLoadingIndicator = document.getElementById('studyPlanLoadingIndicator');
+        const studyPlanOutputContainer = document.getElementById('studyPlanOutputContainer');
+        const studyPlanOutput = document.getElementById('studyPlanOutput'); 
+        const studyPlanTextElement = document.getElementById('studyPlanText');
+        const studyPlanErrorElement = document.getElementById('studyPlanError');
+
+        if (generateStudyPlanBtn) {
+            generateStudyPlanBtn.addEventListener('click', () => {
+                const studyGoal = studyGoalInput.value.trim();
+                if (!studyGoal) {
+                    studyPlanErrorElement.textContent = "Por favor, insira seu objetivo de aprendizado.";
+                    studyPlanErrorElement.style.display = 'block';
+                    studyPlanOutputContainer.style.display = 'none';
                     return;
                 }
 
-                showPdfFeedback("A preparar PDF das respostas, por favor aguarde...");
-                exportTasksPdfBtn.disabled = true;
+                studyPlanLoadingIndicator.classList.remove('hidden');
+                studyPlanLoadingIndicator.classList.add('flex');
+                studyPlanOutputContainer.style.display = 'none';
+                studyPlanErrorElement.style.display = 'none';
 
-                const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
-                const margin = 15;
-                const usableWidth = pdf.internal.pageSize.getWidth() - 2 * margin;
-                let currentY = margin;
-                const lineSpacing = 7; // Espaço entre linhas de texto
-                const taskSpacing = 15; // Espaço entre tarefas
+                const allTrackTitles = Array.from(document.querySelectorAll('#cardContainer .ds-card')) 
+                                            .map(card => card.dataset.trackTitle)
+                                            .filter(title => title) 
+                                            .join('; ');
 
-                pdf.setFontSize(18);
-                pdf.text("Respostas das Tarefas Práticas - Scrum", margin, currentY);
-                currentY += lineSpacing * 2;
+                const prompt = `Como um assistente de planejamento de estudos para o Hub de Conhecimentos da EJECT, meu objetivo é ajudar um usuário a alcançar o seguinte objetivo de aprendizado: "${studyGoal}".
 
-                taskSections.forEach((section, index) => {
-                    if (currentY > (pdf.internal.pageSize.getHeight() - margin * 3)) { // Verifica espaço para nova tarefa
-                        pdf.addPage();
-                        currentY = margin;
+As trilhas de conhecimento disponíveis no hub são: ${allTrackTitles}.
+
+Por favor, crie um plano de estudo sugerido para este usuário. Seu plano deve:
+1.  Identificar de 2 a 4 trilhas do hub que sejam MAIS RELEVANTES para o objetivo do usuário.
+2.  Para cada trilha sugerida, explique brevemente (1-2 frases) por que ela é relevante.
+3.  Se houver lacunas significativas (tópicos importantes para o objetivo do usuário que não são cobertos pelas trilhas listadas), mencione de 1 a 2 tópicos adicionais que o usuário deveria considerar estudar por fora.
+4.  Apresente o plano de forma clara, organizada e motivadora. Use bullet points ou uma lista numerada para as sugestões de trilhas.
+5.  Responda em Português do Brasil.`;
+
+                generateGeminiText(prompt)
+                    .then(plan => {
+                        studyPlanTextElement.textContent = plan;
+                        studyPlanOutputContainer.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error("Erro ao gerar plano de estudo:", error);
+                        studyPlanErrorElement.textContent = `Desculpe, não foi possível gerar o plano de estudo: ${error.message}. Tente novamente mais tarde.`;
+                        studyPlanErrorElement.style.display = 'block';
+                    })
+                    .finally(() => {
+                        studyPlanLoadingIndicator.classList.add('hidden');
+                        studyPlanLoadingIndicator.classList.remove('flex');
+                    });
+            });
+        }
+
+        // DOMContentLoaded Event Listener
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.ds-btn-gemini[data-track-title]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const trackTitle = this.dataset.trackTitle;
+                    if (trackTitle) {
+                        openSummaryModal(trackTitle);
+                    } else {
+                        console.error("Título da trilha não encontrado no botão.");
+                    }
+                });
+            });
+            
+            if (summaryModal) {
+                summaryModal.addEventListener('click', function(event) {
+                    if (event.target === summaryModal) {
+                        closeSummaryModal();
+                    }
+                });
+            }
+
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const query = this.value.toLowerCase().trim();
+                    const cards = document.querySelectorAll('#cardContainer > .ds-card'); 
+                    cards.forEach(cardCol => {
+                        const titleElement = cardCol.querySelector('h3'); 
+                        if (titleElement) {
+                            const title = titleElement.textContent.toLowerCase();
+                            cardCol.style.display = title.includes(query) ? '' : 'none';
+                        } else {
+                            cardCol.style.display = 'none'; 
+                        }
+                    });
+                });
+            }
+
+            const filterSelect = document.getElementById('filterSelect');
+            if (filterSelect) {
+                filterSelect.addEventListener('change', function() {
+                    const filterValue = this.value;
+                    const cardContainer = document.getElementById('cardContainer');
+                    const cardsCols = Array.from(cardContainer.children); 
+
+                    cardsCols.forEach(cardCol => cardCol.style.display = ''); 
+
+                    if (filterValue === 'available' || filterValue === 'soon') {
+                        cardsCols.forEach(cardCol => {
+                            if (cardCol.classList.contains('ds-card')) {
+                                const button = cardCol.querySelector('a.ds-btn-base'); 
+                                if (button) {
+                                    const isSoon = button.classList.contains('ds-btn-soon') || button.textContent.toLowerCase().includes('em breve');
+                                    if ((filterValue === 'available' && isSoon) || (filterValue === 'soon' && !isSoon)) {
+                                        cardCol.style.display = 'none';
+                                    }
+                                }
+                            }
+                        });
                     }
 
-                    const titleElement = section.querySelector('h3');
-                    const questionElement = section.querySelector('.task-question');
-                    const answerElement = section.querySelector('.task-answer');
-
-                    if (titleElement) {
-                        pdf.setFontSize(14);
-                        pdf.setTextColor(52, 73, 94); // Cor escura para o título da tarefa
-                        const titleLines = pdf.splitTextToSize(titleElement.textContent.trim().replace('Tarefa Prática: ', ''), usableWidth);
-                        pdf.text(titleLines, margin, currentY);
-                        currentY += (titleLines.length * lineSpacing * 0.8);
-                    }
-                    
-                    if (questionElement) {
-                        pdf.setFontSize(10);
-                        pdf.setTextColor(100, 100, 100); // Cinza para a pergunta
-                        const questionLines = pdf.splitTextToSize("Pergunta: " + questionElement.textContent.trim(), usableWidth);
-                        pdf.text(questionLines, margin, currentY);
-                        currentY += (questionLines.length * lineSpacing * 0.7);
-                    }
-
-                    if (answerElement) {
-                        pdf.setFontSize(11);
-                        pdf.setTextColor(0, 0, 0); // Preto para a resposta
-                        const answerText = answerElement.value.trim() || "Nenhuma resposta fornecida.";
-                        const answerLines = pdf.splitTextToSize("Resposta: \n" + answerText, usableWidth);
+                    if (filterValue === 'alphabetical') {
+                        const visibleCardsCols = cardsCols.filter(col => col.style.display !== 'none' && col.classList.contains('ds-card'));
                         
-                        if (currentY + (answerLines.length * lineSpacing * 0.7) > (pdf.internal.pageSize.getHeight() - margin)) {
-                            pdf.addPage();
-                            currentY = margin;
-                        }
-                        pdf.text(answerLines, margin, currentY);
-                        currentY += (answerLines.length * lineSpacing * 0.7);
+                        visibleCardsCols.sort((a, b) => {
+                            const titleAEl = a.querySelector('h3');
+                            const titleBEl = b.querySelector('h3');
+                            const titleA = titleAEl ? titleAEl.textContent.trim().toLowerCase() : '';
+                            const titleB = titleBEl ? titleBEl.textContent.trim().toLowerCase() : '';
+                            return titleA.localeCompare(titleB);
+                        });
+                        visibleCardsCols.forEach(cardCol => cardContainer.appendChild(cardCol));
                     }
-                    
-                    currentY += taskSpacing; // Espaço antes da próxima tarefa
-                     if (index < taskSections.length - 1) {
-                        pdf.setDrawColor(200, 200, 200); // Linha divisória suave
-                        pdf.line(margin, currentY - (taskSpacing / 2), pdf.internal.pageSize.getWidth() - margin, currentY - (taskSpacing / 2));
-                    }
-                });
-
-                try {
-                    pdf.save('respostas_tarefas_scrum.pdf');
-                    showPdfFeedback("PDF das respostas gerado com sucesso!");
-                } catch(e) {
-                    console.error("Erro ao salvar PDF das tarefas:", e);
-                    showPdfFeedback("Erro ao salvar PDF das tarefas.", true);
-                } finally {
-                    exportTasksPdfBtn.disabled = false;
-                }
-            });
-        }
-
-
-        // --- Accessibility Features ---
-        const accessibilityBtn = document.getElementById('accessibilityBtn');
-        const accessibilityPanel = document.getElementById('accessibilityPanel');
-        const mainContentContainer = document.getElementById('content-container'); 
-
-        const increaseFontBtn = document.getElementById('increaseFontBtn');
-        const decreaseFontBtn = document.getElementById('decreaseFontBtn');
-        const resetFontBtn = document.getElementById('resetFontBtn');
-        
-        const defaultContrastBtn = document.getElementById('defaultContrastBtn');
-        const bwContrastBtn = document.getElementById('bwContrastBtn');
-        const ybContrastBtn = document.getElementById('ybContrastBtn');
-
-        const playTTSBtn = document.getElementById('playTTSBtn');
-        const pauseTTSBtn = document.getElementById('pauseTTSBtn');
-        const stopTTSBtn = document.getElementById('stopTTSBtn');
-        const ttsVoiceSelect = document.getElementById('ttsVoiceSelect');
-        const ttsRateRange = document.getElementById('ttsRateRange');
-        const ttsRateValue = document.getElementById('ttsRateValue');
-        const ttsPitchRange = document.getElementById('ttsPitchRange');
-        const ttsPitchValue = document.getElementById('ttsPitchValue');
-
-
-        let currentFontSizeMultiplier = 1; 
-        const FONT_SIZE_STEP_ACC = 0.1; 
-        const MIN_FONT_MULTIPLIER_ACC = 0.7;
-        const MAX_FONT_MULTIPLIER_ACC = 1.8;
-        let originalFontSizesMap = new Map(); 
-
-        if (accessibilityBtn && accessibilityPanel) {
-            accessibilityBtn.addEventListener('click', () => {
-                accessibilityPanel.classList.toggle('active');
-                accessibilityPanel.classList.toggle('hidden');
-            });
-        }
-        
-        function storeOriginalFontSizesAcc() {
-            if (originalFontSizesMap.size === 0 && mainContentContainer) {
-                 mainContentContainer.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, a, span:not([class*="icon"])').forEach((el, index) => {
-                    const computedStyle = window.getComputedStyle(el);
-                    const elId = el.dataset.accId || `acc-el-${index}`;
-                    el.dataset.accId = elId;
-                    originalFontSizesMap.set(elId, parseFloat(computedStyle.fontSize));
                 });
             }
-        }
-        
-        function updateFontSizesAcc(multiplier) {
-            if (!mainContentContainer) return;
-            storeOriginalFontSizesAcc(); 
+        });
 
-            currentFontSizeMultiplier = Math.max(MIN_FONT_MULTIPLIER_ACC, Math.min(multiplier, MAX_FONT_MULTIPLIER_ACC));
-
-            mainContentContainer.querySelectorAll('[data-acc-id]').forEach(el => {
-                const originalSize = originalFontSizesMap.get(el.dataset.accId);
-                if (originalSize) {
-                    el.style.fontSize = (originalSize * currentFontSizeMultiplier) + 'px';
-                }
-            });
-            
-            mainContentContainer.querySelectorAll('p, li').forEach(el => {
-                 const currentElementFontSize = parseFloat(el.style.fontSize || window.getComputedStyle(el).fontSize);
-                 let newLineHeight = originalFontSizesMap.get(el.dataset.accId) * 1.7; 
-                 if (currentFontSizeMultiplier !== 1) { 
-                    newLineHeight = (originalFontSizesMap.get(el.dataset.accId) * 1.7 * currentFontSizeMultiplier * 0.9); 
-                 }
-                 el.style.lineHeight = Math.max(originalFontSizesMap.get(el.dataset.accId) * 1.5, newLineHeight) + 'px';
-            });
-        }
-
-
-        if (increaseFontBtn) {
-            increaseFontBtn.addEventListener('click', () => {
-                updateFontSizesAcc(currentFontSizeMultiplier + FONT_SIZE_STEP_ACC);
-            });
-        }
-        if (decreaseFontBtn) {
-            decreaseFontBtn.addEventListener('click', () => {
-                updateFontSizesAcc(currentFontSizeMultiplier - FONT_SIZE_STEP_ACC);
-            });
-        }
-        if (resetFontBtn) {
-            resetFontBtn.addEventListener('click', () => {
-                currentFontSizeMultiplier = 1; 
-                mainContentContainer.querySelectorAll('[data-acc-id]').forEach(el => {
-                    const originalSize = originalFontSizesMap.get(el.dataset.accId);
-                    if (originalSize) {
-                        el.style.fontSize = originalSize + 'px';
-                        if (el.tagName === 'P' || el.tagName === 'LI') {
-                           el.style.lineHeight = (originalSize * 1.7) + 'px'; 
-                        }
-                    } else {
-                         el.style.fontSize = ''; 
-                         if (el.tagName === 'P' || el.tagName === 'LI') {
-                            el.style.lineHeight = '';
-                         }
-                    }
-                });
-            });
-        }
-
-        function applyContrast(themeClass) {
-            document.body.classList.remove('contrast-default', 'contrast-bw', 'contrast-yb');
-            if (themeClass !== 'contrast-default') {
-                document.body.classList.add(themeClass);
-            }
-        }
-        if (defaultContrastBtn) defaultContrastBtn.addEventListener('click', () => applyContrast('contrast-default'));
-        if (bwContrastBtn) bwContrastBtn.addEventListener('click', () => applyContrast('contrast-bw'));
-        if (ybContrastBtn) ybContrastBtn.addEventListener('click', () => applyContrast('contrast-yb'));
-
-        let speechSynth = window.speechSynthesis;
-        let currentUtterance = null;
-        let elementsToRead = [];
-        let currentElementIndex = 0;
-        let isReadingPaused = false; 
-        let availableVoices = [];
-
-        function populateVoiceList() {
-            if(typeof speechSynthesis === 'undefined' || !ttsVoiceSelect) {
+        function scrollCarousel(direction, carouselId) {
+            const carouselElement = document.getElementById(carouselId);
+            if (!carouselElement) {
+                console.error(`Carousel element with ID "${carouselId}" not found.`);
                 return;
             }
-            availableVoices = speechSynth.getVoices();
-            ttsVoiceSelect.innerHTML = ''; 
-
-            if (availableVoices.length === 0) {
-                 ttsVoiceSelect.innerHTML = '<option value="">Nenhuma voz disponível</option>';
-                 ttsVoiceSelect.disabled = true;
-                 return;
-            }
+            const firstSlide = carouselElement.querySelector('.shrink-0.snap-center:not([style*="display: none"])');
             
-            let hasPortugueseVoice = false;
-            availableVoices.forEach(voice => {
-                if (voice.lang.startsWith('pt')) { 
-                    const option = document.createElement('option');
-                    option.textContent = `${voice.name} (${voice.lang})`;
-                    option.setAttribute('data-lang', voice.lang);
-                    option.setAttribute('data-name', voice.name);
-                    ttsVoiceSelect.appendChild(option);
-                    hasPortugueseVoice = true;
-                }
-            });
+            if (firstSlide) {
+                const slideWidth = firstSlide.offsetWidth; 
+                const carouselStyle = getComputedStyle(carouselElement);
+                const gapValue = carouselStyle.gap; 
+                let gap = 0;
 
-            if (!hasPortugueseVoice) {
-                 availableVoices.forEach(voice => {
-                    const option = document.createElement('option');
-                    option.textContent = `${voice.name} (${voice.lang})`;
-                    option.setAttribute('data-lang', voice.lang);
-                    option.setAttribute('data-name', voice.name);
-                    ttsVoiceSelect.appendChild(option);
+                if (gapValue && gapValue !== 'normal') {
+                    if (gapValue.includes('rem')) {
+                        gap = parseFloat(gapValue) * parseFloat(getComputedStyle(document.documentElement).fontSize);
+                    } else if (gapValue.includes('px')) {
+                        gap = parseFloat(gapValue);
+                    }
+                }
+                
+                carouselElement.scrollBy({
+                    left: direction * (slideWidth + gap), 
+                    behavior: 'smooth'
                 });
+            } else {
+                carouselElement.scrollBy({ left: direction * carouselElement.offsetWidth * 0.8, behavior: 'smooth' });
+                console.warn(`No card items found or visible in the carousel "${carouselId}" to calculate precise scroll distance. Using fallback.`);
             }
-            ttsVoiceSelect.disabled = false;
         }
-
-        populateVoiceList();
-        if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = populateVoiceList;
-        }
-
-
-        function prepareTextToRead() {
-            if (!mainContentContainer) return '';
-            let textSegments = [];
-            mainContentContainer.querySelectorAll('section.mb-10, section.p-6.bg-white').forEach(section => {
-                const titleElement = section.querySelector('h1, h2');
-                if (titleElement && titleElement.textContent.trim().length > 0) {
-                    textSegments.push(titleElement.textContent.trim() + ".");
-                }
-                section.querySelectorAll('p, h3, h4, li').forEach(el => {
-                    if (el.closest('.mt-8.p-6.border.border-violet-300') || el.closest('ul.list-disc')) {
-                        if (el.tagName.toLowerCase() === 'li' && el.closest('ul.list-disc')) { 
-                             const link = el.querySelector('a');
-                             if (link && link.textContent.trim().length > 0) {
-                                textSegments.push(link.textContent.trim() + ", link.");
-                             } else if (el.textContent.trim().length > 0) {
-                                textSegments.push(el.textContent.trim() + ".");
-                             }
-                        }
-                        return; 
-                    }
-                    if (el.textContent.trim().length > 0) {
-                        textSegments.push(el.textContent.trim().replace(/\s+/g, ' ') + ".");
-                    }
-                });
-            });
-            return textSegments.join(' \n ');
-        }
-        
-        function speakNextSegment() {
-            if (currentElementIndex >= elementsToRead.length || !speechSynth) {
-                playTTSBtn.disabled = false;
-                pauseTTSBtn.disabled = true;
-                stopTTSBtn.disabled = true;
-                currentElementIndex = 0;
-                currentUtterance = null;
-                elementsToRead = []; 
-                return;
-            }
-            if (speechSynth.paused && isReadingPaused) { return; }
-            if (speechSynth.speaking && !isReadingPaused) { return; }
-
-            currentUtterance = new SpeechSynthesisUtterance(elementsToRead[currentElementIndex]);
-            currentUtterance.lang = 'pt-BR'; 
-            currentUtterance.rate = parseFloat(ttsRateRange.value) || 1;
-            currentUtterance.pitch = parseFloat(ttsPitchRange.value) || 1;
-
-            const selectedVoiceName = ttsVoiceSelect.selectedOptions[0]?.getAttribute('data-name');
-            if (selectedVoiceName) {
-                const voice = availableVoices.find(v => v.name === selectedVoiceName);
-                if (voice) currentUtterance.voice = voice;
-            } else { 
-                 const portugueseVoice = availableVoices.find(v => v.lang.startsWith('pt-BR') || v.lang.startsWith('pt-PT'));
-                 if(portugueseVoice) currentUtterance.voice = portugueseVoice;
-            }
-
-
-            currentUtterance.onend = () => {
-                if (elementsToRead.length === 0) return; 
-
-                if (currentElementIndex < elementsToRead.length - 1) {
-                    currentElementIndex++;
-                    speakNextSegment(); 
-                } else {
-                    playTTSBtn.disabled = false;
-                    pauseTTSBtn.disabled = true;
-                    stopTTSBtn.disabled = true;
-                    currentElementIndex = 0; 
-                    currentUtterance = null;
-                    elementsToRead = []; 
-                }
-            };
-            currentUtterance.onerror = (event) => {
-                console.error('Erro na síntese de voz:', event.error);
-                isReadingPaused = false;
-                currentElementIndex = 0;
-                elementsToRead = []; 
-                currentUtterance = null;
-                if (speechSynth) { speechSynth.cancel(); }
-                playTTSBtn.disabled = false;
-                pauseTTSBtn.disabled = true;
-                stopTTSBtn.disabled = true;
-            };
-            speechSynth.speak(currentUtterance);
-            playTTSBtn.disabled = true;
-            pauseTTSBtn.disabled = false;
-            stopTTSBtn.disabled = false;
-            isReadingPaused = false; 
-        }
-
-        if (playTTSBtn) {
-            playTTSBtn.addEventListener('click', () => {
-                if (!speechSynth) {
-                    alert('A síntese de voz não é suportada neste navegador.');
-                    return;
-                }
-                if (speechSynth.paused && currentUtterance && isReadingPaused) {
-                    speechSynth.resume();
-                    isReadingPaused = false;
-                    playTTSBtn.disabled = true;
-                    pauseTTSBtn.disabled = false;
-                    stopTTSBtn.disabled = false; 
-                } else {
-                    speechSynth.cancel(); 
-                    currentUtterance = null; 
-                    isReadingPaused = false; 
-                    elementsToRead = []; 
-                    currentElementIndex = 0; 
-
-                    const fullText = prepareTextToRead();
-                    elementsToRead = fullText.split('. ') 
-                                         .map(s => s.trim())
-                                         .filter(segment => segment.length > 0)
-                                         .map(s => s.endsWith('.') ? s : s + '.');
-
-                    if (elementsToRead.length > 0) {
-                        speakNextSegment(); 
-                    } else {
-                        alert("Não há conteúdo textual para ler na página.");
-                        playTTSBtn.disabled = false; 
-                        pauseTTSBtn.disabled = true;
-                        stopTTSBtn.disabled = true;
-                    }
-                }
-            });
-        }
-
-        if (pauseTTSBtn) {
-            pauseTTSBtn.addEventListener('click', () => {
-                if (speechSynth && speechSynth.speaking && !speechSynth.paused) {
-                    speechSynth.pause();
-                    isReadingPaused = true;
-                    playTTSBtn.disabled = false; 
-                    pauseTTSBtn.disabled = true; 
-                }
-            });
-            pauseTTSBtn.disabled = true;
-        }
-
-        if (stopTTSBtn) {
-            stopTTSBtn.addEventListener('click', () => {
-                isReadingPaused = false;
-                currentElementIndex = 0; 
-                elementsToRead = [];    
-                currentUtterance = null; 
-                if (speechSynth) { speechSynth.cancel(); }
-                playTTSBtn.disabled = false;
-                pauseTTSBtn.disabled = true;
-                stopTTSBtn.disabled = true;
-            });
-            stopTTSBtn.disabled = true; 
-        }
-
-        if (ttsRateRange && ttsRateValue) {
-            ttsRateRange.addEventListener('input', () => {
-                ttsRateValue.textContent = ttsRateRange.value;
-                if (currentUtterance && speechSynth.speaking && !speechSynth.paused) { 
-                    speechSynth.cancel(); 
-                    currentUtterance.rate = parseFloat(ttsRateRange.value);
-                    speechSynth.speak(currentUtterance); 
-                } else if (currentUtterance && speechSynth.paused && isReadingPaused) { 
-                     currentUtterance.rate = parseFloat(ttsRateRange.value);
-                }
-            });
-        }
-        if (ttsPitchRange && ttsPitchValue) {
-            ttsPitchRange.addEventListener('input', () => {
-                ttsPitchValue.textContent = ttsPitchRange.value;
-                 if (currentUtterance && speechSynth.speaking && !speechSynth.paused) {
-                    speechSynth.cancel();
-                    currentUtterance.pitch = parseFloat(ttsPitchRange.value);
-                    speechSynth.speak(currentUtterance);
-                } else if (currentUtterance && speechSynth.paused && isReadingPaused) {
-                     currentUtterance.pitch = parseFloat(ttsPitchRange.value);
-                }
-            });
-        }
-
-
-        window.addEventListener('load', storeOriginalFontSizesAcc);
-
     </script>
-
 </body>
 </html>
