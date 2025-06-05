@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EJECT | Scrum</title>
+    <title>EJECT | Scrum </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/eject_logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -240,8 +240,13 @@
                         Hub de Conhecimentos
                     </a>
                 </div>
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <button id="exportPdfBtn" title="Exportar para PDF" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                     <button id="exportTasksPdfBtn" title="Exportar Respostas das Tarefas" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                        </svg>
+                    </button>
+                    <button id="exportPdfBtn" title="Exportar Conteúdo para PDF" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
@@ -302,29 +307,82 @@
                 </div>
             </div>
         </section>
+        
+        <section class="task-section mt-10 mb-10 p-6 bg-sky-50 rounded-xl shadow-lg text-gray-800 border border-sky-200">
+            <h3 class="text-2xl font-semibold text-sky-700 mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                Tarefa Prática: Aplicando os Pilares do Scrum
+            </h3>
+            <p class="task-question text-gray-700 mb-4">Reflita sobre um projeto (pessoal, académico ou profissional) em que participou recentemente. Como os três pilares do Scrum (Transparência, Inspeção e Adaptação) poderiam ter sido aplicados ou melhorados nesse projeto para alcançar melhores resultados? Descreva brevemente a sua análise e sugestões.</p>
+            <textarea rows="5" class="task-answer w-full p-3 border border-sky-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400" placeholder="Ex: No projeto X, a transparência poderia ser melhorada com um quadro Kanban visível a todos. A inspeção poderia ser feita através de reuniões semanais de acompanhamento..."></textarea>
+        </section>
 
         <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
             <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
                 <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Papéis no Scrum</h2>
             </div>
-            <p class="mb-4 text-gray-700">O Scrum define três papéis principais, que formam o núcleo da equipe: Product Owner, Scrum Master e o Time de Desenvolvimento. Cada papel tem responsabilidades específicas e complementares.</p>
-            <div class="space-y-4 text-gray-700">
+            <p class="mb-4 text-gray-700">No Scrum, cada pessoa envolvida tem um papel claro com responsabilidades definidas. Estes papéis são desenhados para otimizar a flexibilidade, a criatividade e a produtividade. Vamos conhecer os três papéis essenciais:</p>
+            <div class="space-y-6 text-gray-700">
                 <div>
                     <h3 class="text-xl font-semibold text-sky-700 mb-2">Product Owner (Dono do Produto)</h3>
-                    <p>O <strong class="font-semibold text-sky-700">Product Owner</strong> é responsável por maximizar o valor do produto resultante do trabalho da equipe. Ele gerencia o Product Backlog (lista priorizada de tudo o que precisa ser feito no projeto) e decide quais funcionalidades ou melhorias devem ser desenvolvidas primeiro, priorizando o que traz mais valor para o cliente ou para o negócio. <br><br>
-                    <strong>Exemplo:</strong> Imagine que sua equipe está desenvolvendo um aplicativo de gerenciamento de finanças. O Product Owner pode priorizar a criação de uma funcionalidade que permite aos usuários registrar suas despesas diárias, já que isso traz um valor imediato para os usuários, em vez de priorizar uma função mais complexa, como previsões financeiras baseadas em inteligência artificial.</p>
+                    <p class="mb-2">O Product Owner (PO) é a pessoa responsável por maximizar o valor do produto resultante do trabalho do Time Scrum. A forma como isto é feito pode variar amplamente entre organizações, Times Scrum e indivíduos.</p>
+                    <p class="mb-2"><strong>Principais responsabilidades e características:</strong></p>
+                    <ul class="list-disc list-inside space-y-1 mb-3">
+                        <li><strong>Gerir eficazmente o Product Backlog:</strong> Isto inclui desenvolver e comunicar explicitamente a Meta do Produto; criar e comunicar claramente os itens do Product Backlog; ordenar os itens do Product Backlog; e garantir que o Product Backlog é transparente, visível e compreendido.</li>
+                        <li><strong>Ser a voz do cliente:</strong> O PO representa os interesses dos stakeholders e do cliente, garantindo que a equipa constrói o produto certo.</li>
+                        <li><strong>Tomada de decisão:</strong> O PO tem a autoridade final sobre o Product Backlog e as suas prioridades.</li>
+                    </ul>
+                    <div class="p-3 bg-sky-50 border border-sky-200 rounded-md text-sm">
+                        <p class="font-semibold text-sky-700">Analogia: O Timoneiro do Navio e o Mapa do Tesouro</p>
+                        <p class="mt-1">Imagine o Product Owner como o capitão de um navio que possui o mapa de um tesouro valioso (a visão e Meta do Produto). Ele é quem define o destino e a rota mais eficiente para lá chegar (o Product Backlog, com os itens mais valiosos no topo). A tripulação (o Time de Desenvolvimento) confia na sua navegação e nas suas decisões sobre o que fazer a seguir para alcançar o tesouro o mais rápido possível, ajustando o curso (prioridades) conforme as condições do mar (feedback e mudanças no mercado).</p>
+                    </div>
                 </div>
+
                 <div>
                     <h3 class="text-xl font-semibold text-sky-700 mb-2">Scrum Master</h3>
-                    <p>O <strong class="font-semibold text-sky-700">Scrum Master</strong> é o facilitador do processo Scrum. Ele ajuda a equipe a entender e seguir as práticas do framework, removendo impedimentos que possam atrapalhar o progresso do time. Além disso, ele garante que o Scrum esteja sendo aplicado corretamente, promovendo um ambiente de trabalho colaborativo e produtivo. <br><br>
-                    <strong>Exemplo:</strong> Se, durante um sprint, a equipe encontra dificuldades com uma tecnologia específica, o Scrum Master pode atuar ajudando a equipe a encontrar uma solução, seja buscando apoio externo ou sugerindo uma abordagem diferente.</p>
+                    <p class="mb-2">O Scrum Master é responsável por estabelecer o Scrum como definido no Guia do Scrum. Ele faz isto ajudando todos a compreender a teoria e prática do Scrum, tanto no Time Scrum como na organização.</p>
+                     <p class="mb-2"><strong>Principais responsabilidades e características:</strong></p>
+                    <ul class="list-disc list-inside space-y-1 mb-3">
+                        <li><strong>Líder servidor:</strong> O Scrum Master serve o Time Scrum, o Product Owner e a organização de várias formas.</li>
+                        <li><strong>Remover impedimentos:</strong> Ajuda a remover obstáculos que possam impedir o progresso do Time Scrum.</li>
+                        <li><strong>Facilitador:</strong> Garante que todos os eventos Scrum ocorrem, são positivos, produtivos e mantidos dentro do time-box.</li>
+                        <li><strong>Promotor do Scrum:</strong> Ajuda a equipa e a organização a adotar e aprimorar as práticas Scrum.</li>
+                    </ul>
+                    <div class="p-3 bg-green-50 border border-green-200 rounded-md text-sm">
+                        <p class="font-semibold text-green-700">Analogia: O Jardineiro Experiente</p>
+                        <p class="mt-1">Pense no Scrum Master como um jardineiro dedicado que cuida do "ecossistema" onde a equipa (as plantas) pode crescer e florescer. Ele não dita como as plantas devem crescer (não é um gerente de projeto tradicional), mas assegura que têm solo fértil (ambiente Scrum saudável), água e nutrientes (recursos e conhecimento), luz solar suficiente (transparência) e remove as ervas daninhas (impedimentos). O seu objetivo é ajudar cada "planta" a atingir o seu potencial máximo e o jardim como um todo a ser produtivo.</p>
+                    </div>
                 </div>
+
                 <div>
-                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Time de Desenvolvimento</h3>
-                    <p>O <strong class="font-semibold text-sky-700">Time de Desenvolvimento</strong> é formado por profissionais multidisciplinares que são responsáveis por entregar o incremento do produto ao final de cada sprint. Eles são autogeridos, ou seja, eles próprios decidem como organizar o trabalho para atingir o objetivo do sprint. <br><br>
-                    <strong>Exemplo:</strong> Em um projeto de desenvolvimento de um site de e-commerce, o time de desenvolvimento pode ser composto por desenvolvedores de front-end e back-end, designers de UI/UX e testadores. Eles cooperam para entregar uma nova funcionalidade do site, como a página de checkout, ao final de um sprint.</p>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Time de Desenvolvimento (Developers)</h3>
+                    <p class="mb-2">Os Developers são as pessoas no Time Scrum que estão comprometidas em criar qualquer aspeto de um Incremento utilizável a cada Sprint. As competências específicas necessárias aos Developers são frequentemente amplas e podem variar com o domínio do trabalho.</p>
+                     <p class="mb-2"><strong>Principais responsabilidades e características:</strong></p>
+                    <ul class="list-disc list-inside space-y-1 mb-3">
+                        <li><strong>Criar o Incremento:</strong> São responsáveis por todo o trabalho necessário para entregar um Incremento "Pronto" (Done) ao final de cada Sprint.</li>
+                        <li><strong>Auto-organizados:</strong> Decidem internamente como melhor transformar os itens do Product Backlog selecionados para a Sprint num Incremento de valor. Ninguém, nem mesmo o Scrum Master, lhes diz como fazer o trabalho.</li>
+                        <li><strong>Multifuncionais:</strong> Como equipa, possuem todas as competências necessárias para criar o produto.</li>
+                        <li><strong>Responsabilidade partilhada:</strong> São coletivamente responsáveis pela qualidade e entrega do Incremento.</li>
+                    </ul>
+                    <div class="p-3 bg-amber-50 border border-amber-200 rounded-md text-sm">
+                        <p class="font-semibold text-amber-700">Analogia: Uma Banda de Jazz</p>
+                        <p class="mt-1">O Time de Desenvolvimento (Developers) pode ser comparado a uma banda de jazz. Cada músico é um especialista no seu instrumento (as suas competências individuais), mas o sucesso da performance depende da sua capacidade de tocar em harmonia, ouvir uns aos outros, improvisar quando necessário (auto-organização) e colaborar para criar uma música fantástica (o Incremento do produto). Não há um maestro a ditar cada nota individualmente; eles trabalham juntos, guiados pela melodia principal (Meta da Sprint), para encantar a audiência (entregar valor).</p>
+                    </div>
                 </div>
             </div>
+        </section>
+
+        <section class="task-section mt-10 mb-10 p-6 bg-sky-50 rounded-xl shadow-lg text-gray-800 border border-sky-200">
+            <h3 class="text-2xl font-semibold text-sky-700 mb-3 flex items-center">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                Tarefa Prática: Formando a Equipa Scrum Ideal
+            </h3>
+            <p class="task-question text-gray-700 mb-4">Imagine que foi encarregado de formar uma equipa Scrum para um novo projeto: desenvolver uma aplicação móvel que ajuda os utilizadores a encontrar trilhos para caminhadas na natureza. Considerando as responsabilidades de cada papel, descreva o perfil ideal (características, competências chave) para o Product Owner, o Scrum Master e pelo menos três tipos diferentes de Developers que seriam essenciais para esta equipa. Justifique as suas escolhas.</p>
+            <textarea rows="5" class="task-answer w-full p-3 border border-sky-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400" placeholder="Product Owner: (Ex: Apaixonado por natureza, bom comunicador...). Scrum Master: (Ex: Facilitador experiente, bom em resolver conflitos...). Developers: (Ex: Especialista em iOS, especialista em Android, designer UI/UX...)."></textarea>
         </section>
 
         <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
@@ -366,6 +424,22 @@
                 </div>
                 <img src="https://www.sydle.com/blog/assets/post/framework-scrum-5f6dc45f320703787497f887/eventos-scrum.png" alt="Eventos do Scrum" class="w-full sm:w-4/5 max-w-lg mx-auto mt-6 rounded-lg shadow">
             </div>
+        </section>
+
+        <section class="task-section mt-10 mb-10 p-6 bg-sky-50 rounded-xl shadow-lg text-gray-800 border border-sky-200">
+            <h3 class="text-2xl font-semibold text-sky-700 mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Tarefa Prática: Simulando um Evento Scrum
+            </h3>
+            <p class="task-question text-gray-700 mb-4">Escolha UM dos eventos Scrum (Sprint Planning, Daily Scrum, Sprint Review ou Sprint Retrospective). Imagine que é o Scrum Master e precisa facilitar esse evento para uma equipa que está a desenvolver um novo sistema de reservas para um restaurante. Descreva brevemente:</p>
+            <ul class="list-disc list-inside text-gray-700 mb-4 pl-4">
+                <li>Qual o objetivo principal do evento escolhido neste contexto?</li>
+                <li>Quais seriam os principais participantes?</li>
+                <li>Que tópicos ou questões chave abordaria para tornar o evento produtivo e focado?</li>
+            </ul>
+            <textarea rows="5" class="task-answer w-full p-3 border border-sky-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400" placeholder="Ex: Evento: Daily Scrum. Objetivo: Sincronizar a equipa e planear as próximas 24h. Participantes: Time de Desenvolvimento. Tópicos: O que cada um fez ontem para a Meta da Sprint, o que fará hoje, impedimentos..."></textarea>
         </section>
 
         <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
@@ -410,6 +484,23 @@
                 </div>
             </div>
         </section>
+        
+        <section class="task-section mt-10 mb-10 p-6 bg-sky-50 rounded-xl shadow-lg text-gray-800 border border-sky-200">
+            <h3 class="text-2xl font-semibold text-sky-700 mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Tarefa Prática: Trabalhando com Artefatos
+            </h3>
+            <p class="task-question text-gray-700 mb-4">Pense numa funcionalidade simples para um aplicativo que usa frequentemente (ex: "adicionar um lembrete" numa app de notas, "criar uma playlist" numa app de música, "publicar uma foto com filtro" numa rede social). Para esta funcionalidade:</p>
+            <ol class="list-decimal list-inside text-gray-700 mb-4 pl-4 space-y-2">
+                <li>Crie 2-3 itens de Product Backlog (user stories ou tarefas) que representem partes dessa funcionalidade.</li>
+                <li>Imagine que está a iniciar uma Sprint. Selecione UM desses itens para o seu Sprint Backlog.</li>
+                <li>Descreva qual seria o Incremento esperado (o que estaria "Pronto" e potencialmente utilizável) ao final da Sprint para o item selecionado.</li>
+            </ol>
+            <textarea rows="5" class="task-answer w-full p-3 border border-sky-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400" placeholder="1. Itens do Product Backlog:   - Como utilizador, quero poder definir um título para o meu lembrete para que o possa identificar facilmente.   - ... . Item no Sprint Backlog:   - ... . Incremento Esperado:   - ..."></textarea>
+        </section>
+
 
         <section class="p-6 bg-white rounded-xl shadow-lg text-gray-800">
             <h2 class="text-3xl font-semibold text-sky-700 mb-6 pb-4 border-b border-gray-200">Referências e Conteúdos Extras</h2>
@@ -470,7 +561,7 @@
     <div id="shareModal" class="modal-backdrop">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 id="shareModalTitle" class="modal-title">Partilhar Página</h5>
+                <h5 id="shareModalTitle" class="modal-title">Compartilhar Página</h5>
                 <button type="button" class="modal-close-btn" id="shareModalCloseBtn">×</button>
             </div>
             <div id="shareModalBody" class="modal-body text-center">
@@ -583,7 +674,7 @@
                 const prompt = `Com base na seguinte descrição de funcionalidade, gera 3 exemplos de user stories CURTAS e CONCISAS no formato "Como um [tipo de utilizador], eu quero [objetivo] para que [razão/benefício]". Não adiciones introduções ou conclusões, apenas as user stories. Descrição da funcionalidade: "${description}"`;
                 let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
                 const payload = { contents: chatHistory };
-                const apiKey = "AIzaSyAcEn6HsDrVDvuruGajI6Ro5cyyDq-8XTc";
+                const apiKey = "AIzaSyAnojN8ZpEjiHaUVlZbgdalGVKdJwkIrRI";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
                 try {
                     const response = await fetch(apiUrl, {
@@ -674,6 +765,7 @@
 
         // --- PDF Export Functionality ---
         const exportPdfBtn = document.getElementById('exportPdfBtn');
+        const exportTasksPdfBtn = document.getElementById('exportTasksPdfBtn'); // Novo botão
         const pdfExportFeedbackEl = document.getElementById('pdfExportFeedback');
 
         function showPdfFeedback(message, isError = false) {
@@ -699,10 +791,16 @@
                     showPdfFeedback("Elemento de conteúdo principal não encontrado.", true);
                     return;
                 }
-                showPdfFeedback("A preparar PDF, por favor aguarde...");
+                showPdfFeedback("A preparar PDF do conteúdo, por favor aguarde...");
                 exportPdfBtn.disabled = true;
 
                 const clonedContent = originalContentElement.cloneNode(true);
+                // Remover seções de tarefa do clone do conteúdo principal
+                clonedContent.querySelectorAll('.task-section').forEach(taskEl => taskEl.remove());
+                // Remover painel do gerador de user stories
+                clonedContent.querySelectorAll('.mt-8.p-6.border.border-violet-300').forEach(genEl => genEl.remove());
+
+
                 clonedContent.style.position = 'absolute';
                 clonedContent.style.left = '-9999px'; 
                 clonedContent.style.width = originalContentElement.offsetWidth + 'px'; 
@@ -742,10 +840,10 @@
                         heightLeft -= usablePdfHeight;
                     }
                     pdf.save('scrum_conteudo.pdf');
-                    showPdfFeedback("PDF gerado com sucesso!");
+                    showPdfFeedback("PDF do conteúdo gerado com sucesso!");
                 } catch (error) {
-                    console.error("Erro ao gerar PDF:", error);
-                    showPdfFeedback("Erro ao gerar PDF. Verifique a consola.", true);
+                    console.error("Erro ao gerar PDF do conteúdo:", error);
+                    showPdfFeedback("Erro ao gerar PDF do conteúdo. Verifique a consola.", true);
                     if (document.body.contains(clonedContent)) {
                         document.body.removeChild(clonedContent);
                     }
@@ -754,6 +852,89 @@
                 }
             });
         }
+        
+        // Exportar Respostas das Tarefas para PDF
+        if (exportTasksPdfBtn) {
+            exportTasksPdfBtn.addEventListener('click', () => {
+                const taskSections = document.querySelectorAll('.task-section');
+                if (taskSections.length === 0) {
+                    showPdfFeedback("Nenhuma tarefa encontrada na página.", true);
+                    return;
+                }
+
+                showPdfFeedback("A preparar PDF das respostas, por favor aguarde...");
+                exportTasksPdfBtn.disabled = true;
+
+                const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+                const margin = 15;
+                const usableWidth = pdf.internal.pageSize.getWidth() - 2 * margin;
+                let currentY = margin;
+                const lineSpacing = 7; // Espaço entre linhas de texto
+                const taskSpacing = 15; // Espaço entre tarefas
+
+                pdf.setFontSize(18);
+                pdf.text("Respostas das Tarefas Práticas - Scrum", margin, currentY);
+                currentY += lineSpacing * 2;
+
+                taskSections.forEach((section, index) => {
+                    if (currentY > (pdf.internal.pageSize.getHeight() - margin * 3)) { // Verifica espaço para nova tarefa
+                        pdf.addPage();
+                        currentY = margin;
+                    }
+
+                    const titleElement = section.querySelector('h3');
+                    const questionElement = section.querySelector('.task-question');
+                    const answerElement = section.querySelector('.task-answer');
+
+                    if (titleElement) {
+                        pdf.setFontSize(14);
+                        pdf.setTextColor(52, 73, 94); // Cor escura para o título da tarefa
+                        const titleLines = pdf.splitTextToSize(titleElement.textContent.trim().replace('Tarefa Prática: ', ''), usableWidth);
+                        pdf.text(titleLines, margin, currentY);
+                        currentY += (titleLines.length * lineSpacing * 0.8);
+                    }
+                    
+                    if (questionElement) {
+                        pdf.setFontSize(10);
+                        pdf.setTextColor(100, 100, 100); // Cinza para a pergunta
+                        const questionLines = pdf.splitTextToSize("Pergunta: " + questionElement.textContent.trim(), usableWidth);
+                        pdf.text(questionLines, margin, currentY);
+                        currentY += (questionLines.length * lineSpacing * 0.7);
+                    }
+
+                    if (answerElement) {
+                        pdf.setFontSize(11);
+                        pdf.setTextColor(0, 0, 0); // Preto para a resposta
+                        const answerText = answerElement.value.trim() || "Nenhuma resposta fornecida.";
+                        const answerLines = pdf.splitTextToSize("Resposta: \n" + answerText, usableWidth);
+                        
+                        if (currentY + (answerLines.length * lineSpacing * 0.7) > (pdf.internal.pageSize.getHeight() - margin)) {
+                            pdf.addPage();
+                            currentY = margin;
+                        }
+                        pdf.text(answerLines, margin, currentY);
+                        currentY += (answerLines.length * lineSpacing * 0.7);
+                    }
+                    
+                    currentY += taskSpacing; // Espaço antes da próxima tarefa
+                     if (index < taskSections.length - 1) {
+                        pdf.setDrawColor(200, 200, 200); // Linha divisória suave
+                        pdf.line(margin, currentY - (taskSpacing / 2), pdf.internal.pageSize.getWidth() - margin, currentY - (taskSpacing / 2));
+                    }
+                });
+
+                try {
+                    pdf.save('respostas_tarefas_scrum.pdf');
+                    showPdfFeedback("PDF das respostas gerado com sucesso!");
+                } catch(e) {
+                    console.error("Erro ao salvar PDF das tarefas:", e);
+                    showPdfFeedback("Erro ao salvar PDF das tarefas.", true);
+                } finally {
+                    exportTasksPdfBtn.disabled = false;
+                }
+            });
+        }
+
 
         // --- Accessibility Features ---
         const accessibilityBtn = document.getElementById('accessibilityBtn');
