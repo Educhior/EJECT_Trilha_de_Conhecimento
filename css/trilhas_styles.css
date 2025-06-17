@@ -24,7 +24,6 @@ html, body {
     width: 100%;
     height: 100%;
     background: var(--color-primary);
-    overflow-x: hidden;
 }
 
 body {
@@ -413,7 +412,7 @@ footer p {
 }
 
 code{
-    background-color: #ffffff;
+    background-color: #dbdbdb;
     color: #271e1e;
     padding: 3px;
     border-radius: 5px;
@@ -425,3 +424,231 @@ p {
     line-height: 1.6;
     font-size: 1rem;
 }
+
+/* Guia lateral */
+.sidebar {
+    width: 300px;
+    background: var(--background);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+.sidebar h2 {
+    color: rgb(0, 61, 115);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul li span {
+    font-weight: bold;
+    color: #4a4a4a;
+}
+
+.sidebar ul li.completed {
+    background: #e8f7e8;
+    color: #4caf50;
+}
+
+.sidebar ul li.completed span {
+    text-decoration: line-through;
+}
+
+.progress-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--star-yellow);
+    display: inline-block;
+}
+
+.progress-circle.completed {
+    background-color: #4caf50;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    /* Em telas menores, a barra lateral fica fixa ao topo e ocupa toda a largura */
+    .sidebar {
+        width: 100%;
+        position: relative;
+        margin-top: 20px;
+    }
+
+    .sidebar h2 {
+        font-size: 1.2rem;
+    }
+
+    .sidebar ul li {
+        padding: 12px;
+    }
+}
+
+/* Para telas muito pequenas (como smartphones) */
+@media (max-width: 768px) {
+    /* Barra lateral se torna um menu vertical */
+    .sidebar {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .sidebar ul li {
+        padding: 10px;
+    }
+
+    /* Ajusta o conteúdo principal para ocupar toda a largura da tela */
+    main {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .progress-circle {
+        width: 15px;
+        height: 15px;
+    }
+
+    .sidebar ul li span {
+        font-size: 0.9rem;
+    }
+
+    .summary {
+        display: none;
+      }
+
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+/* Breadcrumb */
+.breadcrumb {
+    font-size: 14px;
+    color: #555;
+    margin: 20px 0;
+  }
+  
+  .breadcrumb a {
+    text-decoration: none;
+    color: #0073e6;
+  }
+  
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Título */
+  .title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Conteúdo */
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .main-section {
+    flex: 3;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .main-section h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+  
+  .main-section p {
+    margin-bottom: 15px;
+    color: #555;
+    text-align: justify;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .pagination .next-button {
+    text-decoration: none;
+    color: #0073e6;
+    transition: color 0.3s ease;
+  }
+  
+  .pagination .next-button:hover {
+    color: #005bb5;
+  }
+  
+  /* Sumário */
+  .summary {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    height: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .summary h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .summary ul {
+    list-style: none;
+  }
+  
+  .summary li {
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .summary li:last-child {
+    border-bottom: none;
+  }
+  
+  .summary li.active {
+    background-color: #e8f4ff;
+    color: #0073e6;
+    font-weight: bold;
+  }
+  
+  .summary li span {
+    color: #0073e6;
+  }

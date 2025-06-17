@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJECT | Método MoSCoW - Acessibilidade, Tailwind, Gradiente, Partilha e PDF</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="https://placehold.co/32x32/003D73/FFFFFF?text=E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: "Exo 2", sans-serif;
+            background: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%);
+            color: white; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #0284c7; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0369a1; }
+        code {
+            background-color: #e5e7eb; color: #be123c; padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem; font-size: 0.875em;
+        }
+        .vw-plugin-wrapper { z-index: 1000 !important; }
+        .aspect-w-16 { position: relative; padding-bottom: calc(9 / 16 * 100%); }
+        .aspect-h-9 > * { position: absolute; height: 100%; width: 100%; top: 0; right: 0; bottom: 0; left: 0; }
+
+        .modal-backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6); display: flex; justify-content: center;
+            align-items: center; z-index: 1050; opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-backdrop.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: white; color: #374151; padding: 2rem;
+            border-radius: 0.75rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 90%; max-width: 500px; 
+            max-height: 90vh; overflow-y: auto; transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+        .modal-backdrop.active .modal-content { transform: translateY(0); }
+        .modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 1rem;
+        }
+        .modal-title { font-size: 1.25rem; font-weight: 600; color: #1e40af; }
+        .modal-close-btn {
+            background: none; border: none; font-size: 1.75rem; font-weight: bold;
+            color: #6b7280; cursor: pointer; padding: 0.5rem; line-height: 1;
+        }
+        .modal-close-btn:hover { color: #1f2937; }
+        .modal-body { margin-bottom: 1.5rem; }
+        
+        #qrcodeCanvas {
+            width: 200px; height: 200px; margin: 1.5rem auto; padding: 10px;
+            background-color: white; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #qrcodeCanvas img { display: block; width: 100% !important; height: 100% !important; }
+        .copy-link-btn { background-color: #0ea5e9; color: white; }
+        .copy-link-btn:hover { background-color: #0284c7; }
+
+        #pdfExportFeedback {
+            position: fixed; bottom: 20px; left: 50%;
+            transform: translateX(-50%); background-color: #22c55e;
+            color: white; padding: 10px 20px; border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 2000;
+            display: none; font-size: 0.9rem;
+        }
+        #pdfExportFeedback.error { background-color: #ef4444; }
+
+        /* Accessibility Panel Styles */
+        #accessibilityToolbar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1060; 
+        }
+        #accessibilityBtn {
+            background-color: #1e40af; 
+            color: white;
+            border-radius: 50%;
+            width: 56px; 
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #accessibilityBtn:hover {
+            background-color: #1c3a94; 
+        }
+        #accessibilityPanel {
+            position: absolute;
+            bottom: 70px; 
+            right: 0;
+            width: 280px;
+            background-color: white;
+            color: #374151;
+            border-radius: 0.5rem; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        }
+        #accessibilityPanel.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .accessibility-section { margin-bottom: 1rem; }
+        .accessibility-section h4 {
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            color: #1e40af; 
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.25rem;
+        }
+        .accessibility-controls button, .accessibility-controls select, .accessibility-controls input[type="range"] {
+            width: 100%;
+            text-align: left;
+            padding: 0.5rem 0.75rem;
+            margin-top: 0.25rem;
+            border-radius: 0.375rem; 
+            border: 1px solid #d1d5db; 
+            background-color: #f9fafb; 
+            color: #374151; 
+            font-size: 0.875rem;
+            transition: background-color 0.2s;
+        }
+        .accessibility-controls button:hover, .accessibility-controls select:hover {
+            background-color: #f3f4f6; 
+        }
+        .accessibility-controls button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .tts-controls button { margin-right: 0.5rem; width: auto; }
+        .accessibility-controls label {
+            display: block;
+            font-size: 0.75rem; /* text-xs */
+            color: #4b5563; /* text-gray-600 */
+            margin-top: 0.5rem;
+            margin-bottom: 0.125rem;
+        }
+        .accessibility-controls input[type="range"] {
+            padding: 0; /* Remover padding padrão do range */
+            height: 1.25rem; /* Ajustar altura */
+        }
+
+        /* High Contrast Themes */
+        body.contrast-bw { background: black !important; color: white !important; }
+        body.contrast-bw header, body.contrast-bw .bg-white { background-color: black !important; color: white !important; border: 1px solid #555 !important; }
+        body.contrast-bw [class*="text-gray-"], body.contrast-bw [class*="text-sky-"], body.contrast-bw [class*="text-violet-"] { color: white !important; }
+        body.contrast-bw .text-sky-700, body.contrast-bw .text-sky-800, body.contrast-bw .text-sky-600, body.contrast-bw .text-violet-700 { color: #FFFF00 !important; } 
+        body.contrast-bw a:not(.btn-voltar) { color: #FFFF00 !important; text-decoration: underline !important; }
+        body.contrast-bw button:not(#accessibilityBtn):not(.modal-close-btn):not(.copy-link-btn), body.contrast-bw .btn-voltar { background-color: #222 !important; color: white !important; border: 1px solid white !important; }
+        body.contrast-bw .copy-link-btn { background-color: #222 !important; color: white !important; border: 1px solid white !important; }
+        body.contrast-bw .modal-content { background-color: black !important; color: white !important; border: 1px solid #555 !important;}
+        body.contrast-bw .modal-title { color: #FFFF00 !important; }
+        body.contrast-bw .modal-body pre { background-color: #1a1a1a !important; }
+        body.contrast-bw #pageLinkInput { background-color: #111 !important; color: white !important; }
+
+
+        body.contrast-yb { background: #000000 !important; color: #FFFF00 !important; } 
+        body.contrast-yb header, body.contrast-yb .bg-white { background-color: #000000 !important; color: #FFFF00 !important; border: 1px solid #FFFF00 !important; }
+        body.contrast-yb [class*="text-gray-"], body.contrast-yb [class*="text-sky-"], body.contrast-yb [class*="text-violet-"] { color: #FFFF00 !important; }
+        body.contrast-yb .text-sky-700, body.contrast-yb .text-sky-800, body.contrast-yb .text-sky-600, body.contrast-yb .text-violet-700 { color: #00FFFF !important; } 
+        body.contrast-yb a:not(.btn-voltar) { color: #00FFFF !important; text-decoration: underline !important; }
+        body.contrast-yb button:not(#accessibilityBtn):not(.modal-close-btn):not(.copy-link-btn), body.contrast-yb .btn-voltar { background-color: #1a1a1a !important; color: #FFFF00 !important; border: 1px solid #FFFF00 !important; }
+        body.contrast-yb .copy-link-btn { background-color: #1a1a1a !important; color: #FFFF00 !important; border: 1px solid #FFFF00 !important; }
+        body.contrast-yb .modal-content { background-color: black !important; color: #FFFF00 !important; border: 1px solid #FFFF00 !important;}
+        body.contrast-yb .modal-title { color: #00FFFF !important; }
+        body.contrast-yb .modal-body pre { background-color: #1a1a1a !important; }
+        body.contrast-yb #pageLinkInput { background-color: #111 !important; color: #FFFF00 !important; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- VLibras Widget -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold text-sky-700 hover:text-sky-800 transition-colors">
+                        Hub de Conhecimentos
+                    </a>
+                </div>
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <button id="exportPdfBtn" title="Exportar para PDF" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </button>
+                    <button id="sharePageBtn" title="Partilhar Página" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                        </svg>
+                    </button>
+                    <a href="https://www.ejectufrn.com.br/" target="_blank" rel="noopener noreferrer">
+                        <img src="https://placehold.co/130x40/003D73/FFFFFF?text=EJECT+Logo&font=exo2" alt="Logotipo da EJECT" class="h-10">
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="content-container" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Hidden field for Trilha (Trail/Path Name) - can be adapted or removed if not needed for MoSCoW -->
+        <input type="hidden" id="trilha-nome" value="Métodos Ágeis" /> 
+        
+        <!-- Back Button -->
+        <section class="mb-6">
+            <a href="#" class="inline-flex items-center bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-150 ease-in-out btn-voltar">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Voltar
+            </a>
+        </section>
+
+        <!-- Introduction to MoSCoW -->
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <h1 class="text-4xl font-bold text-sky-800 mb-4">Método MoSCoW</h1>
+            <p class="text-lg leading-relaxed text-gray-700">O Método MoSCoW é uma técnica de priorização utilizada no gerenciamento de projetos, desenvolvimento de software e em diversas outras áreas para ajudar as equipas a entender e acordar sobre a importância relativa de diferentes requisitos ou tarefas. O acrónimo MoSCoW representa quatro categorias de prioridade: <strong class="text-sky-700">Must have</strong>, <strong class="text-sky-700">Should have</strong>, <strong class="text-sky-700">Could have</strong>, e <strong class="text-sky-700">Won't have (this time)</strong>.</p>
+        </section>
+
+        <!-- Understanding MoSCoW -->
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Entendendo as Categorias MoSCoW</h2>
+            </div>
+            <div class="space-y-6 text-gray-700">
+                <p>A força do MoSCoW reside na sua simplicidade e na clareza que traz para o processo de tomada de decisão sobre o que é verdadeiramente essencial para o sucesso de um projeto ou produto, especialmente quando há restrições de tempo ou recursos.</p>
+                
+                <div>
+                    <h3 class="text-2xl font-semibold text-sky-700 mb-2">M - Must have (Deve ter)</h3>
+                    <p>Estes são os requisitos <strong class="text-sky-700">críticos e não negociáveis</strong>. Sem eles, o produto ou projeto não pode ser lançado ou é considerado um fracasso. São as funcionalidades essenciais que garantem a viabilidade e o propósito fundamental da entrega.</p>
+                    <p class="mt-2"><strong>Exemplo:</strong> Para um aplicativo de e-commerce, um requisito "Must have" seria a capacidade dos utilizadores de adicionar produtos ao carrinho e finalizar a compra. Sem isso, o aplicativo não cumpre sua função primária.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold text-sky-700 mb-2">S - Should have (Deveria ter)</h3>
+                    <p>São requisitos <strong class="text-sky-700">importantes, mas não vitais</strong> para o funcionamento básico do produto. Eles agregam valor significativo e devem ser incluídos se possível, mas o lançamento pode ocorrer sem eles, embora com uma solução alternativa ou uma experiência menos completa.</p>
+                     <p class="mt-2"><strong>Exemplo:</strong> No mesmo aplicativo de e-commerce, a funcionalidade de "lista de desejos" seria um "Should have". É útil e melhora a experiência do utilizador, mas o app ainda funciona sem ela.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold text-sky-700 mb-2">C - Could have (Poderia ter)</h3>
+                    <p>Estes são requisitos <strong class="text-sky-700">desejáveis, mas menos importantes</strong>. São considerados "nice to have" e geralmente são incluídos apenas se houver tempo e recursos disponíveis, após a implementação dos "Must have" e "Should have". Eles têm um impacto menor no sucesso geral do produto se não forem entregues.</p>
+                    <p class="mt-2"><strong>Exemplo:</strong> Para o aplicativo de e-commerce, a integração com redes sociais para partilhar produtos pode ser um "Could have". É interessante, mas não impacta diretamente a capacidade de vender ou comprar.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold text-sky-700 mb-2">W - Won't have (this time) (Não terá desta vez)</h3>
+                    <p>São requisitos que foram <strong class="text-sky-700">explicitamente acordados como não fazendo parte do escopo</strong> da entrega atual. É importante documentá-los para evitar "scope creep" (aumento descontrolado do escopo) e para gerir as expectativas. Eles podem ser considerados para futuras versões ou projetos.</p>
+                    <p class="mt-2"><strong>Exemplo:</strong> No contexto do e-commerce, um "Won't have" para o lançamento inicial poderia ser um "programa de fidelidade complexo". A equipa reconhece o seu valor, mas decide que não será implementado nesta fase para focar nos itens mais prioritários.</p>
+                </div>
+                <img src="https://placehold.co/600x350/E0E7FF/4B5563?text=Prioridades+MoSCoW" alt="Categorias de Prioridade MoSCoW" class="w-full sm:w-4/5 max-w-lg mx-auto mt-6 rounded-lg shadow">
+            </div>
+        </section>
+
+        <!-- Benefits of MoSCoW -->
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Benefícios do Método MoSCoW</h2>
+            </div>
+            <div class="space-y-4 text-gray-700">
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong class="text-sky-700">Foco no Essencial:</strong> Ajuda a equipa a concentrar-se no que é verdadeiramente crítico para o sucesso.</li>
+                    <li><strong class="text-sky-700">Melhora a Comunicação:</strong> Cria um entendimento comum sobre as prioridades entre todas as partes interessadas.</li>
+                    <li><strong class="text-sky-700">Gestão de Expectativas:</strong> Clarifica o que será e o que não será entregue, evitando surpresas.</li>
+                    <li><strong class="text-sky-700">Flexibilidade:</strong> Permite ajustes no escopo de forma controlada, especialmente útil em projetos com prazos fixos.</li>
+                    <li><strong class="text-sky-700">Tomada de Decisão Rápida:</strong> Facilita a tomada de decisões sobre o que incluir ou excluir quando os recursos são limitados.</li>
+                </ul>
+                <div class="mt-6">
+                    <h4 class="text-lg font-semibold text-sky-700 mb-2">Priorização MoSCoW Explicada</h4>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/EpuTmA741XQ" title="MoSCoW Prioritization Technique Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <!-- Replace with a relevant PT-BR video if a good one is found, or keep EN with clear title -->
+                    </div>
+                     <p class="text-xs text-gray-500 mt-1 text-center">Vídeo em Inglês. Ative as legendas se necessário.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- When to Use MoSCoW & Tips -->
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Quando Usar e Dicas para Aplicar</h2>
+            </div>
+            <div class="space-y-4 text-gray-700">
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Quando Utilizar o MoSCoW:</h3>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Para definir o escopo de um projeto com prazo fixo.</li>
+                        <li>Ao planear iterações ou sprints em metodologias ágeis.</li>
+                        <li>Quando é necessário obter consenso entre stakeholders com diferentes visões sobre prioridades.</li>
+                        <li>Para garantir que os recursos limitados são alocados às funcionalidades mais valiosas.</li>
+                    </ul>
+                </div>
+                <div class="mt-4">
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Dicas para uma Aplicação Eficaz:</h3>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><strong class="text-sky-700">Envolva as Pessoas Certas:</strong> Inclua representantes de todas as áreas chave (negócio, técnico, utilizadores) na sessão de priorização.</li>
+                        <li><strong class="text-sky-700">Defina Critérios Claros:</strong> Antes de começar, acorde sobre o que constitui um "Must have" para o projeto específico. Por exemplo, qual o impacto de não entregar um item?</li>
+                        <li><strong class="text-sky-700">Não Exagere nos "Must haves":</strong> Um erro comum é classificar demasiados itens como "Must have". Idealmente, não mais que 60% do esforço total deve ser alocado a "Must haves" para manter a flexibilidade.</li>
+                        <li><strong class="text-sky-700">Seja Específico:</strong> Requisitos vagos são difíceis de priorizar. Detalhe-os o suficiente para uma avaliação clara.</li>
+                        <li><strong class="text-sky-700">Revise Regularmente:</strong> As prioridades podem mudar. Reavalie a lista MoSCoW periodicamente, especialmente no início de novas fases ou iterações.</li>
+                        <li><strong class="text-sky-700">Documente as Decisões:</strong> Registe não só a prioridade, mas também a justificação por trás dela, especialmente para itens controversos ou "Won't haves".</li>
+                    </ul>
+                </div>
+                 <img src="https://placehold.co/600x300/E0F2FE/0891B2?text=Dicas+MoSCoW" alt="Dicas para aplicar o Método MoSCoW" class="w-full sm:w-4/5 max-w-md mx-auto mt-6 rounded-lg shadow">
+            </div>
+        </section>
+
+        <!-- References Section -->
+        <section class="p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <h2 class="text-3xl font-semibold text-sky-700 mb-6 pb-4 border-b border-gray-200">Referências e Conteúdos Extras</h2>
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Artigos e Guias</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><a href="https://www.atlassian.com/pt/work-management/project-management/moscow-method" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">O que é o método MoSCoW? (Atlassian)</a></li>
+                        <li><a href="https://www.productplan.com/glossary/moscow-prioritization/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">MoSCoW Prioritization (ProductPlan) [EN]</a></li>
+                        <li><a href="https://www.mindtools.com/advp97x/moscow-analysis" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">MoSCoW Analysis - Prioritizing Requirements (MindTools) [EN]</a></li>
+                         <li><a href="https://rockcontent.com/br/blog/moscow/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Priorização MoSCoW: o que é e como aplicar no seu negócio (Rock Content)</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Vídeos Explicativos</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><a href="https://www.youtube.com/watch?v=zCaZqG0j7II" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Método MoSCoW: Priorização de Requisitos de Software (Canal Programador Sagaz) [PT-BR]</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=PAyTApzoy1s" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">MoSCoW Method Explained in under 5 Minutes (Aptitude Product Management) [EN]</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-sky-900 text-white text-center py-8 mt-12">
+        <p class="text-sm">Feito com <strong class="font-semibold">foco</strong> e <strong class="font-semibold">compromisso</strong> pela EJECT© - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Share Modal -->
+    <div id="shareModal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="shareModalTitle" class="modal-title">Partilhar Página</h5>
+                <button type="button" class="modal-close-btn" id="shareModalCloseBtn">×</button>
+            </div>
+            <div id="shareModalBody" class="modal-body text-center">
+                <p class="mb-2 text-sm text-gray-600">Copie o link ou utilize o QR Code:</p>
+                <div class="flex items-center border border-gray-300 rounded-md p-2 mb-4">
+                    <input type="text" id="pageLinkInput" readonly class="w-full p-1.5 border-none focus:ring-0 text-sm text-gray-700 bg-gray-50 rounded-l-md">
+                    <button id="copyLinkBtn" class="copy-link-btn px-4 py-1.5 rounded-r-md text-sm font-medium transition-colors">
+                        Copiar
+                    </button>
+                </div>
+                <div id="qrcodeCanvasContainer" class="flex justify-center">
+                     <div id="qrcodeCanvas"></div> </div>
+                <p id="copyFeedback" class="text-xs text-green-600 mt-2 h-4"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF Export Feedback -->
+    <div id="pdfExportFeedback">A preparar PDF...</div>
+
+    <!-- Accessibility Toolbar -->
+    <div id="accessibilityToolbar">
+        <button id="accessibilityBtn" title="Opções de Acessibilidade">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-5v12c0 .55-.45 1-1 1s-1-.45-1-1v-5h-2v5c0 .55-.45 1-1 1s-1-.45-1-1V9H3V7h18v2z"/>
+            </svg>
+        </button>
+        <div id="accessibilityPanel" class="hidden">
+            <div class="accessibility-section">
+                <h4>Tamanho da Fonte</h4>
+                <div class="accessibility-controls space-y-1">
+                    <button id="increaseFontBtn">Aumentar Fonte (+)</button>
+                    <button id="decreaseFontBtn">Diminuir Fonte (-)</button>
+                    <button id="resetFontBtn">Restaurar Fonte</button>
+                </div>
+            </div>
+            <div class="accessibility-section">
+                <h4>Contraste</h4>
+                <div class="accessibility-controls space-y-1">
+                    <button id="defaultContrastBtn">Padrão</button>
+                    <button id="bwContrastBtn">Preto e Branco</button>
+                    <button id="ybContrastBtn">Amarelo e Preto</button>
+                </div>
+            </div>
+            <div class="accessibility-section">
+                <h4>Leitor de Texto</h4>
+                <div class="accessibility-controls tts-controls flex space-x-1">
+                    <button id="playTTSBtn" title="Ler Conteúdo">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /></svg>
+                        Ler
+                    </button>
+                    <button id="pauseTTSBtn" title="Pausar Leitura">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1H8zm3 0a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1h-1z" clip-rule="evenodd" /></svg>
+                        Pausar
+                    </button>
+                    <button id="stopTTSBtn" title="Parar Leitura">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 00-1 1v1a1 1 0 102 0v-1a1 1 0 00-1-1zm4 0a1 1 0 00-1 1v1a1 1 0 102 0v-1a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                        Parar
+                    </button>
+                </div>
+                <div class="accessibility-controls mt-2">
+                    <label for="ttsVoiceSelect">Voz:</label>
+                    <select id="ttsVoiceSelect" disabled><option value="">A carregar vozes...</option></select>
+                </div>
+                <div class="accessibility-controls mt-1">
+                    <label for="ttsRateRange">Velocidade: <span id="ttsRateValue">1</span></label>
+                    <input type="range" id="ttsRateRange" min="0.5" max="2" step="0.1" value="1">
+                </div>
+                <div class="accessibility-controls mt-1">
+                    <label for="ttsPitchRange">Tom: <span id="ttsPitchValue">1</span></label>
+                    <input type="range" id="ttsPitchRange" min="0" max="2" step="0.1" value="1">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Ensure jsPDF object is available globally if using UMD version
+        const { jsPDF } = window.jspdf;
+
+        // --- Share Page Functionality ---
+        const sharePageBtn = document.getElementById('sharePageBtn');
+        const shareModal = document.getElementById('shareModal');
+        const shareModalCloseBtn = document.getElementById('shareModalCloseBtn');
+        const pageLinkInput = document.getElementById('pageLinkInput');
+        const copyLinkBtn = document.getElementById('copyLinkBtn');
+        const qrcodeCanvas = document.getElementById('qrcodeCanvas');
+        const copyFeedback = document.getElementById('copyFeedback');
+        let qrCodeInstance = null; 
+
+        function showShareModal() {
+            if (shareModal && pageLinkInput && qrcodeCanvas) {
+                const pageUrl = window.location.href;
+                pageLinkInput.value = pageUrl;
+                qrcodeCanvas.innerHTML = ''; // Clear previous QR code
+                if (typeof QRCode !== 'undefined') { 
+                     qrCodeInstance = new QRCode(qrcodeCanvas, {
+                        text: pageUrl, width: 180, height: 180,
+                        colorDark : "#000000", colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+                } else {
+                    qrcodeCanvas.innerHTML = '<p class="text-xs text-red-500">Erro ao carregar biblioteca QRCode.</p>';
+                }
+                shareModal.classList.add('active');
+            }
+        }
+        function hideShareModal() {
+            if (shareModal) {
+                shareModal.classList.remove('active');
+                if (copyFeedback) copyFeedback.textContent = ''; 
+            }
+        }
+        if (sharePageBtn) sharePageBtn.addEventListener('click', showShareModal);
+        if (shareModalCloseBtn) shareModalCloseBtn.addEventListener('click', hideShareModal);
+        if (shareModal) shareModal.addEventListener('click', (event) => {
+            if (event.target === shareModal) hideShareModal();
+        });
+        if (copyLinkBtn && pageLinkInput) {
+            copyLinkBtn.addEventListener('click', () => {
+                pageLinkInput.select();
+                pageLinkInput.setSelectionRange(0, 99999); // For mobile devices
+                try {
+                    document.execCommand('copy');
+                    if(copyFeedback) {
+                        copyFeedback.textContent = 'Link copiado!';
+                        copyFeedback.classList.remove('text-red-500');
+                        copyFeedback.classList.add('text-green-600');
+                    }
+                    setTimeout(() => { if(copyFeedback) copyFeedback.textContent = ''; }, 2000);
+                } catch (err) {
+                    if(copyFeedback) {
+                        copyFeedback.textContent = 'Erro ao copiar.';
+                        copyFeedback.classList.remove('text-green-600');
+                        copyFeedback.classList.add('text-red-500');
+                    }
+                }
+            });
+        }
+
+        // --- PDF Export Functionality ---
+        const exportPdfBtn = document.getElementById('exportPdfBtn');
+        const pdfExportFeedbackEl = document.getElementById('pdfExportFeedback');
+
+        function showPdfFeedback(message, isError = false) {
+            if (pdfExportFeedbackEl) {
+                pdfExportFeedbackEl.textContent = message;
+                pdfExportFeedbackEl.className = 'fixed bottom-5 left-1/2 transform -translate-x-1/2 px-5 py-2.5 rounded-lg shadow-lg text-white text-sm'; 
+                if (isError) {
+                    pdfExportFeedbackEl.classList.add('bg-red-500');
+                } else {
+                    pdfExportFeedbackEl.classList.add('bg-green-500');
+                }
+                pdfExportFeedbackEl.style.display = 'block';
+                setTimeout(() => {
+                    pdfExportFeedbackEl.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        if (exportPdfBtn) {
+            exportPdfBtn.addEventListener('click', async () => {
+                const originalContentElement = document.getElementById('content-container'); 
+                if (!originalContentElement) {
+                    showPdfFeedback("Elemento de conteúdo principal não encontrado.", true);
+                    return;
+                }
+                showPdfFeedback("A preparar PDF, por favor aguarde...");
+                exportPdfBtn.disabled = true;
+
+                // Clone the content to be exported to avoid altering the live page
+                const clonedContent = originalContentElement.cloneNode(true);
+                // Style the clone for PDF generation - position off-screen, set explicit width, background, text color
+                clonedContent.style.position = 'absolute';
+                clonedContent.style.left = '-9999px'; // Move off-screen
+                clonedContent.style.width = originalContentElement.offsetWidth + 'px'; // Maintain original width
+                clonedContent.style.backgroundColor = 'white'; // Ensure white background for PDF
+                clonedContent.style.padding = '20px'; // Add some padding for PDF layout
+                clonedContent.style.color = '#1f2937'; // Ensure dark text color for readability
+                
+                // Explicitly set text color for common elements within the clone to override page styles for PDF
+                clonedContent.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, strong, span, div:not([class*="bg-"])')
+                    .forEach(el => el.style.color = '#1f2937'); // Dark text for PDF
+
+                // Append clone to body to allow html2canvas to render it
+                document.body.appendChild(clonedContent);
+                try {
+                    const canvas = await html2canvas(clonedContent, { 
+                        scale: 2, // Higher scale for better quality
+                        useCORS: true, 
+                        logging: false,
+                        backgroundColor: null, // Use the element's background
+                        width: clonedContent.scrollWidth, // Use scrollWidth for full content width
+                        height: clonedContent.scrollHeight, // Use scrollHeight for full content height
+                        windowWidth: clonedContent.scrollWidth,
+                        windowHeight: clonedContent.scrollHeight
+                    });
+                    
+                    document.body.removeChild(clonedContent); // Remove clone after rendering
+
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF({
+                        orientation: 'p', // portrait
+                        unit: 'mm',
+                        format: 'a4'
+                    });
+
+                    const imgProps = pdf.getImageProperties(imgData);
+                    const pdfPageWidth = pdf.internal.pageSize.getWidth();
+                    const pdfPageHeight = pdf.internal.pageSize.getHeight();
+                    const margin = 10; // 10mm margin on each side
+                    
+                    // Calculate width and height of image in PDF, maintaining aspect ratio
+                    const usablePdfWidth = pdfPageWidth - (2 * margin);
+                    const usablePdfHeight = pdfPageHeight - (2 * margin);
+                    
+                    const imgRenderHeight = (imgProps.height * usablePdfWidth) / imgProps.width;
+                    let heightLeft = imgRenderHeight;
+                    let currentYPosition = margin; // Start image after top margin
+
+                    // Add first page/part of image
+                    pdf.addImage(imgData, 'PNG', margin, currentYPosition, usablePdfWidth, imgRenderHeight);
+                    heightLeft -= usablePdfHeight; // Subtract height of visible part on this page
+
+                    // Add new pages if content overflows
+                    while (heightLeft > 0) {
+                        currentYPosition -= usablePdfHeight; // Shift the Y position of the image upwards for the new page
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', margin, currentYPosition, usablePdfWidth, imgRenderHeight);
+                        heightLeft -= usablePdfHeight;
+                    }
+                    
+                    pdf.save('metodo_moscow.pdf'); // Filename for the PDF
+                    showPdfFeedback("PDF gerado com sucesso!");
+
+                } catch (error) {
+                    console.error("Erro ao gerar PDF:", error);
+                    showPdfFeedback("Erro ao gerar PDF. Verifique a consola.", true);
+                    // Ensure clone is removed in case of error
+                    if (document.body.contains(clonedContent)) {
+                        document.body.removeChild(clonedContent);
+                    }
+                } finally {
+                    exportPdfBtn.disabled = false;
+                }
+            });
+        }
+        
+        // --- Accessibility Features ---
+        const accessibilityBtn = document.getElementById('accessibilityBtn');
+        const accessibilityPanel = document.getElementById('accessibilityPanel');
+        const mainContentContainer = document.getElementById('content-container'); 
+
+        const increaseFontBtn = document.getElementById('increaseFontBtn');
+        const decreaseFontBtn = document.getElementById('decreaseFontBtn');
+        const resetFontBtn = document.getElementById('resetFontBtn');
+        
+        const defaultContrastBtn = document.getElementById('defaultContrastBtn');
+        const bwContrastBtn = document.getElementById('bwContrastBtn');
+        const ybContrastBtn = document.getElementById('ybContrastBtn');
+
+        const playTTSBtn = document.getElementById('playTTSBtn');
+        const pauseTTSBtn = document.getElementById('pauseTTSBtn');
+        const stopTTSBtn = document.getElementById('stopTTSBtn');
+        const ttsVoiceSelect = document.getElementById('ttsVoiceSelect');
+        const ttsRateRange = document.getElementById('ttsRateRange');
+        const ttsRateValue = document.getElementById('ttsRateValue');
+        const ttsPitchRange = document.getElementById('ttsPitchRange');
+        const ttsPitchValue = document.getElementById('ttsPitchValue');
+
+        let currentFontSizeMultiplier = 1; 
+        const FONT_SIZE_STEP_ACC = 0.1; 
+        const MIN_FONT_MULTIPLIER_ACC = 0.7;
+        const MAX_FONT_MULTIPLIER_ACC = 1.8;
+        let originalFontSizesMap = new Map(); 
+
+        if (accessibilityBtn && accessibilityPanel) {
+            accessibilityBtn.addEventListener('click', () => {
+                accessibilityPanel.classList.toggle('active');
+                accessibilityPanel.classList.toggle('hidden'); // For initial state if hidden by default
+            });
+        }
+        
+        // Function to store original font sizes of relevant elements
+        function storeOriginalFontSizesAcc() {
+            if (originalFontSizesMap.size === 0 && mainContentContainer) {
+                 // Select common text-bearing elements for font adjustment
+                 mainContentContainer.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, a, span:not([class*="icon"])').forEach((el, index) => {
+                    const computedStyle = window.getComputedStyle(el);
+                    // Use a data attribute to uniquely identify elements for consistent updates
+                    const elId = el.dataset.accId || `acc-el-${index}`;
+                    el.dataset.accId = elId;
+                    originalFontSizesMap.set(elId, parseFloat(computedStyle.fontSize));
+                });
+            }
+        }
+        
+        // Function to update font sizes based on a multiplier
+        function updateFontSizesAcc(multiplier) {
+            if (!mainContentContainer) return;
+            storeOriginalFontSizesAcc(); // Ensure original sizes are stored
+
+            currentFontSizeMultiplier = Math.max(MIN_FONT_MULTIPLIER_ACC, Math.min(multiplier, MAX_FONT_MULTIPLIER_ACC));
+
+            mainContentContainer.querySelectorAll('[data-acc-id]').forEach(el => {
+                const originalSize = originalFontSizesMap.get(el.dataset.accId);
+                if (originalSize) {
+                    el.style.fontSize = (originalSize * currentFontSizeMultiplier) + 'px';
+                }
+            });
+            
+            // Adjust line height for better readability, especially for paragraphs and list items
+            mainContentContainer.querySelectorAll('p, li').forEach(el => {
+                 const currentElementFontSize = parseFloat(el.style.fontSize || window.getComputedStyle(el).fontSize);
+                 // Calculate a dynamic line height, ensuring it's not too small
+                 let newLineHeight = originalFontSizesMap.get(el.dataset.accId) * 1.7; // Default base line height
+                 if (currentFontSizeMultiplier !== 1) { // If font size is adjusted
+                    // Slightly reduce the impact of multiplier on line height to prevent excessive spacing
+                    newLineHeight = (originalFontSizesMap.get(el.dataset.accId) * 1.7 * currentFontSizeMultiplier * 0.9); 
+                 }
+                 // Ensure line height is at least 1.5 times the original font size or the calculated new line height
+                 el.style.lineHeight = Math.max(originalFontSizesMap.get(el.dataset.accId) * 1.5, newLineHeight) + 'px';
+            });
+        }
+
+        // Event listeners for font size controls
+        if (increaseFontBtn) {
+            increaseFontBtn.addEventListener('click', () => {
+                updateFontSizesAcc(currentFontSizeMultiplier + FONT_SIZE_STEP_ACC);
+            });
+        }
+        if (decreaseFontBtn) {
+            decreaseFontBtn.addEventListener('click', () => {
+                updateFontSizesAcc(currentFontSizeMultiplier - FONT_SIZE_STEP_ACC);
+            });
+        }
+        if (resetFontBtn) {
+            resetFontBtn.addEventListener('click', () => {
+                currentFontSizeMultiplier = 1; // Reset multiplier
+                // Restore original font sizes and line heights
+                mainContentContainer.querySelectorAll('[data-acc-id]').forEach(el => {
+                    const originalSize = originalFontSizesMap.get(el.dataset.accId);
+                    if (originalSize) {
+                        el.style.fontSize = originalSize + 'px';
+                        if (el.tagName === 'P' || el.tagName === 'LI') {
+                           el.style.lineHeight = (originalSize * 1.7) + 'px'; // Restore base line height
+                        }
+                    } else {
+                         // Fallback if original size wasn't stored for some reason
+                         el.style.fontSize = ''; 
+                         if (el.tagName === 'P' || el.tagName === 'LI') {
+                            el.style.lineHeight = '';
+                         }
+                    }
+                });
+            });
+        }
+
+        // Function to apply contrast themes
+        function applyContrast(themeClass) {
+            document.body.classList.remove('contrast-default', 'contrast-bw', 'contrast-yb');
+            if (themeClass !== 'contrast-default') { // 'contrast-default' means no extra class
+                document.body.classList.add(themeClass);
+            }
+        }
+        if (defaultContrastBtn) defaultContrastBtn.addEventListener('click', () => applyContrast('contrast-default'));
+        if (bwContrastBtn) bwContrastBtn.addEventListener('click', () => applyContrast('contrast-bw'));
+        if (ybContrastBtn) ybContrastBtn.addEventListener('click', () => applyContrast('contrast-yb'));
+
+        // --- Text-to-Speech (TTS) Functionality ---
+        let speechSynth = window.speechSynthesis;
+        let currentUtterance = null; // Stores the current speech utterance
+        let elementsToRead = [];    // Array of text segments to be read
+        let currentElementIndex = 0; // Index of the current segment being read
+        let isReadingPaused = false; // Flag to track if reading is paused
+        let availableVoices = []; // Stores available voices
+
+        // Populate voice list for TTS
+        function populateVoiceList() {
+            if(typeof speechSynthesis === 'undefined' || !ttsVoiceSelect) {
+                // TTS not supported or select element not found
+                if(ttsVoiceSelect) ttsVoiceSelect.disabled = true;
+                return;
+            }
+            availableVoices = speechSynth.getVoices();
+            ttsVoiceSelect.innerHTML = ''; // Clear existing options
+
+            if (availableVoices.length === 0) {
+                 // Handle case where no voices are initially available (can happen on some browsers)
+                 ttsVoiceSelect.innerHTML = '<option value="">Nenhuma voz disponível</option>';
+                 ttsVoiceSelect.disabled = true;
+                 return;
+            }
+            
+            let hasPortugueseVoice = false;
+            // Prioritize Portuguese voices
+            availableVoices.forEach(voice => {
+                if (voice.lang.startsWith('pt')) { // pt-BR, pt-PT
+                    const option = document.createElement('option');
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.setAttribute('data-lang', voice.lang);
+                    option.setAttribute('data-name', voice.name);
+                    ttsVoiceSelect.appendChild(option);
+                    hasPortugueseVoice = true;
+                }
+            });
+
+            // If no Portuguese voices, list all available voices
+            if (!hasPortugueseVoice) {
+                 availableVoices.forEach(voice => {
+                    const option = document.createElement('option');
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.setAttribute('data-lang', voice.lang);
+                    option.setAttribute('data-name', voice.name);
+                    ttsVoiceSelect.appendChild(option);
+                });
+            }
+            ttsVoiceSelect.disabled = false;
+        }
+
+        // Initial population and update on voices changed
+        populateVoiceList();
+        if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoiceList;
+        }
+
+        // Prepares text content from the main container for reading
+        function prepareTextToRead() {
+            if (!mainContentContainer) return '';
+            let textSegments = [];
+            // Select sections to read, can be customized
+            mainContentContainer.querySelectorAll('section.mb-10, section.p-6.bg-white').forEach(section => {
+                const titleElement = section.querySelector('h1, h2'); // Main titles of sections
+                if (titleElement && titleElement.textContent.trim().length > 0) {
+                    textSegments.push(titleElement.textContent.trim() + ".");
+                }
+                // Read paragraphs, subheadings, and list items within each section
+                section.querySelectorAll('p, h3, h4, li').forEach(el => {
+                    // Skip specific interactive/non-content blocks if necessary (example for future use)
+                    // if (el.closest('.some-excluded-class')) return;
+
+                    if (el.tagName.toLowerCase() === 'li' && el.closest('ul.list-disc')) { 
+                         const link = el.querySelector('a');
+                         if (link && link.textContent.trim().length > 0) {
+                            textSegments.push(link.textContent.trim() + ", link."); // Announce links
+                         } else if (el.textContent.trim().length > 0) {
+                            textSegments.push(el.textContent.trim() + ".");
+                         }
+                    } else if (el.textContent.trim().length > 0) {
+                        // Clean up text and add punctuation for better flow
+                        textSegments.push(el.textContent.trim().replace(/\s+/g, ' ') + ".");
+                    }
+                });
+            });
+            return textSegments.join(' \n '); // Join segments with a newline for potential pause
+        }
+        
+        // Speaks the next text segment in the queue
+        function speakNextSegment() {
+            if (currentElementIndex >= elementsToRead.length || !speechSynth) {
+                // Finished reading or TTS not available
+                playTTSBtn.disabled = false;
+                pauseTTSBtn.disabled = true;
+                stopTTSBtn.disabled = true;
+                currentElementIndex = 0;
+                currentUtterance = null;
+                elementsToRead = []; 
+                return;
+            }
+
+            // Do not proceed if speech is paused by user, or if already speaking and not paused
+            if (speechSynth.paused && isReadingPaused) { return; }
+            if (speechSynth.speaking && !isReadingPaused) { return; }
+
+
+            currentUtterance = new SpeechSynthesisUtterance(elementsToRead[currentElementIndex]);
+            currentUtterance.lang = 'pt-BR'; // Default to Brazilian Portuguese
+            currentUtterance.rate = parseFloat(ttsRateRange.value) || 1;
+            currentUtterance.pitch = parseFloat(ttsPitchRange.value) || 1;
+
+            // Set selected voice
+            const selectedVoiceName = ttsVoiceSelect.selectedOptions[0]?.getAttribute('data-name');
+            if (selectedVoiceName) {
+                const voice = availableVoices.find(v => v.name === selectedVoiceName);
+                if (voice) currentUtterance.voice = voice;
+            } else { // Fallback to first available Portuguese voice if none selected
+                 const portugueseVoice = availableVoices.find(v => v.lang.startsWith('pt-BR') || v.lang.startsWith('pt-PT'));
+                 if(portugueseVoice) currentUtterance.voice = portugueseVoice;
+            }
+
+
+            currentUtterance.onend = () => {
+                if (elementsToRead.length === 0) return; // Stopped before finishing
+
+                if (currentElementIndex < elementsToRead.length - 1) {
+                    currentElementIndex++;
+                    speakNextSegment(); // Speak next segment
+                } else {
+                    // Reached the end of all segments
+                    playTTSBtn.disabled = false;
+                    pauseTTSBtn.disabled = true;
+                    stopTTSBtn.disabled = true;
+                    currentElementIndex = 0; 
+                    currentUtterance = null;
+                    elementsToRead = []; 
+                }
+            };
+            currentUtterance.onerror = (event) => {
+                console.error('Erro na síntese de voz:', event.error);
+                // Reset TTS state on error
+                isReadingPaused = false;
+                currentElementIndex = 0;
+                elementsToRead = []; 
+                currentUtterance = null;
+                if (speechSynth) { speechSynth.cancel(); }
+                playTTSBtn.disabled = false;
+                pauseTTSBtn.disabled = true;
+                stopTTSBtn.disabled = true;
+            };
+
+            speechSynth.speak(currentUtterance);
+            // Update button states
+            playTTSBtn.disabled = true;
+            pauseTTSBtn.disabled = false;
+            stopTTSBtn.disabled = false;
+            isReadingPaused = false; // Reset pause state when starting new speech
+        }
+
+        // Event listener for Play TTS button
+        if (playTTSBtn) {
+            playTTSBtn.addEventListener('click', () => {
+                if (!speechSynth) {
+                    alert('A síntese de voz não é suportada neste navegador.');
+                    return;
+                }
+
+                if (speechSynth.paused && currentUtterance && isReadingPaused) {
+                    // If paused, resume reading
+                    speechSynth.resume();
+                    isReadingPaused = false;
+                    playTTSBtn.disabled = true;
+                    pauseTTSBtn.disabled = false;
+                    stopTTSBtn.disabled = false; // Keep stop enabled
+                } else {
+                    // Start new reading or restart if stopped
+                    speechSynth.cancel(); // Cancel any ongoing speech
+                    currentUtterance = null; // Clear current utterance
+                    isReadingPaused = false; // Reset pause state
+                    elementsToRead = []; // Clear previous text segments
+                    currentElementIndex = 0; // Reset index
+
+                    const fullText = prepareTextToRead();
+                    // Split text into manageable segments (e.g., by sentences or paragraphs)
+                    // Here, splitting by ". " which implies sentences.
+                    elementsToRead = fullText.split('. ') 
+                                         .map(s => s.trim()) // Trim whitespace
+                                         .filter(segment => segment.length > 0) // Remove empty segments
+                                         .map(s => s.endsWith('.') ? s : s + '.'); // Ensure segments end with a period
+
+                    if (elementsToRead.length > 0) {
+                        speakNextSegment(); // Start speaking the first segment
+                    } else {
+                        alert("Não há conteúdo textual para ler na página.");
+                        playTTSBtn.disabled = false; // Re-enable play if nothing to read
+                        pauseTTSBtn.disabled = true;
+                        stopTTSBtn.disabled = true;
+                    }
+                }
+            });
+        }
+
+        // Event listener for Pause TTS button
+        if (pauseTTSBtn) {
+            pauseTTSBtn.addEventListener('click', () => {
+                if (speechSynth && speechSynth.speaking && !speechSynth.paused) {
+                    speechSynth.pause();
+                    isReadingPaused = true;
+                    playTTSBtn.disabled = false; // Enable play button to allow resume
+                    pauseTTSBtn.disabled = true; // Disable pause button as it's now paused
+                }
+            });
+            pauseTTSBtn.disabled = true; // Initially disabled
+        }
+
+        // Event listener for Stop TTS button
+        if (stopTTSBtn) {
+            stopTTSBtn.addEventListener('click', () => {
+                isReadingPaused = false;
+                currentElementIndex = 0; 
+                elementsToRead = [];    // Clear the queue
+                currentUtterance = null; // Clear current utterance
+                if (speechSynth) { speechSynth.cancel(); } // Stop any speech
+                // Reset button states
+                playTTSBtn.disabled = false;
+                pauseTTSBtn.disabled = true;
+                stopTTSBtn.disabled = true;
+            });
+            stopTTSBtn.disabled = true; // Initially disabled
+        }
+
+        // Event listeners for TTS rate and pitch controls
+        if (ttsRateRange && ttsRateValue) {
+            ttsRateRange.addEventListener('input', () => {
+                ttsRateValue.textContent = ttsRateRange.value;
+                // Update rate if currently speaking or paused (will apply on resume/next segment)
+                if (currentUtterance && speechSynth.speaking && !speechSynth.paused) { 
+                    // To change rate mid-speech, might need to cancel and respeak current segment
+                    // For simplicity, this example might only apply to the next utterance or on resume.
+                    // More robust solution: speechSynth.cancel(); currentUtterance.rate = parseFloat(ttsRateRange.value); speechSynth.speak(currentUtterance); 
+                    // However, this restarts the current segment.
+                    // A simpler approach for live update without restart is often browser-dependent or not fully supported.
+                    // The current implementation will apply it when a new utterance object is created or on resume.
+                    currentUtterance.rate = parseFloat(ttsRateRange.value); // This might not take effect immediately on some browsers for ongoing speech
+                } else if (currentUtterance && speechSynth.paused && isReadingPaused) { 
+                     // If paused, update the rate for when it resumes
+                     currentUtterance.rate = parseFloat(ttsRateRange.value);
+                }
+            });
+        }
+        if (ttsPitchRange && ttsPitchValue) {
+            ttsPitchRange.addEventListener('input', () => {
+                ttsPitchValue.textContent = ttsPitchRange.value;
+                 // Similar logic for pitch as for rate
+                 if (currentUtterance && speechSynth.speaking && !speechSynth.paused) {
+                    currentUtterance.pitch = parseFloat(ttsPitchRange.value);
+                } else if (currentUtterance && speechSynth.paused && isReadingPaused) {
+                     currentUtterance.pitch = parseFloat(ttsPitchRange.value);
+                }
+            });
+        }
+
+        // Store original font sizes on page load
+        window.addEventListener('load', storeOriginalFontSizesAcc);
+
+    </script>
+
+</body>
+</html>

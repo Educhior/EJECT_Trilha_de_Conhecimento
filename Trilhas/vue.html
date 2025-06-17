@@ -6,8 +6,8 @@
         <title>EJECT | Vue JS</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <!-- Se for visualizar localmente, remova: "/EJECT_Trilha_de_Conhecimento/" dos linkamento -->
-        <link rel="stylesheet" href="/css/trilhas_styles.css">
-        <link rel="icon" type="image/x-icon" href="/img/logo.svg">
+        <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/trilhas_styles.css">
+        <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/logo.svg">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <body>
     <!-- Vlibra -->
@@ -22,31 +22,24 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
-    <header class="nav">
-        <nav class="container d-flex justify-content-between align-items-center">
-            <h1>Trilhas de Conhecimentos</h1>
-            <div class="Trilhas-contact-container">
+    <header>
+        <nav class="container">
+            <a href="index">
+                <h1 href = "/EJECT_Trilha_de_Conhecimento/index">Hub de Conhecimentos</h1>
+            </a>
+            <div class="ds-contact-container">
                 <a href="https://www.ejectufrn.com.br/">
-                    <img src="/img/logo.svg" alt="EJECT Logo" style="height: 50px;">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
                 </a>
             </div>
         </nav>
     </header>
     <main>
         <section>
-            <a class="btn btn-primary" href="#">Voltar</a>
-        </section>
+            <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
+        </section> <br>
 
-        <section>
-            <ul>
-                <li>
-                    <h4>Barra de Progresso Interativa <span class="beta-tag" id="open-modal">BETA</span> </h4> <br>
-                    <div class="progress-bar-container">
-                        <div id="progress-bar" class="progress-bar">0%</div>
-                    </div>
-                </li>
-            </ul>
-        </section>
+        <input type="hidden" id="trilha-nome" value="Vue" />
 
         <section>
             <h2>Vue JS - Desenvolva uma aplicação do zero (Alura)</h2>
@@ -58,19 +51,13 @@
                     <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                         <a href="https://cursos.alura.com.br/course/vue-3-componentes-diretivas-reatividade-framework" target="_blank" style="color: rgb(0, 61, 115);">Vue 3: entendendo componentes, diretivas e reatividade no framework</a>
                         <div class="section-header">
-                            <label class="completion-label">
-                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                            </label> 
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                         <a href="https://cursos.alura.com.br/course/vue3-comecando-framework" target="_blank" style="color: rgb(0, 61, 115);">Vue3: explorando o framework</a>
-                        <div class="section-header">
-                            <label class="completion-label">
-                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                            </label> 
+                        <div class="section-header"> 
                         </div>
                     </div>
                 </li>
@@ -78,19 +65,13 @@
                     <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                         <a href="https://cursos.alura.com.br/course/vue3-avancando-framework" target="_blank" style="color: rgb(0, 61, 115);">Vue3: avançando no framework</a>
                         <div class="section-header">
-                            <label class="completion-label">
-                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                            </label> 
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                         <a href="https://cursos.alura.com.br/course/vue3-composition-api-vuex" target="_blank" style="color: rgb(0, 61, 115);">Vue3: composition API e Vuex</a>
-                        <div class="section-header">
-                            <label class="completion-label">
-                                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                            </label> 
+                        <div class="section-header"> 
                         </div>
                     </div>
                 </li>
@@ -102,17 +83,11 @@
             <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                 <a href="https://drive.google.com/file/d/1KOok543hRX6dA3lNm8qT8n2ugduIz--_/view?usp=sharing" target="_blank" style="color: rgb(0, 61, 115);">Acesse o curso</a>
                 <div class="section-header">
-                    <label class="completion-label">
-                        <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                    </label> 
                 </div>
             </div>
             <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
                 <a href="https://docs.google.com/document/d/1rabPv7ZjcAaUEsABz5mJD5peQu_p7A1F/edit?usp=sharing&ouid=107375925101647504601&rtpof=true&sd=true" target="_blank" style="color: rgb(0, 61, 115);">Vue Js (Materiais de Suporte)</a>
                 <div class="section-header">
-                    <label class="completion-label">
-                        <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                    </label> 
                 </div>
             </div>
         </section>
@@ -123,10 +98,9 @@
         <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka6PYS2ZTMj7Do35tWl53KIkazN1l5Hb9Kjk7aaJ5RrbZZgZ9KmbxKt0qKZ1dQF" crossorigin="anonymous"></script>
-    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/barra_progresso.js"></script>
-    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
-    <script type="module" src="/script/barra_progresso.js"></script>
-    <script type="module" src="/script/index.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>    
+    
 </body>
 </html>

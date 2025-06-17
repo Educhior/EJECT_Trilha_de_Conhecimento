@@ -23,41 +23,28 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
-<header>
-    <nav class="container nav-bar">
-        <div class="ds-contact-container">
-            <a href="https://www.ejectufrn.com.br/">
-                <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
+    <header>
+        <nav class="container">
+            <a href="index">
+                <h1 href = "/EJECT_Trilha_de_Conhecimento/index">Hub de Conhecimentos</h1>
             </a>
-        </div>
-        <div class="login-icon" id="login-container">
-            <a href="/EJECT_Trilha_de_Conhecimento/login" class="login-button" id="login-button">
-                <img src="/EJECT_Trilha_de_Conhecimento/img/icon/user-solid.svg" alt="Login Icon">
-                Perfil
-            </a>
-        </div>
-
-    </nav>
-</header>
+            <div class="ds-contact-container">
+                <a href="https://www.ejectufrn.com.br/">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
+                </a>
+            </div>
+        </nav>
+    </header>
 
     <!-- Conteúdo -->
 
     <main>
         <section>
-            <a class="btn_btn-primary" href = "/EJECT_Trilha_de_Conhecimento">Voltar</a>
-        </section>
+            <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
+        </section> <br>
 
-        <input type="hidden" id="trilha-nome" value="html-e-css" />
+        <input type="hidden" id="trilha-nome" value="HTML e CSS" />
 
-        <section>
-            <ul>
-                <li>
-                    <h4>Barra de Progresso Interativa <span class="beta-tag" id="open-modal">BETA</span> </h4> <br>
-                    <div class="progress-bar-container">
-                        <div id="progress-bar" class="progress-bar">0%</div>
-                    </div>
-                </li>
-            </ul>
 
         <!-- Conteúdo do HTML e CSS -->
         <section class="mb-5">
@@ -85,9 +72,6 @@
         <section>
         <div class="section-header">
             <h2>Módulo 1 - HTML 5 e CSS 3</h2> <br>
-            <label class="completion-label">
-                <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-            </label> 
         </div>
 
             <ul>
@@ -127,9 +111,6 @@
 
             <div class="section-header">
                 <h2>Módulo 2 - Responsividade e Flexbox</h2> <br>
-                <label class="completion-label">
-                    <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                </label> 
             </div>
     
             <ul>
@@ -143,9 +124,6 @@
 
                 <div class="section-header">
                     <h2>Exercício semanal: </h2> <br>
-                    <label class="completion-label">
-                        <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                    </label> 
                 </div>
                 <a href="https://www.origamid.com/curso/html-e-css-para-iniciantes/0606-responsivo-exercicio/">[LINK] CSS 3 - Responsividade Seção 6</a> <br> <br>
             </ul>
@@ -158,10 +136,5 @@
         <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
     </footer>
 
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>    
-    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/barra_progresso.js"></script>
-    <script type="module" src="/EJECT_Trilha_de_Conhecimento/script/index.js"></script>
 </body>
 </html>

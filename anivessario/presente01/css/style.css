@@ -1,0 +1,832 @@
+@font-face {font-family: "NexaLight"; src: url(fonte/NexaLight.otf) format("truetype"); }
+@font-face {font-family: "NexaBold"; src: url(fonte/NexaBold.otf) format("truetype"); }
+@font-face {
+font-family:Agency FB;
+src:url('fonts/agencyb.eot');
+src:url('fonts/agencyb.eot?#iefix') format('embedded-opentype'),
+url('fonts/agencyb.woff') format('woff'),
+url('fonts/agencyb.ttf') format('truetype'),
+url('fonts/agencyb.svg#Oxygen-Regular') format('svg');
+font-weight:normal;
+font-style:normal;
+}
+@font-face {
+font-family:AgencyLight; 
+src:url('fonts/agencyr.eot');
+src:url('fonts/agencyr.eot?#iefix') format('embedded-opentype'),
+url('fonts/agencyr.woff') format('woff'),
+url('fonts/agencyr.ttf') format('truetype'),
+url('fonts/agencyr.svg#Oxygen-Regular') format('svg');
+font-weight:normal;
+font-style:normal;}
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        background: url(imagens/Fundo.png);
+        background-size: 100%;
+        background-attachment: fixed;
+        font-family: "Arial" "Sans Serif";
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    a {
+        color:#0a4967;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    #corpo {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #container {
+        position:relative;
+        width:95%;
+        text-align: justify;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    /* -- Inicio barra superior e inferior -- */
+    .heade, .footer {
+        margin-left: auto;
+        margin-right: auto;
+        width:90%;
+        position:relative;
+        margin-right: auto;
+        margin-left: auto;
+        padding-left:5%;
+    }
+    .heade {
+        height:40px;
+    }
+    .footer {
+        margin-top:100px;
+        height: 105px;
+        font-family: Arial "Sans Serif";
+    }
+    .barra-heade {
+        box-shadow: 0px 0px 10px #000;
+        width:  90%;
+        background: #073347 repeat;
+        position:relative;
+        float:left;
+        color:#fff;
+        z-index:9;
+        height: 100%;
+        text-align: right;
+    }
+    .barra-heade a {
+        color: #fff;
+    }
+    .barra-footer {
+        box-shadow: 0px 0px 10px #000;
+        width:  90%;
+        background: #073347 repeat;
+        position:relative;
+        float:left;
+        color:#fff;
+        z-index:9;
+        height: 100%;
+    }
+    .barra-left-heade {
+        box-shadow: -3px 0px 5px #666;
+        width:2%;
+        border-bottom-left-radius: 100%;
+        background:#073347 repeat;
+        height: 100%;
+        position:relative;
+        float:left;
+        z-index:99;
+    }
+    .barra-right-heade {
+        box-shadow: 3px 0px 5px #666;				
+        width:2%;
+        border-bottom-right-radius: 100%;
+        background:#073347 repeat;
+        height: 100%;
+        position:relative;
+        float:left;
+        z-index:99;
+    }
+    .barra-footer {
+        text-align:center;
+    }
+    .barra-footer p{
+        margin-top:10px;
+        text-shadow: 4px 3px 5px #000;
+        line-height: 18px;
+    }
+    .p-menor-footer{
+        font-size: 14px;
+        text-shadow: 4px 3px 5px #000;
+        line-height: 10px;
+    }
+    .barra-left-footer {
+        box-shadow: -3px 0px 5px #666;
+        width:2%;
+        border-top-left-radius: 100%;
+        background:#073347 repeat;
+        height: 100%;
+        position:relative;
+        float:left;
+        z-index:99;
+    }
+    .barra-right-footer {
+        box-shadow: 3px 0px 5px #666;				
+        width:2%;
+        border-top-right-radius: 100%;
+        background:#073347 repeat;
+        height: 100%;
+        position:relative;
+        float:left;
+        z-index:99;
+    }
+    /* -- Fim barra superior e inferior -- */
+    /* -- Inicio Campo de Login -- */
+    .login {
+        margin-top:5px;
+        float:right !important;
+        position: relative;
+        width: 50%;
+        font-size: 11px;
+        font-family: Calibri;
+        margin-right: 6%;
+    }
+    .login-botao {
+        margin-left: 10px;
+        height: 20px;
+        background: #e5e5e5;
+        border: none;
+        color:#6f6f6f;
+        font-size: 15px;
+        box-shadow: 0px 2px 5px #3a3a3a;
+        width: 10%;
+    }
+    .login-imput {
+        margin-left: 10px;
+        height:20px;
+        background-color:#f3f3f3;
+        border:none;
+        box-shadow: inset 0px 3px 5px #838383;
+        width: 30%;
+    }
+    /* -- Fim Campo de Login -- */
+    /* -- Inicio CabeÃ§alho (header) -- */
+    #header {
+        height:200px;
+        padding: 0;
+        position: relative;
+        width: 70%;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    .logo {
+        width:35%;
+        position: relative;
+        float: left;
+        height: 100%;
+    }
+    .logo img {
+        width:100%;
+        height: 100%;
+        position: relative;
+    }
+    /* -- inicio Lateral da header onde se encontrar a busca e rede sociais -- */
+    .lateral-header {
+        float: right;
+        position: relative;
+        color:#2e4b57;
+        width:50%;
+        height: auto;
+        font-weight: bold;
+    }
+    .lateral-header-twitter, .lateral-header-facebook, .lateral-header-youtube {
+        width:15%;
+        height:auto;
+        float: left;
+        position: relative;
+        margin-top: 25px;		
+    }
+    .lateral-header-twitter img, .lateral-header-facebook img, .lateral-header-youtube img {
+        width:100%;
+        height:auto;
+        position: relative;
+        -webkit-filter: grayscale(80%);
+        -moz-filter: grayscale(80%);
+        transition:all 0.50s; -moz-transition:all 0.50s;
+           -o-transition:all 0.50s; -webkit-transition:all 0.50s;
+    }
+    .lateral-header-twitter img:hover, .lateral-header-facebook img:hover, .lateral-header-youtube img:hover {
+        filter: none;
+        -webkit-filter: grayscale(0%);
+        transition:all 0.50s; -moz-transition:all 0.50s;
+        -o-transition:all 0.50s; -webkit-transition:all 0.50s;
+    }
+    .lateral-header-twitter {
+        margin-left: 20%;
+    }
+    .lateral-header-facebook, .lateral-header-youtube {
+        margin-left:5%;
+    }
+    .lateral-header p {
+        padding-top:2%;
+        padding-left: 2%;
+        position: relative;
+        height: auto;
+        font-family: Calibri;
+        font-size: 18px;
+    }
+    /* -- fim Lateral da header onde se encontrar a busca e rede sociais -- */
+    /* -- inicio busca -- */
+    #divBusca{
+        width:240px;
+        position: relative;
+        float:right;
+        margin-top: 15px;
+    }
+     #divBusca img {
+         width: 24px;
+         height: auto;
+     }
+    #txtBusca{
+        height: 24px;
+        float:right;
+        background-color:#f3f3f3;
+        padding-left:5px;
+        border:none;
+        width:85%;
+        position: relative;
+        box-shadow: inset 0px 3px 5px #838383;
+    }
+    /* -- fim busca -- */
+    /* -- Fim Lateral da header onde se encontrar a busca e rede sociais -- */
+    /* -- Fim CabeÃ§alho (header) -- */
+    /* -- Inicio Menu em lista principal --*/
+    /*#menu {
+        margin-left: auto;
+        margin-right: auto;
+        width: 68%;
+        position: relative;
+        }*/
+                #box-toggle {
+        display: none;
+    }
+    nav {
+        clear:both;
+        background: #073347;
+        font-weight: normal;
+        font-size: 0;
+        padding: 0;
+        font-family: AgencyLight !important;
+        margin-bottom: 80px !important;
+    }
+    nav ul {
+        width: 72%;
+        padding:0;
+        margin:0;
+        list-style: none;
+        position: relative;
+        font-family: "Agency FB";
+        background: #073347 !important;
+        margin-right: auto;
+        margin-left: auto;
+        box-shadow: 2px 4px 5px #676767;
+        padding-left: 2%;
+    }
+    nav ul li {
+        font-family: "Agency FB";
+        font-size: 20px;
+        display: block;
+        float: left;
+        position: relative;
+        transition: all 0.9s;
+        -moz-transition: all 0.9s;
+        width: 14%;
+        background: #073347 !important;
+        text-align: center;
+    }
+    nav ul li a {
+        color: #FFF;
+        text-decoration: none;
+           padding:5px;
+        display:block;
+        margin:0;
+        float: left;
+        width:100%;
+        padding: 17px 0px 17px 0px;
+        background: #073347 !important;
+    }
+    nav ul li a:hover {
+        text-decoration: none;
+        box-shadow: inset 0px 5px 10px #000 !important;
+        background: #041d2a;
+        transition: all 0.9s;
+        -moz-transition: all 0.9s;
+    }
+    nav ul li ul {
+           display: none;
+        float: none;
+        left: 0;
+        position: absolute;
+        top: 100%;
+    }
+    nav ul li:hover > ul {
+        display: block;
+           z-index: 999999;
+        width: 100%;
+        box-shadow: 2px 4px 5px #676767;
+    }
+    nav ul li ul li,
+    nav ul li ul li a {
+        float: none;
+    }
+    nav ul li ul li {
+        text-align: center;
+        width: 100% !important;
+        position: relative;
+    }
+    nav ul li ul li a {
+        margin-left: -1%;
+        padding: 4px 0px 4px 0px;
+        background: rgba(4, 29, 42, 0.5) !important;
+
+    }
+    nav ul li ul li a:hover {
+        box-shadow: none;
+        float: none;
+        color: #fff;
+        box-shadow: inset 0px 5px 10px #000 !important;
+    }
+    nav ul li ul li {
+        margin: 0;
+    }
+    .actives {
+        box-shadow: inset 0px 5px 10px #000;
+        background: #041d2a;
+    }
+    /* -- Fim Menu em lista principal --*/
+    /* -- Incio Area para slide 
+
+        -- O RESTANTE DO CÃ“DIGO DO SLIDE ESTA NO ARQUIVO orbit-1.2.3.css !
+
+    --*/
+    #banner {
+        box-shadow: 0px 3px 5px #000;
+        margin-top:50px !important;
+        width: 840px;
+        height: 320px;
+        margin-left: 15px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+    /* -- Fim Area para slide --*/
+    /* -- Inicio conteudo das paginas --*/
+                hr {
+        margin-top:50px;
+        margin-bottom:25px;
+    }
+    #conteudo {
+        margin-top:30px;
+        width: 70%;				
+        font-family:Arial;
+        margin-left: auto;
+        margin-right: auto;
+    }
+        /* Inicio css conteudo */
+    .e {
+        padding:1%;
+        width:18%;
+        height: auto;
+        position: relative;
+        float: left;
+    }
+    .e img {
+        -webkit-filter: drop-shadow(2px 2px 6px #000);
+        -moz-filter: drop-shadow(2px 2px 6px #000);
+        width:100%;
+        height: auto;
+        position: relative;
+    }
+    .sobre-eject {
+        width: 79%;
+        position: relative;
+        float: right;
+        font-family: Arial "Sans Serif";
+        padding-top:2%;
+        color: #073348;
+    }
+    .titulo {
+        background: #073348;
+        border-radius: 5px;
+        box-shadow: 1px 2px 5px #000;
+        padding: 5px 15px 5px 15px;
+        position: relative;
+        color:#fff;
+        float: left;
+        font-family: Arial "Sans Serif";
+        font-size: 14pt;
+        font-weight: normal !important;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 12px;
+    }
+    .novidades {
+        margin-top: 0px;
+        float: left;
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding:1%;
+    }
+    .foto-novidades {
+        margin: 5px;
+        width:auto;
+        height: 150px;
+        box-shadow: 2px 4px 5px #666;
+    }
+    .date {
+        box-shadow: 2px 4px 5px #666;
+        margin: 5px;
+        background: #cecece;
+        width: 40px;
+        height: 80px;
+        position: relative;
+        float: left;
+        color:#073348;
+        text-align: center;
+        padding-top: 15px;
+        font-family: Arial "Sans Serif"
+    }
+    .date spam {
+        font-size: 10px;
+    }
+    .post-novidades {
+        padding: 10px;
+        position: relative;
+        float: left;
+        width: 280px;
+        line-height: 15px;
+        font-size:12px;
+        color:#073348;
+        height: auto;
+    }
+    .paginacao {
+        text-align: center;
+        color: #0a4967;
+        width: 100%;
+        position: relative;
+        margin-top: 40px;
+        margin-bottom: -50px;
+    }
+    .paginacao a{
+        color: #0a4967;
+    }
+    .post-novidades h1, .recente-post-novidades h1, .portfolio h1 {
+        text-align: left;
+        font-family: Arial "Sans Serif";
+        font-size:24px;
+        color:#073348;
+        font-weight: bold;
+        line-height: 25px;
+    }
+    .post-novidades h3, .recente-post-novidades h3 {
+        font-family: Arial "Sans Serif";
+        font-size:12px;
+        color:#073348;
+        font-weight: normal;
+    }
+    .lista-post-novidades {
+        margin: 5px ;
+        width:430px;
+        height: 110px;
+    }
+    .novi-foto {
+        margin: 5px 10px 5px 5px;
+        width:95px;
+        height: 95px;
+        float: left;
+        position: relative;
+    }
+    .recente-post-novidades {
+        margin-top: 5px;
+        margin-left: 5px;
+        float: left;
+        position: relative;
+        width: 250px;
+    }
+    .novidades-left {
+        float: left;
+        position: relative;
+        width: 45%;
+        height: auto;
+    }
+    .novidades-right {
+        float: right;
+        position: relative;
+        width: 50%;
+        height: auto;
+        right: 0;
+    }
+    .portfolio, .resumo-novidades {
+        text-align: left;
+        margin-right: 2%;
+        width:20%;
+        position: relative;
+        height:auto;
+        float:left;
+        padding: 1%;
+    }
+    .port, .novidades-pag {
+        width: 100%;
+        margin-top: 2%;
+        margin-left: 1%;
+    }
+    .port h1, .novidades-pag h1 {
+        color: #073347;
+        font-size: 22px;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+    .post-portfolio, .post-resumo-novidades {
+        position: relative;
+        margin-top: 10px;
+        padding: 5px;
+        float: left;
+    }
+    .port-foto, .novi-fotos {
+        margin: 1% 2% 1% 1%;
+        width:100%;
+        height: auto;
+        background: #fff;
+        float: left;
+        position: relative;
+    }
+    .port-foto img, .novi-foto img, .foto-novidades img, .novi-fotos img {
+        width:100%;
+        height: 100%;
+        position: relative;
+        box-shadow: 2px 4px 5px #666;
+    }
+    #parceiros {
+        width:100%;
+        position: relative;
+        height:150px;
+    }
+    .empresa, .mej, .servicos, .novidades-post {
+        padding: 20px;
+        position: relative;
+        width:830px;
+        height:auto;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 30px;
+        line-height: 180%;
+    }
+    .novidades-post p {margin: 10px 0;}
+    .novidades-post h4 {
+        color: #0a4967 ;
+        font-size: 15px;
+        font-weight: normal;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .novidades-post h1{
+        color:#073348;
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+    .novidades-post a {
+        color:#073348;
+    }
+    .empresa h1, .mej h1 {
+        color: #073347;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+    }
+    .emp, .nov-post {
+        padding:10px;
+        width:300px;
+        height: auto;
+        position: relative;
+        float: left;
+        margin-right: 20px;
+    }
+    .emp img, .nov-post img {
+        -webkit-filter: drop-shadow(2px 2px 6px #000);
+        -moz-filter: drop-shadow(2px 2px 6px #000);
+        width:100%;
+        height: auto;
+        position: relative;
+    }
+
+    .contato {
+        padding: 10px;
+        position: relative;
+    }
+    .contato ul{
+        list-style: none;
+    }
+    .contato li {
+        margin-bottom: 10px;
+    }
+    .form-contato, .msg-contato {
+        padding-top: 5px;
+        padding-left: 10px;
+        border: none;
+        border-radius: 5px;
+        width: 400px;
+        box-shadow: inset 0px 3px 5px #dadada;
+    }
+    .form-contato {
+        height: 25px;
+    }
+    .msg-contato {
+        height: 200px;
+    }
+
+    .imput-contato {
+        color: #000;
+        height:30px;
+        width:80px;
+        border: none;
+        border-radius: 5px;
+        /* Para Mozilla/Gecko (Firefox etc) */
+        background: -moz-linear-gradient(top, #d9d9d9, #fefefe) repeat-X;
+
+        /* Para WebKit (Safari, Google Chrome etc) */
+        background: -webkit-gradient(linear, left top, left bottom, from(#d9d9d9), to(#fefefe)) repeat-X;
+
+        /* Para IE 8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#d9d9d9, endColorstr=#fefefe)";
+
+        /* Para IE 5.5 - 7 */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#d9d9d9, endColorstr=#fefefe);
+        box-shadow:1px 1px 7px #3a3a3a;
+    }
+    .imput-contato:active{
+        /* Para Mozilla/Gecko (Firefox etc) */
+        background: -moz-linear-gradient(top, #fefefe, #d9d9d9) repeat-X;
+
+        /* Para WebKit (Safari, Google Chrome etc) */
+        background: -webkit-gradient(linear, left top, left bottom, from(#fefefe), to(#d9d9d9)) repeat-X;
+
+        /* Para IE 8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#fefefe, endColorstr=#d9d9d9)";
+
+        /* Para IE 5.5 - 7 */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#fefefe, endColorstr=#d9d9d9);
+    }
+
+    .parc {
+        width: 150px;
+        height: 90px;
+        -webkit-filter: drop-shadow(2px 2px 6px #999);
+        -moz-filter: drop-shadow(2px 2px 6px #999);
+        position: relative;
+        float: left;
+    }
+    .parc img {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    /* container parceiros*/
+    #containeer {
+        margin-top: 30px;
+        padding-bottom: 1%;
+        padding-top: 1%;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        background: rgba(180, 180, 180, 0.2);
+        border-radius: 10px;
+    }
+
+    /* individual area de cada parceiro */
+    .slide {
+        margin-left: 10px;
+        width: 17%;
+        height: auto;
+        overflow: hidden;
+        float: left;
+    }
+    /* -- imagens parceiros --*/
+    .nave-parc-left, .nave-parc-right {
+        -webkit-filter: drop-shadow(2px 2px 6px #999);
+        -moz-filter: drop-shadow(2px 2px 6px #999);
+        margin-top: 30px !important;
+        position: absolute;
+        z-index: 10;
+    }
+    .nave-parc-left {
+        float: left;
+        margin-left: 5px;
+    }
+    .nave-parc-right {
+        float: right;
+        margin-left:850px;
+    }
+    .link-ativado {
+        font-weight: bold;
+    }
+
+        /* Fim css conteudo pagina index */
+    /* -- Fim conteudo das paginas --*/
+    #menu-mobile {
+        display:none;
+    }
+.alert-box {
+color:#555;
+border-radius:10px;
+font-family:Tahoma,Geneva,Arial,sans-serif;font-size:11px;
+padding:10px 36px;
+margin:10px;
+}
+.alert-box span {
+font-weight:bold;
+text-transform:uppercase;
+}
+.error {
+background:#ffecec url('imagens/error.png') no-repeat 10px 50%;
+border:1px solid #f5aca6;
+}
+.success {
+background:#e9ffd9 url('imagens/success.png') no-repeat 10px 50%;
+border:1px solid #a6ca8a;
+}
+.warning {
+background:#fff8c4 url('imagens/warning.png') no-repeat 10px 50%;
+border:1px solid #f2c779;
+}
+.notice {
+background:#e3f7fc url('imagens/notice.png') no-repeat 10px 50%;
+border:1px solid #8ed9f6;
+}
+
+
+
+.video-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+.video-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: calc(33% - 20px);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+}
+.video-card:hover {
+    transform: translateY(-5px);
+}
+.video-thumbnail {
+    width: 100%;
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+}
+.video-info {
+    padding: 15px;
+    text-align: left;
+}
+.video-info h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    color: #444;
+}
+.video-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+iframe {
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #222;
+}
