@@ -3,18 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> EJECT | Git e GitHub</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/trilhas_styles.css">
-    <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>EJECT | Git e GitHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/eject_logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: "Exo 2", sans-serif;
+            background: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
+            color: white; /* Cor padrão que será sobrescrita pelo Tailwind ou temas de contraste */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #0284c7; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0369a1; }
+        code {
+            background-color: #e5e7eb; color: #be123c; padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem; font-size: 0.875em;
+        }
+        .vw-plugin-wrapper { z-index: 1000 !important; }
+        .aspect-w-16 { position: relative; padding-bottom: calc(9 / 16 * 100%); }
+        .aspect-h-9 > * { position: absolute; height: 100%; width: 100%; top: 0; right: 0; bottom: 0; left: 0; }
+
+        .btn-gemini {
+            background: linear-gradient(92.07deg, #652CD1 1.84%, #8E2DE2 100%); color: white;
+            font-weight: 600; padding: 0.625rem 1.25rem; border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            transition: all 0.3s ease; border: none; cursor: pointer;
+        }
+        .btn-gemini:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(101,44,209,0.4), 0 4px 6px -2px rgba(101,44,209,0.3);
+        }
+        .btn-gemini:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        .loading-spinner-gemini, .loading-spinner-pdf {
+            border: 4px solid rgba(255,255,255,0.2); width: 24px; height: 24px;
+            border-radius: 50%; border-left-color: #A78BFA;
+            animation: spin 1s ease infinite; margin: 10px auto;
+        }
+        .loading-spinner-pdf { border-left-color: #38bdf8; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .modal-backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6); display: flex; justify-content: center;
+            align-items: center; z-index: 1050; opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-backdrop.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: white; color: #374151; padding: 2rem;
+            border-radius: 0.75rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 90%; max-width: 500px;
+            max-height: 90vh; overflow-y: auto; transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+        .modal-backdrop.active .modal-content { transform: translateY(0); }
+        .modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 1rem;
+        }
+        .modal-title { font-size: 1.25rem; font-weight: 600; color: #1e40af; }
+        .modal-close-btn {
+            background: none; border: none; font-size: 1.75rem; font-weight: bold;
+            color: #6b7280; cursor: pointer; padding: 0.5rem; line-height: 1;
+        }
+        .modal-close-btn:hover { color: #1f2937; }
+        .modal-body { margin-bottom: 1.5rem; }
+        .modal-body pre {
+            background-color: #f3f4f6; padding: 1rem; border-radius: 0.5rem;
+            white-space: pre-wrap; word-wrap: break-word; font-size: 0.9rem;
+            max-height: 40vh; overflow-y: auto;
+        }
+        .podcast-iframe-container { margin-top: 0.5rem; }
+        .podcast-iframe-container iframe { max-width: 100%; border-radius: 0.375rem; }
+
+        #qrcodeCanvas {
+            width: 200px; height: 200px; margin: 1.5rem auto; padding: 10px;
+            background-color: white; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #qrcodeCanvas img { display: block; width: 100% !important; height: 100% !important; }
+        .copy-link-btn { background-color: #0ea5e9; color: white; }
+        .copy-link-btn:hover { background-color: #0284c7; }
+
+        #pdfExportFeedback {
+            position: fixed; bottom: 20px; left: 50%;
+            transform: translateX(-50%); background-color: #22c55e;
+            color: white; padding: 10px 20px; border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 2000;
+            display: none; font-size: 0.9rem;
+        }
+        #pdfExportFeedback.error { background-color: #ef4444; }
+
+        /* Accessibility Panel Styles */
+        #accessibilityToolbar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1060;
+        }
+        #accessibilityBtn {
+            background-color: #1e40af;
+            color: white;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #accessibilityBtn:hover {
+            background-color: #1c3a94;
+        }
+        #accessibilityPanel {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 280px;
+            background-color: white;
+            color: #374151;
+            border-radius: 0.5rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        }
+        #accessibilityPanel.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .accessibility-section { margin-bottom: 1rem; }
+        .accessibility-section h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.25rem;
+        }
+        .accessibility-controls button, .accessibility-controls select, .accessibility-controls input[type="range"] {
+            width: 100%;
+            text-align: left;
+            padding: 0.5rem 0.75rem;
+            margin-top: 0.25rem;
+            border-radius: 0.375rem;
+            border: 1px solid #d1d5db;
+            background-color: #f9fafb;
+            color: #374151;
+            font-size: 0.875rem;
+            transition: background-color 0.2s;
+        }
+        .accessibility-controls button:hover, .accessibility-controls select:hover {
+            background-color: #f3f4f6;
+        }
+        .accessibility-controls button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .tts-controls button { margin-right: 0.5rem; width: auto; }
+        .accessibility-controls label {
+            display: block;
+            font-size: 0.75rem; /* text-xs */
+            color: #4b5563; /* text-gray-600 */
+            margin-top: 0.5rem;
+            margin-bottom: 0.125rem;
+        }
+        .accessibility-controls input[type="range"] {
+            padding: 0; /* Remover padding padrão do range */
+            height: 1.25rem; /* Ajustar altura */
+        }
+
+
+        /* High Contrast Themes */
+        body.contrast-bw { background: black !important; color: white !important; }
+        body.contrast-bw header, body.contrast-bw .bg-white { background-color: black !important; color: white !important; border: 1px solid #555 !important; }
+        body.contrast-bw [class*="text-gray-"], body.contrast-bw [class*="text-sky-"], body.contrast-bw [class*="text-violet-"] { color: white !important; }
+        body.contrast-bw .text-sky-700, body.contrast-bw .text-sky-800, body.contrast-bw .text-sky-600, body.contrast-bw .text-violet-700 { color: #FFFF00 !important; }
+        body.contrast-bw a:not(.btn-gemini):not(.btn-voltar) { color: #FFFF00 !important; text-decoration: underline !important; }
+        body.contrast-bw button:not(#accessibilityBtn):not(.btn-gemini):not(.modal-close-btn):not(.copy-link-btn), body.contrast-bw .btn-voltar { background-color: #222 !important; color: white !important; border: 1px solid white !important; }
+        body.contrast-bw .copy-link-btn { background-color: #222 !important; color: white !important; border: 1px solid white !important; }
+        body.contrast-bw #featureDescription { background-color: #111 !important; color: white !important; border-color: #555 !important; }
+        body.contrast-bw .modal-content { background-color: black !important; color: white !important; border: 1px solid #555 !important;}
+        body.contrast-bw .modal-title { color: #FFFF00 !important; }
+        body.contrast-bw .modal-body pre { background-color: #1a1a1a !important; }
+        body.contrast-bw #pageLinkInput { background-color: #111 !important; color: white !important; }
+
+
+        body.contrast-yb { background: #000000 !important; color: #FFFF00 !important; }
+        body.contrast-yb header, body.contrast-yb .bg-white { background-color: #000000 !important; color: #FFFF00 !important; border: 1px solid #FFFF00 !important; }
+        body.contrast-yb [class*="text-gray-"], body.contrast-yb [class*="text-sky-"], body.contrast-yb [class*="text-violet-"] { color: #FFFF00 !important; }
+        body.contrast-yb .text-sky-700, body.contrast-yb .text-sky-800, body.contrast-yb .text-sky-600, body.contrast-yb .text-violet-700 { color: #00FFFF !important; }
+        body.contrast-yb a:not(.btn-gemini):not(.btn-voltar) { color: #00FFFF !important; text-decoration: underline !important; }
+        body.contrast-yb button:not(#accessibilityBtn):not(.btn-gemini):not(.modal-close-btn):not(.copy-link-btn), body.contrast-yb .btn-voltar { background-color: #1a1a1a !important; color: #FFFF00 !important; border: 1px solid #FFFF00 !important; }
+        body.contrast-yb .copy-link-btn { background-color: #1a1a1a !important; color: #FFFF00 !important; border: 1px solid #FFFF00 !important; }
+        body.contrast-yb #featureDescription { background-color: #111 !important; color: #FFFF00 !important; border-color: #FFFF00 !important; }
+        body.contrast-yb .modal-content { background-color: black !important; color: #FFFF00 !important; border: 1px solid #FFFF00 !important;}
+        body.contrast-yb .modal-title { color: #00FFFF !important; }
+        body.contrast-yb .modal-body pre { background-color: #1a1a1a !important; }
+        body.contrast-yb #pageLinkInput { background-color: #111 !important; color: #FFFF00 !important; }
+
+    </style>
 </head>
-<body>
-    <!-- Vlibra -->
+<body class="antialiased">
+
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper>
-          <div class="vw-plugin-top-wrapper"></div>
+            <div class="vw-plugin-top-wrapper"></div>
         </div>
     </div>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
@@ -22,585 +232,1072 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
-<header>
-    <nav class="container">
-        <a href="index">
-            <h1 href = "/EJECT_Trilha_de_Conhecimento/index">Hub de Conhecimentos</h1>
-        </a>
-        <div class="ds-contact-container">
-            <a href="https://www.ejectufrn.com.br/">
-                <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
-            </a>
-        </div>
-    </nav>
-</header>
-    <main>
-        <section>
-            <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
-        </section> <br>
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <a href="/EJECT_Trilha_de_Conhecimento/index.html" class="text-2xl font-bold text-sky-700 hover:text-sky-800 transition-colors">
+                        Hub de Conhecimentos
+                    </a>
+                </div>
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <button id="exportTasksPdfBtn" title="Exportar Respostas das Tarefas" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                        </svg>
+                    </button>
+                    <button id="exportPdfBtn" title="Exportar Conteúdo para PDF" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </button>
+                    <button id="sharePageBtn" title="Partilhar Página" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                        </svg>
+                    </button>
+                    <a href="https://www.ejectufrn.com.br/" target="_blank" rel="noopener noreferrer">
+                        <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT" class="h-10">
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
 
+    <main id="content-container" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <input type="hidden" id="trilha-nome" value="Git e GitHub" />
 
-        <div class="content">
-            <section class="main-section">
-                <section>
-                    <section>
-                        <p id="texto" style="display: none;">
-                            Este site está testando uma ferramenta de acessibilidade que permite a narração automática do conteúdo para usuários com deficiência visual. Como está em desenvolvimento, é possível que ainda apresente problemas na execução durante o uso.
-
-                            Trilha de Conhecimento - Guit e Guithub.
-
-Esta trilha de conhecimento tem como objetivo apresentar os conceitos básicos de Guit e Guithub, bem como suas funcionalidades e recursos avançados.
-
-Introdução
-
-O que é Guit?
-
-Git é um sistema de controle de versão distribuído usado para rastrear mudanças no código-fonte durante o desenvolvimento de software. Ele permite que vários desenvolvedores trabalhem em um projeto de forma colaborativa, mantendo um histórico de todas as alterações e facilitando a coordenação e fusão do trabalho realizado em paralelo.
-
-O que é GuitHub?
-
-GitHub é uma plataforma de hospedagem de código-fonte baseada na web que utiliza o sistema de controle de versão Guit. Ele oferece um ambiente colaborativo onde desenvolvedores e equipes podem armazenar, gerenciar e colaborar em projetos de software. O GitHub simplifica o uso do Git, fornecendo uma interface amigável e recursos adicionais, como gerenciamento de projetos, integração contínua (CI), automação, e muito mais.
-
-Instalação e Configuração
-
-Windows
-
-1 - Vá até o site oficial do Git: https://git-scm.com.
-2 - Clique no botão Download for Windows e baixe o instalador.
-3 - Abra o arquivo .exe baixado e siga as instruções do instalador.
-4 - Durante a instalação, você verá várias opções. Deixe as opções padrão marcadas, a menos que tenha uma necessidade específica. As opções importantes incluem:
-• "Adjusting your PATH environment": Escolha "Use Git from the command line and also from 3rd-party software" para facilitar o uso de Git com outras ferramentas.
-• Editor de texto padrão: Você pode selecionar o editor de sua preferência, como o Vim, VS Code, ou Notepad++.
-5 - Após a instalação, abra o Git Bash (incluído na instalação) para usar o Git no terminal.
-
-macOS
-
-1 - Você pode instalar o Git via Homebrew (se já tiver Homebrew instalado) ou baixá-lo manualmente.
-• Para instalar via Homebrew, abra o terminal e execute:
-brew install git
-
-2 - Alternativamente, vá até https://git-scm.com, baixe o instalador para macOS e siga as instruções.
-
-Linux
-
-No Linux, o Git está disponível através dos gerenciadores de pacotes. Use um dos seguintes comandos, dependendo da sua distribuição:
-
-• Debian/Ubuntu:
-sudo apt update
-sudo apt install git
-
-• Fedora:
-sudo dnf install git
-
-• Arch Linux:
-sudo pacman -S git
-
-Conceitos Básicos
-
-Repositórios
-
-Um repositório é um local onde o código-fonte de um projeto é armazenado e gerenciado. No contexto de sistemas de controle de versão como o Git, um repositório (ou repo) mantém o histórico completo de todas as mudanças feitas no projeto ao longo do tempo, permitindo que os desenvolvedores acompanhem, revisem e revertam alterações.
-
-Aqui estão os principais aspectos dos repositórios:
-
-1. Repositório Local vs Repositório Remoto
-
-Repositório Local: É o repositório que está na sua máquina. Ele contém todos os arquivos do projeto, assim como o histórico completo de commits, branches, e outros dados.
-Repositório Remoto: É o repositório que está hospedado em um servidor, como o GitHub, GitLab ou Bitbucket. O repositório remoto é usado para compartilhar o código com outros desenvolvedores.
-
-2. Criando um Repositório
-
-Um repositório pode ser criado usando o comando git init para inicializar um repositório local, ou você pode clonar um repositório remoto existente com git clone.
-No GitHub ou GitLab, é possível criar um repositório diretamente pela interface da plataforma e, em seguida, clonar para seu ambiente local.
-
-3. Componentes de um Repositório
-
-Arquivos do Projeto: O repositório contém todos os arquivos e diretórios do projeto, como código-fonte, documentação, e arquivos de configuração.
-Histórico de Commits: O repositório armazena cada commit, que é uma "foto" do projeto em um determinado momento. Isso permite rastrear todas as mudanças feitas.
-Branches: Um repositório pode conter várias ramificações (branches), que são diferentes linhas de desenvolvimento. A branch principal geralmente é chamada de main ou master, mas outras branches podem ser criadas para desenvolver novos recursos ou corrigir bugs.
-Tags: São usadas para marcar versões específicas do projeto, como uma versão de lançamento (v1.0.0). As tags são úteis para identificar e referenciar versões específicas do código.
-
-4. Clonar e Sincronizar Repositórios
-
-Quando você clona um repositório remoto, você cria uma cópia local dele na sua máquina. A partir daí, você pode fazer mudanças localmente e, quando estiver pronto, enviar essas mudanças de volta para o repositório remoto com o comando git push.
-Você também pode baixar as mudanças feitas por outras pessoas no repositório remoto com o comando git pull. Isso sincroniza seu repositório local com o repositório remoto.
-
-5. Open Source e Repositórios Públicos/Privados
-
-Um repositório pode ser público, permitindo que qualquer pessoa veja e contribua, ou privado, onde apenas pessoas autorizadas podem acessá-lo. Isso é comum em projetos de código aberto e projetos internos em empresas.
-
-6. Estrutura de um Repositório Git
-
-.git: Um diretório oculto que contém todos os dados internos do Git, como objetos de commit, referências de branches, e histórico.
-README.md: Um arquivo comum encontrado em muitos repositórios, usado para descrever o projeto e fornecer instruções para os usuários.
-.gitignore: Um arquivo que informa ao Git quais arquivos ou pastas ele deve ignorar (como arquivos temporários ou de configuração).
-
-Commits
-
-Um commit é uma operação que salva as alterações feitas em um repositório Git. Cada commit é uma unidade atômica de alteração que inclui um conjunto de mudanças em arquivos específicos, uma mensagem descritiva e um identificador único (hash). Os commits são usados para rastrear o progresso do desenvolvimento, documentar as alterações feitas e facilitar a colaboração entre os membros da equipe.
-
-Um commit é como um ponto de controle no projeto, que registra as mudanças feitas em arquivos ou diretórios. Ele armazena o estado do projeto naquele momento específico, permitindo que você volte a esse ponto se necessário. Aqui estão alguns aspectos importantes sobre commits:
-
-Cada commit é identificado por um hash único (gerado automaticamente pelo Git) que serve como um identificador exclusivo daquela mudança.
-
-2. Estrutura de um Commit
-
-Mudanças (Diff): O commit contém as diferenças (diferença de código) entre o estado atual dos arquivos e o estado no commit anterior.
-Mensagem de Commit: Uma breve descrição das alterações feitas. É importante que essa mensagem seja clara e informativa, para ajudar a rastrear e entender as mudanças ao longo do tempo.
-Autor do Commit: O commit também registra quem fez a mudança (nome e email configurados no Git).
-Data e Hora: O momento exato em que o commit foi feito.
-
-3. Criando um Commit
-
-Antes de fazer um commit, você precisa adicionar as mudanças ao staging area (área de preparação) usando o comando git add .
-Depois de adicionar as mudanças, você usa git commit -m "mensagem do commit" para salvar essas mudanças no repositório local.
-Exemplo:
-git add arquivo.txt
-git commit -m "Corrigido bug na função de login"
-
-4. Staging Area (Área de Preparação)
-
-Nem todas as mudanças feitas nos arquivos são automaticamente incluídas em um commit. Para controlar quais mudanças serão registradas no próximo commit, você as adiciona à staging area usando git add. Somente os arquivos na staging area serão incluídos no commit.
-
-5. Commits e Histórico
-
-O Git mantém um histórico de todos os commits feitos no repositório, o que permite rastrear as mudanças ao longo do tempo. Usando o comando git log, você pode visualizar uma lista dos commits anteriores, incluindo a mensagem de commit, o autor, a data e o hash do commit.
-Exemplo de git log:
-commit d9a8f2a...
-Author: João Silva
-Date: Wed Oct 6 14:30:00 2024 -0300
-Corrigido bug na função de login
-
-6. Commits Incrementais
-
-Os commits são feitos de forma incremental, ou seja, cada commit contém apenas as mudanças que foram feitas em relação ao commit anterior. Isso facilita o rastreamento do histórico de desenvolvimento e permite reverter para estados anteriores com facilidade, caso algo dê errado.
-
-7. Commits e Branches
-
-Commits são feitos dentro de branches (ramificações), que são linhas de desenvolvimento. Quando você faz um commit, ele fica associado à branch atual. Isso permite trabalhar em diferentes funcionalidades ou correções de bugs sem interferir no código principal.
-
-8. Alterando e Desfazendo Commits
-
-É possível editar ou até mesmo desfazer commits em Git. Com o comando git commit --amend, você pode modificar o último commit (como corrigir uma mensagem ou adicionar mais arquivos). Além disso, comandos como git reset ou git revert permitem desfazer commits, restaurando o repositório a um estado anterior.
-
-9. Commits e Colaboração
-
-Em repositórios compartilhados (remotos), como no GitHub ou GitLab, os commits locais são enviados ao repositório remoto com o comando git push. Isso permite que outros desenvolvedores vejam as mudanças e colaborem no mesmo projeto. Da mesma forma, ao executar git pull, você pode baixar commits feitos por outros desenvolvedores.
-
-10. Boas Práticas para Commits
-
-Commits pequenos e frequentes: Fazer commits pequenos, sempre que uma unidade lógica de trabalho é concluída, facilita o rastreamento de problemas e a colaboração.
-Mensagens claras: A mensagem de commit deve ser descritiva e explicar claramente o que foi alterado ou corrigido.
-Não incluir mudanças irrelevantes: Faça commit apenas de arquivos relacionados à alteração. Use .gitignore para ignorar arquivos temporários.
-
-
-Branches
-
-Uma branch representa uma versão do projeto que diverge do histórico principal. A branch principal, na maioria dos projetos, é chamada de main ou master. Quando você cria uma nova branch, você faz uma cópia do projeto a partir de um ponto no tempo (normalmente o commit atual), e a partir desse ponto, os novos commits ficam separados do código principal até que você decida mesclar (merge) essas mudanças de volta.
-
-1. Por que usar branches?
-
-Branches permitem que você trabalhe em diferentes tarefas simultaneamente (como novas funcionalidades ou correções de bugs) sem interferir no código estável. Eles são amplamente usados em fluxos de trabalho colaborativos para evitar conflitos entre desenvolvedores que trabalham em partes diferentes do código.
-
-2. Tipos de Branches
-
-Branch Principal (main/master): Normalmente, esta é a branch onde o código mais estável é mantido. O nome mais comum é main ou master.
-Branches de Funcionalidades (Feature Branches): São criadas para desenvolver novas funcionalidades ou melhorias. Quando a funcionalidade estiver pronta, a branch pode ser fundida de volta à branch principal.
-Branches de Correção de Bugs: Usadas para trabalhar em correções de bugs específicos, de forma que o código principal não seja afetado enquanto a correção está em andamento.
-Branches de Lançamento (Release Branches): Criadas quando o projeto está pronto para ser preparado para uma nova versão. Elas são usadas para os ajustes finais antes de uma nova versão ser lançada.
-Branches de Hotfix: São usadas para corrigir problemas críticos encontrados em produção e que precisam ser resolvidos rapidamente.
-
-3. Criar uma Branch
-
-Para criar uma nova branch, você pode usar o comando git branch ou git checkout -b. Aqui está um exemplo de como criar e mudar para uma nova branch chamada nova-funcionalidade:
-git checkout -b nova-funcionalidade
-Isso cria uma nova branch a partir da branch atual e automaticamente alterna para ela.
-
-4. Trabalhando em uma Branch
-
-Uma vez que você está em uma branch, todas as mudanças e commits feitos serão específicos para essa branch. Você pode trabalhar de maneira isolada sem afetar outras branches. Se necessário, você pode trocar entre branches com o comando:
-git checkout nome-da-branch
-Por exemplo, para voltar à branch principal main:
-git checkout main
-
-5. Visualizando Branches
-
-Para ver todas as branches no repositório, use:
-git branch
-Isso mostrará as branches locais, com a branch atual destacada.
-
-6. Mesclando (Merge) uma Branch
-
-Quando o trabalho em uma branch está completo, é comum "mesclar" (merge) essa branch de volta na branch principal (ou em outra branch). Isso integra as mudanças feitas naquela branch ao código principal. O comando básico para isso é:
-git checkout main
-git merge nova-funcionalidade
-Isso mescla a branch nova-funcionalidade na branch main.
-
-7. Branches Remotas
-
-Além das branches locais, você pode ter branches remotas, que são cópias das branches que existem no servidor remoto (por exemplo, no GitHub ou GitLab). Para sincronizar uma branch local com o repositório remoto, você usa o comando git push.
-Para enviar uma nova branch para o repositório remoto:
-git push origin nome-da-branch
-
-8. Excluindo uma Branch
-
-Quando uma branch não é mais necessária (por exemplo, após a conclusão de uma funcionalidade e sua mesclagem na branch principal), ela pode ser deletada. Para excluir uma branch local, use:
-git branch -d nome-da-branch
-Para excluir uma branch remota:
-git push origin --delete nome-da-branch
-
-9. Branching e Colaboração
-
-Em projetos colaborativos, é comum que cada desenvolvedor trabalhe em suas próprias branches para isolar suas mudanças. Quando uma funcionalidade está pronta, a branch é enviada para revisão e, se aprovada, mesclada na branch principal por meio de um Pull Request (em plataformas como GitHub ou GitLab).
-Exemplo de Fluxo de Trabalho:
-Criar uma branch para uma nova funcionalidade:
-git checkout -b feature-nova-funcionalidade
-Fazer commits das alterações:
-git add .
-git commit -m "Adiciona nova funcionalidade X"
-Publicar a branch no repositório remoto:
-git push origin feature-nova-funcionalidade
-Criar um Pull Request para que a branch seja revisada e mesclada na branch main.
-
-
-Merge
-
-O merge é o processo de combinar as alterações feitas em diferentes branches de um repositório Git. Quando um branch está pronto para ser integrado de volta ao branch principal (master), os desenvolvedores podem realizar um merge para unir as alterações. O Git tenta mesclar automaticamente as mudanças, mas pode haver conflitos que precisam ser resolvidos manualmente. O merge é uma operação essencial para consolidar o trabalho feito em diferentes partes do projeto.
-
-Trabalhando com GitHub
-
-Clonando Repositórios
-Clonar um repositório Git significa criar uma cópia local do código-fonte hospedado no GitHub em sua máquina. Isso permite que você trabalhe no projeto, faça alterações, crie novos commits e envie suas contribuições de volta para o repositório remoto. Para clonar um repositório, você precisa do URL do repositório e do Git instalado em sua máquina.
-
-Pull Requests
-Um Pull Request (PR) é uma solicitação feita por um desenvolvedor para mesclar as alterações feitas em um branch específico de um repositório Git. Os Pull Requests são usados para revisar, discutir e aprovar as mudanças antes de serem integradas ao branch principal. Eles facilitam a colaboração entre os membros da equipe e ajudam a manter a qualidade do código.
-
-Issues
-As Issues são usadas para rastrear tarefas, bugs, solicitações de recursos e outras atividades relacionadas a um projeto no GitHub. Elas são usadas para relatar problemas, discutir ideias, planejar o trabalho e colaborar com outros desenvolvedores. As Issues podem ser atribuídas a membros da equipe, marcadas com rótulos, comentadas e fechadas quando concluídas.
-
-GitHub Actions
-GitHub Actions é um serviço de automação integrado ao GitHub que permite criar workflows personalizados para automatizar tarefas, testes, implantações e muito mais. Com GitHub Actions, você pode definir ações baseadas em eventos, como push de código, criação de Pull Requests ou lançamento de versões, e executar scripts, comandos ou contêineres em resposta a esses eventos.
-                        </p>
-                        <button id="play-button">Reproduzir Narração</button>
-                        <button id="pause-button" disabled>Pausar</button>
-                        <button id="resume-button" disabled>Continuar</button>
-                        <button id="stop-button" disabled>Parar</button>
-                        <span class="beta-tag">BETA</span>
-                    </section> <br>
-                    <section>
-                        <h2 class="title">Trilha de Conhecimento - Git e GitHub</h2>
-                    </section> <br>
-                    <p>Esta trilha de conhecimento tem como objetivo apresentar os conceitos básicos de Git e GitHub, bem como suas funcionalidades e recursos avançados.</p> <br>
-                    <div class="section-header">
-                        <h2>Introdução</h2>
-                        <label class="completion-label">
-                            <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                        </label> 
-                    </div> <br>
-                    <ul>
-                        <li>O que é Git?</li> <br>
-                        <p>Git é um sistema de controle de versão distribuído usado para rastrear mudanças no código-fonte durante o desenvolvimento de software. Ele permite que vários desenvolvedores trabalhem em um projeto de forma colaborativa, mantendo um histórico de todas as alterações e facilitando a coordenação e fusão do trabalho realizado em paralelo.</p>
-                        <li>O que é GitHub?</li> <br>
-                        <p>GitHub é uma plataforma de hospedagem de código-fonte baseada na web que utiliza o sistema de controle de versão Git. Ele oferece um ambiente colaborativo onde desenvolvedores e equipes podem armazenar, gerenciar e colaborar em projetos de software. O GitHub simplifica o uso do Git, fornecendo uma interface amigável e recursos adicionais, como gerenciamento de projetos, integração contínua (CI), automação, e muito mais.</p> <br>
-                        <li>Instalação e Configuração</li> <br>
-                        <p> <strong>Windows</strong> <br><br>
-                            1 - Vá até o site oficial do Git: https://git-scm.com. <br>
-                            2 - Clique no botão Download for Windows e baixe o instalador. <br>
-                            3 - Abra o arquivo .exe baixado e siga as instruções do instalador. <br>
-                            4 - Durante a instalação, você verá várias opções. Deixe as opções padrão marcadas, a menos que tenha uma necessidade específica. As opções importantes incluem: <br>
-                                • "Adjusting your PATH environment": Escolha "Use Git from the command line and also from 3rd-party software" para facilitar o uso de Git com outras ferramentas. <br>
-                                • Editor de texto padrão: Você pode selecionar o editor de sua preferência, como o Vim, VS Code, ou Notepad++. <br>
-                            5 - Após a instalação, abra o Git Bash (incluído na instalação) para usar o Git no terminal. <br><br>
-                            <strong>macOS</strong> <br><br>
-                            1 - Você pode instalar o Git via Homebrew (se já tiver Homebrew instalado) ou baixá-lo manualmente. <br>
-                                • Para instalar via Homebrew, abra o terminal e execute: <br>
-                            <code>brew install git</code> <br> <br>
-        
-                            2 - Alternativamente, vá até https://git-scm.com, baixe o instalador para macOS e siga as instruções. <br><br>
-                            <strong>Linux</strong> <br><br>
-                            No Linux, o Git está disponível através dos gerenciadores de pacotes. Use um dos seguintes comandos, dependendo da sua distribuição: <br> <br>
-                            
-                            • Debian/Ubuntu: <br>
-                            <code>sudo apt update</code> <br>
-                            <code>sudo apt install git</code> <br> <br>
-                            
-                            • Fedora: <br>
-                            <code>sudo dnf install git</code> <br> <br>
-        
-                            • Arch Linux: <br>
-                            <code>sudo pacman -S git</code> </p> <br>
-        
-                            <section>
-                                <h3>Vídeo Tutorial</h3> <br>
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/CX9p2zQ5X2w?si=LL1IRCcmFIL65scR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width: 80%; height: 315px; display: flex; margin: auto;"></iframe>
+        <section class="mb-6">
+            <a href="/EJECT_Trilha_de_Conhecimento" class="inline-flex items-center bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-150 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Voltar
+            </a>
+        </section>
+
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <h1 class="text-4xl font-bold text-sky-800 mb-4">Git e GitHub: Colaboração e Controle de Versão</h1>
+            <p class="text-lg leading-relaxed text-gray-700">Git é um poderoso sistema de controle de versão distribuído que permite a desenvolvedores e equipas rastrear e gerenciar alterações em seu código-fonte, documentos e qualquer conjunto de arquivos. O GitHub, por sua vez, é uma plataforma baseada na web que hospeda repositórios Git, fornecendo ferramentas robustas para colaboração, revisão de código e gerenciamento de projetos. Juntos, Git e GitHub são indispensáveis para o desenvolvimento de software moderno, garantindo organização, histórico completo e eficiência na colaboração.</p>
+        </section>
+
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Fundamentos do Git</h2>
+            </div>
+            <div class="space-y-4 text-gray-700">
+                <p>O Git opera com uma série de conceitos fundamentais que são cruciais para entender como ele gerencia as mudanças e a colaboração.</p>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Repositório (Repository)</h3>
+                    <p>Um <strong>repositório</strong> Git (ou "repo") é um diretório que contém todos os arquivos do seu projeto, juntamente com o histórico completo de todas as alterações. Pense nele como uma "base de dados" local que armazena todas as versões do seu projeto, permitindo que você volte a qualquer estado anterior.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Commit</h3>
+                    <p>Um <strong>commit</strong> é um "instantâneo" do seu repositório em um determinado momento. Cada commit representa um conjunto de alterações lógicas (por exemplo, a implementação de uma funcionalidade, a correção de um bug). Um commit sempre inclui uma mensagem descritiva que explica o que foi feito.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Branch (Ramificação)</h3>
+                    <p>Uma <strong>branch</strong> é uma linha independente de desenvolvimento. Elas permitem que você trabalhe em novas funcionalidades, experimentos ou correções de bugs em isolamento, sem afetar a linha principal do projeto (geralmente a branch <code>main</code> ou <code>master</code>). É como criar uma cópia do seu projeto para trabalhar e, depois de pronto, integrar de volta.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Merge (Mesclar)</h3>
+                    <p><strong>Merge</strong> é o processo de integrar as alterações de uma branch para outra. Quando você termina de trabalhar em uma funcionalidade em uma branch separada, você a mescla de volta na branch principal para incorporar suas mudanças ao projeto.</p>
+                </div>
+                <div class="mt-6">
+                    <h4 class="text-lg font-semibold text-sky-700 mb-2">Git // Dicionário do Programador</h4>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/za5KWZ5pRag?si=XpSfOq3ab3gT0vik" title="Git // Dicionário do Programador" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h4 class="text-lg font-semibold text-sky-700 mb-2">APRENDA GIT e GITHUB DO ZERO - guia completo</h4>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/pyM5QLS2h6M?si=6AF15GWrA7UWx3Q7" title="APRENDA GIT e GITHUB DO ZERO - guia completo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="task-section mt-10 mb-10 p-6 bg-sky-50 rounded-xl shadow-lg text-gray-800 border border-sky-200">
+            <h3 class="text-2xl font-semibold text-sky-700 mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                Tarefa Prática: Iniciando um Projeto com Git
+            </h3>
+            <p class="task-question text-gray-700 mb-4">Imagine que você está começando um novo projeto de site. Descreva os comandos Git que você usaria no seu terminal para:</p>
+            <ol class="list-decimal list-inside text-gray-700 mb-4 pl-4 space-y-2">
+                <li>Inicializar um novo repositório Git na pasta do seu projeto.</li>
+                <li>Criar um arquivo `index.html` e adicionar algum conteúdo básico a ele.</li>
+                <li>Adicionar esse arquivo ao "staging area" do Git.</li>
+                <li>Fazer o primeiro commit com uma mensagem descritiva.</li>
+                <li>Verificar o status do seu repositório após o commit.</li>
+            </ol>
+            <textarea rows="7" class="task-answer w-full p-3 border border-sky-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400" placeholder="Ex: 1. git init ..."></textarea>
+        </section>
+
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Comandos Git Essenciais</h2>
+            </div>
+            <p class="mb-4 text-gray-700">Conhecer os comandos certos é a chave para uma experiência fluida com Git. Aqui estão os mais utilizados:</p>
+            <div class="space-y-6 text-gray-700">
+                <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-md text-sm">
+                    <h4 class="font-semibold text-indigo-700 mb-2"><code>git clone [URL]</code></h4>
+                    <p class="mt-1">Copia um repositório Git existente de um servidor remoto (como GitHub) para o seu computador local.</p>
+                    <pre class="bg-gray-200 p-2 rounded text-red-700"><code>git clone https://github.com/usuario/meu-projeto.git</code></pre>
+                </div>
+                <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-md text-sm">
+                    <h4 class="font-semibold text-indigo-700 mb-2"><code>git status</code></h4>
+                    <p class="mt-1">Mostra o estado atual da sua área de trabalho e do staging area. Informa quais arquivos foram modificados, quais estão na área de staging e quais ainda não foram rastreados.</p>
+                    <pre class="bg-gray-200 p-2 rounded text-red-700"><code>git status</code></pre>
+                </div>
+                <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-md text-sm">
+                    <h4 class="font-semibold text-indigo-700 mb-2"><code>git add [arquivo(s)]</code> ou <code>git add .</code></h4>
+                    <p class="mt-1">Adiciona alterações de arquivos para a "staging area" (área de preparação), que é um passo intermediário antes do commit. <code>.</code> adiciona todas as alterações.</p>
+                    <pre class="bg-gray-200 p-2 rounded text-red-700"><code>git add index.html<br>git add .</code></pre>
+                </div>
+                <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-md text-sm">
+                    <h4 class="font-semibold text-indigo-700 mb-2"><code>git commit -m "Sua mensagem"</code></h4>
+                    <p class="mt-1">Registra as alterações que estão na staging area no histórico do repositório local. A mensagem é crucial para descrever as mudanças.</p>
+                    <pre class="bg-gray-200 p-2 rounded text-red-700"><code>git commit -m "Adiciona cabeçalho e navegação inicial"</code></pre>
+                </div>
+                <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-md text-sm">
+                    <h4 class="font-semibold text-indigo-700 mb-2"><code>git branch [nome-do-branch]</code></h4>
+                    <p class="mt-1">Cria uma nova branch. Você ainda estará na branch atual após este comando.</p>
+                    <pre class="bg-gray-200 p-2 rounded text-red-700"><code>git branch feature/nova-funcionalidade</code></pre>
+                </div>
+                <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-md text-sm">
+                    <h4 class="font-semibold text-indigo-700 mb-2"><code>git checkout [nome-do-branch]</code> ou <code>git switch [nome-do-branch]</code></h4>
+                    <p class="mt-1">Muda para uma branch existente. <code>git switch</code> é a forma mais moderna e recomendada.</p>
+                    <pre class="bg-gray-200 p-2 rounded text-red-700"><code>git checkout dev<br>git switch feature/login</code></pre>
+                </div>
+                <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-md text-sm">
+                    <h4 class="font-semibold text-indigo-700 mb-2"><code>git checkout -b [novo-branch]</code> ou <code>git switch -c [novo-branch]</code></h4>
+                    <p class="mt-1">Cria uma nova branch E muda para ela em um único comando.</p>
+                    <pre class="bg-gray-200 p-2 rounded text-red-700"><code>git checkout -b feature/cadastro<br>git switch -c fix/bug-layout</code></pre>
+                </div>
+                <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-md text-sm">
+                    <h4 class="font-semibold text-indigo-700 mb-2"><code>git merge [branch-a-mesclar]</code></h4>
+                    <p class="mt-1">Integra o histórico de commits da branch especificada na sua branch atual.</p>
+                    <pre class="bg-gray-200 p-2 rounded text-red-700"><code>git merge feature/cadastro</code></pre>
+                </div>
+                <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-md text-sm">
+                    <h4 class="font-semibold text-indigo-700 mb-2"><code>git pull origin [branch]</code></h4>
+                    <p class="mt-1">Baixa as alterações do repositório remoto e as integra no seu repositório local (equivalente a <code>git fetch</code> + <code>git merge</code>).</p>
+                    <pre class="bg-gray-200 p-2 rounded text-red-700"><code>git pull origin main</code></pre>
+                </div>
+                <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-md text-sm">
+                    <h4 class="font-semibold text-indigo-700 mb-2"><code>git push origin [branch]</code></h4>
+                    <p class="mt-1">Envia seus commits locais para o repositório remoto no GitHub (ou outro serviço).</p>
+                    <pre class="bg-gray-200 p-2 rounded text-red-700"><code>git push origin feature/minha-funcionalidade</code></pre>
+                </div>
+            </div>
+            <div class="mt-8 p-6 border border-violet-300 rounded-xl bg-violet-50 shadow-inner">
+                <h4 class="text-lg font-semibold text-violet-700 mb-3">✨ Gerador de Mensagens de Commit com IA</h4>
+                <p class="text-sm text-violet-600 mb-3">Descreva brevemente uma alteração que você fez no código e clique no botão para gerar uma sugestão de mensagem de commit e uma breve explicação.</p>
+                <div>
+                    <label for="taskDescription" class="block text-sm font-medium text-violet-700 mb-1">Descrição da Alteração:</label>
+                    <textarea id="taskDescription" rows="3" class="w-full p-2 border border-violet-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500 text-gray-800" placeholder="Ex: Implementação da funcionalidade de login com autenticação de email e senha, incluindo validação de formulário."></textarea>
+                </div>
+                <button id="generateCommitMessageBtn" class="btn-gemini mt-4 w-full sm:w-auto">
+                    Gerar Mensagem de Commit
+                </button>
+                <div id="commitMessageLoading" class="loading-spinner-gemini hidden mt-4"></div>
+            </div>
+        </section>
+
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">GitHub: A Plataforma de Colaboração</h2>
+            </div>
+            <p class="mb-4 text-gray-700">Enquanto o Git é a ferramenta de linha de comando para controlo de versão, o <strong>GitHub</strong> é uma plataforma online que hospeda os seus repositórios Git, elevando a colaboração e o gerenciamento de projetos a outro nível. Ele adiciona uma camada visual e diversas funcionalidades para tornar o trabalho em equipa mais eficiente.</p>
+
+            <div class="mt-6">
+                <h4 class="text-lg font-semibold text-sky-700 mb-2">GITHUB // Dicionário do Programador</h4>
+                <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                    <iframe src="https://www.youtube.com/embed/myQuetgSEsY?si=BShy-MWPp6kJdC0I" title="GITHUB // Dicionário do Programador" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="space-y-4 text-gray-700">
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Repositórios Remotos</h3>
+                    <p>No GitHub, os seus repositórios locais Git são espelhados em <strong>repositórios remotos</strong>. Isso permite que várias pessoas trabalhem no mesmo projeto, sincronizando suas alterações através de operações como <code>git push</code> (para enviar alterações) e <code>git pull</code> (para receber alterações).</p>
+                    <img src="https://carpentries-incubator.github.io/open-science-with-r/img/09-workflow.png" alt="Diagrama de Repositório Remoto" class="w-full sm:w-4/5 max-w-lg mx-auto mt-4 rounded-lg shadow">
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Pull Requests (PRs) / Merge Requests</h3>
+                    <p>Os <strong>Pull Requests</strong> (ou PRs) são o coração da colaboração no GitHub. Quando você termina de trabalhar em uma funcionalidade em uma branch, você abre um PR para propor a integração das suas alterações na branch principal. Isso permite que outros membros da equipa revisem o seu código (Code Review), deixem comentários, sugiram melhorias e aprovem as alterações antes que sejam mescladas.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Issues (Problemas/Tarefas)</h3>
+                    <p>A funcionalidade de <strong>Issues</strong> no GitHub é usada para rastrear bugs, tarefas, melhorias e novas funcionalidades. Cada issue pode ser atribuída a um membro da equipa, ter etiquetas (labels) para categorização (ex: "bug", "feature", "prioridade-alta") e ser vinculada a pull requests, fornecendo um registo transparente do progresso do projeto.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">GitHub Actions: Automação de Workflows (CI/CD)</h3>
+                    <p>O <strong>GitHub Actions</strong> é uma plataforma de automação de fluxo de trabalho que permite automatizar, personalizar e executar workflows de desenvolvimento de software diretamente no seu repositório GitHub. Isso pode incluir tarefas como testar o código automaticamente (Integração Contínua - CI) ou fazer o deploy da aplicação (Entrega Contínua - CD) sempre que um Pull Request é mesclado.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">GitHub Pages: Hospedagem de Sites Estáticos</h3>
+                    <p>O <strong>GitHub Pages</strong> é um serviço de hospedagem de sites estáticos diretamente a partir de um repositório GitHub. É uma ótima maneira de hospedar portfólios, blogs, documentações ou até mesmo pequenos projetos web de forma gratuita e simples.</p>
+                </div>
+                <div class="mt-6">
+                    <h4 class="text-lg font-semibold text-sky-700 mb-2">Como usar Git e GitHub da Forma mais Fácil Possível</h4>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/EGmzAs1G0z0?si=pBEarS6jE8Md6zl5" title="Como usar Git e GitHub da Forma mais Fácil Possível" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">GitFlow e Estratégias de Branching</h2>
+            </div>
+            <p class="mb-4 text-gray-700">O <strong>GitFlow</strong> é um modelo de ramificação para o Git, introduzido por Vincent Driessen, que define um fluxo de trabalho rigoroso com branches de longa duração e de curta duração para gerenciar o desenvolvimento, lançamentos e hotfixes.</p>
+            <div class="space-y-4 text-gray-700">
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Branches Principais</h3>
+                    <ul class="list-disc list-inside space-y-1 mb-3">
+                        <li><strong><code>main</code> (ou <code>master</code>):</strong> Contém o histórico de releases oficiais, ou seja, o código de produção pronto para ser implantado.</li>
+                        <li><strong><code>develop</code>:</strong> É a branch de integração para o desenvolvimento ativo. Todas as novas funcionalidades são mescladas aqui.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-2">Branches de Suporte</h3>
+                    <ul class="list-disc list-inside space-y-1 mb-3">
+                        <li><strong>Feature Branches:</strong> Criadas a partir de <code>develop</code> para desenvolver novas funcionalidades. Mescladas de volta em <code>develop</code> após a conclusão.</li>
+                        <li><strong>Release Branches:</strong> Criadas a partir de <code>develop</code> para preparar uma nova versão do produto. Permitem a correção de bugs finais e preparação da release sem interromper o desenvolvimento na <code>develop</code>. Mescladas em <code>main</code> e <code>develop</code>.</li>
+                        <li><strong>Hotfix Branches:</strong> Criadas a partir de <code>main</code> para corrigir bugs críticos em produção. Mescladas de volta em <code>main</code> e <code>develop</code>.</li>
+                    </ul>
+                </div>
+                <div class="mt-6">
+                    <h4 class="text-lg font-semibold text-sky-700 mb-2">Git Flow // Dicionário do Programador</h4>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/oweffeS8TRc?si=mzVFIf0DjO_U4Qvd" title="Git Flow // Dicionário do Programador" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="task-section mt-10 mb-10 p-6 bg-sky-50 rounded-xl shadow-lg text-gray-800 border border-sky-200">
+            <h3 class="text-2xl font-semibold text-sky-700 mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                Tarefa Prática: Colaborando com GitHub Pull Requests
+            </h3>
+            <p class="task-question text-gray-700 mb-4">Imagine que você implementou a funcionalidade "Adicionar carrinho de compras" (da tarefa anterior) e agora precisa submeter seu trabalho para revisão no GitHub. Descreva o processo de criação de um Pull Request no GitHub, incluindo o que você incluiria na descrição do PR e por que a revisão por pares é importante.</p>
+            <textarea rows="7" class="task-answer w-full p-3 border border-sky-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400" placeholder="Ex: Após desenvolver a funcionalidade, eu enviaria minha branch para o GitHub. Em seguida, abriria um novo Pull Request comparando minha branch com a 'develop'..."></textarea>
+        </section>
+
+
+        <section class="p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <h2 class="text-3xl font-semibold text-sky-700 mb-6 pb-4 border-b border-gray-200">Referências e Conteúdos Extras</h2>
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Sites Oficiais e Documentação</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><a href="https://git-scm.com/book/pt-br/v2" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Pro Git Book (Livro oficial online e gratuito)</a></li>
+                        <li><a href="https://docs.github.com/pt" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Documentação do GitHub (PT)</a></li>
+                        <li><a href="https://www.alura.com.br/artigos/o-que-e-git-github?srsltid=AfmBOop5QyJ7VnGvTz7wjCjNteG8M39H9C3ovlFL37kYBXkvK5GAamqS" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">O que é Git e Github: os primeiros passos nessas ferramentas</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Vídeos e Tutoriais</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><a href="https://www.youtube.com/watch?v=2c7yWlpWDJM&list=PLcoYAcR89n-qbO7YAVj5S0alABLis_QVU" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Curso gratuito Git e Github (Youtube)</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Cursos Online</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><a href="https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/introducao-ao-git-e-github" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Introdução ao Git e GitHub</a></li>
+                        <li><a href="https://www.alura.com.br/curso-online-git-github-controle-de-versao" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Git e GitHub (Alura)</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Podcasts</h3>
+                    <div class="space-y-6">
+                        <!-- Podcast Item -->
+                        <div class="bg-sky-50 border border-sky-200 rounded-xl p-4 sm:p-6 shadow-md transition-shadow hover:shadow-lg">
+                            <div class="podcast-info-controls">
+                                <div class="podcast-track-info">
+                                    <h4 class="podcast-title text-lg font-semibold text-sky-800 mb-1">Git e Github</h4>
+                                    <p class="podcast-show-name text-sm text-sky-700">Hipsters #109</p>
                                 </div>
-                            </section>
-                            
-                        </p>
-                    </ul> <br>
-                </section>
-                <section>
-                    <div class="section-header">
-                        <h2>Conceitos Básicos</h2>
-                        <label class="completion-label">
-                            <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                        </label> 
-                    </div> <br>
-                    <ul>
-                        <li>Repositórios</li> <br>
-                        <p>Um repositório é um local onde o código-fonte de um projeto é armazenado e gerenciado. No contexto de sistemas de controle de versão como o Git, um repositório (ou repo) mantém o histórico completo de todas as mudanças feitas no projeto ao longo do tempo, permitindo que os desenvolvedores acompanhem, revisem e revertam alterações.</p>
-                        <p>Aqui estão os principais aspectos dos repositórios: <br> <br>
-        
-                            <strong>1. Repositório Local vs Repositório Remoto</strong> <br> <br>
-                            <strong>Repositório Local:</strong> É o repositório que está na sua máquina. Ele contém todos os arquivos do projeto, assim como o histórico completo de commits, branches, e outros dados. <br>
-                            <strong>Repositório Remoto:</strong> É o repositório que está hospedado em um servidor, como o GitHub, GitLab ou Bitbucket. O repositório remoto é usado para compartilhar o código com outros desenvolvedores. <br> <br>
-                            <strong>2. Criando um Repositório</strong> <br> <br>
-                            Um repositório pode ser criado usando o comando <code>git init</code> para inicializar um repositório local, ou você pode clonar um repositório remoto existente com <code>git clone</code>.  <br>
-                            No GitHub ou GitLab, é possível criar um repositório diretamente pela interface da plataforma e, em seguida, clonar para seu ambiente local. <br> <br>
-                            <strong>3. Componentes de um Repositório</strong> <br> <br>
-                            <strong>Arquivos do Projeto:</strong> O repositório contém todos os arquivos e diretórios do projeto, como código-fonte, documentação, e arquivos de configuração.  <br>
-                            <strong>Histórico de Commits:</strong> O repositório armazena cada commit, que é uma "foto" do projeto em um determinado momento. Isso permite rastrear todas as mudanças feitas. <br>
-                            <strong>Branches:</strong> Um repositório pode conter várias ramificações (branches), que são diferentes linhas de desenvolvimento. A branch principal geralmente é chamada de <code>main</code> ou <code>master</code>, mas outras branches podem ser criadas para desenvolver novos recursos ou corrigir bugs. <br>
-                            <strong>Tags:</strong> São usadas para marcar versões específicas do projeto, como uma versão de lançamento (v1.0.0). As tags são úteis para identificar e referenciar versões específicas do código. <br> <br>
-                            <strong>4. Clonar e Sincronizar Repositórios</strong> <br> <br>
-                            Quando você clona um repositório remoto, você cria uma cópia local dele na sua máquina. A partir daí, você pode fazer mudanças localmente e, quando estiver pronto, enviar essas mudanças de volta para o repositório remoto com o comando <code>git push</code>. <br>
-                            Você também pode baixar as mudanças feitas por outras pessoas no repositório remoto com o comando <code>git pull</code>. Isso sincroniza seu repositório local com o repositório remoto. <br> <br>
-                            <strong>5. Open Source e Repositórios Públicos/Privados</strong> <br> <br>
-                            Um repositório pode ser público, permitindo que qualquer pessoa veja e contribua, ou privado, onde apenas pessoas autorizadas podem acessá-lo. Isso é comum em projetos de código aberto e projetos internos em empresas. <br> <br>
-                            <strong>6. Estrutura de um Repositório Git</strong> <br> <br>
-                            <strong>.git:</strong> Um diretório oculto que contém todos os dados internos do Git, como objetos de commit, referências de branches, e histórico. <br>
-                            <strong>README.md:</strong> Um arquivo comum encontrado em muitos repositórios, usado para descrever o projeto e fornecer instruções para os usuários. <br>
-                            <strong>.gitignore:</strong> Um arquivo que informa ao Git quais arquivos ou pastas ele deve ignorar (como arquivos temporários ou de configuração).</p>
-                        <li>Commits</li> <br>
-                        <p>Um commit é uma operação que salva as alterações feitas em um repositório Git. Cada commit é uma unidade atômica de alteração que inclui um conjunto de mudanças em arquivos específicos, uma mensagem descritiva e um identificador único (hash). Os commits são usados para rastrear o progresso do desenvolvimento, documentar as alterações feitas e facilitar a colaboração entre os membros da equipe.</p>
-                        <p>
-                            Um commit é como um ponto de controle no projeto, que registra as mudanças feitas em arquivos ou diretórios. Ele armazena o estado do projeto naquele momento específico, permitindo que você volte a esse ponto se necessário. Aqui estão alguns aspectos importantes sobre commits: <br> <br>
-                            Cada commit é identificado por um hash único (gerado automaticamente pelo Git) que serve como um identificador exclusivo daquela mudança. <br> <br>
-                            <strong>2. Estrutura de um Commit</strong> <br> <br>
-                            Mudanças (Diff): O commit contém as diferenças (diferença de código) entre o estado atual dos arquivos e o estado no commit anterior. <br>
-                            Mensagem de Commit: Uma breve descrição das alterações feitas. É importante que essa mensagem seja clara e informativa, para ajudar a rastrear e entender as mudanças ao longo do tempo. <br>
-                            Autor do Commit: O commit também registra quem fez a mudança (nome e email configurados no Git). <br>
-                            Data e Hora: O momento exato em que o commit foi feito. <br> <br>
-                            <strong>3. Criando um Commit</strong> <br> <br>
-                            Antes de fazer um commit, você precisa adicionar as mudanças ao staging area (área de preparação) usando o comando <code>git add <arquivo></code>. <br>
-                            Depois de adicionar as mudanças, você usa <code>git commit -m "mensagem do commit"</code> para salvar essas mudanças no repositório local. <br>
-                            Exemplo: <br>
-                            <code>git add arquivo.txt</code> <br>
-                            <code>git commit -m "Corrigido bug na função de login"</code> <br> <br>
-                            <strong>4. Staging Area (Área de Preparação)</strong> <br> <br>
-                            Nem todas as mudanças feitas nos arquivos são automaticamente incluídas em um commit. Para controlar quais mudanças serão registradas no próximo commit, você as adiciona à staging area usando <code>git add</code>. Somente os arquivos na staging area serão incluídos no commit. <br> <br>
-                            <strong>5. Commits e Histórico</strong> <br> <br>
-                            O Git mantém um histórico de todos os commits feitos no repositório, o que permite rastrear as mudanças ao longo do tempo. Usando o comando <code>git log</code>, você pode visualizar uma lista dos commits anteriores, incluindo a mensagem de commit, o autor, a data e o hash do commit. <br>
-                            Exemplo de <code>git log:</code> <br>
-                            <code>commit d9a8f2a...</code> <br>
-                            <code>Author: João Silva </code> <br>
-                            <code>Date: Wed Oct 6 14:30:00 2024 -0300</code> <br>
-                            <code>Corrigido bug na função de login</code> <br> <br>
-                            <strong>6. Commits Incrementais</strong> <br> <br>
-                            Os commits são feitos de forma incremental, ou seja, cada commit contém apenas as mudanças que foram feitas em relação ao commit anterior. Isso facilita o rastreamento do histórico de desenvolvimento e permite reverter para estados anteriores com facilidade, caso algo dê errado. <br> <br>
-                            <strong>7. Commits e Branches</strong> <br> <br>
-                            Commits são feitos dentro de branches (ramificações), que são linhas de desenvolvimento. Quando você faz um commit, ele fica associado à branch atual. Isso permite trabalhar em diferentes funcionalidades ou correções de bugs sem interferir no código principal. <br> <br>
-                            <strong>8. Alterando e Desfazendo Commits</strong> <br> <br>
-                            É possível editar ou até mesmo desfazer commits em Git. Com o comando <code>git commit --amend</code>, você pode modificar o último commit (como corrigir uma mensagem ou adicionar mais arquivos). Além disso, comandos como <code>git reset</code> ou <code>git revert</code> permitem desfazer commits, restaurando o repositório a um estado anterior. <br> <br>
-                            <strong>9. Commits e Colaboração</strong> <br> <br>
-                            Em repositórios compartilhados (remotos), como no GitHub ou GitLab, os commits locais são enviados ao repositório remoto com o comando <code>git push</code>. Isso permite que outros desenvolvedores vejam as mudanças e colaborem no mesmo projeto. Da mesma forma, ao executar <code>git pull</code>, você pode baixar commits feitos por outros desenvolvedores. <br>   <br>
-                            <strong>10. Boas Práticas para Commits</strong> <br> <br>
-                            <strong>Commits pequenos e frequentes:</strong> Fazer commits pequenos, sempre que uma unidade lógica de trabalho é concluída, facilita o rastreamento de problemas e a colaboração. <br>
-                            <strong>Mensagens claras:</strong> A mensagem de commit deve ser descritiva e explicar claramente o que foi alterado ou corrigido. <br>
-                            <strong>Não incluir mudanças irrelevantes:</strong> Faça commit apenas de arquivos relacionados à alteração. Use <code>.gitignore</code> para ignorar arquivos temporários. <br> <br>
-                        </p>
-                        <li>Branches</li> <br>
-                        <p>
-                            Uma branch representa uma versão do projeto que diverge do histórico principal. A branch principal, na maioria dos projetos, é chamada de main ou master. Quando você cria uma nova branch, você faz uma cópia do projeto a partir de um ponto no tempo (normalmente o commit atual), e a partir desse ponto, os novos commits ficam separados do código principal até que você decida mesclar (merge) essas mudanças de volta. <br> <br>
-                            <strong>1. Por que usar branches?</strong> <br> <br>
-                            Branches permitem que você trabalhe em diferentes tarefas simultaneamente (como novas funcionalidades ou correções de bugs) sem interferir no código estável. Eles são amplamente usados em fluxos de trabalho colaborativos para evitar conflitos entre desenvolvedores que trabalham em partes diferentes do código. <br> <br>
-                            <strong>2. Tipos de Branches</strong> <br> <br>
-                            Branch Principal (main/master): Normalmente, esta é a branch onde o código mais estável é mantido. O nome mais comum é main ou master. <br>
-                            Branches de Funcionalidades (Feature Branches): São criadas para desenvolver novas funcionalidades ou melhorias. Quando a funcionalidade estiver pronta, a branch pode ser fundida de volta à branch principal. <br>
-                            Branches de Correção de Bugs: Usadas para trabalhar em correções de bugs específicos, de forma que o código principal não seja afetado enquanto a correção está em andamento. <br>
-                            Branches de Lançamento (Release Branches): Criadas quando o projeto está pronto para ser preparado para uma nova versão. Elas são usadas para os ajustes finais antes de uma nova versão ser lançada. <br>
-                            Branches de Hotfix: São usadas para corrigir problemas críticos encontrados em produção e que precisam ser resolvidos rapidamente. <br> <br>
-                            <strong>3. Criar uma Branch</strong> <br> <br>
-                            Para criar uma nova branch, você pode usar o comando <code>git branch</code> ou <code>git checkout -b</code>. Aqui está um exemplo de como criar e mudar para uma nova branch chamada nova-funcionalidade: <br>
-                            <code>git checkout -b nova-funcionalidade</code> <br>
-                            Isso cria uma nova branch a partir da branch atual e automaticamente alterna para ela. <br> <br>
-                            <strong>4. Trabalhando em uma Branch</strong> <br> <br>
-                            Uma vez que você está em uma branch, todas as mudanças e commits feitos serão específicos para essa branch. Você pode trabalhar de maneira isolada sem afetar outras branches. Se necessário, você pode trocar entre branches com o comando: <br>
-                            <code>git checkout nome-da-branch</code> <br>
-                            Por exemplo, para voltar à branch principal main: <br> 
-                            <code>git checkout main</code> <br> <br>
-                            <strong>5. Visualizando Branches</strong> <br> <br>
-                            Para ver todas as branches no repositório, use: <br>
-                            <code>git branch</code> <br>
-                            Isso mostrará as branches locais, com a branch atual destacada. <br> <br>
-                            <strong>6. Mesclando (Merge) uma Branch</strong> <br> <br>
-                            Quando o trabalho em uma branch está completo, é comum "mesclar" (merge) essa branch de volta na branch principal (ou em outra branch). Isso integra as mudanças feitas naquela branch ao código principal. O comando básico para isso é: <br>
-                            <code>git checkout main</code> <br>
-                            <code>git merge nova-funcionalidade</code> <br>
-                            Isso mescla a branch nova-funcionalidade na branch main. <br> <br>
-                            <strong>7. Branches Remotas</strong> <br> <br>
-                            Além das branches locais, você pode ter branches remotas, que são cópias das branches que existem no servidor remoto (por exemplo, no GitHub ou GitLab). Para sincronizar uma branch local com o repositório remoto, você usa o comando <code>git push</code>. <br>
-                            Para enviar uma nova branch para o repositório remoto: <br>
-                            <code>git push origin nome-da-branch</code> <br> <br>        
-                            <strong>8. Excluindo uma Branch</strong> <br> <br>
-                            Quando uma branch não é mais necessária (por exemplo, após a conclusão de uma funcionalidade e sua mesclagem na branch principal), ela pode ser deletada. Para excluir uma branch local, use: <br>
-                            <code>git branch -d nome-da-branch</code> <br>
-                            Para excluir uma branch remota: <br>
-                            <code>git push origin --delete nome-da-branch</code> <br> <br>
-                            <strong>9. Branching e Colaboração</strong> <br> <br>
-                            Em projetos colaborativos, é comum que cada desenvolvedor trabalhe em suas próprias branches para isolar suas mudanças. Quando uma funcionalidade está pronta, a branch é enviada para revisão e, se aprovada, mesclada na branch principal por meio de um Pull Request (em plataformas como GitHub ou GitLab). <br>
-                            Exemplo de Fluxo de Trabalho: <br>
-                            Criar uma branch para uma nova funcionalidade: <br>
-                            <code>git checkout -b feature-nova-funcionalidade</code> <br>
-                            Fazer commits das alterações: <br>
-                            <code>git add .</code> <br>
-                            <code>git commit -m "Adiciona nova funcionalidade X"</code> <br>
-                            Publicar a branch no repositório remoto: <br>
-                            <code>git push origin feature-nova-funcionalidade</code> <br>
-                            Criar um Pull Request para que a branch seja revisada e mesclada na branch main. <br> <br>
-                        </p>
-                        <li>Merge</li> <br>
-                        <p>O merge é o processo de combinar as alterações feitas em diferentes branches de um repositório Git. Quando um branch está pronto para ser integrado de volta ao branch principal (master), os desenvolvedores podem realizar um merge para unir as alterações. O Git tenta mesclar automaticamente as mudanças, mas pode haver conflitos que precisam ser resolvidos manualmente. O merge é uma operação essencial para consolidar o trabalho feito em diferentes partes do projeto.</p>
-                    </ul> <br>
-                </section>
-                <section>
-                    <div class="section-header">
-                        <h2>Trabalhando com GitHub</h2>
-                        <label class="completion-label">
-                            <input type="checkbox" class="topic-checkbox"> Marcar como Concluído
-                        </label> 
-                    </div> <br>
-                    <ul>
-                        <li>Clonando Repositórios</li>
-                        <p>Clonar um repositório Git significa criar uma cópia local do código-fonte hospedado no GitHub em sua máquina. Isso permite que você trabalhe no projeto, faça alterações, crie novos commits e envie suas contribuições de volta para o repositório remoto. Para clonar um repositório, você precisa do URL do repositório e do Git instalado em sua máquina.</p>
-                        <li>Pull Requests</li>
-                        <p>Um Pull Request (PR) é uma solicitação feita por um desenvolvedor para mesclar as alterações feitas em um branch específico de um repositório Git. Os Pull Requests são usados para revisar, discutir e aprovar as mudanças antes de serem integradas ao branch principal. Eles facilitam a colaboração entre os membros da equipe e ajudam a manter a qualidade do código.</p>
-                        <li>Issues</li>
-                        <p>As Issues são usadas para rastrear tarefas, bugs, solicitações de recursos e outras atividades relacionadas a um projeto no GitHub. Elas são usadas para relatar problemas, discutir ideias, planejar o trabalho e colaborar com outros desenvolvedores. As Issues podem ser atribuídas a membros da equipe, marcadas com rótulos, comentadas e fechadas quando concluídas.</p>
-                        <li>GitHub Actions</li>
-                        <p>GitHub Actions é um serviço de automação integrado ao GitHub que permite criar workflows personalizados para automatizar tarefas, testes, implantações e muito mais. Com GitHub Actions, você pode definir ações baseadas em eventos, como push de código, criação de Pull Requests ou lançamento de versões, e executar scripts, comandos ou contêineres em resposta a esses eventos.</p>
-                    </ul>
-                </section>
-                
-                <section>
-                    <h2>Referências e Conteúdos Extras</h2>
-                    <ul>
-                        <li>GIT</li>
-                        <a href="https://git-scm.com/docs/git/pt_BR" target="_blank"> [LINK] O que é GIT?</a><br> 
-                        <a href="https://git-scm.com/docs/git-branch/pt_BR" target="_blank"> [LINK] Branches</a><br>
-                        <a href="https://git-scm.com/docs/git#_git_commands" target="_blank"> [LINK] Git Commands</a><br> <br>
-        
-                        <li>GitHub Desktop</li>
-                        <a href="https://docs.github.com/pt/get-started/start-your-journey/about-github-and-git" target="_blank"> [LINK] Aprenda as noções básicas do GitHub</a><br> 
-                        <a href="https://docs.github.com/pt/get-started/using-github/github-flow" target="_blank"> [LINK] Fluxo do GitHub</a><br> <br>
-        
-                        
-                        <li>GitFlow</li>
-                        <a href="https://www.alura.com.br/artigos/git-flow-o-que-e-como-quando-utilizar?srsltid=AfmBOooMBdYG8oWrBrzymldKKajJs8MKoTHWug9t-mzXZ7cbyec3GvlR" target="_blank"> [LINK] Alura - Git Flow: entenda o que é, como e quando utilizar</a><br>
-                        <a href="https://www.atlassian.com/br/git/tutorials/comparing-workflows/gitflow-workflow" target="_blank"> [LINK] Atlassian - Comparando fluxos de trabalho: Gitflow Workflow</a><br> <br>
-                        <li>Outros</li>
-                        <a href="https://www.youtube.com/watch?v=UBAX-13g8OM" target="_blank"> [VÍDEO] Git e GitHub para Iniciantes</a><br> <br>
-                        
-                    </ul>
-                </section>
-            </section>
-      
-            <aside class="summary">
-              <h2>Indice</h2>
-              <ul>
-                <li class="active">Introdução</li>
-                <li>Conceitos Básicos</li>
-                <li>Trabalhando com GitHub</li>
-                <li>Referências e Conteúdos Extras</li>
-              </ul>
-            </aside>
-          </div>
-
-        
-        
-        
+                                <audio controls controlsList="nodownload" class="w-full mt-4" src="https://content.blubrry.com/hipsterstech/hipsters_109_github.mp3">
+                                    O seu navegador não suporta o elemento de áudio. Considere atualizá-lo ou utilizar um navegador diferente.
+                                </audio>
+                                <a href="https://www.alura.com.br/podcast/git-e-github-hipsters-109-a474?srsltid=AfmBOoqap075IKMfzeTCvjqcaGQKvjwMzigyzPI4-c-agPGQw8iSOZr7" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors shadow-sm hover:shadow-md">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                    Ver episódio no site
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Adicione mais blocos de podcast aqui se necessário -->
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-</body>
-    <footer>
-        <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
+
+    <footer class="bg-sky-900 text-white text-center py-8 mt-12">
+        <p class="text-sm">Feito com <strong class="font-semibold">foco</strong> e <strong class="font-semibold">compromisso</strong> pela EJECT© - Todos os direitos reservados.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka6PYS2ZTMj7Do35tWl53KIkazN1l5Hb9Kjk7aaJ5RrbZZgZ9KmbxKt0qKZ1dQF" crossorigin="anonymous"></script>
+    <div id="geminiModal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="geminiModalTitle" class="modal-title">Resultado da IA</h5>
+                <button type="button" class="modal-close-btn" id="geminiModalCloseBtn">×</button>
+            </div>
+            <div id="geminiModalBody" class="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="shareModal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="shareModalTitle" class="modal-title">Compartilhar Página</h5>
+                <button type="button" class="modal-close-btn" id="shareModalCloseBtn">×</button>
+            </div>
+            <div id="shareModalBody" class="modal-body text-center">
+                <p class="mb-2 text-sm text-gray-600">Copie o link ou utilize o QR Code:</p>
+                <div class="flex items-center border border-gray-300 rounded-md p-2 mb-4">
+                    <input type="text" id="pageLinkInput" readonly class="w-full p-1.5 border-none focus:ring-0 text-sm text-gray-700 bg-gray-50 rounded-l-md">
+                    <button id="copyLinkBtn" class="copy-link-btn px-4 py-1.5 rounded-r-md text-sm font-medium transition-colors">
+                        Copiar
+                    </button>
+                </div>
+                <div id="qrcodeCanvasContainer" class="flex justify-center">
+                    <div id="qrcodeCanvas"></div>
+                </div>
+                <p id="copyFeedback" class="text-xs text-green-600 mt-2 h-4"></p>
+            </div>
+        </div>
+    </div>
+    <div id="pdfExportFeedback">A preparar PDF...</div>
+
+    <div id="accessibilityToolbar">
+        <button id="accessibilityBtn" title="Opções de Acessibilidade">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-5v12c0 .55-.45 1-1 1s-1-.45-1-1v-5h-2v5c0 .55-.45 1-1 1s-1-.45-1-1V9H3V7h18v2z"/>
+            </svg>
+        </button>
+        <div id="accessibilityPanel" class="hidden">
+            <div class="accessibility-section">
+                <h4>Tamanho da Fonte</h4>
+                <div class="accessibility-controls space-y-1">
+                    <button id="increaseFontBtn">Aumentar Fonte (+)</button>
+                    <button id="decreaseFontBtn">Diminuir Fonte (-)</button>
+                    <button id="resetFontBtn">Restaurar Fonte</button>
+                </div>
+            </div>
+            <div class="accessibility-section">
+                <h4>Contraste</h4>
+                <div class="accessibility-controls space-y-1">
+                    <button id="defaultContrastBtn">Padrão</button>
+                    <button id="bwContrastBtn">Preto e Branco</button>
+                    <button id="ybContrastBtn">Amarelo e Preto</button>
+                </div>
+            </div>
+            <div class="accessibility-section">
+                <h4>Leitor de Texto</h4>
+                <div class="accessibility-controls tts-controls flex space-x-1">
+                    <button id="playTTSBtn" title="Ler Conteúdo">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /></svg>
+                        Ler
+                    </button>
+                    <button id="pauseTTSBtn" title="Pausar Leitura">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1H8zm3 0a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1h-1z" clip-rule="evenodd" /></svg>
+                        Pausar
+                    </button>
+                    <button id="stopTTSBtn" title="Parar Leitura">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 00-1 1v1a1 1 0 102 0v-1a1 1 0 00-1-1zm4 0a1 1 0 00-1 1v1a1 1 0 102 0v-1a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                        Parar
+                    </button>
+                </div>
+                <div class="accessibility-controls mt-2">
+                    <label for="ttsVoiceSelect">Voz:</label>
+                    <select id="ttsVoiceSelect" disabled><option value="">A carregar vozes...</option></select>
+                </div>
+                <div class="accessibility-controls mt-1">
+                    <label for="ttsRateRange">Velocidade: <span id="ttsRateValue">1</span></label>
+                    <input type="range" id="ttsRateRange" min="0.5" max="2" step="0.1" value="1">
+                </div>
+                <div class="accessibility-controls mt-1">
+                    <label for="ttsPitchRange">Tom: <span id="ttsPitchValue">1</span></label>
+                    <input type="range" id="ttsPitchRange" min="0" max="2" step="0.1" value="1">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
-        const texto = document.getElementById('texto').innerText;
-        const playButton = document.getElementById('play-button');
-        const pauseButton = document.getElementById('pause-button');
-        const resumeButton = document.getElementById('resume-button');
-        const stopButton = document.getElementById('stop-button');
+        // Assegurar que o objeto jsPDF está disponível globalmente se usar a versão UMD
+        const { jsPDF } = window.jspdf;
 
-        // Verifica se a API de narração é suportada
-        if ('speechSynthesis' in window) {
-            const synth = window.speechSynthesis;
-            let utterance;
-            let selectedVoice;
+        // --- Gemini API Integration ---
+        const generateCommitMessageBtn = document.getElementById('generateCommitMessageBtn');
+        const taskDescriptionTextarea = document.getElementById('taskDescription');
+        const commitMessageLoadingDiv = document.getElementById('commitMessageLoading'); // Alterado para refletir o novo nome
+        const geminiModal = document.getElementById('geminiModal');
+        const geminiModalTitle = document.getElementById('geminiModalTitle');
+        const geminiModalBody = document.getElementById('geminiModalBody');
+        const geminiModalCloseBtn = document.getElementById('geminiModalCloseBtn');
 
-            // Força o carregamento das vozes antes da interação
-            const loadVoices = () => {
-                const voices = synth.getVoices();
-                // Filtra vozes naturais em português brasileiro
-                selectedVoice = voices.find(voice => 
-                    voice.lang === 'pt-BR' && voice.name.toLowerCase().includes('natural')
-                ) || voices.find(voice => voice.lang === 'pt-BR'); // Fallback
-            };
+        function showGeminiModal(title, htmlContent) {
+            if (geminiModalTitle) geminiModalTitle.textContent = title;
+            if (geminiModalBody) geminiModalBody.innerHTML = htmlContent;
+            if (geminiModal) geminiModal.classList.add('active');
+        }
+        function hideGeminiModal() {
+            if (geminiModal) geminiModal.classList.remove('active');
+        }
+        if (geminiModalCloseBtn) geminiModalCloseBtn.addEventListener('click', hideGeminiModal);
+        if (geminiModal) geminiModal.addEventListener('click', function(event) {
+            if (event.target === geminiModal) hideGeminiModal();
+        });
 
-            // Garante que as vozes sejam carregadas, especialmente em dispositivos móveis
-            loadVoices();
-            if (synth.onvoiceschanged !== undefined) {
-                synth.onvoiceschanged = loadVoices;
+        if (generateCommitMessageBtn) {
+            generateCommitMessageBtn.addEventListener('click', async () => {
+                const description = taskDescriptionTextarea.value.trim();
+                if (!description) {
+                    showGeminiModal("Erro de Validação", "<p>Por favor, descreva a alteração para gerar a mensagem de commit.</p>");
+                    return;
+                }
+                commitMessageLoadingDiv.classList.remove('hidden'); // Alterado para refletir o novo nome
+                generateCommitMessageBtn.disabled = true;
+                // Ajustando o prompt para gerar mensagem de commit e explicação
+                const prompt = `Gere uma mensagem de commit Git concisa (máx. 70 caracteres) e uma breve explicação (1-2 frases) para a seguinte alteração. Não adicione introduções ou conclusões. Use o formato: "Tipo: Mensagem do Commit\n\nExplicação: [Explicação breve]". Descrição da alteração: "${description}"`;
+
+                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // API key deve ser vazia para o Canvas
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`; // Usando gemini-2.5-flash-preview-05-20
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(`Erro da API: ${response.status} ${response.statusText}. Detalhes: ${errorData?.error?.message || 'Sem detalhes adicionais.'}`);
+                    }
+                    const result = await response.json();
+                    if (result.candidates && result.candidates[0]?.content?.parts?.[0]) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        const [commitMessageLine, ...explanationLines] = text.split('\n').filter(line => line.trim().length > 0);
+                        let formattedOutput = '';
+                        if (commitMessageLine) {
+                            formattedOutput += `<p class="mb-2 p-2 bg-purple-100 rounded"><strong>Mensagem de Commit:</strong> <code class="bg-violet-200 text-violet-800">${commitMessageLine.replace('Tipo: ', '')}</code></p>`;
+                        }
+                        if (explanationLines.length > 0) {
+                            formattedOutput += `<p class="mb-2 p-2 bg-purple-100 rounded"><strong>Explicação:</strong> ${explanationLines.join(' ').replace('Explicação: ', '')}</p>`;
+                        } else {
+                            formattedOutput += '<p>Nenhuma explicação adicional fornecida pela IA.</p>';
+                        }
+
+                        showGeminiModal("✨ Sugestão de Mensagem de Commit", `<div class="text-sm">${formattedOutput || '<p>Não foi possível gerar a mensagem de commit.</p>'}</div>`);
+                    } else {
+                        showGeminiModal("Erro", "<p>Não foi possível extrair a mensagem de commit da resposta da IA.</p>");
+                    }
+                } catch (error) {
+                    showGeminiModal("Erro na API", `<p>Ocorreu um erro: ${error.message}</p>`);
+                } finally {
+                    commitMessageLoadingDiv.classList.add('hidden'); // Alterado para refletir o novo nome
+                    generateCommitMessageBtn.disabled = false;
+                }
+            });
+        }
+
+
+        // --- Share Page Functionality ---
+        const sharePageBtn = document.getElementById('sharePageBtn');
+        const shareModal = document.getElementById('shareModal');
+        const shareModalCloseBtn = document.getElementById('shareModalCloseBtn');
+        const pageLinkInput = document.getElementById('pageLinkInput');
+        const copyLinkBtn = document.getElementById('copyLinkBtn');
+        const qrcodeCanvas = document.getElementById('qrcodeCanvas');
+        const copyFeedback = document.getElementById('copyFeedback');
+        let qrCodeInstance = null;
+
+        function showShareModal() {
+            if (shareModal && pageLinkInput && qrcodeCanvas) {
+                const pageUrl = window.location.href;
+                pageLinkInput.value = pageUrl;
+                qrcodeCanvas.innerHTML = '';
+                if (typeof QRCode !== 'undefined') {
+                    qrCodeInstance = new QRCode(qrcodeCanvas, {
+                        text: pageUrl, width: 180, height: 180,
+                        colorDark : "#000000", colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+                } else {
+                    qrcodeCanvas.innerHTML = '<p class="text-xs text-red-500">Erro ao carregar biblioteca QRCode.</p>';
+                }
+                shareModal.classList.add('active');
+            }
+        }
+        function hideShareModal() {
+            if (shareModal) {
+                shareModal.classList.remove('active');
+                if (copyFeedback) copyFeedback.textContent = '';
+            }
+        }
+        if (sharePageBtn) sharePageBtn.addEventListener('click', showShareModal);
+        if (shareModalCloseBtn) shareModalCloseBtn.addEventListener('click', hideShareModal);
+        if (shareModal) shareModal.addEventListener('click', (event) => {
+            if (event.target === shareModal) hideShareModal();
+        });
+        if (copyLinkBtn && pageLinkInput) {
+            copyLinkBtn.addEventListener('click', () => {
+                pageLinkInput.select();
+                pageLinkInput.setSelectionRange(0, 99999);
+                try {
+                    document.execCommand('copy');
+                    if(copyFeedback) {
+                        copyFeedback.textContent = 'Link copiado!';
+                        copyFeedback.classList.remove('text-red-500');
+                        copyFeedback.classList.add('text-green-600');
+                    }
+                    setTimeout(() => { if(copyFeedback) copyFeedback.textContent = ''; }, 2000);
+                } catch (err) {
+                    if(copyFeedback) {
+                        copyFeedback.textContent = 'Erro ao copiar.';
+                        copyFeedback.classList.remove('text-green-600');
+                        copyFeedback.classList.add('text-red-500');
+                    }
+                }
+            });
+        }
+
+        // --- PDF Export Functionality ---
+        const exportPdfBtn = document.getElementById('exportPdfBtn');
+        const exportTasksPdfBtn = document.getElementById('exportTasksPdfBtn'); // Novo botão
+        const pdfExportFeedbackEl = document.getElementById('pdfExportFeedback');
+
+        function showPdfFeedback(message, isError = false) {
+            if (pdfExportFeedbackEl) {
+                pdfExportFeedbackEl.textContent = message;
+                pdfExportFeedbackEl.className = 'fixed bottom-5 left-1/2 transform -translate-x-1/2 px-5 py-2.5 rounded-lg shadow-lg text-white text-sm';
+                if (isError) {
+                    pdfExportFeedbackEl.classList.add('bg-red-500');
+                } else {
+                    pdfExportFeedbackEl.classList.add('bg-green-500');
+                }
+                pdfExportFeedbackEl.style.display = 'block';
+                setTimeout(() => {
+                    pdfExportFeedbackEl.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        if (exportPdfBtn) {
+            exportPdfBtn.addEventListener('click', async () => {
+                const originalContentElement = document.getElementById('content-container');
+                if (!originalContentElement) {
+                    showPdfFeedback("Elemento de conteúdo principal não encontrado.", true);
+                    return;
+                }
+                showPdfFeedback("A preparar PDF do conteúdo, por favor aguarde...");
+                exportPdfBtn.disabled = true;
+
+                const clonedContent = originalContentElement.cloneNode(true);
+                // Remover seções de tarefa do clone do conteúdo principal
+                clonedContent.querySelectorAll('.task-section').forEach(taskEl => taskEl.remove());
+                // Remover painel do gerador de user stories (agora commit messages)
+                clonedContent.querySelectorAll('.mt-8.p-6.border.border-violet-300').forEach(genEl => genEl.remove());
+
+
+                clonedContent.style.position = 'absolute';
+                clonedContent.style.left = '-9999px';
+                clonedContent.style.width = originalContentElement.offsetWidth + 'px';
+                clonedContent.style.backgroundColor = 'white';
+                clonedContent.style.padding = '20px';
+                clonedContent.style.color = '#1f2937';
+
+                clonedContent.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, strong, span, div:not([class*="bg-"])')
+                    .forEach(el => el.style.color = '#1f2937');
+
+
+                document.body.appendChild(clonedContent);
+                try {
+                    const canvas = await html2canvas(clonedContent, {
+                        scale: 2, useCORS: true, logging: false, backgroundColor: null,
+                        width: clonedContent.scrollWidth, height: clonedContent.scrollHeight,
+                        windowWidth: clonedContent.scrollWidth, windowHeight: clonedContent.scrollHeight
+                    });
+                    document.body.removeChild(clonedContent);
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+                    const imgProps = pdf.getImageProperties(imgData);
+                    const pdfPageWidth = pdf.internal.pageSize.getWidth();
+                    const pdfPageHeight = pdf.internal.pageSize.getHeight();
+                    const margin = 10;
+                    const usablePdfWidth = pdfPageWidth - (2 * margin);
+                    const usablePdfHeight = pdfPageHeight - (2 * margin);
+                    const imgRenderHeight = (imgProps.height * usablePdfWidth) / imgProps.width;
+                    let heightLeft = imgRenderHeight;
+                    let currentYPosition = margin;
+                    pdf.addImage(imgData, 'PNG', margin, currentYPosition, usablePdfWidth, imgRenderHeight);
+                    heightLeft -= usablePdfHeight;
+                    while (heightLeft > 0) {
+                        currentYPosition -= usablePdfHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', margin, currentYPosition, usablePdfWidth, imgRenderHeight);
+                        heightLeft -= usablePdfHeight;
+                    }
+                    pdf.save('git_github_conteudo.pdf');
+                    showPdfFeedback("PDF do conteúdo gerado com sucesso!");
+                } catch (error) {
+                    console.error("Erro ao gerar PDF do conteúdo:", error);
+                    showPdfFeedback("Erro ao gerar PDF do conteúdo. Verifique a consola.", true);
+                    if (document.body.contains(clonedContent)) {
+                        document.body.removeChild(clonedContent);
+                    }
+                } finally {
+                    exportPdfBtn.disabled = false;
+                }
+            });
+        }
+
+        // Exportar Respostas das Tarefas para PDF
+        if (exportTasksPdfBtn) {
+            exportTasksPdfBtn.addEventListener('click', () => {
+                const taskSections = document.querySelectorAll('.task-section');
+                if (taskSections.length === 0) {
+                    showPdfFeedback("Nenhuma tarefa encontrada na página.", true);
+                    return;
+                }
+
+                showPdfFeedback("A preparar PDF das respostas, por favor aguarde...");
+                exportTasksPdfBtn.disabled = true;
+
+                const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+                const margin = 15;
+                const usableWidth = pdf.internal.pageSize.getWidth() - 2 * margin;
+                let currentY = margin;
+                const lineSpacing = 7; // Espaço entre linhas de texto
+                const taskSpacing = 15; // Espaço entre tarefas
+
+                pdf.setFontSize(18);
+                pdf.text("Respostas das Tarefas Práticas - Git e GitHub", margin, currentY);
+                currentY += lineSpacing * 2;
+
+                taskSections.forEach((section, index) => {
+                    if (currentY > (pdf.internal.pageSize.getHeight() - margin * 3)) { // Verifica espaço para nova tarefa
+                        pdf.addPage();
+                        currentY = margin;
+                    }
+
+                    const titleElement = section.querySelector('h3');
+                    const questionElement = section.querySelector('.task-question');
+                    const answerElement = section.querySelector('.task-answer');
+
+                    if (titleElement) {
+                        pdf.setFontSize(14);
+                        pdf.setTextColor(52, 73, 94); // Cor escura para o título da tarefa
+                        const titleLines = pdf.splitTextToSize(titleElement.textContent.trim().replace('Tarefa Prática: ', ''), usableWidth);
+                        pdf.text(titleLines, margin, currentY);
+                        currentY += (titleLines.length * lineSpacing * 0.8);
+                    }
+
+                    if (questionElement) {
+                        pdf.setFontSize(10);
+                        pdf.setTextColor(100, 100, 100); // Cinza para a pergunta
+                        const questionLines = pdf.splitTextToSize("Pergunta: " + questionElement.textContent.trim(), usableWidth);
+                        pdf.text(questionLines, margin, currentY);
+                        currentY += (questionLines.length * lineSpacing * 0.7);
+                    }
+
+                    if (answerElement) {
+                        pdf.setFontSize(11);
+                        pdf.setTextColor(0, 0, 0); // Preto para a resposta
+                        const answerText = answerElement.value.trim() || "Nenhuma resposta fornecida.";
+                        const answerLines = pdf.splitTextToSize("Resposta: \n" + answerText, usableWidth);
+
+                        if (currentY + (answerLines.length * lineSpacing * 0.7) > (pdf.internal.pageSize.getHeight() - margin)) {
+                            pdf.addPage();
+                            currentY = margin;
+                        }
+                        pdf.text(answerLines, margin, currentY);
+                        currentY += (answerLines.length * lineSpacing * 0.7);
+                    }
+
+                    currentY += taskSpacing; // Espaço antes da próxima tarefa
+                    if (index < taskSections.length - 1) {
+                        pdf.setDrawColor(200, 200, 200); // Linha divisória suave
+                        pdf.line(margin, currentY - (taskSpacing / 2), pdf.internal.pageSize.getWidth() - margin, currentY - (taskSpacing / 2));
+                    }
+                });
+
+                try {
+                    pdf.save('respostas_tarefas_git_github.pdf');
+                    showPdfFeedback("PDF das respostas gerado com sucesso!");
+                } catch(e) {
+                    console.error("Erro ao salvar PDF das tarefas:", e);
+                    showPdfFeedback("Erro ao salvar PDF das tarefas.", true);
+                } finally {
+                    exportTasksPdfBtn.disabled = false;
+                }
+            });
+        }
+
+
+        // --- Accessibility Features ---
+        const accessibilityBtn = document.getElementById('accessibilityBtn');
+        const accessibilityPanel = document.getElementById('accessibilityPanel');
+        const mainContentContainer = document.getElementById('content-container');
+
+        const increaseFontBtn = document.getElementById('increaseFontBtn');
+        const decreaseFontBtn = document.getElementById('decreaseFontBtn');
+        const resetFontBtn = document.getElementById('resetFontBtn');
+
+        const defaultContrastBtn = document.getElementById('defaultContrastBtn');
+        const bwContrastBtn = document.getElementById('bwContrastBtn');
+        const ybContrastBtn = document.getElementById('ybContrastBtn');
+
+        const playTTSBtn = document.getElementById('playTTSBtn');
+        const pauseTTSBtn = document.getElementById('pauseTTSBtn');
+        const stopTTSBtn = document.getElementById('stopTTSBtn');
+        const ttsVoiceSelect = document.getElementById('ttsVoiceSelect');
+        const ttsRateRange = document.getElementById('ttsRateRange');
+        const ttsRateValue = document.getElementById('ttsRateValue');
+        const ttsPitchRange = document.getElementById('ttsPitchRange');
+        const ttsPitchValue = document.getElementById('ttsPitchValue');
+
+
+        let currentFontSizeMultiplier = 1;
+        const FONT_SIZE_STEP_ACC = 0.1;
+        const MIN_FONT_MULTIPLIER_ACC = 0.7;
+        const MAX_FONT_MULTIPLIER_ACC = 1.8;
+        let originalFontSizesMap = new Map();
+
+        if (accessibilityBtn && accessibilityPanel) {
+            accessibilityBtn.addEventListener('click', () => {
+                accessibilityPanel.classList.toggle('active');
+                accessibilityPanel.classList.toggle('hidden');
+            });
+        }
+
+        function storeOriginalFontSizesAcc() {
+            if (originalFontSizesMap.size === 0 && mainContentContainer) {
+                mainContentContainer.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, a, span:not([class*="icon"])').forEach((el, index) => {
+                    const computedStyle = window.getComputedStyle(el);
+                    const elId = el.dataset.accId || `acc-el-${index}`;
+                    el.dataset.accId = elId;
+                    originalFontSizesMap.set(elId, parseFloat(computedStyle.fontSize));
+                });
+            }
+        }
+
+        function updateFontSizesAcc(multiplier) {
+            if (!mainContentContainer) return;
+            storeOriginalFontSizesAcc();
+
+            currentFontSizeMultiplier = Math.max(MIN_FONT_MULTIPLIER_ACC, Math.min(multiplier, MAX_FONT_MULTIPLIER_ACC));
+
+            mainContentContainer.querySelectorAll('[data-acc-id]').forEach(el => {
+                const originalSize = originalFontSizesMap.get(el.dataset.accId);
+                if (originalSize) {
+                    el.style.fontSize = (originalSize * currentFontSizeMultiplier) + 'px';
+                }
+            });
+
+            mainContentContainer.querySelectorAll('p, li').forEach(el => {
+                const currentElementFontSize = parseFloat(el.style.fontSize || window.getComputedStyle(el).fontSize);
+                let newLineHeight = originalFontSizesMap.get(el.dataset.accId) * 1.7;
+                if (currentFontSizeMultiplier !== 1) {
+                    newLineHeight = (originalFontSizesMap.get(el.dataset.accId) * 1.7 * currentFontSizeMultiplier * 0.9);
+                }
+                el.style.lineHeight = Math.max(originalFontSizesMap.get(el.dataset.accId) * 1.5, newLineHeight) + 'px';
+            });
+        }
+
+
+        if (increaseFontBtn) {
+            increaseFontBtn.addEventListener('click', () => {
+                updateFontSizesAcc(currentFontSizeMultiplier + FONT_SIZE_STEP_ACC);
+            });
+        }
+        if (decreaseFontBtn) {
+            decreaseFontBtn.addEventListener('click', () => {
+                updateFontSizesAcc(currentFontSizeMultiplier - FONT_SIZE_STEP_ACC);
+            });
+        }
+        if (resetFontBtn) {
+            resetFontBtn.addEventListener('click', () => {
+                currentFontSizeMultiplier = 1;
+                mainContentContainer.querySelectorAll('[data-acc-id]').forEach(el => {
+                    const originalSize = originalFontSizesMap.get(el.dataset.accId);
+                    if (originalSize) {
+                        el.style.fontSize = originalSize + 'px';
+                        if (el.tagName === 'P' || el.tagName === 'LI') {
+                           el.style.lineHeight = (originalSize * 1.7) + 'px';
+                        }
+                    } else {
+                           el.style.fontSize = '';
+                           if (el.tagName === 'P' || el.tagName === 'LI') {
+                                el.style.lineHeight = '';
+                           }
+                    }
+                });
+            });
+        }
+
+        function applyContrast(themeClass) {
+            document.body.classList.remove('contrast-default', 'contrast-bw', 'contrast-yb');
+            if (themeClass !== 'contrast-default') {
+                document.body.classList.add(themeClass);
+            }
+        }
+        if (defaultContrastBtn) defaultContrastBtn.addEventListener('click', () => applyContrast('contrast-default'));
+        if (bwContrastBtn) bwContrastBtn.addEventListener('click', () => applyContrast('contrast-bw'));
+        if (ybContrastBtn) ybContrastBtn.addEventListener('click', () => applyContrast('contrast-yb'));
+
+        let speechSynth = window.speechSynthesis;
+        let currentUtterance = null;
+        let elementsToRead = [];
+        let currentElementIndex = 0;
+        let isReadingPaused = false;
+        let availableVoices = [];
+
+        function populateVoiceList() {
+            if(typeof speechSynthesis === 'undefined' || !ttsVoiceSelect) {
+                return;
+            }
+            availableVoices = speechSynth.getVoices();
+            ttsVoiceSelect.innerHTML = '';
+
+            if (availableVoices.length === 0) {
+                   ttsVoiceSelect.innerHTML = '<option value="">Nenhuma voz disponível</option>';
+                   ttsVoiceSelect.disabled = true;
+                   return;
             }
 
-            playButton.addEventListener('click', () => {
-                if (utterance) {
-                    synth.cancel(); // Cancela qualquer narração em andamento
-                }
-                utterance = new SpeechSynthesisUtterance(texto);
-                utterance.lang = 'pt-BR';
-                if (selectedVoice) utterance.voice = selectedVoice; // Configura a voz
-                utterance.rate = 1; // Velocidade (ajuste se necessário)
-                synth.speak(utterance);
-
-                // Atualiza botões
-                playButton.disabled = true;
-                pauseButton.disabled = false;
-                stopButton.disabled = false;
-            });
-
-            pauseButton.addEventListener('click', () => {
-                if (synth.speaking && !synth.paused) {
-                    synth.pause();
-                    pauseButton.disabled = true;
-                    resumeButton.disabled = false;
+            let hasPortugueseVoice = false;
+            availableVoices.forEach(voice => {
+                if (voice.lang.startsWith('pt')) {
+                    const option = document.createElement('option');
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.setAttribute('data-lang', voice.lang);
+                    option.setAttribute('data-name', voice.name);
+                    ttsVoiceSelect.appendChild(option);
+                    hasPortugueseVoice = true;
                 }
             });
 
-            resumeButton.addEventListener('click', () => {
-                if (synth.paused) {
-                    synth.resume();
-                    pauseButton.disabled = false;
-                    resumeButton.disabled = true;
-                }
-            });
-
-            stopButton.addEventListener('click', () => {
-                if (synth.speaking) {
-                    synth.cancel();
-                    playButton.disabled = false;
-                    pauseButton.disabled = true;
-                    resumeButton.disabled = true;
-                    stopButton.disabled = true;
-                }
-            });
-
-        } else {
-            alert('Desculpe, seu navegador não suporta a narração automática.');
+            if (!hasPortugueseVoice) {
+                   availableVoices.forEach(voice => {
+                    const option = document.createElement('option');
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.setAttribute('data-lang', voice.lang);
+                    option.setAttribute('data-name', voice.name);
+                    ttsVoiceSelect.appendChild(option);
+                });
+            }
+            ttsVoiceSelect.disabled = false;
         }
+
+        populateVoiceList();
+        if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoiceList;
+        }
+
+
+        function prepareTextToRead() {
+            if (!mainContentContainer) return '';
+            let textSegments = [];
+            mainContentContainer.querySelectorAll('section.mb-10, section.p-6.bg-white').forEach(section => {
+                const titleElement = section.querySelector('h1, h2');
+                if (titleElement && titleElement.textContent.trim().length > 0) {
+                    textSegments.push(titleElement.textContent.trim() + ".");
+                }
+                section.querySelectorAll('p, h3, h4, li').forEach(el => {
+                    if (el.closest('.mt-8.p-6.border.border-violet-300') || el.closest('ul.list-disc')) {
+                        if (el.tagName.toLowerCase() === 'li' && el.closest('ul.list-disc')) {
+                               const link = el.querySelector('a');
+                               if (link && link.textContent.trim().length > 0) {
+                                   textSegments.push(link.textContent.trim() + ", link.");
+                               } else if (el.textContent.trim().length > 0) {
+                                   textSegments.push(el.textContent.trim() + ".");
+                               }
+                        }
+                        return;
+                    }
+                    if (el.textContent.trim().length > 0) {
+                        textSegments.push(el.textContent.trim().replace(/\s+/g, ' ') + ".");
+                    }
+                });
+            });
+            return textSegments.join(' \n ');
+        }
+
+        function speakNextSegment() {
+            if (currentElementIndex >= elementsToRead.length || !speechSynth) {
+                playTTSBtn.disabled = false;
+                pauseTTSBtn.disabled = true;
+                stopTTSBtn.disabled = true;
+                currentElementIndex = 0;
+                currentUtterance = null;
+                elementsToRead = [];
+                return;
+            }
+            if (speechSynth.paused && isReadingPaused) { return; }
+            if (speechSynth.speaking && !isReadingPaused) { return; }
+
+            currentUtterance = new SpeechSynthesisUtterance(elementsToRead[currentElementIndex]);
+            currentUtterance.lang = 'pt-BR';
+            currentUtterance.rate = parseFloat(ttsRateRange.value) || 1;
+            currentUtterance.pitch = parseFloat(ttsPitchRange.value) || 1;
+
+            const selectedVoiceName = ttsVoiceSelect.selectedOptions[0]?.getAttribute('data-name');
+            if (selectedVoiceName) {
+                const voice = availableVoices.find(v => v.name === selectedVoiceName);
+                if (voice) currentUtterance.voice = voice;
+            } else {
+                const portugueseVoice = availableVoices.find(v => v.lang.startsWith('pt-BR') || v.lang.startsWith('pt-PT'));
+                if(portugueseVoice) currentUtterance.voice = portugueseVoice;
+            }
+
+
+            currentUtterance.onend = () => {
+                if (elementsToRead.length === 0) return;
+
+                if (currentElementIndex < elementsToRead.length - 1) {
+                    currentElementIndex++;
+                    speakNextSegment();
+                } else {
+                    playTTSBtn.disabled = false;
+                    pauseTTSBtn.disabled = true;
+                    stopTTSBtn.disabled = true;
+                    currentElementIndex = 0;
+                    currentUtterance = null;
+                    elementsToRead = [];
+                }
+            };
+            currentUtterance.onerror = (event) => {
+                console.error('Erro na síntese de voz:', event.error);
+                isReadingPaused = false;
+                currentElementIndex = 0;
+                elementsToRead = [];
+                currentUtterance = null;
+                if (speechSynth) { speechSynth.cancel(); }
+                playTTSBtn.disabled = false;
+                pauseTTSBtn.disabled = true;
+                stopTTSBtn.disabled = true;
+            };
+            speechSynth.speak(currentUtterance);
+            playTTSBtn.disabled = true;
+            pauseTTSBtn.disabled = false;
+            stopTTSBtn.disabled = false;
+            isReadingPaused = false;
+        }
+
+        if (playTTSBtn) {
+            playTTSBtn.addEventListener('click', () => {
+                if (!speechSynth) {
+                    // Using custom modal instead of alert
+                    showGeminiModal("Erro", "<p>A síntese de voz não é suportada neste navegador.</p>");
+                    return;
+                }
+                if (speechSynth.paused && currentUtterance && isReadingPaused) {
+                    speechSynth.resume();
+                    isReadingPaused = false;
+                    playTTSBtn.disabled = true;
+                    pauseTTSBtn.disabled = false;
+                    stopTTSBtn.disabled = false;
+                } else {
+                    speechSynth.cancel();
+                    currentUtterance = null;
+                    isReadingPaused = false;
+                    elementsToRead = [];
+                    currentElementIndex = 0;
+
+                    const fullText = prepareTextToRead();
+                    elementsToRead = fullText.split('. ')
+                                            .map(s => s.trim())
+                                            .filter(segment => segment.length > 0)
+                                            .map(s => s.endsWith('.') ? s : s + '.');
+
+                    if (elementsToRead.length > 0) {
+                        speakNextSegment();
+                    } else {
+                        showGeminiModal("Informação", "<p>Não há conteúdo textual para ler na página.</p>");
+                        playTTSBtn.disabled = false;
+                        pauseTTSBtn.disabled = true;
+                        stopTTSBtn.disabled = true;
+                    }
+                }
+            });
+        }
+
+        if (pauseTTSBtn) {
+            pauseTTSBtn.addEventListener('click', () => {
+                if (speechSynth && speechSynth.speaking && !speechSynth.paused) {
+                    speechSynth.pause();
+                    isReadingPaused = true;
+                    playTTSBtn.disabled = false;
+                    pauseTTSBtn.disabled = true;
+                }
+            });
+            pauseTTSBtn.disabled = true;
+        }
+
+        if (stopTTSBtn) {
+            stopTTSBtn.addEventListener('click', () => {
+                isReadingPaused = false;
+                currentElementIndex = 0;
+                elementsToRead = [];
+                currentUtterance = null;
+                if (speechSynth) { speechSynth.cancel(); }
+                playTTSBtn.disabled = false;
+                pauseTTSBtn.disabled = true;
+                stopTTSBtn.disabled = true;
+            });
+            stopTTSBtn.disabled = true;
+        }
+
+        if (ttsRateRange && ttsRateValue) {
+            ttsRateRange.addEventListener('input', () => {
+                ttsRateValue.textContent = ttsRateRange.value;
+                if (currentUtterance && speechSynth.speaking && !speechSynth.paused) {
+                    speechSynth.cancel();
+                    currentUtterance.rate = parseFloat(ttsRateRange.value);
+                    speechSynth.speak(currentUtterance);
+                } else if (currentUtterance && speechSynth.paused && isReadingPaused) {
+                    currentUtterance.rate = parseFloat(ttsRateRange.value);
+                }
+            });
+        }
+        if (ttsPitchRange && ttsPitchValue) {
+            ttsPitchRange.addEventListener('input', () => {
+                ttsPitchValue.textContent = ttsPitchRange.value;
+                if (currentUtterance && speechSynth.speaking && !speechSynth.paused) {
+                    speechSynth.cancel();
+                    currentUtterance.pitch = parseFloat(ttsPitchRange.value);
+                    speechSynth.speak(currentUtterance);
+                } else if (currentUtterance && speechSynth.paused && isReadingPaused) {
+                    currentUtterance.pitch = parseFloat(ttsPitchRange.value);
+                }
+            });
+        }
+
+
+        window.addEventListener('load', storeOriginalFontSizesAcc);
+
     </script>
+
+</body>
 </html>
