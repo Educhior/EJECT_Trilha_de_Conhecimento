@@ -17,6 +17,7 @@
                 extend: {
                     fontFamily: {
                         sans: ['"Exo 2"', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
                     },
                     colors: {
                         'eject-blue-dark': 'rgb(0, 61, 115)',
@@ -43,6 +44,11 @@
                         'eject-modal-border-dark': '#444',
                         'eject-modal-header-border-light': '#eee',
                         'eject-modal-header-border-dark': '#4f4f4f',
+                        // Cores personalizadas para o banner Prosempre
+                        'prosempre-orange': 'rgb(255, 153, 0)',
+                        'prosempre-dark-bg': 'rgb(15, 15, 25)', // Um preto azulado muito escuro
+                        'prosempre-panel-bg': 'rgba(255, 153, 0, 0.1)', // Laranja translúcido mais suave
+                        'prosempre-light-text': 'rgb(250, 250, 250)', // Texto quase branco
                     },
                     backgroundImage: {
                         'eject-body-gradient-light': 'linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%)',
@@ -52,6 +58,9 @@
                         'eject-gemini-gradient-light': 'linear-gradient(92.07deg, #4A00E0 1.84%, #8E2DE2 100%)',
                         'eject-gemini-gradient-dark': 'linear-gradient(92.07deg, #580fc0 1.84%, #a04dff 100%)',
                         'eject-gift-gradient': 'linear-gradient(45deg, #ffcc00, #ff33cc, #6633ff, #33ccff)',
+                        'prosempre-button-gradient': 'linear-gradient(90deg, rgb(255, 153, 0) 0%, rgb(255, 204, 0) 100%)',
+                        // Novo gradiente radial para o fundo do banner
+                        'prosempre-radial-gradient': 'radial-gradient(circle at center, rgba(255, 153, 0, 0.05) 0%, rgba(15, 15, 25, 1) 70%)',
                     }
                 }
             }
@@ -92,17 +101,68 @@
         }
         .new-badge {
             @apply absolute top-2 right-2 bg-pink-500 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-md;
-            /* Tailwind classes for:
-               - absolute positioning
-               - top and right offsets
-               - background color (pink-500 for high visibility)
-               - text color white
-               - small text size
-               - bold font
-               - padding
-               - fully rounded corners
-               - a subtle shadow
-            */
+        }
+        /* Estilos específicos para o banner Prosempre */
+        .prosempre-banner {
+            @apply relative overflow-hidden;
+        }
+        .prosempre-banner-bg-animation {
+            @apply absolute inset-0 bg-prosempre-radial-gradient;
+            animation: radial-pulse 8s infinite ease-in-out;
+        }
+        .prosempre-dots-pattern {
+            @apply absolute inset-0 opacity-10;
+            background-image: url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%239C92AC\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E');
+        }
+        .prosempre-date-panel {
+            @apply flex items-center justify-center p-4 rounded-2xl shadow-xl transition-all duration-300 ease-in-out;
+            @apply bg-prosempre-panel-bg text-prosempre-orange;
+            backdrop-filter: blur(10px) saturate(180%); /* Blur mais forte e saturação para acrílico */
+            -webkit-backdrop-filter: blur(10px) saturate(180%);
+            border: 1px solid rgba(255, 153, 0, 0.2); /* Borda mais suave */
+            transform: translateY(0);
+        }
+        .prosempre-date-panel:hover {
+            transform: translateY(-8px) scale(1.02); /* Efeito de levantar e expandir no hover */
+            box-shadow: 0 20px 40px rgba(255, 153, 0, 0.3); /* Sombra mais intensa e espalhada */
+        }
+        .prosempre-date-num {
+            @apply text-5xl font-extrabold w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center;
+            animation: fade-in 1s ease-out forwards;
+        }
+        .prosempre-date-text {
+            @apply text-4xl font-extrabold px-6 py-4;
+            animation: fade-in 1s ease-out forwards;
+        }
+        .prosempre-button {
+            @apply ds-btn-base bg-prosempre-button-gradient text-gray-900 shadow-lg hover:shadow-xl hover:scale-105;
+            @apply w-full sm:w-auto px-8 py-4 text-lg rounded-full font-bold;
+            animation: pulse-subtle 2s infinite ease-in-out;
+        }
+
+        /* Keyframes para animações */
+        @keyframes fade-in-down {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-down {
+            animation: fade-in-down 1s ease-out forwards;
+        }
+
+        @keyframes radial-pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse-subtle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
     </style>
     <!-- Noticeable Widget Styles -->
@@ -201,8 +261,8 @@
             <section class="gift-section flex flex-col justify-center items-center text-center text-white p-6 rounded-2xl shadow-lg bg-eject-gift-gradient">
                 <h1 class="text-3xl md:text-[2rem] mb-2 font-semibold">Hub de Conhecimentos</h1>
                 <p class="text-lg md:text-[1.1rem] mb-0">Boas-vindas, Astronauta! Selecione uma trilha para começar o aprendizado.</p>
-            </section> <br>
-
+            </section>
+            <!-- 
             <section id="geminiStudyPlannerSection" class="mt-4 mb-8 p-4 rounded-xl shadow-md bg-eject-card-bg-light dark:bg-eject-card-bg-dark">
                 <h2 class="text-2xl lg:text-3xl text-center mb-3 font-semibold text-eject-text-primary-light dark:text-eject-text-primary-dark">✨ Planejador de Estudos com IA</h2>
                 <p class="text-center mb-4 text-eject-text-secondary-light dark:text-eject-text-secondary-dark">Diga-nos seu objetivo de aprendizado e a IA sugere um roteiro de estudos com as trilhas do hub!</p>
@@ -224,6 +284,42 @@
                 </div>
                 <div id="studyPlanError" class="mt-3 p-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" style="display:none;" role="alert"></div>
             </section>
+            -->
+
+            <!-- Novo banner Prosempre - Elegante e Animado -->
+            <section class="prosempre-banner my-8 p-6 rounded-2xl shadow-2xl bg-prosempre-dark-bg text-prosempre-light-text flex flex-col items-center justify-center relative">
+                <!-- Efeito de fundo animado -->
+                <div class="prosempre-banner-bg-animation"></div>
+                <div class="prosempre-dots-pattern"></div>
+                
+                <div class="relative z-10 w-full max-w-4xl flex flex-col items-center text-center">
+                    
+                    <p class="text-xl md:text-2xl font-mono text-prosempre-light-text mb-6 animate-fade-in-down">ProSempre 25.2 - Período de inscrições</p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+                        <div class="prosempre-date-panel group">
+                            <span class="prosempre-date-num">11</span>
+                        </div>
+                        <p class="text-3xl font-bold text-prosempre-light-text">até</p>
+                        <div class="prosempre-date-panel group">
+                            <span class="prosempre-date-num">21</span>
+                        </div>
+                        <div class="prosempre-date-panel group">
+                            <span class="prosempre-date-text">Agosto</span>
+                        </div>
+                    </div>
+
+                    <a href="https://app.pipefy.com/public/form/oZe9JVA_?fbclid=PAZXh0bgNhZW0CMTEAAaefmJHN2u5NzxRtyRjFwrr0wGgxVwsi4ovrtWm7LztKlBbSUavd6S2JrlDg5Q_aem_kL7fcjf-FAnhQ49HrZf_HA" target="_blank" rel="noopener noreferrer" class="prosempre-button">
+                        link de inscrição
+                    </a>
+
+                    <div class="w-full flex justify-center mt-8">
+                        <!-- Logo EJECT -->
+                        <img src="img/PS.png" alt="EJECT Logo" class="h-12 opacity-80">
+                    </div>
+                </div>
+            </section>
+            <!-- Fim do novo banner Prosempre -->
 
             <section class="mb-8">
                 <h2 class="text-2xl lg:text-3xl mt-6 mb-4 font-semibold text-eject-text-primary-light dark:text-eject-text-primary-dark">🏆 Top 10</h2>
@@ -241,10 +337,10 @@
                                        <button class="ds-btn-gemini" data-track-title="Scrum">✨ Resumir Trilha</button>
                                    </div>
                                </div>
-                           </div>
-                       </div>
+                            </div>
+                        </div>
 
-                       <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
                             <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Metodologia Moscow">
                                 <img src="https://isoflex.com.br/wp-content/uploads/2022/12/metodologia-5s.png" alt="Imagem do Metodologia 5S" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
                                 <span class="new-badge">NOVA</span>
@@ -257,8 +353,8 @@
                                 </div>
                             </div>
                         </div>
-                       
-                       <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                        
+                        <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
                             <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Metodologia Moscow">
                                 <img src="https://www.flowup.me/blog/wp-content/uploads/2023/12/FlowUp-imagens-2023-12-13T093821.902.png" alt="Imagem do Scrum" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
                                 <span class="new-badge">NOVA</span>
@@ -299,7 +395,7 @@
                                 </div>
                             </div>
                         </div>
-                         <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
+                           <div class="shrink-0 snap-center w-[calc(100%-2rem)] xs:w-[calc(85%-1.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
                             <div class="ds-card flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out hover:-translate-y-1 relative" data-track-title="Gestão de Tempo">
                                 <img src="https://timeular.com/wp-content/uploads/2023/11/Copy-of-Copy-of-Blog-image-7.png" alt="Imagem da trilha de gestão de tempo" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
                                 <div class="p-4 flex flex-col items-center text-center flex-grow">
@@ -433,7 +529,7 @@
                     <div class="p-4 flex flex-col items-center text-center flex-grow">
                         <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Marketing Comercial</h3>
                         <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
-                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/marketing_comercial" aria-label="Acessar trilha Marketing Comercial">Acessar</a>
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/marketing_comercial">Acessar</a>
                             <button class="ds-btn-gemini" data-track-title="Marketing Comercial">✨ Resumir Trilha</button>
                         </div>
                     </div>
@@ -444,7 +540,7 @@
                     <div class="p-4 flex flex-col items-center text-center flex-grow">
                         <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Scrum</h3>
                         <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
-                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/Scrum" aria-label="Acessar trilha Scrum">Acessar</a>
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/Scrum">Acessar</a>
                             <button class="ds-btn-gemini" data-track-title="Scrum">✨ Resumir Trilha</button>
                         </div>
                     </div>
@@ -454,7 +550,7 @@
                     <div class="p-4 flex flex-col items-center text-center flex-grow">
                         <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Django & Rest</h3>
                         <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
-                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/django" aria-label="Acessar trilha Django & Rest">ACESSAR</a>
+                            <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/django">ACESSAR</a>
                             <button class="ds-btn-gemini" data-track-title="Django & Rest">✨ Resumir Trilha</button>
                         </div>
                     </div>
@@ -513,6 +609,7 @@
                     <img src="https://cityhost.ua/upload_img/blog5f352fc3b2393_wp.png" alt="Imagem do Wordpress" class="w-full h-[180px] object-cover rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';">
                     <div class="p-4 flex flex-col items-center text-center flex-grow">
                         <h3 class="text-lg font-semibold mb-3 text-eject-text-primary-light dark:text-eject-text-primary-dark">Wordpress</h3>
+                        <span class="new-badge">NOVA</span>
                         <div class="mt-auto pt-2.5 w-full flex flex-col gap-2.5">
                             <a class="ds-btn-primary" href="/EJECT_Trilha_de_Conhecimento/Trilhas/wordpress" aria-label="Acessar trilha Wordpress">Acessar</a>
                             <button class="ds-btn-gemini" data-track-title="Wordpress">✨ Resumir Trilha</button>
@@ -631,8 +728,8 @@
     <script>
         // Gemini API Call Function
         async function generateGeminiText(prompt) {
-            const apiKey = "AIzaSyAnojN8ZpEjiHaUVlZbgdalGVKdJwkIrRI"; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
             
             const payload = {
                 contents: [{ role: "user", parts: [{ text: prompt }] }]
@@ -667,7 +764,7 @@
                 } else {
                     console.error("Estrutura de resposta inesperada da API Gemini:", result);
                     if (result.promptFeedback && result.promptFeedback.blockReason) {
-                         throw new Error(`Conteúdo bloqueado pela API: ${result.promptFeedback.blockReason} ${result.promptFeedback.blockReasonMessage ? '- ' + result.promptFeedback.blockReasonMessage : ''}`);
+                            throw new Error(`Conteúdo bloqueado pela API: ${result.promptFeedback.blockReason} ${result.promptFeedback.blockReasonMessage ? '- ' + result.promptFeedback.blockReasonMessage : ''}`);
                     }
                     throw new Error("Não foi possível obter uma resposta da IA. A resposta não continha o texto esperado.");
                 }
@@ -751,9 +848,9 @@
                 studyPlanErrorElement.style.display = 'none';
 
                 const allTrackTitles = Array.from(document.querySelectorAll('#cardContainer .ds-card')) 
-                                            .map(card => card.dataset.trackTitle)
-                                            .filter(title => title) 
-                                            .join('; ');
+                                                .map(card => card.dataset.trackTitle)
+                                                .filter(title => title) 
+                                                .join('; ');
 
                 const prompt = `Como um assistente de planejamento de estudos para o Hub de Conhecimentos da EJECT, meu objetivo é ajudar um usuário a alcançar o seguinte objetivo de aprendizado: "${studyGoal}".
 

@@ -4,448 +4,311 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EJECT | WordPress</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/eject_logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- O ícone foi removido pois o caminho original era absoluto e não funcionaria no ambiente.
+         Se tiver um ícone local, ajuste o caminho. -->
+    <!-- <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/eject_logo.png"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        /* Importação da fonte */
-        @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap');
-
-        /* Variáveis de cor */
-        :root {
-            --background: rgb(245, 251, 255);
-            --color-primary: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
-            --text-gray: #4a4a4a;
-            --white: #fff;
-            --text-light-grey: #aaa;
-            --star-yellow: #FFBB3A;
-            --gemini-blue: #4285F4; /* Google Blue for Gemini features */
-            --gemini-green: #34A853; /* Google Green */
-        }
-
-        /* Reset de estilo */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Configurações de fonte e corpo */
-        html, body {
-            font-family: "Exo 2", sans-serif;
-            width: 100%;
-            min-height: 100%; 
-            background: var(--color-primary);
-        }
-
         body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            font-family: "Exo 2", sans-serif;
+            background: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
+            color: white; /* Cor padrão que será sobrescrita pelo Tailwind ou temas de contraste */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s, color 0.3s;
         }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #0284c7; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0369a1; }
+        code {
+            background-color: #e5e7eb; color: #be123c; padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem; font-size: 0.875em;
+        }
+        .vw-plugin-wrapper { z-index: 1000 !important; }
+        .aspect-w-16 { position: relative; padding-bottom: calc(9 / 16 * 100%); }
+        .aspect-h-9 > * { position: absolute; height: 100%; width: 100%; top: 0; right: 0; bottom: 0; left: 0; }
 
-        main {
-            flex: 1;
-            padding: 20px;
-            max-width: 1200px; 
-            margin: 0 auto;    
+        .btn-gemini {
+            background: linear-gradient(92.07deg, #652CD1 1.84%, #8E2DE2 100%); color: white;
+            font-weight: 600; padding: 0.625rem 1.25rem; border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            transition: all 0.3s ease; border: none; cursor: pointer;
         }
+        .btn-gemini:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(101,44,209,0.4), 0 4px 6px -2px rgba(101,44,209,0.3);
+        }
+        .btn-gemini:disabled { opacity: 0.7; cursor: not-allowed; }
 
-        h1, h2, h3, h4, h5, h6 {
-            margin: 0; 
+        .loading-spinner-gemini, .loading-spinner-pdf {
+            border: 4px solid rgba(255,255,255,0.2); width: 24px; height: 24px;
+            border-radius: 50%; border-left-color: #A78BFA;
+            animation: spin 1s ease infinite; margin: 10px auto;
         }
-        h2 { margin-bottom: 0.75rem; }
-        h3 { margin-bottom: 0.5rem; }
+        .loading-spinner-pdf { border-left-color: #38bdf8; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        a {
-            text-decoration: none;
-            color: #0073e6; 
-        }
-
-        a:hover {
-            color: #005bb5; 
-            text-decoration: underline;
-        }
-        nav a {
-            text-decoration: none; 
-            font-size: 12px;       
-            font-weight: 400;      
-        }
-        nav a:hover {
-            color: unset;          
-            text-decoration: none; 
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            height: 98px;
-            background: var(--background);
-            box-shadow: rgb(224, 229, 241) 0px 4px 10px 5px;
-            align-items: center;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            height: 98px;
-            align-items: center;
-        }
-
-        nav.container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px; 
-        }
-
-        nav h1 {
-            font-weight: bold;
-            text-align: center;
-            color: rgb(0, 61, 115);
-            font-size: 30px;
-        }
-
-        .ds-contact-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .ds-contact-container img {
-            margin-right: 10px;
-            height: 50px;
-        }
-
-        @media (max-width: 768px) {
-            .ds-contact-container {
-                margin: 0 auto; 
-            }
-            nav h1 {
-                font-size: 24px; 
-            }
-            .nav-bar { 
-                display: flex;
-                justify-content: space-between;
-                padding: 10px;
-            }
-        }
-
-        .ds-contact-container, .Trilhas-contact-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .ds-contact-container img,
-        .Trilhas-contact-container img {
-            margin-right: 10px;
-            height: 50px;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin-bottom: 1rem; 
-        }
-
-        li {
-            background: #fff;
-            margin: 0.5rem 0;
-            padding: 1rem;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-        li p, li ul {
-            margin-bottom: 0.5rem; 
-        }
-        li p:last-child, li ul:last-child {
-            margin-bottom: 0; 
-        }
-        li strong { 
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-        ul ul li {
-            background: #f9f9f9; 
-            padding: 0.5rem;
-            margin-top: 0.25rem;
-        }
-        ul ul li a {
-            font-size: 0.95rem;
-        }
-
-        .ds-btn, .login-button, .logout-button, .gemini-btn { /* Added .gemini-btn */
-            font-size: 1rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: var(--white);
-            background: linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%);
-            padding: 0.8rem 1.2rem;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            display: inline-flex; /* Changed to inline-flex for side-by-side buttons */
-            align-items: center;
-            justify-content: center;
-            min-width: 150px;
-            min-height: 50px;
-            border-color: transparent;
-            margin: 5px; /* Added margin for spacing between buttons */
-        }
-        .gemini-btn { /* Specific style for Gemini buttons */
-             background: linear-gradient(92.07deg, var(--gemini-blue) 1.84%, var(--gemini-green) 100%);
-        }
-
-
-        .ds-btn:hover, .login-button:hover, .logout-button:hover, .gemini-btn:hover {
-            transform: scale(1.05);
-            color:white;
-        }
-
-        .login-button img, .logout-button img {
-            width: 24px;
-            height: 24px;
-            margin-right: 8px;
-        }
-
-        footer {
-            width: 100%;
-            background-color: rgb(10, 55, 78);
-            padding: 0 1rem; 
-        }
-
-        footer p {
-            font-size: 1rem;
-            text-align: center;
-            padding: 2rem 0 1rem;
-            color: var(--white);
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem; 
-        }
-
-        .section-header h2 {
-            font-size: 1.8rem;
-            margin-bottom: 0; 
-        }
-        
-        section { 
-            margin-bottom: 1.5rem;
-        }
-        section.mb-5 { 
-             margin-bottom: 3rem !important;
-        }
-
-        @media screen and (max-width: 768px) {
-            main {
-                margin: 0 5%; 
-                padding: 15px; 
-            }
-
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .section-header h2 {
-                margin-bottom: 10px;
-                font-size: 1.6rem;
-            }
-        }
-
-        /* Estilo do modal */
-        .modal {
-            position: fixed;
-            z-index: 1050; /* Bootstrap's modal z-index is 1050 */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex; 
-            justify-content: center;
-            align-items: center;
-            opacity: 0; 
-            visibility: hidden; 
+        .modal-backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6); display: flex; justify-content: center;
+            align-items: center; z-index: 1050; opacity: 0; visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-        .modal.show { 
+        .modal-backdrop.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: white; color: #374151; padding: 2rem;
+            border-radius: 0.75rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 90%; max-width: 500px;
+            max-height: 90vh; overflow-y: auto; transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+        .modal-backdrop.active .modal-content { transform: translateY(0); }
+        .modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 1rem;
+        }
+        .modal-title { font-size: 1.25rem; font-weight: 600; color: #1e40af; }
+        .modal-close-btn {
+            background: none; border: none; font-size: 1.75rem; font-weight: bold;
+            color: #6b7280; cursor: pointer; padding: 0.5rem; line-height: 1;
+        }
+        .modal-close-btn:hover { color: #1f2937; }
+        .modal-body { margin-bottom: 1.5rem; }
+        .modal-body pre {
+            background-color: #f3f4f6; padding: 1rem; border-radius: 0.5rem;
+            white-space: pre-wrap; word-wrap: break-word; font-size: 0.9rem;
+            max-height: 40vh; overflow-y: auto;
+        }
+        .podcast-iframe-container { margin-top: 0.5rem; }
+        .podcast-iframe-container iframe { max-width: 100%; border-radius: 0.375rem; }
+
+        #qrcodeCanvas {
+            width: 200px; height: 200px; margin: 1.5rem auto; padding: 10px;
+            background-color: white; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #qrcodeCanvas img { display: block; width: 100% !important; height: 100% !important; }
+        .copy-link-btn { background-color: #0ea5e9; color: white; }
+        .copy-link-btn:hover { background-color: #0284c7; }
+
+        #pdfExportFeedback {
+            position: fixed; bottom: 20px; left: 50%;
+            transform: translateX(-50%); background-color: #22c55e;
+            color: white; padding: 10px 20px; border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 2000;
+            display: none; font-size: 0.9rem;
+        }
+        #pdfExportFeedback.error { background-color: #ef4444; }
+
+        /* Accessibility Panel Styles */
+        #accessibilityToolbar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1060;
+        }
+        #accessibilityBtn {
+            background-color: #1e40af;
+            color: white;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #accessibilityBtn:hover {
+            background-color: #1c3a94;
+        }
+        #accessibilityPanel {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 280px;
+            background-color: white;
+            color: #374151;
+            border-radius: 0.5rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        }
+        #accessibilityPanel.active {
             opacity: 1;
             visibility: visible;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 30px;
-            max-width: 600px; /* Increased max-width for summary */
-            border: 1px solid #888;
-            width: 90%;     /* Adjusted for responsiveness */
-            text-align: left; /* Summary text should be left-aligned */
-            border-radius: 8px; 
-            transform: translateY(-20px); 
-            transition: transform 0.3s ease;
-            position: relative; /* For close button positioning */
-            max-height: 80vh; /* Max height for scrollability */
-            overflow-y: auto; /* Enable scroll for long summaries */
-        }
-
-        .modal.show .modal-content {
             transform: translateY(0);
         }
-
-        .modal-content h3 { 
-            margin-top: 0;
-            font-size: 1.5rem; 
-            color: #333;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center; /* Modal title can be centered */
+        .accessibility-section { margin-bottom: 1rem; }
+        .accessibility-section h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.25rem;
         }
-
-        .modal-content p {
-            font-size: 1rem; 
-            color: #555; 
-            line-height: 1.6; 
-            margin-bottom: 20px; 
-        }
-        .modal-content pre { /* Styling for preformatted text from Gemini */
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            white-space: pre-wrap; /* Allow text to wrap */
-            word-wrap: break-word; /* Break long words */
-            font-size: 0.95rem;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-
-        .close-button, .close { 
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 1.8rem; 
-            color: #666;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            border: none;      
-            background: none;  
-            padding: 0; /* Remove default button padding */
-            line-height: 1; /* Ensure icon aligns well */
-        }
-
-        .close-button:hover, .close:hover {
-            color: #000;
-        }
-        
-        code{
-            background-color: #dbdbdb;
-            color: #271e1e;
-            padding: 3px 6px; 
-            border-radius: 5px;
-            font-size: 0.9em; 
-        }
-
-        p {
-            line-height: 1.6;
-            font-size: 1rem;
-            margin-bottom: 1rem; 
-        }
-        p:last-child {
-            margin-bottom: 0; 
-        }
-        section p:last-of-type { 
-            margin-bottom: 0;
-        }
-
-        /* Gemini API Feature Styles */
-        .gemini-feature-section {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-        }
-        .gemini-feature-section h3 {
-            color: var(--gemini-blue);
-            margin-bottom: 1rem;
-        }
-        .gemini-feature-section textarea {
+        .accessibility-controls button, .accessibility-controls select, .accessibility-controls input[type="range"] {
             width: 100%;
-            min-height: 100px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ced4da;
-            margin-bottom: 1rem;
-            font-family: "Exo 2", sans-serif;
+            text-align: left;
+            padding: 0.5rem 0.75rem;
+            margin-top: 0.25rem;
+            border-radius: 0.375rem;
+            border: 1px solid #d1d5db;
+            background-color: #f9fafb;
+            color: #374151;
+            font-size: 0.875rem;
+            transition: background-color 0.2s;
         }
-        .gemini-results {
-            margin-top: 1rem;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            border: 1px solid #e9ecef;
-            min-height: 50px;
+        .accessibility-controls button:hover, .accessibility-controls select:hover {
+            background-color: #f3f4f6;
         }
-        .gemini-results h4 {
-            font-size: 1.2rem;
-            color: var(--gemini-green);
-            margin-bottom: 0.5rem;
+        .accessibility-controls button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
-        .gemini-results p {
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
+        .tts-controls button { margin-right: 0.5rem; width: auto; }
+        .accessibility-controls label {
+            display: block;
+            font-size: 0.75rem; /* text-xs */
+            color: #4b5563; /* text-gray-600 */
+            margin-top: 0.5rem;
+            margin-bottom: 0.125rem;
         }
-         .gemini-results ul {
-            padding-left: 20px;
-            list-style: disc;
-        }
-        .gemini-results ul li {
-            background: transparent;
-            box-shadow: none;
-            padding: 0.25rem 0;
+        .accessibility-controls input[type="range"] {
+            padding: 0; /* Remover padding padrão do range */
+            height: 1.25rem; /* Ajustar altura */
         }
 
 
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(0,0,0,.1);
-            border-radius: 50%;
-            border-top-color: var(--gemini-blue);
-            animation: spin 1s ease-in-out infinite;
-            margin-left: 10px;
+        /* High Contrast Themes */
+        body.contrast-bw {
+            background: black !important;
+            color: white !important; /* Default text color for the body */
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        body.contrast-bw header,
+        body.contrast-bw .bg-white,
+        body.contrast-bw .bg-gray-50, /* Target list item backgrounds */
+        body.contrast-bw .gemini-feature-section, /* Target Gemini feature backgrounds */
+        body.contrast-bw .gemini-results, /* Target Gemini results backgrounds */
+        body.contrast-bw #pageLinkInput, /* Target input background */
+        body.contrast-bw .text-center.mb-8 /* Target summarize button container background */ {
+            background-color: black !important;
+            color: white !important;
+            border: 1px solid #555 !important;
         }
-        .hidden {
-            display: none !important;
+        /* General text elements to ensure they turn white */
+        body.contrast-bw p,
+        body.contrast-bw h1,
+        body.contrast-bw h2,
+        body.contrast-bw h3,
+        body.contrast-bw h4,
+        body.contrast-bw li,
+        body.contrast-bw strong,
+        body.contrast-bw span {
+            color: white !important;
         }
-        .gemini-button-container {
-            text-align: center; /* Center the button */
-            margin-bottom: 2rem;
+        /* Specific elements that should be yellow in B&W contrast */
+        body.contrast-bw .text-sky-700,
+        body.contrast-bw .text-sky-800,
+        body.contrast-bw .text-sky-600,
+        body.contrast-bw .text-violet-700,
+        body.contrast-bw a:not(.btn-gemini):not(.btn-voltar):not(.modal-close-btn):not(.copy-link-btn) { /* Links should be yellow */
+            color: #FFFF00 !important;
+            text-decoration: underline !important;
         }
+        /* Buttons and code blocks adjustments */
+        body.contrast-bw button:not(#accessibilityBtn):not(.btn-gemini):not(.modal-close-btn):not(.copy-link-btn),
+        body.contrast-bw .btn-voltar,
+        body.contrast-bw .copy-link-btn {
+            background-color: #222 !important;
+            color: white !important;
+            border: 1px solid white !important;
+        }
+        body.contrast-bw code {
+            background-color: #1a1a1a !important;
+            color: #FFFF00 !important; /* Code text in yellow */
+            border: 1px solid #555 !important;
+        }
+        body.contrast-bw .modal-content {
+            background-color: black !important;
+            color: white !important;
+            border: 1px solid #555 !important;
+        }
+        body.contrast-bw .modal-title { color: #FFFF00 !important; }
+        body.contrast-bw .modal-body pre { background-color: #1a1a1a !important; }
 
-        /* Video sections within list items styling */
-        .video-section-within-li {
-            margin-top: 1rem; 
+
+        body.contrast-yb {
+            background: #000000 !important;
+            color: #FFFF00 !important; /* Default text color for the body */
         }
-        .video-section-within-li h3 {
-            font-size: 1.1rem; 
-            margin-bottom: 0.5rem;
+        body.contrast-yb header,
+        body.contrast-yb .bg-white,
+        body.contrast-yb .bg-gray-50, /* Target list item backgrounds */
+        body.contrast-yb .gemini-feature-section, /* Target Gemini feature backgrounds */
+        body.contrast-yb .gemini-results, /* Target Gemini results backgrounds */
+        body.contrast-yb #pageLinkInput, /* Target input background */
+        body.contrast-yb .text-center.mb-8 /* Target summarize button container background */ {
+            background-color: #000000 !important;
+            color: #FFFF00 !important;
+            border: 1px solid #FFFF00 !important;
         }
+        /* General text elements to ensure they turn yellow */
+        body.contrast-yb p,
+        body.contrast-yb h1,
+        body.contrast-yb h2,
+        body.contrast-yb h3,
+        body.contrast-yb h4,
+        body.contrast-yb li,
+        body.contrast-yb strong,
+        body.contrast-yb span {
+            color: #FFFF00 !important;
+        }
+        /* Specific elements that should be cyan in Yellow/Black contrast */
+        body.contrast-yb .text-sky-700,
+        body.contrast-yb .text-sky-800,
+        body.contrast-yb .text-sky-600,
+        body.contrast-yb .text-violet-700,
+        body.contrast-yb a:not(.btn-gemini):not(.btn-voltar):not(.modal-close-btn):not(.copy-link-btn) { /* Links should be cyan */
+            color: #00FFFF !important;
+            text-decoration: underline !important;
+        }
+        /* Buttons and code blocks adjustments */
+        body.contrast-yb button:not(#accessibilityBtn):not(.btn-gemini):not(.modal-close-btn):not(.copy-link-btn),
+        body.contrast-yb .btn-voltar,
+        body.contrast-yb .copy-link-btn {
+            background-color: #1a1a1a !important;
+            color: #FFFF00 !important;
+            border: 1px solid #FFFF00 !important;
+        }
+        body.contrast-yb code {
+            background-color: #1a1a1a !important;
+            color: #00FFFF !important; /* Code text in cyan */
+            border: 1px solid #FFFF00 !important;
+        }
+        body.contrast-yb .modal-content {
+            background-color: black !important;
+            color: #FFFF00 !important;
+            border: 1px solid #FFFF00 !important;
+        }
+        body.contrast-yb .modal-title { color: #00FFFF !important; }
+        body.contrast-yb .modal-body pre { background-color: #1a1a1a !important; }
 
     </style>
 </head>
-<body>
+<body class="antialiased">
+
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper>
@@ -457,265 +320,441 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
-<header>
-    <nav class="container">
-        <a href="/EJECT_Trilha_de_Conhecimento/index">
-            <h1>Hub de Conhecimentos</h1>
-        </a>
-        <div class="ds-contact-container">
-            <a href="https://www.ejectufrn.com.br/">
-                <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
-            </a>
+<header class="bg-white shadow-md sticky top-0 z-50">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            <div class="flex items-center">
+                <a href="/EJECT_Trilha_de_Conhecimento" class="text-2xl font-bold text-sky-700 hover:text-sky-800 transition-colors">
+                    Hub de Conhecimentos
+                </a>
+            </div>
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <button id="exportTasksPdfBtn" title="Exportar Respostas das Tarefas" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                    </svg>
+                </button>
+                <button id="exportPdfBtn" title="Exportar Conteúdo para PDF" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </button>
+                <button id="sharePageBtn" title="Partilhar Página" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                    </svg>
+                </button>
+                <a href="https://www.ejectufrn.com.br/" target="_blank" rel="noopener noreferrer">
+                    <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT" class="h-10">
+                </a>
+            </div>
         </div>
     </nav>
 </header>
-    <main>
-        <section>
-            <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
-        </section>
-
+    <main id="content-container" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <input type="hidden" id="trilha-nome" value="Wordpress" />
 
-        <div class="gemini-button-container">
-            <button id="summarizePageBtn" class="gemini-btn">Resumir Conteúdo da Página ✨ <span id="summarizeSpinner" class="loading-spinner hidden"></span></button>
-        </div>
-
-        <section class="mb-5">
-            <h2>Introdução ao WordPress</h2>
-            <p>O WordPress é uma das plataformas mais populares para a criação de sites e blogs no mundo. Ele é conhecido por sua facilidade de uso e flexibilidade, sendo adequado tanto para iniciantes quanto para desenvolvedores mais experientes. Se você é universitário e quer criar um portfólio, blog, ou até mesmo um site para algum projeto, o WordPress pode ser a ferramenta ideal para você.</p>
+        <section class="mb-6">
+            <a href="/EJECT_Trilha_de_Conhecimento" class="inline-flex items-center bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-150 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Voltar
+            </a>
         </section>
 
-        <section>
-            <div class="section-header">
-                <h2>Por que usar o WordPress?</h2>
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <h1 class="text-4xl font-bold text-sky-800 mb-4">Introdução ao WordPress: Crie Seu Site com Facilidade</h1>
+            <p class="text-lg leading-relaxed text-gray-700">O WordPress é, sem dúvida, a plataforma de gestão de conteúdo (CMS - Content Management System) mais popular do mundo, impulsionando mais de 40% de todos os websites na internet. Desde blogs pessoais e portfólios até lojas online complexas e sites empresariais, o WordPress oferece uma flexibilidade e facilidade de uso incomparáveis. Se você é um estudante universitário buscando criar uma presença online, desenvolver um projeto académico ou até mesmo lançar um pequeno negócio, o WordPress é uma ferramenta poderosa e acessível para começar.</p>
+            <p class="text-lg leading-relaxed text-gray-700 mt-2">Nesta página, vamos explorar o que é o WordPress, por que ele é tão popular, como dar os primeiros passos para criar o seu site, e como ferramentas como Elementor e WooCommerce podem expandir ainda mais as suas capacidades.</p>
+        </section>
+
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Por que escolher o WordPress?</h2>
             </div>
-            <ul>
-                <li>
-                    <strong>Gratuito e de Código Aberto</strong>
-                    <p>O WordPress é gratuito, e seu código é aberto, o que significa que qualquer pessoa pode contribuir com melhorias ou criar extensões.</p>
+            <ul class="space-y-4 text-gray-700">
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">Gratuito e de Código Aberto (Open Source)</strong>
+                    <p>O coração do WordPress é um software gratuito e de código aberto. Isso significa que a sua base é livre para ser usada, modificada e distribuída por qualquer pessoa. Essa natureza colaborativa impulsiona a inovação e garante que uma vasta comunidade de desenvolvedores e utilizadores esteja sempre a contribuir para a sua melhoria e segurança.</p>
                 </li>
-                <li>
-                    <strong>Fácil de Usar</strong>
-                    <p>Não é necessário saber programar para começar a usar o WordPress. Ele oferece uma interface intuitiva, onde você pode criar e gerenciar seu site facilmente.</p>
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">Extremamente Fácil de Usar</strong>
+                    <p>Uma das maiores vantagens do WordPress é a sua curva de aprendizagem suave. Mesmo sem qualquer conhecimento de programação (HTML, CSS, JavaScript, PHP), você pode criar e gerenciar um site completo. A sua interface intuitiva e o editor visual tornam a publicação de conteúdo e a personalização do design acessíveis a todos.</p>
                 </li>
-                <li>
-                    <strong>Personalizável</strong>
-                    <p>Com milhares de temas e plugins disponíveis, você pode personalizar seu site para atender a qualquer necessidade, seja um portfólio acadêmico, uma loja online ou um blog pessoal.</p>
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">Infinitamente Personalizável</strong>
+                    <p>A verdadeira magia do WordPress reside na sua capacidade de personalização. Com dezenas de milhares de <strong>temas</strong> (designs pré-fabricados) e <strong>plugins</strong> (extensões de funcionalidade) disponíveis, você pode transformar o seu site para atender a praticamente qualquer necessidade. Quer um portfólio elegante? Um blog vibrante? Uma loja online? Tudo é possível com as ferramentas certas.</p>
                 </li>
-                <li>
-                    <strong>Responsivo</strong>
-                    <p>A maioria dos temas do WordPress é responsiva, ou seja, seus sites ficarão bonitos em celulares, tablets e computadores.</p>
-                    <section class="video-section-within-li">
-                        <h3>O que é WordPress e como funciona? [2024]</h3>
-                        <div class="ratio ratio-16x9 mb-4">
-                            <iframe src="https://www.youtube.com/embed/HIh3D5lHXWY?si=trOSB8DQ8aOfTgU1" title="O que é WordPress e como funciona?" allowfullscreen></iframe>
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">Totalmente Responsivo e Otimizado para Dispositivos Móveis</strong>
+                    <p>No mundo atual, ter um site que se adapta a qualquer tamanho de ecrã é crucial. A grande maioria dos temas modernos do WordPress é desenvolvida com design responsivo em mente, garantindo que o seu site tenha uma ótima aparência e funcionalidade em smartphones, tablets e computadores de secretária, sem esforço adicional da sua parte.</p>
+                    <div class="mt-4">
+                        <h4 class="text-lg font-semibold text-sky-700 mb-2">O que é WordPress e como funciona? [2024]</h4>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                            <iframe src="https://www.youtube.com/embed/HIh3D5lHXWY?si=trOSB8DQ8aOfTgU1" title="O que é WordPress e como funciona?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
-                    </section>
+                    </div>
                 </li>
             </ul>
         </section>
 
-        <section>
-            <div class="section-header">
-                <h2>Primeiros Passos</h2>
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Primeiros Passos: WordPress.com vs. WordPress.org</h2>
             </div>
-            <p>1. Escolha entre WordPress.com e WordPress.org</p>
-            <ul>
-                <li>
-                    <strong>WordPress.com</strong>
-                    <p>É uma versão hospedada, ideal para quem quer começar rapidamente sem se preocupar com hospedagem ou configurações técnicas. Contudo, as opções de personalização são limitadas.</p>
-                    <p><a href="https://wordpress.com/pt-br/" target="_blank">https://wordpress.com/pt-br/</a></p>
+            <p class="text-gray-700 mb-4">Antes de mergulhar na criação do seu site, é fundamental entender a diferença entre as duas principais versões do WordPress:</p>
+            <ul class="space-y-4 text-gray-700">
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">WordPress.com (Hospedado)</strong>
+                    <p>Esta é uma plataforma "tudo-em-um" onde o WordPress é hospedado para você. É ideal para iniciantes que querem criar um blog ou site simples rapidamente, sem se preocupar com detalhes técnicos como hospedagem, segurança ou atualizações. É como alugar um apartamento: tudo é cuidado para você, mas com menos liberdade para fazer grandes alterações estruturais.</p>
+                    <p class="mt-2"><strong>Vantagens:</strong> Fácil de usar, manutenção zero, hospedagem e domínio (subdomínio) incluídos. <br><strong>Desvantagens:</strong> Opções de personalização e monetização limitadas nos planos gratuitos, menos controlo sobre o seu site.</p>
+                    <p><a href="https://wordpress.com/pt-br/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Saiba mais sobre WordPress.com</a></p>
                 </li>
-                <li>
-                    <strong>WordPress.org</strong>
-                    <p>É a versão autohospedada. Você precisará contratar um serviço de hospedagem e um domínio, mas terá controle total sobre seu site, incluindo a instalação de temas e plugins.</p>
-                    <p><a href="https://br.wordpress.org/" target="_blank">https://br.wordpress.org/</a></p>
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">WordPress.org (Auto-hospedado)</strong>
+                    <p>Esta é a versão "completa" do WordPress, que você baixa e instala em um serviço de hospedagem próprio. Oferece controlo total e ilimitado sobre o seu site, permitindo instalar qualquer tema ou plugin, monetizar da forma que desejar e personalizar cada aspeto. É como construir a sua própria casa: exige mais esforço inicial, mas a liberdade é total.</p>
+                    <p class="mt-2"><strong>Vantagens:</strong> Controlo total, personalização ilimitada, acesso a todos os temas e plugins, maior potencial de monetização. <br><strong>Desvantagens:</strong> Requer que você contrate hospedagem e domínio separadamente, e você é responsável pela manutenção e segurança.</p>
+                    <p><a href="https://br.wordpress.org/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Saiba mais sobre WordPress.org</a></p>
                 </li>
             </ul>
-            <p><strong>OBS:</strong> Se você pretende usar o WordPress para um projeto mais avançado ou para aprender sobre criação de sites, recomendamos usar o WordPress.org.</p>
+            <p class="text-gray-700 mt-4"><strong>Recomendação:</strong> Para estudantes universitários que desejam aprender a fundo sobre criação de sites, ter controlo total sobre seus projetos e explorar todas as funcionalidades, o <strong>WordPress.org</strong> é a opção mais recomendada, apesar de exigir um pequeno investimento inicial em hospedagem e domínio.</p>
         </section>
 
-        <section>
-            <div class="section-header">
-                <h2>Instalação</h2>
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Instalação do WordPress.org</h2>
             </div>
-            <p>Há três maneiras principais de utilizar o <strong>WordPress.org</strong>:</p>
-            <ul>
-                <li>
-                    <strong>Hospedagem paga</strong>
-                    <p><strong>1. Escolha um serviço de hospedagem:</strong> Pesquise por provedores de hospedagem que ofereçam instalação fácil do WordPress (como Hostinger, Bluehost ou GoDaddy).</p>
-                    <p><strong>2. Registro de domínio:</strong> Um domínio é o endereço do seu site (ex.: www.meusite.com). A maioria das hospedagens oferece a opção de registrar um domínio junto com o plano de hospedagem.</p>
-                    <p><strong>3. Instalação automática:</strong> A maioria das hospedagens oferece uma instalação automática do WordPress. Basta seguir as instruções fornecidas.</p>
-                </li>
-                <li>
-                    <strong>Hospedagem gratuita</strong>
-                    <p>Embora possível, não é recomendada devido à alta ocorrência de erros.</p>
-                    <section class="video-section-within-li">
-                        <h3>WebHost – Tutorial de uso de uma hospedagem gratuita</h3>
-                        <div class="ratio ratio-16x9 mb-4">
-                            <iframe src="https://www.youtube.com/embed/IAscPei03aI?si=DTFKt8ho2_3ddLrX" title="Como instalar o WordPress? | Locaweb" allowfullscreen></iframe>
-                        </div>
-                    </section>
-                    <section class="video-section-within-li">
-                         <h3>InfinityFree – Instalar WordPress no Infinity Free</h3>
-                        <div class="ratio ratio-16x9 mb-4">
-                            <iframe src="https://www.youtube.com/embed/ygPhe0iiRJ0?si=1sGMy5l9bFksUBge&start=104" title="HOSPEDAGEM + DOMÍNIO GRÁTIS NO INFINITYFREE COM WORDPRESS 2024: Crie Seu Site Grátis!" allowfullscreen></iframe>
-                        </div>
-                    </section>
-                </li>
-                <li>
-                    <strong>Instalação local</strong>
-                    <p>Ideal para projetos individuais, essa alternativa permite rodar o WordPress localmente, sem a necessidade de um servidor remoto. No entanto, essa abordagem inviabiliza o trabalho colaborativo, pois o projeto só será acessível em sua máquina.</p>
-                    <section class="video-section-within-li">
-                        <h3>Como instalar o WordPress num servidor web XAMPP (Windows)</h3>
-                        <div class="ratio ratio-16x9 mb-4">
-                            <iframe src="https://www.youtube.com/embed/7v6qNHmqm0I?si=r4t4sIE1BesMr9_J" title="Como instalar o wordpress num servidor web XAMPP (windows)" allowfullscreen></iframe>
-                        </div>
-                    </section>
-                </li>
-            </ul>
-        </section>
-
-        <section>
-            <div class="section-header">
-                <h2>WordPress: Guia Básico</h2>
-            </div>
-            <ul>
-                <li>
-                    <strong>Tour pelo painel</strong>
-                    <section class="video-section-within-li">
-                        <div class="ratio ratio-16x9 mb-4">
-                            <iframe src="https://www.youtube.com/embed/201L6lynoyc?si=hXhkehV48S2mcRC7" title="Configurar WordPress: tour pelo painel | WordPress sem Código 2.4" allowfullscreen></iframe>
-                        </div>
-                    </section>
-                </li>
-                <li>
-                    <strong>O que é um tema WordPress?</strong>
-                    <section class="video-section-within-li">
-                        <div class="ratio ratio-16x9 mb-4">
-                            <iframe src="https://www.youtube.com/embed/TLIC9un7auI?si=OdtCVhda2OO9BOqY" title="O que é tema WordPress? Como escolher? | WordPress sem Código 2.5" allowfullscreen></iframe>
-                        </div>
-                    </section>
-                </li>
-                <li>
-                    <strong>O que são plug-ins no WordPress?</strong>
-                    <section class="video-section-within-li">
-                        <div class="ratio ratio-16x9 mb-4">
-                            <iframe src="https://www.youtube.com/embed/V4fcCUQgf6A?si=rbD321ReEJudRPRh" title="O que são plugins WordPress? Como escolher e de quais você precisa | WordPress sem Código 2.6" allowfullscreen></iframe>
-                        </div>
-                    </section>
-                </li>
-            </ul>
-        </section>
-
-        <section>
-            <div class="section-header">
-                <h2>O que é o Elementor?</h2>
-            </div>
-            <p>O Elementor é um dos construtores de páginas mais populares para WordPress. Ele permite que você crie layouts de páginas de forma visual, usando um editor drag-and-drop (arrastar e soltar). Com o Elementor, você pode personalizar seu site sem precisar de conhecimento em programação, tornando-o uma ferramenta acessível para todos, especialmente para universitários que desejam desenvolver suas habilidades em design e criação de sites.</p>
-            <ul>
-                <li>
-                    <strong>Como instalar o Elementor no WordPress?</strong>
-                    <section class="video-section-within-li">
-                        <div class="ratio ratio-16x9 mb-4">
-                            <iframe src="https://www.youtube.com/embed/fO-01fpRdWk?si=rbVl3enLmbvJYzuX" title="Curso de Elementor Wordpress- Instalação e Configurações Globais - Aula 02" allowfullscreen></iframe>
-                        </div>
-                    </section>
-                </li>
-                <li>
-                    <strong>Como usar o Elementor?</strong>
-                    <p>Após a instalação, crie uma nova página ou post, clique em "Editar com o Elementor" e comece a configurar o layout da sua página conforme desejar.</p>
-                    <section class="video-section-within-li">
-                        <div class="ratio ratio-16x9 mb-4">
-                            <iframe src="https://www.youtube.com/embed/zchcWamlE6A?si=LHPOMFPHshIIhxFa" title="O que é o Elementor do WordPress | Expert Digital" allowfullscreen></iframe>
-                        </div>
-                    </section>
-                </li>
-                <li>
-                    <strong>O Elementor é pago?</strong>
-                    <p>Existem duas versões: gratuita e paga. Ambas permitem criar páginas, mas a versão paga, chamada Elementor PRO, oferece funcionalidades mais avançadas e completas.</p>
-                    <p><a href="https://elementor.com/pricing/" target="_blank">[LINK] Elementor PRO</a></p>
-                </li>
-            </ul>
-        </section>
-
-        <section>
-            <div class="section-header">
-                <h2>O que é o WooCommerce?</h2>
-            </div>
-            <p>O WooCommerce é um plugin gratuito para WordPress que transforma seu site em uma loja online completa. É uma das soluções de comércio eletrônico mais populares do mundo, permitindo que você venda produtos físicos, digitais ou serviços diretamente do seu site. Se você é universitário e deseja iniciar um projeto de e-commerce, o WooCommerce oferece todas as ferramentas necessárias para gerenciar sua loja de forma eficiente.</p>
-            <ul>
-                <li>
-                    <strong>Instalação do WooCommerce</strong>
-                    <p>A instalação da plataforma é simples, basta você acessar no seu painel WordPress, Plugins > Adicionar Novo e fazer uma busca por “WooCommerce”.</p>
-                    <p>Após instalado e ativado, você precisa realizar a configuração pelo painel na barra lateral, ou pelo Assistente de Configuração, mostrado ao logar no WordPress.</p>
-                </li>
-                <li>
-                    <strong>Configuração Inicial</strong>
-                    <p>Após ativar o WooCommerce, você será guiado por um assistente de configuração:</p>
-                    <p><strong>1. Configurações Básicas:</strong> Insira informações básicas, como o endereço da loja, moeda e tipo de produtos que você deseja vender.</p>
-                    <p><strong>2. Métodos de Pagamento:</strong> Escolha os métodos de pagamento que você deseja oferecer aos clientes (por exemplo, PayPal, cartões de crédito).</p>
-                    <p><strong>3. Envio:</strong> Defina opções de envio, como tarifas e áreas de entrega.</p>
-                    <p><strong>4. Impostos:</strong> Configure se deseja cobrar impostos sobre as vendas e como será feito o cálculo.</p>
-                    <section class="video-section-within-li">
-                        <div class="ratio ratio-16x9 mb-4">
-                            <iframe src="https://www.youtube.com/embed/YkgM5iHZ1zQ?si=KBXVZryIEHFWpD3V" title="Como instalar e configurar o WooCommerce no WordPress (Rápido e Fácil) 2023" allowfullscreen></iframe>
-                        </div>
-                    </section>
-                </li>
-                <li>
-                    <strong>Configurando o WooCommerce</strong>
-                    <section class="video-section-within-li">
-                        <div class="ratio ratio-16x9 mb-4">
-                            <iframe src="https://www.youtube.com/embed/videoseries?si=_spUU-2AnWaAwXz8&list=PLAeCmCX88aG3A04dxaWQH6DqrYGLU8hDH" title="O que é o Elementor do WordPress | Expert Digital" allowfullscreen></iframe> </div>
-                    </section>
-                </li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Referências e Conteúdos Extras</h2>
-            <ul>
-                <li>
-                    <strong>Sites</strong>
-                    <ul>
-                        <li><a href="https://ajuda.hostnet.com.br/tutoriais-para-woocommerce/" target="_blank">[LINK] Tutoriais para Woocommerce</a></li>
+            <p class="text-gray-700 mb-4">Para começar com o <strong>WordPress.org</strong>, você precisará de um serviço de hospedagem e um nome de domínio. Existem três abordagens principais para a instalação:</p>
+            <ul class="space-y-4 text-gray-700">
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">1. Hospedagem Paga (Recomendado para Produção)</strong>
+                    <p>Esta é a forma mais profissional e confiável de hospedar seu site WordPress. Provedores de hospedagem especializados oferecem ferramentas que simplificam muito o processo.</p>
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                        <li><strong>Escolha um Provedor de Hospedagem:</strong> Empresas como Hostinger, Bluehost, GoDaddy, ou Locaweb oferecem planos otimizados para WordPress. Pesquise por aquelas que oferecem "instalação de WordPress com um clique".</li>
+                        <li><strong>Registe um Domínio:</strong> O domínio é o endereço único do seu site (ex: <code>seunome.com</code>). Muitos provedores de hospedagem incluem um domínio gratuito no primeiro ano do plano.</li>
+                        <li><strong>Instalação Automática:</strong> A maioria dos provedores oferece um instalador automático (como Softaculous) no seu painel de controlo (cPanel ou similar), que permite instalar o WordPress em poucos cliques.</li>
                     </ul>
                 </li>
-                <li>
-                    <strong>Vídeos</strong>
-                    <ul>
-                        <li><a href="https://youtu.be/F2gyAeZdU9s?si=gxcjwukiKGzFOzNH" target="_blank">[YOUTUBE - EN] How to Customize WooCommerce Product & Product Archive Pages Via Elementor</a></li>
-                        <li><a href="https://www.youtube.com/playlist?list=PLa3bnULYnrpE6ThG9BuW1KTr_naXg_KIf" target="_blank">[YOUTUBE - PT-Br] Como personalizar o Woocommerce</a></li>
-                    </ul>
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">2. Hospedagem Gratuita (Para Testes e Aprendizado Básico)</strong>
+                    <p>Embora existam opções de hospedagem gratuita (como o InfinityFree ou o 000webhost), elas são geralmente limitadas em recursos, velocidade e suporte, e podem apresentar anúncios ou serem menos estáveis. São mais adequadas para testes rápidos ou projetos muito pequenos, mas <strong>não são recomendadas para sites de produção ou projetos sérios</strong>.</p>
+                    <div class="mt-4">
+                        <h4 class="text-lg font-semibold text-sky-700 mb-2">WebHost – Tutorial de uso de uma hospedagem gratuita</h4>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow mb-4">
+                            <iframe src="https://www.youtube.com/embed/IAscPei03aI?si=DTFKt8ho2_3ddLrX" title="Como instalar o WordPress? | Locaweb" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <h4 class="text-lg font-semibold text-sky-700 mb-2">InfinityFree – Instalar WordPress no Infinity Free</h4>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                            <iframe src="https://www.youtube.com/embed/ygPhe0iiRJ0?si=1sGMy5l9bFksUBge&start=104" title="HOSPEDAGEM + DOMÍNIO GRÁTIS NO INFINITYFREE COM WORDPRESS 2024: Crie Seu Site Grátis!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
                 </li>
-                <li>
-                    <strong>Cursos</strong>
-                    <ul>
-                        <li><a href="https://academy.hostgator.com.br/public/products/f16af464-5d43-46a7-982d-c7d6662b177e" target="_blank">[HostGator Academy] Curso de WordPress: Crie um Site Profissional</a></li>
-                        <li><a href="https://conteudos.hostgator.com.br/curso-desenvolvimento-de-plugins-wordpress" target="_blank">[CURSO - PT-Br] Curso Desenvolvimento de Plugins para Wordpress</a></li>
-                    </ul>
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">3. Instalação Local (Para Desenvolvimento e Testes Offline)</strong>
+                    <p>Instalar o WordPress no seu próprio computador (Windows, macOS, Linux) é uma excelente forma de desenvolver e testar sites offline, sem a necessidade de uma conexão com a internet ou de contratar hospedagem. Ferramentas como XAMPP, Local by Flywheel ou MAMP criam um ambiente de servidor local no seu PC. No entanto, lembre-se que este site só será visível para você, a menos que o publique num servidor online posteriormente.</p>
+                    <div class="mt-4">
+                        <h4 class="text-lg font-semibold text-sky-700 mb-2">Como instalar o WordPress num servidor web XAMPP (Windows)</h4>
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                            <iframe src="https://www.youtube.com/embed/7v6qNHmqm0I?si=r4t4sIE1BesMr9_J" title="Como instalar o wordpress num servidor web XAMPP (windows)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
                 </li>
             </ul>
+        </section>
+
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">WordPress: Guia Básico de Uso</h2>
+            </div>
+            <p class="text-gray-700 mb-4">Após a instalação, você terá acesso ao painel de administração do WordPress, o seu centro de comando. Vamos conhecer os elementos essenciais:</p>
+            <ul class="space-y-4 text-gray-700">
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">Tour pelo Painel de Administração (Dashboard)</strong>
+                    <p>O painel é onde você gerencia todo o seu site. Aqui, você pode criar e editar páginas e posts, gerenciar comentários, instalar temas e plugins, e configurar aspetos gerais do seu site. A barra lateral esquerda contém o menu principal de navegação.</p>
+                    <div class="mt-4">
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                            <iframe src="https://www.youtube.com/embed/201L6lynoyc?si=hXhkehV48S2mcRC7" title="Configurar WordPress: tour pelo painel | WordPress sem Código 2.4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </li>
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">O que é um Tema WordPress? (Design e Funcionalidade)</strong>
+                    <p>Um tema define a aparência visual do seu site e, muitas vezes, também adiciona funcionalidades específicas. É o "esqueleto" do seu site. Existem milhares de temas gratuitos e pagos, que vão desde layouts simples de blog até designs complexos para e-commerce. A escolha do tema é crucial, pois ele impacta a experiência do utilizador e a otimização para motores de busca.</p>
+                    <div class="mt-4">
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                            <iframe src="https://www.youtube.com/embed/TLIC9un7auI?si=OdtCVhda2OO9BOqY" title="O que é tema WordPress? Como escolher? | WordPress sem Código 2.5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </li>
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">O que são Plugins no WordPress? (Expandindo Funcionalidades)</strong>
+                    <p>Plugins são como "aplicativos" para o seu site WordPress. Eles adicionam novas funcionalidades ou estendem as existentes, sem que você precise escrever uma linha de código. Quer um formulário de contacto? Um sistema de segurança? Otimização para SEO? Há um plugin para quase tudo! A vasta biblioteca de plugins é um dos maiores trunfos do WordPress.</p>
+                    <div class="mt-4">
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                            <iframe src="https://www.youtube.com/embed/V4fcCUQgf6A?si=rbD321ReEJudRPRh" title="O que são plugins WordPress? Como escolher e de quais você precisa | WordPress sem Código 2.6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Elementor: O Construtor de Páginas Visual</h2>
+            </div>
+            <p class="text-gray-700 mb-4">O <strong>Elementor</strong> é um dos construtores de páginas (page builders) mais populares e poderosos para WordPress. Ele revolucionou a forma como as pessoas criam sites, permitindo que você projete layouts de páginas de forma visual, usando um editor de arrastar e soltar (drag-and-drop), sem a necessidade de escrever código. É perfeito para designers, profissionais de marketing e qualquer pessoa que queira controlo total sobre o design do seu site.</p>
+            <ul class="space-y-4 text-gray-700">
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">Como instalar o Elementor no WordPress?</strong>
+                    <p>A instalação do Elementor é feita como qualquer outro plugin. No seu painel de administração WordPress, vá em <code>Plugins > Adicionar Novo</code>, pesquise por "Elementor", instale e ative. Após a ativação, um novo item "Elementor" aparecerá no seu menu lateral.</p>
+                    <div class="mt-4">
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                            <iframe src="https://www.youtube.com/embed/fO-01fpRdWk?si=rbVl3enLmbjJYzuX" title="Curso de Elementor Wordpress- Instalação e Configurações Globais - Aula 02" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </li>
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">Como usar o Elementor?</strong>
+                    <p>Para começar a usar o Elementor, crie uma nova página ou post e clique no botão "Editar com Elementor". Você será levado ao editor visual, onde pode arrastar e soltar elementos (como textos, imagens, botões, vídeos) para criar o seu design. O Elementor oferece uma pré-visualização em tempo real, permitindo que você veja as suas alterações instantaneamente.</p>
+                    <div class="mt-4">
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                            <iframe src="https://www.youtube.com/embed/zchcWamlE6A?si=LHPOMFPHshIIhxFa" title="O que é o Elementor do WordPress | Expert Digital" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </li>
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">O Elementor é pago? (Versões Gratuita e PRO)</strong>
+                    <p>O Elementor oferece uma versão gratuita robusta que já permite criar designs impressionantes. No entanto, existe também a versão paga, o <strong>Elementor PRO</strong>, que desbloqueia funcionalidades avançadas como construtor de temas, pop-ups, formulários avançados, e muito mais. A versão PRO é ideal para quem precisa de flexibilidade total e recursos profissionais.</p>
+                    <p><a href="https://elementor.com/pricing/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Explore os planos do Elementor PRO</a></p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="gemini-feature-section p-6 bg-violet-50 border border-violet-300 rounded-xl shadow-inner mb-10">
+            <h3 class="text-2xl font-semibold text-violet-700 mb-3">✨ Gerador de Ideias para Plugins WordPress</h3>
+            <p class="text-sm text-violet-600 mb-3">Descreva uma necessidade ou problema que você gostaria de resolver em um site WordPress e a IA irá sugerir ideias de plugins. Pense em algo que tornaria seu site mais funcional ou fácil de usar.</p>
+            <div>
+                <label for="pluginIdeaInput" class="block text-sm font-medium text-violet-700 mb-1">Minha necessidade:</label>
+                <textarea id="pluginIdeaInput" rows="3" class="w-full p-2 border border-violet-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500 text-gray-800" placeholder="Ex: Preciso de um plugin para gerenciar inscrições em eventos acadêmicos com emissão de certificados."></textarea>
+            </div>
+            <button id="generatePluginIdeaBtn" class="btn-gemini mt-4 w-full sm:w-auto">
+                Gerar Ideias de Plugins
+            </button>
+            <div id="pluginIdeaSpinner" class="loading-spinner-gemini hidden mt-4"></div>
+            <div id="pluginIdeaResults" class="gemini-results hidden mt-4 text-gray-800"></div>
+        </section>
+
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">WooCommerce: Transforme Seu Site em uma Loja Online</h2>
+            </div>
+            <p class="text-gray-700 mb-4">O <strong>WooCommerce</strong> é o plugin de e-commerce mais popular para WordPress, transformando qualquer site WordPress numa poderosa loja online. É uma solução completa e flexível para vender produtos físicos, digitais ou serviços, gerenciar inventário, pagamentos e envios. Se você tem uma ideia de negócio ou quer vender algo online, o WooCommerce é a ferramenta ideal para começar.</p>
+            <ul class="space-y-4 text-gray-700">
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">Instalação do WooCommerce</strong>
+                    <p>Assim como o Elementor, o WooCommerce é um plugin e a sua instalação é simples. No seu painel WordPress, navegue até <code>Plugins > Adicionar Novo</code>, pesquise por “WooCommerce”, instale e ative. Após a ativação, um assistente de configuração será iniciado para guiá-lo pelos primeiros passos.</p>
+                </li>
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">Configuração Inicial do WooCommerce</strong>
+                    <p>O assistente de configuração do WooCommerce é muito intuitivo e irá ajudá-lo a configurar os aspetos essenciais da sua loja:</p>
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                        <li><strong>Configurações Básicas:</strong> Defina o endereço da sua loja, a moeda utilizada e os tipos de produtos que irá vender.</li>
+                        <li><strong>Métodos de Pagamento:</strong> Configure como os seus clientes poderão pagar (ex: PayPal, Stripe para cartões de crédito, transferência bancária).</li>
+                        <li><strong>Envio:</strong> Configure as opções de envio, como zonas de entrega, taxas de envio e métodos de cálculo.</li>
+                        <li><strong>Impostos:</strong> Defina as configurações de impostos, se aplicável, para os seus produtos.</li>
+                    </ul>
+                    <div class="mt-4">
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                            <iframe src="https://www.youtube.com/embed/YkgM5iHZ1zQ?si=KBXVZryIEHFWpD3V" title="Como instalar e configurar o WooCommerce no WordPress (Rápido e Fácil) 2023" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </li>
+                <li class="p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <strong class="block text-xl font-semibold text-sky-700 mb-2">Gerenciando Sua Loja com WooCommerce</strong>
+                    <p>Após a configuração inicial, você terá novas secções no seu painel WordPress dedicadas ao WooCommerce, onde poderá adicionar produtos, gerenciar pedidos, visualizar relatórios de vendas e muito mais. O WooCommerce é extremamente flexível e pode ser estendido com diversos outros plugins para funcionalidades específicas de e-commerce.</p>
+                    <div class="mt-4">
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                            <iframe src="https://www.youtube.com/embed/videoseries?si=_spUU-2AnWaAwXz8&list=PLAeCmCX88aG3A04dxaWQH6DqrYGLU8hDH" title="O que é o Elementor do WordPress | Expert Digital" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="gemini-feature-section p-6 bg-violet-50 border border-violet-300 rounded-xl shadow-inner mb-10">
+            <h3 class="text-2xl font-semibold text-violet-700 mb-3">✨ Gerador de Nomes para Blogs/Sites WordPress</h3>
+            <p class="text-sm text-violet-600 mb-3">Insira palavras-chave ou uma breve descrição do tema do seu blog/site e a IA sugerirá nomes criativos e cativantes. Pense no público-alvo e na mensagem que deseja transmitir.</p>
+            <div>
+                <label for="blogNameInput" class="block text-sm font-medium text-violet-700 mb-1">Tema do Blog/Site (palavras-chave):</label>
+                <textarea id="blogNameInput" rows="3" class="w-full p-2 border border-violet-300 rounded-md shadow-sm focus:ring-violet-500 focus:focus:border-violet-500 text-gray-800" placeholder="Ex: Culinária saudável, dicas de estudo para universitários, tecnologia e inovação."></textarea>
+            </div>
+            <button id="generateBlogNameBtn" class="btn-gemini mt-4 w-full sm:w-auto">
+                Gerar Nomes
+            </button>
+            <div id="blogNameSpinner" class="loading-spinner-gemini hidden mt-4"></div>
+            <div id="blogNameResults" class="gemini-results hidden mt-4 text-gray-800"></div>
+        </section>
+
+        <section class="p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <h2 class="text-3xl font-semibold text-sky-700 mb-6 pb-4 border-b border-gray-200">Referências e Conteúdos Extras</h2>
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Sites e Documentação Oficial</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><a href="https://ajuda.hostnet.com.br/tutoriais-para-woocommerce/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Tutoriais para WooCommerce (Hostnet)</a></li>
+                        <li><a href="https://elementor.com/pricing/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Elementor PRO (Site Oficial)</a></li>
+                        <li><a href="https://wordpress.com/pt-br/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">WordPress.com (Site Oficial)</a></li>
+                        <li><a href="https://br.wordpress.org/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">WordPress.org (Site Oficial)</a></li>
+                        <li><a href="https://woocommerce.com/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">WooCommerce (Site Oficial)</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Vídeos e Tutoriais</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><a href="https://www.youtube.com/embed/F2gyAeZdU9s?si=gxcjwukiKGzFOzNH" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">How to Customize WooCommerce Product & Product Archive Pages Via Elementor (YouTube - EN)</a></li>
+                        <li><a href="https://www.youtube.com/playlist?list=PLa3bnULYnrpE6ThG9BuW1KTr_naXg_KIf" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Como personalizar o Woocommerce (YouTube - PT-Br)</a></li>
+                        <li><a href="https://www.youtube.com/embed/HIh3D5lHXWY?si=trOSB8DQ8aOfTgU1" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">O que é WordPress e como funciona? [2024] (YouTube)</a></li>
+                        <li><a href="https://www.youtube.com/embed/IAscPei03aI?si=DTFKt8ho2_3ddLrX" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">WebHost – Tutorial de uso de uma hospedagem gratuita (YouTube)</a></li>
+                        <li><a href="https://www.youtube.com/embed/ygPhe0iiRJ0?si=1sGMy5l9bFksUBge&start=104" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">InfinityFree – Instalar WordPress no Infinity Free (YouTube)</a></li>
+                        <li><a href="https://www.youtube.com/embed/7v6qNHmqm0I?si=r4t4sIE1BesMr9_J" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Como instalar o WordPress num servidor web XAMPP (Windows) (YouTube)</a></li>
+                        <li><a href="https://www.youtube.com/embed/201L6lynoyc?si=hXhkehV48S2mcRC7" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Configurar WordPress: tour pelo painel (YouTube)</a></li>
+                        <li><a href="https://www.youtube.com/embed/TLIC9un7auI?si=OdtCVhda2OO9BOqY" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">O que é tema WordPress? Como escolher? (YouTube)</a></li>
+                        <li><a href="https://www.youtube.com/embed/V4fcCUQgf6A?si=rbD321ReEJudRPRh" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">O que são plugins WordPress? Como escolher e de quais você precisa (YouTube)</a></li>
+                        <li><a href="https://www.youtube.com/embed/fO-01fpRdWk?si=rbVl3enLmbjJYzuX" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Curso de Elementor Wordpress- Instalação e Configurações Globais (YouTube)</a></li>
+                        <li><a href="https://www.youtube.com/embed/zchcWamlE6A?si=LHPOMFPHshIIhxFa" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">O que é o Elementor do WordPress (YouTube)</a></li>
+                        <li><a href="https://www.youtube.com/embed/YkgM5iHZ1zQ?si=KBXVZryIEHFWpD3V" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Como instalar e configurar o WooCommerce no WordPress (YouTube)</a></li>
+                        <li><a href="https://www.youtube.com/embed/videoseries?si=_spUU-2AnWaAwXz8&list=PLAeCmCX88aG3A04dxaWQH6DqrYGLU8hDH" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Configurando o WooCommerce (YouTube Playlist)</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Cursos</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><a href="https://academy.hostgator.com.br/public/products/f16af464-5d43-46a7-982d-c7d6662b177e" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Curso de WordPress: Crie um Site Profissional (HostGator Academy)</a></li>
+                        <li><a href="https://conteudos.hostgator.com.br/curso-desenvolvimento-de-plugins-wordpress" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Curso Desenvolvimento de Plugins para Wordpress (HostGator)</a></li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
     </main>
 
-    <div id="summaryModal" class="modal">
+    <footer class="bg-sky-900 text-white text-center py-8 mt-12">
+        <p class="text-sm">Feito com <strong class="font-semibold">foco</strong> e <strong class="font-semibold">compromisso</strong> pela EJECT© - Todos os direitos reservados.</p>
+    </footer>
+
+    <div id="geminiModal" class="modal-backdrop">
         <div class="modal-content">
-            <button class="close-button" id="closeSummaryModal">&times;</button>
-            <h3>Resumo da Página ✨</h3>
-            <div id="summaryModalContent"><p>A carregar resumo...</p></div>
+            <div class="modal-header">
+                <h5 id="geminiModalTitle" class="modal-title">Resultado da IA</h5>
+                <button type="button" class="modal-close-btn" id="geminiModalCloseBtn">×</button>
+            </div>
+            <div id="geminiModalBody" class="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="shareModal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="shareModalTitle" class="modal-title">Compartilhar Página</h5>
+                <button type="button" class="modal-close-btn" id="shareModalCloseBtn">×</button>
+            </div>
+            <div id="shareModalBody" class="modal-body text-center">
+                <p class="mb-2 text-sm text-gray-600">Copie o link ou utilize o QR Code:</p>
+                <div class="flex items-center border border-gray-300 rounded-md p-2 mb-4">
+                    <input type="text" id="pageLinkInput" readonly class="w-full p-1.5 border-none focus:ring-0 text-sm text-gray-700 bg-gray-50 rounded-l-md">
+                    <button id="copyLinkBtn" class="copy-link-btn px-4 py-1.5 rounded-r-md text-sm font-medium transition-colors">
+                        Copiar
+                    </button>
+                </div>
+                <div id="qrcodeCanvasContainer" class="flex justify-center">
+                    <div id="qrcodeCanvas"></div>
+                </div>
+                <p id="copyFeedback" class="text-xs text-green-600 mt-2 h-4"></p>
+            </div>
+        </div>
+    </div>
+    <div id="pdfExportFeedback">A preparar PDF...</div>
+
+    <div id="accessibilityToolbar">
+        <button id="accessibilityBtn" title="Opções de Acessibilidade">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-5v12c0 .55-.45 1-1 1s-1-.45-1-1v-5h-2v5c0 .55-.45 1-1 1s-1-.45-1-1V9H3V7h18v2z"/>
+            </svg>
+        </button>
+        <div id="accessibilityPanel" class="hidden">
+            <div class="accessibility-section">
+                <h4>Tamanho da Fonte</h4>
+                <div class="accessibility-controls space-y-1">
+                    <button id="increaseFontBtn">Aumentar Fonte (+)</button>
+                    <button id="decreaseFontBtn">Diminuir Fonte (-)</button>
+                    <button id="resetFontBtn">Restaurar Fonte</button>
+                </div>
+            </div>
+            <div class="accessibility-section">
+                <h4>Contraste</h4>
+                <div class="accessibility-controls space-y-1">
+                    <button id="defaultContrastBtn">Padrão</button>
+                    <button id="bwContrastBtn">Preto e Branco</button>
+                    <button id="ybContrastBtn">Amarelo e Preto</button>
+                </div>
+            </div>
+            <div class="accessibility-section">
+                <h4>Leitor de Texto</h4>
+                <div class="accessibility-controls tts-controls flex space-x-1">
+                    <button id="playTTSBtn" title="Ler Conteúdo">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /></svg>
+                        Ler
+                    </button>
+                    <button id="pauseTTSBtn" title="Pausar Leitura">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1H8zm3 0a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1h-1z" clip-rule="evenodd" /></svg>
+                        Pausar
+                    </button>
+                    <button id="stopTTSBtn" title="Parar Leitura">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 00-1 1v1a1 1 0 102 0v-1a1 1 0 00-1-1zm4 0a1 1 0 00-1 1v1a1 1 0 102 0v-1a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                        Parar
+                    </button>
+                </div>
+                <div class="accessibility-controls mt-2">
+                    <label for="ttsVoiceSelect">Voz:</label>
+                    <select id="ttsVoiceSelect" disabled><option value="">A carregar vozes...</option></select>
+                </div>
+                <div class="accessibility-controls mt-1">
+                    <label for="ttsRateRange">Velocidade: <span id="ttsRateValue">1</span></label>
+                    <input type="range" id="ttsRateRange" min="0.5" max="2" step="0.1" value="1">
+                </div>
+                <div class="accessibility-controls mt-1">
+                    <label for="ttsPitchRange">Tom: <span id="ttsPitchValue">1</span></label>
+                    <input type="range" id="ttsPitchRange" min="0" max="2" step="0.1" value="1">
+                </div>
+            </div>
         </div>
     </div>
 
 
-    <footer class="text-center py-4">
-        <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT© - Todos os direitos reservados.</p>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-ka6PYS2ZTMj7Do35tWl53KIkazN1l5Hb9Kjk7aaJ5RrbZZgZ9KmbxKt0qKZ1dQF" crossorigin="anonymous"></script>
     <script>
+        // Assegurar que o objeto jsPDF está disponível globalmente se usar a versão UMD
+        const { jsPDF } = window.jspdf;
+
+        // --- Gemini API Integration ---
+        const geminiModal = document.getElementById('geminiModal');
+        const geminiModalTitle = document.getElementById('geminiModalTitle');
+        const geminiModalBody = document.getElementById('geminiModalBody');
+        const geminiModalCloseBtn = document.getElementById('geminiModalCloseBtn');
+
+        function showGeminiModal(title, htmlContent) {
+            if (geminiModalTitle) geminiModalTitle.textContent = title;
+            if (geminiModalBody) geminiModalBody.innerHTML = htmlContent;
+            if (geminiModal) geminiModal.classList.add('active');
+        }
+        function hideGeminiModal() {
+            if (geminiModal) geminiModal.classList.remove('active');
+        }
+        if (geminiModalCloseBtn) geminiModalCloseBtn.addEventListener('click', hideGeminiModal);
+        if (geminiModal) geminiModal.addEventListener('click', function(event) {
+            if (event.target === geminiModal) hideGeminiModal();
+        });
+
         // Função para chamar a API Gemini
         async function callGeminiAPI(promptText, resultElementId, spinnerElementId) {
             const resultElement = document.getElementById(resultElementId);
@@ -732,8 +771,8 @@
 
             let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
             const payload = { contents: chatHistory };
-            const apiKey = "AIzaSyAnojN8ZpEjiHaUVlZbgdalGVKdJwkIrRI";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            const apiKey = "AIzaSyAnojN8ZpEjiHaUVlZbgdalGVKdJwkIrRI"; // API key deve ser vazia para o Canvas
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`; // Usando gemini-2.5-flash-preview-05-20
 
             try {
                 const response = await fetch(apiUrl, {
@@ -771,9 +810,6 @@
 
         // Resumir Conteúdo da Página
         const summarizePageBtn = document.getElementById('summarizePageBtn');
-        const summaryModal = document.getElementById('summaryModal');
-        const summaryModalContent = document.getElementById('summaryModalContent');
-        const closeSummaryModalBtn = document.getElementById('closeSummaryModal');
         const summarizeSpinner = document.getElementById('summarizeSpinner');
 
 
@@ -784,16 +820,18 @@
                 // Selecionar secções que são filhas diretas de main, excluindo as secções de funcionalidades da Gemini
                 const sections = mainElement.querySelectorAll('main > section:not(.gemini-feature-section):not(.gemini-button-container)');
                 sections.forEach(section => {
-                    // Adicionar títulos H2
+                    // Adicionar títulos H1 e H2
+                    const h1 = section.querySelector('h1');
+                    if (h1) content += h1.innerText + "\n\n";
                     const h2 = section.querySelector('h2');
-                    if (h2) content += h2.innerText + "\n\n";
-                    
+                    if (h2 && !h1) content += h2.innerText + "\n\n"; // Evita duplicar se h1 já pegou o título principal
+
                     // Adicionar parágrafos diretos da secção
                     const directParagraphs = Array.from(section.childNodes).filter(node => node.nodeName === 'P');
                     directParagraphs.forEach(p => content += p.innerText + "\n");
 
-                    // Adicionar parágrafos dentro de LIs (que são os principais blocos de texto)
-                     const listItemsParagraphs = section.querySelectorAll('li p, li > strong'); // Inclui strong como sub-títulos
+                    // Adicionar parágrafos e strong dentro de LIs (que são os principais blocos de texto)
+                    const listItemsParagraphs = section.querySelectorAll('li p, li > strong'); // Inclui strong como sub-títulos
                     listItemsParagraphs.forEach(p => content += p.innerText + "\n");
                     content += "\n"; // Adicionar uma quebra de linha entre secções
                 });
@@ -805,23 +843,22 @@
         if (summarizePageBtn) {
             summarizePageBtn.addEventListener('click', async () => {
                 summarizeSpinner.classList.remove('hidden');
-                summaryModalContent.innerHTML = '<p>A gerar resumo...</p>';
-                summaryModal.classList.add('show');
+                showGeminiModal("Resumo da Página ✨", '<p>A gerar resumo...</p>');
 
                 const pageContent = getPageContentForSummary();
                 if (!pageContent.trim()) {
-                    summaryModalContent.innerHTML = '<p>Não foi possível extrair conteúdo da página para resumir.</p>';
+                    showGeminiModal("Resumo da Página ✨", '<p>Não foi possível extrair conteúdo da página para resumir.</p>');
                     summarizeSpinner.classList.add('hidden');
                     return;
                 }
-                
+
                 const prompt = `Resume o seguinte conteúdo sobre WordPress em Português (Portugal), de forma concisa e informativa, idealmente em 3 a 5 parágrafos. O resumo deve capturar os pontos principais e ser útil para alguém que quer uma visão geral rápida do tema:\n\n${pageContent}`;
-                
+
                 // Reutilizando a função callGeminiAPI, mas adaptando para o modal
                 let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
                 const payload = { contents: chatHistory };
-                const apiKey = "AIzaSyAcEn6HsDrVDvuruGajI6Ro5cyyDq-8XTc"; 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                const apiKey = ""; // API key deve ser vazia para o Canvas
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
                 try {
                     const response = await fetch(apiUrl, {
@@ -829,33 +866,24 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
-                    if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(`Erro HTTP: ${response.status} - ${errorData.error?.message || 'Erro desconhecido'}`);
+                    }
                     const result = await response.json();
                     if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0]) {
-                        summaryModalContent.innerHTML = `<pre>${result.candidates[0].content.parts[0].text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>`;
+                        geminiModalBody.innerHTML = `<pre>${result.candidates[0].content.parts[0].text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>`;
                     } else {
-                        summaryModalContent.innerHTML = '<p>Não foi possível gerar o resumo. Resposta da API inválida.</p>';
+                        geminiModalBody.innerHTML = '<p>Não foi possível gerar o resumo. Resposta da API inválida.</p>';
                     }
                 } catch (error) {
                     console.error('Erro ao resumir:', error);
-                    summaryModalContent.innerHTML = `<p>Ocorreu um erro ao gerar o resumo: ${error.message}.</p>`;
+                    geminiModalBody.innerHTML = `<p>Ocorreu um erro ao gerar o resumo: ${error.message}.</p>`;
                 } finally {
                      summarizeSpinner.classList.add('hidden');
                 }
             });
         }
-
-        if (closeSummaryModalBtn) {
-            closeSummaryModalBtn.addEventListener('click', () => {
-                summaryModal.classList.remove('show');
-            });
-        }
-        // Fechar modal ao clicar fora
-        window.addEventListener('click', (event) => {
-            if (event.target == summaryModal) {
-                summaryModal.classList.remove('show');
-            }
-        });
 
 
         // Gerador de Ideias para Plugins
@@ -866,7 +894,7 @@
             generatePluginIdeaBtn.addEventListener('click', () => {
                 const userNeed = pluginIdeaInput.value.trim();
                 if (!userNeed) {
-                    alert("Por favor, descreva a sua necessidade para o plugin.");
+                    showGeminiModal("Erro de Validação", "<p>Por favor, descreva a sua necessidade para o plugin.</p>");
                     return;
                 }
                 const prompt = `Baseado na seguinte necessidade para um site WordPress: "${userNeed}", sugira 3 ideias de plugins WordPress em Português (Portugal). Para cada ideia, inclua um nome criativo para o plugin e uma breve descrição (1-2 frases) da sua funcionalidade principal. Formate a resposta claramente para cada plugin.`;
@@ -882,13 +910,510 @@
             generateBlogNameBtn.addEventListener('click', () => {
                 const blogTopic = blogNameInput.value.trim();
                 if (!blogTopic) {
-                    alert("Por favor, insira palavras-chave ou uma descrição para o seu blog/site.");
+                    showGeminiModal("Erro de Validação", "<p>Por favor, insira palavras-chave ou uma descrição para o seu blog/site.</p>");
                     return;
                 }
                 const prompt = `Sugira 7 nomes criativos em Português (Portugal) para um blog ou site sobre "${blogTopic}". Os nomes devem ser curtos, memoráveis e, se possível, indicar o tema. Apresente os nomes como uma lista.`;
                 callGeminiAPI(prompt, 'blogNameResults', 'blogNameSpinner');
             });
         }
+
+        // --- Share Page Functionality ---
+        const sharePageBtn = document.getElementById('sharePageBtn');
+        const shareModal = document.getElementById('shareModal');
+        const shareModalCloseBtn = document.getElementById('shareModalCloseBtn');
+        const pageLinkInput = document.getElementById('pageLinkInput');
+        const copyLinkBtn = document.getElementById('copyLinkBtn');
+        const qrcodeCanvas = document.getElementById('qrcodeCanvas');
+        const copyFeedback = document.getElementById('copyFeedback');
+        let qrCodeInstance = null;
+
+        function showShareModal() {
+            if (shareModal && pageLinkInput && qrcodeCanvas) {
+                const pageUrl = window.location.href;
+                pageLinkInput.value = pageUrl;
+                qrcodeCanvas.innerHTML = '';
+                if (typeof QRCode !== 'undefined') {
+                    qrCodeInstance = new QRCode(qrcodeCanvas, {
+                        text: pageUrl, width: 180, height: 180,
+                        colorDark : "#000000", colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+                } else {
+                    qrcodeCanvas.innerHTML = '<p class="text-xs text-red-500">Erro ao carregar biblioteca QRCode.</p>';
+                }
+                shareModal.classList.add('active');
+            }
+        }
+        function hideShareModal() {
+            if (shareModal) {
+                shareModal.classList.remove('active');
+                if (copyFeedback) copyFeedback.textContent = '';
+            }
+        }
+        if (sharePageBtn) sharePageBtn.addEventListener('click', showShareModal);
+        if (shareModalCloseBtn) shareModalCloseBtn.addEventListener('click', hideShareModal);
+        if (shareModal) shareModal.addEventListener('click', (event) => {
+            if (event.target === shareModal) hideShareModal();
+        });
+        if (copyLinkBtn && pageLinkInput) {
+            copyLinkBtn.addEventListener('click', () => {
+                pageLinkInput.select();
+                pageLinkInput.setSelectionRange(0, 99999);
+                try {
+                    document.execCommand('copy');
+                    if(copyFeedback) {
+                        copyFeedback.textContent = 'Link copiado!';
+                        copyFeedback.classList.remove('text-red-500');
+                        copyFeedback.classList.add('text-green-600');
+                    }
+                    setTimeout(() => { if(copyFeedback) copyFeedback.textContent = ''; }, 2000);
+                } catch (err) {
+                    if(copyFeedback) {
+                        copyFeedback.textContent = 'Erro ao copiar.';
+                        copyFeedback.classList.remove('text-green-600');
+                        copyFeedback.classList.add('text-red-500');
+                    }
+                }
+            });
+        }
+
+        // --- PDF Export Functionality ---
+        const exportPdfBtn = document.getElementById('exportPdfBtn');
+        const exportTasksPdfBtn = document.getElementById('exportTasksPdfBtn'); // Novo botão
+        const pdfExportFeedbackEl = document.getElementById('pdfExportFeedback');
+
+        function showPdfFeedback(message, isError = false) {
+            if (pdfExportFeedbackEl) {
+                pdfExportFeedbackEl.textContent = message;
+                pdfExportFeedbackEl.className = 'fixed bottom-5 left-1/2 transform -translate-x-1/2 px-5 py-2.5 rounded-lg shadow-lg text-white text-sm';
+                if (isError) {
+                    pdfExportFeedbackEl.classList.add('bg-red-500');
+                } else {
+                    pdfExportFeedbackEl.classList.add('bg-green-500');
+                }
+                pdfExportFeedbackEl.style.display = 'block';
+                setTimeout(() => {
+                    pdfExportFeedbackEl.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        if (exportPdfBtn) {
+            exportPdfBtn.addEventListener('click', async () => {
+                const originalContentElement = document.getElementById('content-container');
+                if (!originalContentElement) {
+                    showPdfFeedback("Elemento de conteúdo principal não encontrado.", true);
+                    return;
+                }
+                showPdfFeedback("A preparar PDF do conteúdo, por favor aguarde...");
+                exportPdfBtn.disabled = true;
+
+                const clonedContent = originalContentElement.cloneNode(true);
+                // Remover seções de tarefa do clone do conteúdo principal (Não há tarefas neste doc, mas mantido para consistência)
+                clonedContent.querySelectorAll('.task-section').forEach(taskEl => taskEl.remove());
+                // Remover painéis de funcionalidades Gemini do conteúdo principal
+                clonedContent.querySelectorAll('.gemini-feature-section, .text-center.mb-8').forEach(geminiEl => geminiEl.remove());
+
+
+                clonedContent.style.position = 'absolute';
+                clonedContent.style.left = '-9999px';
+                clonedContent.style.width = originalContentElement.offsetWidth + 'px';
+                clonedContent.style.backgroundColor = 'white';
+                clonedContent.style.padding = '20px';
+                clonedContent.style.color = '#1f2937';
+
+                clonedContent.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, strong, span, div:not([class*="bg-"])')
+                    .forEach(el => el.style.color = '#1f2937');
+
+
+                document.body.appendChild(clonedContent);
+                try {
+                    const canvas = await html2canvas(clonedContent, {
+                        scale: 2, useCORS: true, logging: false, backgroundColor: null,
+                        width: clonedContent.scrollWidth, height: clonedContent.scrollHeight,
+                        windowWidth: clonedContent.scrollWidth, windowHeight: clonedContent.scrollHeight
+                    });
+                    document.body.removeChild(clonedContent);
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+                    const imgProps = pdf.getImageProperties(imgData);
+                    const pdfPageWidth = pdf.internal.pageSize.getWidth();
+                    const pdfPageHeight = pdf.internal.pageSize.getHeight();
+                    const margin = 10;
+                    const usablePdfWidth = pdfPageWidth - (2 * margin);
+                    const usablePdfHeight = pdfPageHeight - (2 * margin);
+                    const imgRenderHeight = (imgProps.height * usablePdfWidth) / imgProps.width;
+                    let heightLeft = imgRenderHeight;
+                    let currentYPosition = margin;
+                    pdf.addImage(imgData, 'PNG', margin, currentYPosition, usablePdfWidth, imgRenderHeight);
+                    heightLeft -= usablePdfHeight;
+                    while (heightLeft > 0) {
+                        currentYPosition -= usablePdfHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', margin, currentYPosition, usablePdfWidth, imgRenderHeight);
+                        heightLeft -= usablePdfHeight;
+                    }
+                    pdf.save('wordpress_conteudo.pdf');
+                    showPdfFeedback("PDF do conteúdo gerado com sucesso!");
+                } catch (error) {
+                    console.error("Erro ao gerar PDF do conteúdo:", error);
+                    showPdfFeedback("Erro ao gerar PDF do conteúdo. Verifique a consola.", true);
+                    if (document.body.contains(clonedContent)) {
+                        document.body.removeChild(clonedContent);
+                    }
+                } finally {
+                    exportPdfBtn.disabled = false;
+                }
+            });
+        }
+
+        // Exportar Respostas das Tarefas para PDF (Não há tarefas neste doc, mas mantido para consistência)
+        if (exportTasksPdfBtn) {
+            exportTasksPdfBtn.addEventListener('click', () => {
+                showPdfFeedback("Não há tarefas específicas para exportar nesta página.", true);
+            });
+        }
+
+
+        // --- Accessibility Features ---
+        const accessibilityBtn = document.getElementById('accessibilityBtn');
+        const accessibilityPanel = document.getElementById('accessibilityPanel');
+        const mainContentContainer = document.getElementById('content-container');
+
+        const increaseFontBtn = document.getElementById('increaseFontBtn');
+        const decreaseFontBtn = document.getElementById('decreaseFontBtn');
+        const resetFontBtn = document.getElementById('resetFontBtn');
+
+        const defaultContrastBtn = document.getElementById('defaultContrastBtn');
+        const bwContrastBtn = document.getElementById('bwContrastBtn');
+        const ybContrastBtn = document.getElementById('ybContrastBtn');
+
+        const playTTSBtn = document.getElementById('playTTSBtn');
+        const pauseTTSBtn = document.getElementById('pauseTTSBtn');
+        const stopTTSBtn = document.getElementById('stopTTSBtn');
+        const ttsVoiceSelect = document.getElementById('ttsVoiceSelect');
+        const ttsRateRange = document.getElementById('ttsRateRange');
+        const ttsRateValue = document.getElementById('ttsRateValue');
+        const ttsPitchRange = document.getElementById('ttsPitchRange');
+        const ttsPitchValue = document.getElementById('ttsPitchValue');
+
+
+        let currentFontSizeMultiplier = 1;
+        const FONT_SIZE_STEP_ACC = 0.1;
+        const MIN_FONT_MULTIPLIER_ACC = 0.7;
+        const MAX_FONT_MULTIPLIER_ACC = 1.8;
+        let originalFontSizesMap = new Map();
+
+        if (accessibilityBtn && accessibilityPanel) {
+            accessibilityBtn.addEventListener('click', () => {
+                accessibilityPanel.classList.toggle('active');
+                accessibilityPanel.classList.toggle('hidden');
+            });
+        }
+
+        function storeOriginalFontSizesAcc() {
+            if (originalFontSizesMap.size === 0 && mainContentContainer) {
+                mainContentContainer.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, a, strong, span:not([class*="icon"])').forEach((el, index) => {
+                    const computedStyle = window.getComputedStyle(el);
+                    const elId = el.dataset.accId || `acc-el-${index}`;
+                    el.dataset.accId = elId;
+                    originalFontSizesMap.set(elId, parseFloat(computedStyle.fontSize));
+                });
+            }
+        }
+
+        function updateFontSizesAcc(multiplier) {
+            if (!mainContentContainer) return;
+            storeOriginalFontSizesAcc();
+
+            currentFontSizeMultiplier = Math.max(MIN_FONT_MULTIPLIER_ACC, Math.min(multiplier, MAX_FONT_MULTIPLIER_ACC));
+
+            mainContentContainer.querySelectorAll('[data-acc-id]').forEach(el => {
+                const originalSize = originalFontSizesMap.get(el.dataset.accId);
+                if (originalSize) {
+                    el.style.fontSize = (originalSize * currentFontSizeMultiplier) + 'px';
+                }
+            });
+
+            mainContentContainer.querySelectorAll('p, li').forEach(el => {
+                const currentElementFontSize = parseFloat(el.style.fontSize || window.getComputedStyle(el).fontSize);
+                let newLineHeight = originalFontSizesMap.get(el.dataset.accId) * 1.7;
+                if (currentFontSizeMultiplier !== 1) {
+                    newLineHeight = (originalFontSizesMap.get(el.dataset.accId) * 1.7 * currentFontSizeMultiplier * 0.9);
+                }
+                el.style.lineHeight = Math.max(originalFontSizesMap.get(el.dataset.accId) * 1.5, newLineHeight) + 'px';
+            });
+        }
+
+
+        if (increaseFontBtn) {
+            increaseFontBtn.addEventListener('click', () => {
+                updateFontSizesAcc(currentFontSizeMultiplier + FONT_SIZE_STEP_ACC);
+            });
+        }
+        if (decreaseFontBtn) {
+            decreaseFontBtn.addEventListener('click', () => {
+                updateFontSizesAcc(currentFontSizeMultiplier - FONT_SIZE_STEP_ACC);
+            });
+        }
+        if (resetFontBtn) {
+            resetFontBtn.addEventListener('click', () => {
+                currentFontSizeMultiplier = 1;
+                mainContentContainer.querySelectorAll('[data-acc-id]').forEach(el => {
+                    const originalSize = originalFontSizesMap.get(el.dataset.accId);
+                    if (originalSize) {
+                        el.style.fontSize = originalSize + 'px';
+                        if (el.tagName === 'P' || el.tagName === 'LI') {
+                           el.style.lineHeight = (originalSize * 1.7) + 'px';
+                        }
+                    } else {
+                           el.style.fontSize = '';
+                           if (el.tagName === 'P' || el.tagName === 'LI') {
+                                el.style.lineHeight = '';
+                           }
+                    }
+                });
+            });
+        }
+
+        function applyContrast(themeClass) {
+            document.body.classList.remove('contrast-default', 'contrast-bw', 'contrast-yb');
+            if (themeClass !== 'contrast-default') {
+                document.body.classList.add(themeClass);
+            }
+        }
+        if (defaultContrastBtn) defaultContrastBtn.addEventListener('click', () => applyContrast('contrast-default'));
+        if (bwContrastBtn) bwContrastBtn.addEventListener('click', () => applyContrast('contrast-bw'));
+        if (ybContrastBtn) ybContrastBtn.addEventListener('click', () => applyContrast('contrast-yb'));
+
+        let speechSynth = window.speechSynthesis;
+        let currentUtterance = null;
+        let elementsToRead = [];
+        let currentElementIndex = 0;
+        let isReadingPaused = false;
+        let availableVoices = [];
+
+        function populateVoiceList() {
+            if(typeof speechSynthesis === 'undefined' || !ttsVoiceSelect) {
+                return;
+            }
+            availableVoices = speechSynth.getVoices();
+            ttsVoiceSelect.innerHTML = '';
+
+            if (availableVoices.length === 0) {
+                   ttsVoiceSelect.innerHTML = '<option value="">Nenhuma voz disponível</option>';
+                   ttsVoiceSelect.disabled = true;
+                   return;
+            }
+
+            let hasPortugueseVoice = false;
+            availableVoices.forEach(voice => {
+                if (voice.lang.startsWith('pt')) {
+                    const option = document.createElement('option');
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.setAttribute('data-lang', voice.lang);
+                    option.setAttribute('data-name', voice.name);
+                    ttsVoiceSelect.appendChild(option);
+                    hasPortugueseVoice = true;
+                }
+            });
+
+            if (!hasPortugueseVoice) {
+                   availableVoices.forEach(voice => {
+                    const option = document.createElement('option');
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.setAttribute('data-lang', voice.lang);
+                    option.setAttribute('data-name', voice.name);
+                    ttsVoiceSelect.appendChild(option);
+                });
+            }
+            ttsVoiceSelect.disabled = false;
+        }
+
+        populateVoiceList();
+        if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoiceList;
+        }
+
+
+        function prepareTextToRead() {
+            if (!mainContentContainer) return '';
+            let textSegments = [];
+            // Selecionar apenas seções de conteúdo principal, excluindo as seções de ferramentas Gemini
+            mainContentContainer.querySelectorAll('section.mb-10, section.p-6.bg-white').forEach(section => {
+                const titleElement = section.querySelector('h1, h2');
+                if (titleElement && titleElement.textContent.trim().length > 0) {
+                    textSegments.push(titleElement.textContent.trim() + ".");
+                }
+                // Incluir parágrafos e strong dentro de LIs e parágrafos diretos da seção
+                section.querySelectorAll('p, h3, h4, li > strong').forEach(el => {
+                    if (el.textContent.trim().length > 0) {
+                        textSegments.push(el.textContent.trim().replace(/\s+/g, ' ') + ".");
+                    }
+                });
+                // Adicionar links de referência de forma descritiva
+                section.querySelectorAll('ul.list-disc li a').forEach(linkEl => {
+                    if (linkEl.textContent.trim().length > 0) {
+                        textSegments.push(`Link: ${linkEl.textContent.trim()}.`);
+                    }
+                });
+            });
+            return textSegments.join(' \n ');
+        }
+
+        function speakNextSegment() {
+            if (currentElementIndex >= elementsToRead.length || !speechSynth) {
+                playTTSBtn.disabled = false;
+                pauseTTSBtn.disabled = true;
+                stopTTSBtn.disabled = true;
+                currentElementIndex = 0;
+                currentUtterance = null;
+                elementsToRead = [];
+                return;
+            }
+            if (speechSynth.paused && isReadingPaused) { return; }
+            if (speechSynth.speaking && !isReadingPaused) { return; }
+
+            currentUtterance = new SpeechSynthesisUtterance(elementsToRead[currentElementIndex]);
+            currentUtterance.lang = 'pt-BR';
+            currentUtterance.rate = parseFloat(ttsRateRange.value) || 1;
+            currentUtterance.pitch = parseFloat(ttsPitchRange.value) || 1;
+
+            const selectedVoiceName = ttsVoiceSelect.selectedOptions[0]?.getAttribute('data-name');
+            if (selectedVoiceName) {
+                const voice = availableVoices.find(v => v.name === selectedVoiceName);
+                if (voice) currentUtterance.voice = voice;
+            } else {
+                const portugueseVoice = availableVoices.find(v => v.lang.startsWith('pt-BR') || v.lang.startsWith('pt-PT'));
+                if(portugueseVoice) currentUtterance.voice = portugueseVoice;
+            }
+
+
+            currentUtterance.onend = () => {
+                if (elementsToRead.length === 0) return;
+
+                if (currentElementIndex < elementsToRead.length - 1) {
+                    currentElementIndex++;
+                    speakNextSegment();
+                } else {
+                    playTTSBtn.disabled = false;
+                    pauseTTSBtn.disabled = true;
+                    stopTTSBtn.disabled = true;
+                    currentElementIndex = 0;
+                    currentUtterance = null;
+                    elementsToRead = [];
+                }
+            };
+            currentUtterance.onerror = (event) => {
+                console.error('Erro na síntese de voz:', event.error);
+                isReadingPaused = false;
+                currentElementIndex = 0;
+                elementsToRead = [];
+                currentUtterance = null;
+                if (speechSynth) { speechSynth.cancel(); }
+                playTTSBtn.disabled = false;
+                pauseTTSBtn.disabled = true;
+                stopTTSBtn.disabled = true;
+            };
+            speechSynth.speak(currentUtterance);
+            playTTSBtn.disabled = true;
+            pauseTTSBtn.disabled = false;
+            stopTTSBtn.disabled = false;
+            isReadingPaused = false;
+        }
+
+        if (playTTSBtn) {
+            playTTSBtn.addEventListener('click', () => {
+                if (!speechSynth) {
+                    // Using custom modal instead of alert
+                    showGeminiModal("Erro", "<p>A síntese de voz não é suportada neste navegador.</p>");
+                    return;
+                }
+                if (speechSynth.paused && currentUtterance && isReadingPaused) {
+                    speechSynth.resume();
+                    isReadingPaused = false;
+                    playTTSBtn.disabled = true;
+                    pauseTTSBtn.disabled = false;
+                    stopTTSBtn.disabled = false;
+                } else {
+                    speechSynth.cancel();
+                    currentUtterance = null;
+                    isReadingPaused = false;
+                    elementsToRead = [];
+                    currentElementIndex = 0;
+
+                    const fullText = prepareTextToRead();
+                    elementsToRead = fullText.split('. ')
+                                            .map(s => s.trim())
+                                            .filter(segment => segment.length > 0)
+                                            .map(s => s.endsWith('.') ? s : s + '.');
+
+                    if (elementsToRead.length > 0) {
+                        speakNextSegment();
+                    } else {
+                        showGeminiModal("Informação", "<p>Não há conteúdo textual para ler na página.</p>");
+                        playTTSBtn.disabled = false;
+                        pauseTTSBtn.disabled = true;
+                        stopTTSBtn.disabled = true;
+                    }
+                }
+            });
+        }
+
+        if (pauseTTSBtn) {
+            pauseTTSBtn.addEventListener('click', () => {
+                if (speechSynth && speechSynth.speaking && !speechSynth.paused) {
+                    speechSynth.pause();
+                    isReadingPaused = true;
+                    playTTSBtn.disabled = false;
+                    pauseTTSBtn.disabled = true;
+                }
+            });
+            pauseTTSBtn.disabled = true;
+        }
+
+        if (stopTTSBtn) {
+            stopTTSBtn.addEventListener('click', () => {
+                isReadingPaused = false;
+                currentElementIndex = 0;
+                elementsToRead = [];
+                currentUtterance = null;
+                if (speechSynth) { speechSynth.cancel(); }
+                playTTSBtn.disabled = false;
+                pauseTTSBtn.disabled = true;
+                stopTTSBtn.disabled = true;
+            });
+            stopTTSBtn.disabled = true;
+        }
+
+        if (ttsRateRange && ttsRateValue) {
+            ttsRateRange.addEventListener('input', () => {
+                ttsRateValue.textContent = ttsRateRange.value;
+                if (currentUtterance && speechSynth.speaking && !speechSynth.paused) {
+                    speechSynth.cancel();
+                    currentUtterance.rate = parseFloat(ttsRateRange.value);
+                    speechSynth.speak(currentUtterance);
+                } else if (currentUtterance && speechSynth.paused && isReadingPaused) {
+                    currentUtterance.rate = parseFloat(ttsRateRange.value);
+                }
+            });
+        }
+        if (ttsPitchRange && ttsPitchValue) {
+            ttsPitchRange.addEventListener('input', () => {
+                ttsPitchValue.textContent = ttsPitchRange.value;
+                if (currentUtterance && speechSynth.speaking && !speechSynth.paused) {
+                    speechSynth.cancel();
+                    currentUtterance.pitch = parseFloat(ttsPitchRange.value);
+                    speechSynth.speak(currentUtterance);
+                } else if (currentUtterance && speechSynth.paused && isReadingPaused) {
+                    currentUtterance.pitch = parseFloat(ttsPitchRange.value);
+                }
+            });
+        }
+
+
+        window.addEventListener('load', storeOriginalFontSizesAcc);
 
     </script>
 </body>
