@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJECT | Podcasts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/eject_logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <script>
+        // Tailwind Custom Configuration - Reusing from main site
+        tailwind.config = {
+            darkMode: 'media',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Exo 2"', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+                    },
+                    colors: {
+                        'eject-blue-dark': 'rgb(0, 61, 115)',
+                        'eject-blue-light': 'rgb(17, 167, 241)',
+                        'eject-text-primary-light': 'rgb(0, 61, 115)',
+                        'eject-text-primary-dark': '#e0e0e0',
+                        'eject-text-secondary-light': '#4a4a4a',
+                        'eject-text-secondary-dark': '#b0b0b0',
+                        'eject-bg-light': 'rgb(245, 251, 255)',
+                        'eject-bg-dark': '#1e1e1e',
+                        'eject-card-bg-light': '#ffffff',
+                        'eject-card-bg-dark': '#2c2c2c',
+                        'eject-input-bg-light': '#ffffff',
+                        'eject-input-bg-dark': '#3a3a3a',
+                        'eject-input-border-light': '#aaa',
+                        'eject-input-border-dark': '#555',
+                        'eject-input-focus-light': 'rgb(9, 149, 219)',
+                        'eject-input-focus-dark': '#64b5f6',
+                        'eject-placeholder-light': '#aaa',
+                        'eject-placeholder-dark': '#888',
+                        'eject-modal-bg-light': '#fefefe',
+                        'eject-modal-bg-dark': '#333333',
+                        'eject-modal-border-light': '#888',
+                        'eject-modal-border-dark': '#444',
+                        'eject-modal-header-border-light': '#eee',
+                        'eject-modal-header-border-dark': '#4f4f4f',
+                        'prosempre-orange': 'rgb(255, 153, 0)',
+                        'prosempre-dark-bg': 'rgb(15, 15, 25)',
+                        'prosempre-panel-bg': 'rgba(255, 153, 0, 0.1)',
+                        'prosempre-light-text': 'rgb(250, 250, 250)',
+                    },
+                    backgroundImage: {
+                        'eject-body-gradient-light': 'linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%)',
+                        'eject-body-gradient-dark': 'linear-gradient(275.04deg, #1a202c 1.05%, #121212 100%)', 
+                        'eject-button-gradient-light': 'linear-gradient(92.07deg, rgb(9, 149, 219) 1.84%, rgb(17, 167, 241) 100%)',
+                        'eject-button-gradient-dark': 'linear-gradient(92.07deg, rgb(12, 120, 180) 1.84%, rgb(20, 140, 210) 100%)',
+                        'eject-gemini-gradient-light': 'linear-gradient(92.07deg, #4A00E0 1.84%, #8E2DE2 100%)',
+                        'eject-gemini-gradient-dark': 'linear-gradient(92.07deg, #580fc0 1.84%, #a04dff 100%)',
+                        'eject-gift-gradient': 'linear-gradient(45deg, #ffcc00, #ff33cc, #6633ff, #33ccff)',
+                        'prosempre-button-gradient': 'linear-gradient(90deg, rgb(255, 153, 0) 0%, rgb(255, 204, 0) 100%)',
+                        'prosempre-radial-gradient': 'radial-gradient(circle at center, rgba(255, 153, 0, 0.05) 0%, rgba(15, 15, 25, 1) 70%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
+          .scrollbar-hide {
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
+          }
+        }
+        body {
+            @apply font-sans w-full min-h-screen flex flex-col leading-relaxed;
+            @apply bg-eject-body-gradient-light text-eject-text-secondary-light;
+            @apply dark:bg-eject-body-gradient-dark dark:text-eject-text-secondary-dark;
+        }
+        .ds-btn-base {
+            @apply text-sm font-bold uppercase text-white py-2.5 px-5 rounded-lg transition-all duration-200 ease-in-out inline-flex items-center justify-center min-w-[130px] w-full no-underline hover:scale-105 focus:scale-105;
+        }
+        .ds-btn-primary {
+            @apply ds-btn-base bg-eject-button-gradient-light dark:bg-eject-button-gradient-dark hover:shadow-md;
+        }
+        .ds-btn-gemini {
+            @apply ds-btn-base bg-eject-gemini-gradient-light dark:bg-eject-gemini-gradient-dark hover:opacity-90 hover:shadow-lg hover:shadow-purple-500/30 dark:hover:shadow-purple-400/40;
+        }
+        .ds-btn-soon {
+            @apply ds-btn-base bg-gray-400 dark:bg-gray-500 text-gray-800 dark:text-gray-300 cursor-not-allowed opacity-70 hover:transform-none hover:shadow-none;
+        }
+        .input-styled {
+            @apply w-full py-2.5 px-3 text-base rounded-lg border transition-colors duration-300;
+            @apply bg-eject-input-bg-light text-eject-text-secondary-light border-eject-input-border-light placeholder-eject-placeholder-light;
+            @apply dark:bg-eject-input-bg-dark dark:text-eject-text-primary-dark dark:border-eject-input-border-dark dark:placeholder-eject-placeholder-dark;
+            @apply focus:outline-none focus:ring-2 focus:border-eject-input-focus-light dark:focus:border-eject-input-focus-dark focus:ring-eject-input-focus-light/25 dark:focus:ring-eject-input-focus-dark/25;
+        }
+        .new-badge {
+            @apply absolute top-2 right-2 bg-pink-500 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-md;
+        }
+        /* Estilos específicos para o player de podcast */
+        .podcast-player-container {
+            @apply fixed bottom-0 left-0 right-0 z-50 p-4 shadow-2xl;
+            @apply bg-eject-card-bg-light dark:bg-eject-card-bg-dark;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            @apply dark:border-t-gray-700;
+        }
+        .podcast-progress-bar {
+            @apply w-full h-2 rounded-full cursor-pointer mb-2;
+            @apply bg-gray-300 dark:bg-gray-700;
+        }
+        .podcast-progress-fill {
+            @apply h-full rounded-full;
+            @apply bg-eject-blue-light;
+        }
+        .podcast-controls button {
+            @apply p-2 rounded-full text-eject-text-primary-light dark:text-eject-text-primary-dark hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors;
+        }
+        .podcast-volume-slider {
+            @apply w-24 h-2 rounded-full appearance-none cursor-pointer;
+            @apply bg-gray-300 dark:bg-gray-700;
+        }
+        .podcast-volume-slider::-webkit-slider-thumb {
+            @apply appearance-none w-4 h-4 rounded-full;
+            @apply bg-eject-blue-light;
+            cursor: pointer;
+        }
+        .podcast-volume-slider::-moz-range-thumb {
+            @apply w-4 h-4 rounded-full;
+            @apply bg-eject-blue-light;
+            cursor: pointer;
+        }
+
+        /* Novas classes para o design elegante */
+        .podcast-card-elegant {
+            @apply flex flex-col h-full w-full bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-xl shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl;
+            border: 1px solid rgba(0, 61, 115, 0.1); /* Borda sutil */
+            @apply dark:border-gray-700;
+        }
+
+        .podcast-featured-card {
+            @apply flex flex-col md:flex-row items-center bg-eject-card-bg-light dark:bg-eject-card-bg-dark rounded-2xl shadow-2xl p-6 mb-8;
+            border: 1px solid rgba(0, 61, 115, 0.2);
+            @apply dark:border-gray-600;
+            transition: all 0.3s ease-in-out;
+            transform: translateY(0);
+            animation: fade-in-up 1s ease-out;
+        }
+        .podcast-featured-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(0, 61, 115, 0.2);
+            @apply dark:shadow-black/50;
+        }
+
+        /* Animações */
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fade-in-up 0.8s ease-out forwards;
+        }
+        @keyframes slide-in-left {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-in-left {
+            animation: slide-in-left 0.8s ease-out forwards;
+        }
+        @keyframes slide-in-right {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-in-right {
+            animation: slide-in-right 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="font-sans"> 
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+    <header class="w-full min-h-[90px] flex items-center px-4 shadow-lg bg-eject-bg-light dark:bg-eject-bg-dark shadow-slate-200/50 dark:shadow-black/30">
+        <nav class="w-full max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center py-2 md:py-0">
+            <a href="index.html" class="no-underline">
+                <h1 class="font-bold text-eject-text-primary-light dark:text-eject-text-primary-dark text-2xl md:text-3xl m-0 mb-2 md:mb-0">Hub de Conhecimentos</h1>
+            </a>
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                    <a href="https://www.ejectufrn.com.br/" target="_blank" rel="noopener noreferrer">
+                        <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT" class="h-10">
+                    </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-1 py-5">
+        <section id="podcast-list-section" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl lg:text-4xl text-center mb-8 font-bold text-eject-text-primary-light dark:text-eject-text-primary-dark animate-fade-in-up">🎙️ Podcasts EJECT</h1>
+            
+            <!-- Podcast em Destaque -->
+            <div class="podcast-featured-card animate-fade-in-up">
+                <img src="https://placehold.co/400x400/003D73/FFFFFF?text=Podcast+Destaque" alt="Capa do Podcast em Destaque" class="w-full md:w-1/3 h-auto object-cover rounded-lg shadow-md mb-4 md:mb-0 md:mr-6 animate-slide-in-left">
+                <div class="flex flex-col md:w-2/3 animate-slide-in-right">
+                    <h2 class="text-2xl lg:text-3xl font-bold mb-2 text-eject-text-primary-light dark:text-eject-text-primary-dark">Podcast em Destaque: A Revolução da IA no Mercado</h2>
+                    <p class="text-eject-text-secondary-light dark:text-eject-text-secondary-dark mb-4 text-justify">
+                        Neste episódio especial, mergulhamos nas profundezas da inteligência artificial e seu impacto transformador no mercado de trabalho. Analisamos as oportunidades, os desafios e como profissionais e empresas podem se adaptar a essa nova era. Uma conversa essencial para quem busca estar à frente.
+                    </p>
+                    <button class="ds-btn-primary play-podcast-btn" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" data-title="Podcast em Destaque: A Revolução da IA no Mercado">
+                        <span class="material-symbols-outlined mr-2">play_arrow</span> Ouvir Agora
+                    </button>
+                </div>
+            </div>
+
+            <!-- Controles de Busca e Categoria -->
+            <section class="filter-search-controls my-8">
+                <div class="flex flex-col md:flex-row justify-center items-center gap-4 max-w-3xl mx-auto">
+                    <div class="search-container flex-grow w-full md:w-auto min-w-[200px]">
+                        <input type="text" id="podcastSearchInput" class="input-styled" placeholder="Pesquisar podcasts...">
+                    </div>
+                    <div class="filter-container flex-grow w-full md:w-auto min-w-[200px]">
+                        <select id="podcastCategoryFilter" class="input-styled appearance-none bg-white dark:bg-gray-700 bg-no-repeat bg-right pr-8" title="Filtrar por categoria" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%236b7280%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E');">
+                            <option value="all">Todas as Categorias</option>
+                            <option value="tecnologia">Tecnologia</option>
+                            <option value="empreendedorismo">Empreendedorismo</option>
+                            <option value="inovacao">Inovação</option>
+                            <option value="gestao">Gestão</option>
+                            <option value="marketing">Marketing</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <h2 class="text-2xl lg:text-3xl text-center mb-6 font-bold text-eject-text-primary-light dark:text-eject-text-primary-dark mt-12 animate-fade-in-up">Todos os Podcasts</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="podcastContainer">
+                <!-- Podcasts serão renderizados aqui via JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Podcast Player Section -->
+    <div id="podcastPlayerContainer" class="podcast-player-container hidden">
+        <div class="max-w-4xl mx-auto flex flex-col">
+            <div class="flex items-center justify-between mb-2">
+                <h4 id="currentPodcastTitle" class="text-eject-text-primary-light dark:text-eject-text-primary-dark font-semibold text-lg truncate">Nenhum podcast selecionado</h4>
+                <button id="closePlayerBtn" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-2xl font-light bg-transparent border-none cursor-pointer p-1 leading-none">&times;</button>
+            </div>
+            <div class="podcast-progress-bar" id="progressBar">
+                <div class="podcast-progress-fill" id="progressFill"></div>
+            </div>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4 podcast-controls">
+                    <button id="playPauseBtn" aria-label="Play/Pause">
+                        <span class="material-symbols-outlined text-3xl">play_arrow</span>
+                    </button>
+                    <div class="flex items-center space-x-2">
+                        <span class="material-symbols-outlined text-xl">volume_down</span>
+                        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" class="podcast-volume-slider">
+                        <span class="material-symbols-outlined text-xl">volume_up</span>
+                    </div>
+                </div>
+                <div class="text-sm text-eject-text-secondary-light dark:text-eject-text-secondary-dark">
+                    <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="w-full bg-slate-800 dark:bg-gray-900 py-6 px-4 mt-auto">
+        <p class="text-sm text-center text-gray-300 dark:text-gray-400 m-0">Feito com <strong class="font-semibold">foco</strong> e <strong class="font-semibold">compromisso</strong> pela EJECT© 2024-2025 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        const audio = new Audio();
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const currentTimeSpan = document.getElementById('currentTime');
+        const durationSpan = document.getElementById('duration');
+        const podcastPlayerContainer = document.getElementById('podcastPlayerContainer');
+        const currentPodcastTitle = document.getElementById('currentPodcastTitle');
+        const closePlayerBtn = document.getElementById('closePlayerBtn');
+        const podcastSearchInput = document.getElementById('podcastSearchInput');
+        const podcastCategoryFilter = document.getElementById('podcastCategoryFilter');
+        const podcastContainer = document.getElementById('podcastContainer');
+
+        let isPlaying = false;
+
+        // Podcast Data (moved to JavaScript for easier filtering)
+        const podcastsData = [
+            {
+                title: "Cloud Development Environment e as soluções do CPS1 – Hipsters Ponto Tech #476",
+                description: "Uma conversa sobre desenvolvimento na nuvem, explorando como founders brasileiros simplificam o processo para empresas de todos os tamanhos, do onboarding ao dia a dia.",
+                src: "https://media.blubrry.com/hipsterstech/content.blubrry.com/hipsterstech/HpT-476.mp3",
+                image: "https://www.hipsters.tech/wp-content/uploads/2025/08/Hipster-Ponto-Tech_Capa_Podcast_Quadrado-476-scaled.jpg",
+                category: "tecnologia",
+                status: "available"
+            },
+            {
+                title: "O Futuro da Tecnologia",
+                description: "Uma discussão aprofundada sobre as tendências e inovações que moldarão o amanhã.",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                image: "https://placehold.co/600x400/003D73/FFFFFF?text=Podcast+1",
+                category: "tecnologia",
+                status: "available"
+            },
+            {
+                title: "Desafios do Empreendedorismo Jr.",
+                description: "Histórias e dicas para jovens empreendedores enfrentarem o mercado.",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                image: "https://placehold.co/600x400/11A7F1/FFFFFF?text=Podcast+2",
+                category: "empreendedorismo",
+                status: "available"
+            },
+            {
+                title: "Inovação e Criatividade",
+                description: "Como estimular a inovação e a criatividade no ambiente de trabalho.",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+                image: "https://placehold.co/600x400/003D73/FFFFFF?text=Podcast+3",
+                category: "inovacao",
+                status: "available"
+            },
+            {
+                title: "Gestão de Projetos Ágeis",
+                description: "Métodos e ferramentas para gerenciar projetos com agilidade e eficiência.",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+                image: "https://placehold.co/600x400/11A7F1/FFFFFF?text=Podcast+4",
+                category: "gestao",
+                status: "available"
+            },
+            {
+                title: "Marketing Digital para Iniciantes",
+                description: "Descubra os primeiros passos para dominar o marketing online.",
+                src: "", // No source for "Em Breve"
+                image: "https://placehold.co/600x400/4a4a4a/b0b0b0?text=Em+Breve",
+                category: "marketing",
+                status: "soon"
+            },
+            {
+                title: "Liderança e Equipes de Alta Performance",
+                description: "Estratégias para construir e liderar equipes de sucesso.",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+                image: "https://placehold.co/600x400/003D73/FFFFFF?text=Podcast+5",
+                category: "gestao",
+                status: "available"
+            },
+            {
+                title: "Segurança Cibernética Essencial",
+                description: "Proteja seus dados e sistemas: dicas e melhores práticas.",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+                image: "https://placehold.co/600x400/11A7F1/FFFFFF?text=Podcast+6",
+                category: "tecnologia",
+                status: "available"
+            },
+            {
+                title: "Design Thinking na Prática",
+                description: "Aplique o Design Thinking para resolver problemas complexos e inovar.",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
+                image: "https://placehold.co/600x400/003D73/FFFFFF?text=Podcast+7",
+                category: "inovacao",
+                status: "available"
+            },
+        ];
+
+        // Function to format time
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        }
+
+        // Play/Pause functionality
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.innerHTML = '<span class="material-symbols-outlined text-3xl">pause</span>';
+                isPlaying = true;
+            } else {
+                audio.pause();
+                playPauseBtn.innerHTML = '<span class="material-symbols-outlined text-3xl">play_arrow</span>';
+                isPlaying = false;
+            }
+        });
+
+        // Update progress bar
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = `${progress}%`;
+            currentTimeSpan.textContent = formatTime(audio.currentTime);
+        });
+
+        // Update duration when metadata is loaded
+        audio.addEventListener('loadedmetadata', () => {
+            durationSpan.textContent = formatTime(audio.duration);
+        });
+
+        // Seek functionality
+        progressBar.addEventListener('click', (e) => {
+            const clickX = e.offsetX;
+            const progressBarWidth = progressBar.offsetWidth;
+            const seekTime = (clickX / progressBarWidth) * audio.duration;
+            audio.currentTime = seekTime;
+        });
+
+        // Volume control
+        volumeSlider.addEventListener('input', () => {
+            audio.volume = volumeSlider.value;
+        });
+
+        // Close player button
+        closePlayerBtn.addEventListener('click', () => {
+            audio.pause();
+            audio.currentTime = 0;
+            podcastPlayerContainer.classList.add('hidden');
+            podcastPlayerContainer.classList.remove('flex');
+            playPauseBtn.innerHTML = '<span class="material-symbols-outlined text-3xl">play_arrow</span>';
+            isPlaying = false;
+            currentPodcastTitle.textContent = 'Nenhum podcast selecionado';
+            progressFill.style.width = '0%';
+            currentTimeSpan.textContent = '0:00';
+            durationSpan.textContent = '0:00';
+        });
+
+        // Hide player if audio ends
+        audio.addEventListener('ended', () => {
+            playPauseBtn.innerHTML = '<span class="material-symbols-outlined text-3xl">play_arrow</span>';
+            isPlaying = false;
+            progressFill.style.width = '0%';
+            currentTimeSpan.textContent = '0:00';
+        });
+
+        /**
+         * Renders the podcast cards based on the provided data.
+         * @param {Array} podcastsToRender - The array of podcast objects to render.
+         */
+        function renderPodcasts(podcastsToRender) {
+            podcastContainer.innerHTML = ''; // Clear current podcasts
+            podcastsToRender.forEach((podcast, index) => {
+                const cardHtml = `
+                    <div class="podcast-card-elegant animate-fade-in-up" style="animation-delay: ${index * 0.1}s;">
+                        <img src="${podcast.image}" alt="Capa do Podcast: ${podcast.title}" class="w-full h-[180px] object-cover rounded-t-xl">
+                        <div class="p-4 flex flex-col items-center text-center flex-grow">
+                            <h3 class="text-lg font-semibold mb-2 text-eject-text-primary-light dark:text-eject-text-primary-dark">${podcast.title}</h3>
+                            <p class="text-sm mb-4 text-eject-text-secondary-light dark:text-eject-text-secondary-dark">${podcast.description}</p>
+                            ${podcast.status === 'available' ? 
+                                `<button class="ds-btn-primary mt-auto play-podcast-btn" data-src="${podcast.src}" data-title="${podcast.title}">
+                                    <span class="material-symbols-outlined mr-2">play_arrow</span> Ouvir Podcast
+                                </button>` :
+                                `<button class="ds-btn-soon mt-auto" disabled>
+                                    <span class="material-symbols-outlined mr-2">schedule</span> Em Breve
+                                </button>`
+                            }
+                        </div>
+                    </div>
+                `;
+                podcastContainer.insertAdjacentHTML('beforeend', cardHtml);
+            });
+
+            // Re-attach event listeners to new play buttons
+            document.querySelectorAll('.play-podcast-btn').forEach(button => {
+                button.removeEventListener('click', handlePlayPodcast); // Remove old listeners to prevent duplicates
+                button.addEventListener('click', handlePlayPodcast);
+            });
+        }
+
+        /**
+         * Handles the click event for playing a podcast.
+         * @param {Event} event - The click event.
+         */
+        function handlePlayPodcast(event) {
+            const podcastSrc = this.dataset.src;
+            const podcastTitle = this.dataset.title;
+
+            if (podcastSrc) {
+                // Pause current audio and reset time before loading new one
+                audio.pause();
+                audio.currentTime = 0; // Reset current time to avoid AbortError on rapid changes
+
+                audio.src = podcastSrc;
+                currentPodcastTitle.textContent = podcastTitle;
+                
+                // Attempt to play, handling potential errors (like user gesture requirement)
+                audio.play().then(() => {
+                    playPauseBtn.innerHTML = '<span class="material-symbols-outlined text-3xl">pause</span>';
+                    isPlaying = true;
+                    podcastPlayerContainer.classList.remove('hidden');
+                    podcastPlayerContainer.classList.add('flex');
+                }).catch(error => {
+                    console.error("Erro ao tentar reproduzir o áudio:", error);
+                    playPauseBtn.innerHTML = '<span class="material-symbols-outlined text-3xl">play_arrow</span>';
+                    isPlaying = false;
+                    // Optionally, show a user-friendly message in the UI
+                    alert("A reprodução automática foi bloqueada pelo navegador. Por favor, clique no botão de play para iniciar.");
+                });
+            } else {
+                console.error("URL do podcast não encontrada.");
+            }
+        }
+
+        /**
+         * Filters and renders podcasts based on search query and category.
+         */
+        function filterAndRenderPodcasts() {
+            const searchQuery = podcastSearchInput.value.toLowerCase().trim();
+            const selectedCategory = podcastCategoryFilter.value;
+
+            const filteredPodcasts = podcastsData.filter(podcast => {
+                const matchesSearch = podcast.title.toLowerCase().includes(searchQuery) ||
+                                      podcast.description.toLowerCase().includes(searchQuery);
+                const matchesCategory = selectedCategory === 'all' || podcast.category === selectedCategory;
+
+                return matchesSearch && matchesCategory;
+            });
+
+            renderPodcasts(filteredPodcasts);
+        }
+
+        // Event Listeners for Search and Category Filter
+        podcastSearchInput.addEventListener('input', filterAndRenderPodcasts);
+        podcastCategoryFilter.addEventListener('change', filterAndRenderPodcasts);
+
+        // Initial render of all podcasts on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPodcasts(podcastsData);
+        });
+    </script>
+</body>
+</html>
