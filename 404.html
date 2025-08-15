@@ -3,13 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EJECT | Trilhas de Conhecimentos</title>
+    <title>Página Não Encontrada | Você está perdido no espaço!</title>
+    <!-- Favicon (Mantenha o seu original, se preferir) -->
     <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/404.css">
+
+    <!-- Tailwind CSS (Para estilização moderna e responsividade) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Um azul/preto muito escuro para o espaço */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden; /* Evita barras de rolagem indesejadas devido a animações */
+            position: relative; /* Necessário para posicionar o campo de estrelas e o conteúdo */
+        }
+
+        /* Estilos para o VLibras - Mantendo a posição original, se necessário */
+        .vw-plugin-wrapper {
+            position: fixed;
+            top: 20px; /* Ajuste conforme a necessidade */
+            right: 20px; /* Ajuste conforme a necessidade */
+            z-index: 1000;
+        }
+
+        /* Animações Keyframes */
+        @keyframes fadeInSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseFloat {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-8px) scale(1.03); /* Mais flutuação */
+            }
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Animação das Estrelas (twinkle) */
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        /* Fundo de Estrelas */
+        #stars, #stars2, #stars3 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            animation: move-twinkle 150s linear infinite; /* Animação das estrelas */
+            z-index: 1;
+        }
+
+        #stars {
+            background-image: radial-gradient(2px 2px at 20% 30%, #eee, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 40% 70%, #fff, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 10% 50%, #ddd, rgba(0,0,0,0));
+            background-size: 300px 300px; /* Densidade das estrelas */
+        }
+
+        #stars2 {
+            background-image: radial-gradient(2px 2px at 50% 100%, #fff, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 90% 40%, #eee, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 110% 80%, #ddd, rgba(0,0,0,0));
+            background-size: 400px 400px;
+            animation-delay: -5s; /* Para um movimento diferente */
+        }
+
+        #stars3 {
+            background-image: radial-gradient(2px 2px at 100% 150%, #ddd, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 140% 10%, #eee, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 160% 120%, #fff, rgba(0,0,0,0));
+            background-size: 500px 500px;
+            animation-delay: -10s; /* Para um movimento diferente */
+        }
+
+        @keyframes move-twinkle {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 100% 100%;
+            }
+        }
+
+        /* Animação para os planetas flutuantes */
+        @keyframes float-fade {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.8);
+            }
+            20% {
+                opacity: 0.7;
+                transform: translate(10px, -10px) scale(1);
+            }
+            80% {
+                opacity: 0.7;
+                transform: translate(-10px, 10px) scale(1.05);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.8);
+            }
+        }
+
+        /* Estilo para o contêiner principal da página de erro */
+        .error-container {
+            background-color: rgba(30, 42, 71, 0.7); /* Azul-escuro semi-transparente para o cartão principal */
+            backdrop-filter: blur(5px); /* Efeito de desfoque de vidro */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Borda sutil para o efeito de vidro */
+            color: #e0e7ff; /* Cor clara para o texto */
+            border-radius: 1.5rem; /* Cantos arredondados */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15); /* Sombra mais escura */
+            padding: 2.5rem; /* Um pouco mais de padding */
+            max-width: 950px; /* Aumentado para acomodar o visual 404 */
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem; /* Espaçamento maior entre os elementos */
+            /* Animação do contêiner */
+            animation: fadeInSlideUp 0.8s ease-out forwards;
+            position: relative; /* Garante que o conteúdo fique acima do fundo animado */
+            z-index: 10; /* Eleva o contêiner acima do fundo */
+        }
+
+        @media (min-width: 768px) {
+            .error-container {
+                flex-direction: row; /* Layout lado a lado em telas maiores */
+                text-align: left;
+                padding: 3.5rem;
+            }
+        }
+
+        .error-visual {
+            position: relative; /* Mantém para posicionar o 404 */
+            flex-shrink: 0;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .error-visual .error-code {
+            font-size: 8rem; /* 404 bem grande */
+            font-weight: 900; /* Extra bold */
+            color: #ffffff; /* Branco puro para o 404 */
+            line-height: 1;
+            margin: 0;
+            /* Animação do 404 */
+            animation: fadeIn 1.2s ease-out forwards;
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+        
+        /* Nova animação para o astronauta vagante */
+        @keyframes wander-full-screen {
+            0% { top: 10%; left: 10%; }
+            25% { top: 80%; left: 70%; }
+            50% { top: 20%; left: 90%; }
+            75% { top: 90%; left: 30%; }
+            100% { top: 10%; left: 10%; }
+        }
+
+        .astronaut-floating {
+            position: fixed; /* Posicionamento fixo para vagar pela tela inteira */
+            width: 150px; /* Tamanho do astronauta */
+            height: auto;
+            /* Inicia fora da tela e move para a posição inicial para o fadeIn */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centraliza o elemento */
+            animation: wander-full-screen 40s linear infinite, /* Animação de vagar */
+                       fadeIn 2s ease-out forwards; /* Animação de entrada suave */
+            animation-delay: 0s, 1s; /* Vagar começa imediatamente, fadeIn após 1s */
+            z-index: 5; /* Atrás do contêiner principal, à frente de estrelas/planetas */
+            opacity: 0; /* Começa invisível para o fadeIn */
+        }
+
+        /* Não é necessário media query para o astronauta aqui, pois wander-full-screen usa porcentagens */
+
+
+        .error-content {
+            flex-grow: 1; /* Permite que o conteúdo cresça */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .error-content {
+                align-items: flex-start; /* Alinha o texto à esquerda em telas maiores */
+            }
+        }
+
+        .error-content .main-message {
+            font-size: 2.2rem; /* Tamanho da fonte para o título principal */
+            font-weight: 700; /* Negrito */
+            color: #e0e7ff; /* Cor clara */
+            margin-bottom: 0.8rem;
+            /* Animação do título */
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.8s; /* Aparece depois do 404 */
+            opacity: 0; /* Começa invisível */
+        }
+
+        .error-content .sub-message {
+            font-size: 1.125rem; /* Tamanho da fonte para o parágrafo */
+            color: #a3b8ee; /* Cor um pouco mais clara para o parágrafo */
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            /* Animação do parágrafo */
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1s; /* Aparece depois do título */
+            opacity: 0; /* Começa invisível */
+        }
+
+        .btn-primary-custom {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 2rem; /* Um pouco maior */
+            font-size: 1.1rem; /* Fonte maior */
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #6a5acd; /* Um tom de roxo vibrante */
+            border: none;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 10px -2px rgba(0, 0, 0, 0.2), 0 3px 6px -1px rgba(0, 0, 0, 0.1); /* Sombra mais intensa */
+            /* Animação do botão */
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1.2s; /* Aparece depois do parágrafo */
+            opacity: 0; /* Começa invisível */
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #5747a8; /* Escurece no hover */
+            transform: translateY(-3px); /* Efeito de "levantar" mais pronunciado */
+            color: #ffffff;
+            box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.3), 0 5px 8px -2px rgba(0, 0, 0, 0.15); /* Sombra mais intensa no hover */
+        }
+
+        .btn-primary-custom:active {
+            transform: translateY(0); /* Retorna à posição normal no clique */
+            box-shadow: 0 6px 10px -2px rgba(0, 0, 0, 0.2), 0 3px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilo para os planetas flutuantes */
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(1px); /* Desfoque suave para parecer distante, ajustado para menos */
+            z-index: 1; /* Fica atrás do conteúdo principal */
+            opacity: 0; /* Começa invisível */
+            animation: float-fade linear infinite;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), /* Sombra interna para profundidade */
+                        0 0 15px rgba(255,255,255,0.1); /* Brilho sutil */
+        }
+
+        /* Variações de planetas para randomização */
+        .planet-1 {
+            width: 100px;
+            height: 100px;
+            /* Gradiente para um planeta rochoso com crateras */
+            background: radial-gradient(circle at 70% 30%, #a0522d 0%, #8b4513 50%, #5c2f0a 100%);
+            top: 15%;
+            left: 5%;
+            animation-duration: 20s;
+            animation-delay: 0s;
+        }
+
+        .planet-2 {
+            width: 150px;
+            height: 150px;
+            /* Gradiente para um gigante gasoso azul */
+            background: radial-gradient(circle at 30% 70%, #6a5acd 0%, #4c51bf 50%, #2a3377 100%);
+            bottom: 10%;
+            right: 15%;
+            animation-duration: 25s;
+            animation-delay: 5s;
+        }
+
+        .planet-3 {
+            width: 80px;
+            height: 80px;
+            /* Gradiente para um planeta com atmosfera esverdeada */
+            background: radial-gradient(circle at 40% 60%, #bada55 0%, #8bc34a 50%, #558b2f 100%);
+            top: 50%;
+            right: 5%;
+            animation-duration: 18s;
+            animation-delay: 10s;
+        }
+
+        .planet-4 {
+            width: 120px;
+            height: 120px;
+            /* Gradiente para um planeta avermelhado/desértico */
+            background: radial-gradient(circle at 60% 40%, #e85d04 0%, #d83a00 50%, #a32a00 100%);
+            bottom: 25%;
+            left: 20%;
+            animation-duration: 22s;
+            animation-delay: 15s;
+        }
+
+        .planet-5 {
+            width: 70px;
+            height: 70px;
+            /* Gradiente para um planeta gelado */
+            background: radial-gradient(circle at 50% 50%, #e0f2f7 0%, #a7d9ed 50%, #60a8c9 100%);
+            top: 5%;
+            right: 25%;
+            animation-duration: 19s;
+            animation-delay: 8s;
+        }
+    </style>
 </head>
 <body>
+    <!-- Fundo de Estrelas -->
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
 
+    <!-- Planetas Flutuantes -->
+    <div class="planet planet-1"></div>
+    <div class="planet planet-2"></div>
+    <div class="planet planet-3"></div>
+    <div class="planet planet-4"></div>
+    <div class="planet planet-5"></div>
+
+    <!-- Astronauta Flutuante (fora do error-container para fixed positioning) -->
+    <img src="/EJECT_Trilha_de_Conhecimento/img/506b575739e90613428cdb399175e2c8-desenho-de-astronauta-espacial.webp" alt="Desenho de Astronauta Espacial" class="astronaut-floating">
+
+    <!-- VLibras Widget -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper>
@@ -21,30 +385,24 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
-    <div id="__next">
-        <section class="sc-404__Template-sc-1w32tjr-0 iELOsN">
-            <img class="backErro404" src="/EJECT_Trilha_de_Conhecimento/img/svgs/404.svg">
-            <header>
-                <nav class="container">
-                    <h1>Trilhas de Conhecimentos</h1>
-                    <div class="ds-contact-container">
-                        <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="EJECT">
-                    </div>
-                </nav>
-            </header>
-            <main class="sc-404__Main-sc-1w32tjr-1 jwkMNH">
-                <div>
-                    <img src="/EJECT_Trilha_de_Conhecimento/img/svgs/alert404.svg" alt="Erro 404, página não encontrada">
-                </div>
-                <div>
-                    <h1>
-                        <strong>Opa!</strong>
-                    </h1>
-                    <p>Parece que alguma coisa deu<br> errado e nós não conseguimos<br> encontrar a página.</p>
-                    <a class="btn_btn-primary" href = "/EJECT_Trilha_de_Conhecimento">Retorna à home</a>
-                </div>
-            </main>
-        </section>
-    </div>  
+    <div class="error-container">
+        <!-- Visual 404 e Conteúdo -->
+        <div class="error-visual">
+            <h1 class="error-code">404</h1>
+        </div>
+
+        <!-- Conteúdo de Texto -->
+        <div class="error-content">
+            <h2 class="main-message">Você está perdido no espaço!</h2>
+            <p class="sub-message">
+                Parece que a página que você procurava não existe nesta galáxia.
+                <br>
+                Não se preocupe, vamos te guiar de volta à Terra Firme.
+            </p>
+            <a class="btn-primary-custom" href="/EJECT_Trilha_de_Conhecimento">
+                Voltar à Terra Firme
+            </a>
+        </div>
+    </div>
 </body>
 </html>
