@@ -262,7 +262,7 @@
                 <h1 class="text-3xl md:text-[2rem] mb-2 font-semibold">Hub de Conhecimentos</h1>
                 <p class="text-lg md:text-[1.1rem] mb-0">Boas-vindas, Astronauta! Selecione uma trilha para começar o aprendizado.</p>
             </section>
-            <!-- 
+            
             <section id="geminiStudyPlannerSection" class="mt-4 mb-8 p-4 rounded-xl shadow-md bg-eject-card-bg-light dark:bg-eject-card-bg-dark">
                 <h2 class="text-2xl lg:text-3xl text-center mb-3 font-semibold text-eject-text-primary-light dark:text-eject-text-primary-dark">✨ Planejador de Estudos com IA</h2>
                 <p class="text-center mb-4 text-eject-text-secondary-light dark:text-eject-text-secondary-dark">Diga-nos seu objetivo de aprendizado e a IA sugere um roteiro de estudos com as trilhas do hub!</p>
@@ -283,43 +283,7 @@
                     </div>
                 </div>
                 <div id="studyPlanError" class="mt-3 p-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" style="display:none;" role="alert"></div>
-            </section>
-            -->
-
-            <!-- Novo banner Prosempre - Elegante e Animado -->
-            <section class="prosempre-banner my-8 p-6 rounded-2xl shadow-2xl bg-prosempre-dark-bg text-prosempre-light-text flex flex-col items-center justify-center relative">
-                <!-- Efeito de fundo animado -->
-                <div class="prosempre-banner-bg-animation"></div>
-                <div class="prosempre-dots-pattern"></div>
-                
-                <div class="relative z-10 w-full max-w-4xl flex flex-col items-center text-center">
-                    
-                    <p class="text-xl md:text-2xl font-mono text-prosempre-light-text mb-6 animate-fade-in-down">ProSempre 25.2 - Período de inscrições</p>
-
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-                        <div class="prosempre-date-panel group">
-                            <span class="prosempre-date-num">11</span>
-                        </div>
-                        <p class="text-3xl font-bold text-prosempre-light-text">até</p>
-                        <div class="prosempre-date-panel group">
-                            <span class="prosempre-date-num">21</span>
-                        </div>
-                        <div class="prosempre-date-panel group">
-                            <span class="prosempre-date-text">Agosto</span>
-                        </div>
-                    </div>
-
-                    <a href="https://app.pipefy.com/public/form/oZe9JVA_?fbclid=PAZXh0bgNhZW0CMTEAAaefmJHN2u5NzxRtyRjFwrr0wGgxVwsi4ovrtWm7LztKlBbSUavd6S2JrlDg5Q_aem_kL7fcjf-FAnhQ49HrZf_HA" target="_blank" rel="noopener noreferrer" class="prosempre-button">
-                        link de inscrição
-                    </a>
-
-                    <div class="w-full flex justify-center mt-8">
-                        <!-- Logo EJECT -->
-                        <img src="img/PS.png" alt="EJECT Logo" class="h-12 opacity-80">
-                    </div>
-                </div>
-            </section>
-            <!-- Fim do novo banner Prosempre -->
+            </section>    
 
             <section class="mb-8">
                 <h2 class="text-2xl lg:text-3xl mt-6 mb-4 font-semibold text-eject-text-primary-light dark:text-eject-text-primary-dark">🏆 Top 10</h2>
@@ -728,7 +692,7 @@
     <script>
         // Gemini API Call Function
         async function generateGeminiText(prompt) {
-            const apiKey = ""; 
+            const apiKey = "AIzaSyAnojN8ZpEjiHaUVlZbgdalGVKdJwkIrRI"; 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
             
             const payload = {
