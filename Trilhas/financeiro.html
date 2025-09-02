@@ -1,15 +1,232 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>EJECT | Administração Financeira</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link rel="stylesheet" href="/EJECT_Trilha_de_Conhecimento/css/trilhas_styles.css">
-        <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    </head>
-<body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJECT | Administração Financeira</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="/EJECT_Trilha_de_Conhecimento/img/svgs/logo-eject.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: "Exo 2", sans-serif;
+            background: linear-gradient(275.04deg, rgb(228, 243, 255) 1.05%, rgb(244, 246, 251) 100%);
+            color: white;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #0284c7; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0369a1; }
+        code {
+            background-color: #e5e7eb; color: #be123c; padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem; font-size: 0.875em;
+        }
+        .vw-plugin-wrapper { z-index: 1000 !important; }
+        .aspect-w-16 { position: relative; padding-bottom: calc(9 / 16 * 100%); }
+        .aspect-h-9 > * { position: absolute; height: 100%; width: 100%; top: 0; right: 0; bottom: 0; left: 0; }
+
+        .btn-gemini {
+            background: linear-gradient(92.07deg, #652CD1 1.84%, #8E2DE2 100%); color: white;
+            font-weight: 600; padding: 0.625rem 1.25rem; border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            transition: all 0.3s ease; border: none; cursor: pointer;
+        }
+        .btn-gemini:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(101,44,209,0.4), 0 4px 6px -2px rgba(101,44,209,0.3);
+        }
+        .btn-gemini:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        .loading-spinner-gemini, .loading-spinner-pdf {
+            border: 4px solid rgba(255,255,255,0.2); width: 24px; height: 24px;
+            border-radius: 50%; border-left-color: #A78BFA;
+            animation: spin 1s ease infinite; margin: 10px auto;
+        }
+        .loading-spinner-pdf { border-left-color: #38bdf8; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .modal-backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6); display: flex; justify-content: center;
+            align-items: center; z-index: 1050; opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-backdrop.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: white; color: #374151; padding: 2rem;
+            border-radius: 0.75rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 90%; max-width: 500px;
+            max-height: 90vh; overflow-y: auto; transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+        .modal-backdrop.active .modal-content { transform: translateY(0); }
+        .modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 1rem;
+        }
+        .modal-title { font-size: 1.25rem; font-weight: 600; color: #1e40af; }
+        .modal-close-btn {
+            background: none; border: none; font-size: 1.75rem; font-weight: bold;
+            color: #6b7280; cursor: pointer; padding: 0.5rem; line-height: 1;
+        }
+        .modal-close-btn:hover { color: #1f2937; }
+        .modal-body { margin-bottom: 1.5rem; }
+        .modal-body pre {
+            background-color: #f3f4f6; padding: 1rem; border-radius: 0.5rem;
+            white-space: pre-wrap; word-wrap: break-word; font-size: 0.9rem;
+            max-height: 40vh; overflow-y: auto;
+        }
+        .podcast-iframe-container { margin-top: 0.5rem; }
+        .podcast-iframe-container iframe { max-width: 100%; border-radius: 0.375rem; }
+
+        #qrcodeCanvas {
+            width: 200px; height: 200px; margin: 1.5rem auto; padding: 10px;
+            background-color: white; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #qrcodeCanvas img { display: block; width: 100% !important; height: 100% !important; }
+        .copy-link-btn { background-color: #0ea5e9; color: white; }
+        .copy-link-btn:hover { background-color: #0284c7; }
+
+        .pdf-feedback {
+            position: fixed; bottom: 20px; left: 50%;
+            transform: translateX(-50%);
+            color: white; padding: 10px 20px; border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 2000;
+            display: none; font-size: 0.9rem;
+        }
+        .pdf-feedback.success { background-color: #22c55e; }
+        .pdf-feedback.error { background-color: #ef4444; }
+
+        /* Accessibility Panel Styles */
+        #accessibilityToolbar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1060;
+        }
+        #accessibilityBtn {
+            background-color: #1e40af;
+            color: white;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #accessibilityBtn:hover {
+            background-color: #1c3a94;
+        }
+        #accessibilityPanel {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 280px;
+            background-color: white;
+            color: #374151;
+            border-radius: 0.5rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        }
+        #accessibilityPanel.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .accessibility-section { margin-bottom: 1rem; }
+        .accessibility-section h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.25rem;
+        }
+        .accessibility-controls button, .accessibility-controls select, .accessibility-controls input[type="range"] {
+            width: 100%;
+            text-align: left;
+            padding: 0.5rem 0.75rem;
+            margin-top: 0.25rem;
+            border-radius: 0.375rem;
+            border: 1px solid #d1d5db;
+            background-color: #f9fafb;
+            color: #374151;
+            font-size: 0.875rem;
+            transition: background-color 0.2s;
+        }
+        .accessibility-controls button:hover, .accessibility-controls select:hover {
+            background-color: #f3f4f6;
+        }
+        .accessibility-controls button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .tts-controls button { margin-right: 0.5rem; width: auto; }
+        .accessibility-controls label {
+            display: block;
+            font-size: 0.75rem; /* text-xs */
+            color: #4b5563; /* text-gray-600 */
+            margin-top: 0.5rem;
+            margin-bottom: 0.125rem;
+        }
+        .accessibility-controls input[type="range"] {
+            padding: 0; /* Remover padding padrão do range */
+            height: 1.25rem; /* Ajustar altura */
+        }
+
+
+        /* High Contrast Themes - REVISADO */
+        body.contrast-bw { background: black !important; color: white !important; }
+        body.contrast-bw header, body.contrast-bw .bg-white { background-color: black !important; color: white !important; border-color: #555 !important; }
+        body.contrast-bw [class*="text-gray-"], body.contrast-bw [class*="text-sky-"], body.contrast-bw [class*="text-violet-"] { color: white !important; }
+        body.contrast-bw .text-sky-700, body.contrast-bw .text-sky-800, body.contrast-bw .text-sky-600, body.contrast-bw .text-violet-700 { color: #FFFF00 !important; }
+        body.contrast-bw a:not(.btn-gemini) { color: #FFFF00 !important; text-decoration: underline !important; }
+        body.contrast-bw button:not(#accessibilityBtn):not(.btn-gemini):not(.modal-close-btn):not(.copy-link-btn) { background-color: #222 !important; color: white !important; border-color: white !important; }
+        body.contrast-bw .copy-link-btn { background-color: #222 !important; color: white !important; border-color: white !important; }
+        body.contrast-bw .modal-content { background-color: black !important; color: white !important; border-color: #555 !important;}
+        body.contrast-bw .modal-title { color: #FFFF00 !important; }
+        body.contrast-bw .modal-body pre { background-color: #1a1a1a !important; }
+        body.contrast-bw #pageLinkInput { background-color: #111 !important; color: white !important; }
+        body.contrast-bw .task-section, body.contrast-bw .p-6.border-sky-200 { background-color: black !important; border-color: #555 !important; }
+        body.contrast-bw .bg-violet-50 { background-color: #111 !important; }
+        body.contrast-bw .border-violet-300 { border-color: #555 !important; }
+        body.contrast-bw .bg-violet-100 { background-color: #333 !important; }
+
+
+        body.contrast-yb { background: #000000 !important; color: #FFFF00 !important; }
+        body.contrast-yb header, body.contrast-yb .bg-white { background-color: #000000 !important; color: #FFFF00 !important; border-color: #FFFF00 !important; }
+        body.contrast-yb [class*="text-gray-"], body.contrast-yb [class*="text-sky-"], body.contrast-yb [class*="text-violet-"] { color: #FFFF00 !important; }
+        body.contrast-yb .text-sky-700, body.contrast-yb .text-sky-800, body.contrast-yb .text-sky-600, body.contrast-yb .text-violet-700 { color: #00FFFF !important; }
+        body.contrast-yb a:not(.btn-gemini) { color: #00FFFF !important; text-decoration: underline !important; }
+        body.contrast-yb button:not(#accessibilityBtn):not(.btn-gemini):not(.modal-close-btn):not(.copy-link-btn) { background-color: #1a1a1a !important; color: #FFFF00 !important; border-color: #FFFF00 !important; }
+        body.contrast-yb .copy-link-btn { background-color: #1a1a1a !important; color: #FFFF00 !important; border-color: #FFFF00 !important; }
+        body.contrast-yb .modal-content { background-color: black !important; color: #FFFF00 !important; border-color: #FFFF00 !important;}
+        body.contrast-yb .modal-title { color: #00FFFF !important; }
+        body.contrast-yb .modal-body pre { background-color: #1a1a1a !important; }
+        body.contrast-yb #pageLinkInput { background-color: #111 !important; color: #FFFF00 !important; }
+        body.contrast-yb .task-section, body.contrast-yb .p-6.border-sky-200 { background-color: black !important; border-color: #FFFF00 !important; }
+        body.contrast-yb .bg-violet-50 { background-color: #111 !important; }
+        body.contrast-yb .border-violet-300 { border-color: #FFFF00 !important; }
+        body.contrast-yb .bg-violet-100 { background-color: #333 !important; }
+
+    </style>
+</head>
+<body class="antialiased">
     <!-- Vlibra -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
@@ -22,206 +239,1021 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
-<header>
-    <nav class="container">
-        <a href="index">
-            <h1 href = "/EJECT_Trilha_de_Conhecimento/index">Hub de Conhecimentos</h1>
-        </a>
-        <div class="ds-contact-container">
-            <a href="https://www.ejectufrn.com.br/">
-                <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT">
-            </a>
-        </div>
-    </nav>
-</header>
-    <main>
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <a href="/EJECT_Trilha_de_Conhecimento" class="text-2xl font-bold text-sky-700 hover:text-sky-800 transition-colors">
+                        Hub de Conhecimentos
+                    </a>
+                </div>
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                     <button id="exportTasksPdfBtn" title="Exportar Respostas das Tarefas" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                         </svg>
+                     </button>
+                     <button id="exportPdfBtn" title="Exportar Conteúdo para PDF" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                         </svg>
+                     </button>
+                     <button id="sharePageBtn" title="Partilhar Página" class="p-2 rounded-full text-sky-600 hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                         </svg>
+                     </button>
+                     <a href="https://www.ejectufrn.com.br/" target="_blank" rel="noopener noreferrer">
+                         <img src="/EJECT_Trilha_de_Conhecimento/img/logo.svg" alt="Logotipo da EJECT" class="h-10">
+                     </a>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-        <section>
-            <a class="btn btn-primary" href="/EJECT_Trilha_de_Conhecimento">Voltar</a>
-        </section> <br>
-
+    <main id="content-container" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <input type="hidden" id="trilha-nome" value="Financeiro" />
+        
+        <section class="mb-6">
+            <a href="/EJECT_Trilha_de_Conhecimento" class="inline-flex items-center bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-150 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Voltar
+            </a>
+        </section>
 
         <!-- Conteúdo de Administração Financeira -->
-        <section class="mb-5">
-            <h2>Administração Financeira</h2> <br>
-            <p>A administração financeira é o coração de qualquer organização. Assim como o coração distribui sangue para todos os órgãos do corpo, a função financeira garante que os recursos estejam disponíveis para cada setor da empresa funcionar bem. A principal responsabilidade dessa área é gerenciar o dinheiro da empresa, buscando maximizar seu valor e garantir estabilidade no longo prazo.</p>
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <h1 class="text-4xl font-bold text-sky-800 mb-4">Administração Financeira</h1>
+            <p class="text-lg leading-relaxed text-gray-700">A administração financeira é o coração de qualquer organização. Assim como o coração distribui sangue para todos os órgãos do corpo, a função financeira garante que os recursos estejam disponíveis para cada setor da empresa funcionar bem. A principal responsabilidade dessa área é gerenciar o dinheiro da empresa, buscando maximizar seu valor e garantir estabilidade no longo prazo.</p>
         </section>
 
         <!-- Capítulo 1: Fundamentos de Administração Financeira -->
-        <section>
-            <div class="section-header">
-                <h2>Fundamentos da Administração Financeira</h2>
-            </div> <br>
-            <ul>
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Fundamentos da Administração Financeira</h2>
+            </div>
+            <div class="space-y-4 text-gray-700">
                 <p>O objetivo da administração financeira é claro: <strong>garantir que a empresa atinja seus objetivos estratégicos de forma sustentável e rentável.</strong> Isso significa que o setor financeiro deve buscar sempre formas de aumentar o valor da empresa, minimizar custos e gerir os recursos de modo eficiente.</p>
                 <p>Aqui estão alguns dos principais objetivos:</p>
-                <li>Maximizar o valor da empresa</li>
-                <p>As decisões financeiras devem sempre buscar aumentar o valor do negócio, seja através de investimentos, controle de custos, ou novas estratégias de geração de receita.</p> <br>
-                <li>Assegurar a liquidez</li>
-                <p>A empresa precisa de dinheiro em caixa para cobrir suas despesas e manter as operações em andamento. A falta de liquidez pode até levar um negócio à falência.</p> <br>
-                <li>Gerenciar riscos</li>
-                <p>O mercado é cheio de incertezas, e a área financeira trabalha para proteger a empresa de perdas financeiras, seja com planejamento cuidadoso ou investindo de maneira segura.</p>
-            </ul> <br>
-
-            <section>
-                <h3>PLANEJAMENTO FINANCEIRO EMPRESARIAL (Descubra seus 6 Passos Bem Simples)</h3> <br>
-                <div class="ratio ratio-16x9 mb-4">
-                    <iframe src="https://www.youtube.com/embed/f6HRXyj2oNc?si=nAFoqycd7GO0gdQ6" title="SCRUM O QUE É (de um Jeito BEM Prático)" allowfullscreen></iframe>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>
+                        <strong class="text-sky-700">Maximizar o valor da empresa:</strong> As decisões financeiras devem sempre buscar aumentar o valor do negócio, seja através de investimentos, controle de custos, ou novas estratégias de geração de receita.
+                    </li>
+                    <li>
+                        <strong class="text-sky-700">Assegurar a liquidez:</strong> A empresa precisa de dinheiro em caixa para cobrir suas despesas e manter as operações em andamento. A falta de liquidez pode até levar um negócio à falência.
+                    </li>
+                    <li>
+                        <strong class="text-sky-700">Gerenciar riscos:</strong> O mercado é cheio de incertezas, e a área financeira trabalha para proteger a empresa de perdas financeiras, seja com planejamento cuidadoso ou investindo de maneira segura.
+                    </li>
+                </ul>
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-sky-700 mb-2">PLANEJAMENTO FINANCEIRO EMPRESARIAL (Descubra seus 6 Passos Bem Simples)</h3>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/f6HRXyj2oNc?si=nAFoqycd7GO0gdQ6" title="PLANEJAMENTO FINANCEIRO EMPRESARIAL" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                 </div>
-            </section> <br>
-
+            </div>
         </section>
 
-        <section>
-            <div class="section-header">
-                <h2>Funções da Administração Financeira</h2>
-            </div> <br>
-            <p>As principais funções da área financeira incluem<strong> planejamento financeiro, controle de caixa, captação de recursos</strong> e <strong>análise de investimentos.</strong> Cada uma dessas funções contribui para que a empresa tenha uma base financeira sólida e segura.</p>
-            <ul>
-                <li>Análise de Custo-Benefício</li> <br>
-                <p>A análise de custo-benefício é uma técnica que permite avaliar a viabilidade financeira de um projeto ou investimento, comparando os custos e benefícios esperados.</p>
-                <li>Fluxo de Caixa</li> <br>
-                <p>O fluxo de caixa é uma ferramenta essencial que ajuda a acompanhar as entradas e saídas de dinheiro da empresa. Ele permite que os gestores identifiquem períodos de maior e menor liquidez e façam ajustes conforme necessário.</p>
-                <li>Orçamento Empresarial</li> <br>
-                <p>O orçamento empresarial é um plano financeiro que define como os recursos da empresa serão alocados durante um determinado período. Ele é uma ferramenta importante para o controle financeiro e para a tomada de decisões estratégicas.</p>
-            </ul> <br>
+        <section class="task-section mt-10 mb-10 p-6 bg-sky-50 rounded-xl shadow-lg text-gray-800 border border-sky-200">
+            <h3 class="text-2xl font-semibold text-sky-700 mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                Tarefa Prática: Análise de Objetivos Financeiros
+            </h3>
+            <p class="task-question text-gray-700 mb-4">Escolha um pequeno negócio fictício ou real que você conheça. Descreva um objetivo estratégico para esse negócio e, em seguida, explique como a administração financeira (focada em pelo menos dois dos pilares: valor da empresa, liquidez e gestão de riscos) pode ajudar a alcançá-lo.</p>
+            <textarea rows="5" class="task-answer w-full p-3 border border-sky-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400" placeholder="Ex: Negócio: Uma loja de bolos artesanais. Objetivo: Abrir uma segunda unidade em 12 meses. Análise: A gestão financeira pode ajudar a garantir a liquidez necessária para a nova operação, controlando o fluxo de caixa para poupar o investimento..."></textarea>
+        </section>
+
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Funções da Administração Financeira</h2>
+            </div>
+            <div class="space-y-4 text-gray-700">
+                <p>As principais funções da área financeira incluem<strong> planejamento financeiro, controle de caixa, captação de recursos</strong> e <strong>análise de investimentos.</strong> Cada uma dessas funções contribui para que a empresa tenha uma base financeira sólida e segura.</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>
+                        <strong class="text-sky-700">Análise de Custo-Benefício:</strong> É uma técnica que permite avaliar a viabilidade financeira de um projeto ou investimento, comparando os custos e benefícios esperados.
+                    </li>
+                    <li>
+                        <strong class="text-sky-700">Fluxo de Caixa:</strong> É uma ferramenta essencial que ajuda a acompanhar as entradas e saídas de dinheiro da empresa. Ele permite que os gestores identifiquem períodos de maior e menor liquidez e façam ajustes conforme necessário.
+                    </li>
+                    <li>
+                        <strong class="text-sky-700">Orçamento Empresarial:</strong> É um plano financeiro que define como os recursos da empresa serão alocados durante um determinado período. Ele é uma ferramenta importante para o controle financeiro e para a tomada de decisões estratégicas.
+                    </li>
+                </ul>
+            </div>
         </section>
 
         <!-- Capítulo 2: Planejamento e Controle Financeiro -->
-
-        <section>
-            <div class="section-header">
-                <h2>Planejamento e Controle Financeiro</h2>
-            </div> <br>
-            <ul>
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Planejamento e Controle Financeiro</h2>
+            </div>
+            <div class="space-y-4 text-gray-700">
                 <p>O planejamento financeiro é como um mapa que guia a empresa em direção a seus objetivos. É um processo que permite à empresa antecipar e se preparar para o futuro, mantendo sempre o controle de seus recursos e definindo como eles serão utilizados.</p>
-                <li>Orçamento Empresarial</li>
-                <p>O orçamento é uma ferramenta essencial no planejamento financeiro. Ele define quanto dinheiro a empresa planeja gastar e quanto espera receber, permitindo que tome decisões informadas. Criar um orçamento envolve prever as receitas e despesas para o próximo período, o que pode variar entre um mês, um trimestre ou um ano.</p>
-                <p>Imagine, por exemplo, uma empresa que deseja expandir sua operação para uma nova cidade. O setor financeiro precisará calcular o investimento necessário para a expansão, como aluguel de um novo espaço, contratação de novos funcionários e marketing, e depois avaliar se a empresa tem recursos suficientes para essa iniciativa.</p> 
-                <p><strong>Dica:</strong>Um orçamento bem feito deve incluir uma margem de segurança para lidar com imprevistos. O mercado está sempre mudando, e é importante que a empresa esteja preparada para isso.</p><br>
-
-                
-
-            </ul> <br>        
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>
+                        <strong class="text-sky-700">Orçamento Empresarial:</strong> Ele define quanto dinheiro a empresa planeja gastar e quanto espera receber, permitindo que tome decisões informadas.
+                        <p class="mt-2">Imagine, por exemplo, uma empresa que deseja expandir sua operação para uma nova cidade. O setor financeiro precisará calcular o investimento necessário para a expansão, como aluguel de um novo espaço, contratação de novos funcionários e marketing, e depois avaliar se a empresa tem recursos suficientes para essa iniciativa.</p>
+                        <p class="mt-2 text-sm text-sky-600"><strong>Dica:</strong> Um orçamento bem feito deve incluir uma margem de segurança para lidar com imprevistos. O mercado está sempre mudando, e é importante que a empresa esteja preparada para isso.</p>
+                    </li>
+                </ul>
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-sky-700 mb-2">CUSTO FIXO E VARIÁVEL (Para Ter Lucro, Entendê-los É Essencial)</h3>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/TchSeiIYgYw?si=KcuFg8R4uYaHjgvT" title="CUSTO FIXO E VARIÁVEL" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>
+                        <strong class="text-sky-700">Controle de Fluxo de Caixa:</strong> O fluxo de caixa é o registro de todo o dinheiro que entra e sai da empresa. Ter um controle rigoroso do fluxo de caixa ajuda a empresa a manter liquidez.
+                    </li>
+                </ul>
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-sky-700 mb-2">FLUXO DE CAIXA E SEUS TIPOS (Qual o Ideal Para a Sua Empresa?)</h3>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/Pg3MWe9cFPk?si=dkiMuOuG9xVc8kVQ" title="FLUXO DE CAIXA E SEUS TIPOS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-sky-700 mb-2">DIFERENÇA ENTRE FATURAMENTO RECEITA E LUCRO (Prático e Resumido)</h3>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/dztN85jGt4o?si=hzHJVo_ex-GoOAqY" title="DIFERENÇA ENTRE FATURAMENTO RECEITA E LUCRO" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section>
-            <section>
-                <h3>CUSTO FIXO E VARIÁVEL (Para Ter Lucro, Entendê-los É Essencial)</h3> <br>
-                <div class="ratio ratio-16x9 mb-4">
-                    <iframe src="https://www.youtube.com/embed/TchSeiIYgYw?si=KcuFg8R4uYaHjgvT" title="CUSTO FIXO E VARIÁVEL (Para Ter Lucro, Entendê-los É Essencial)" allowfullscreen></iframe>
-                </div>
-            </section> <br>
-
-            <li>Controle de Fluxo de Caixa</li>
-            <p>O fluxo de caixa é o registro de todo o dinheiro que entra e sai da empresa. Ter um controle rigoroso do fluxo de caixa ajuda a empresa a manter liquidez, ou seja, ter dinheiro em caixa suficiente para cumprir com suas obrigações.</p> <br>
-
-            <section>
-                <h3>FLUXO DE CAIXA E SEUS TIPOS (Qual o Ideal Para a Sua Empresa?)</h3> <br>
-                <div class="ratio ratio-16x9 mb-4">
-                    <iframe src="https://www.youtube.com/embed/Pg3MWe9cFPk?si=dkiMuOuG9xVc8kVQ" title="FLUXO DE CAIXA E SEUS TIPOS (Qual o Ideal Para a Sua Empresa?)" allowfullscreen></iframe>
-                </div>
-            </section> <br>
-
-            <section>
-                <h3>DIFERENÇA ENTRE FATURAMENTO RECEITA E LUCRO (Prático e Resumido)</h3> <br>
-                <div class="ratio ratio-16x9 mb-4">
-                    <iframe src="https://www.youtube.com/embed/dztN85jGt4o?si=hzHJVo_ex-GoOAqY" title="DIFERENÇA ENTRE FATURAMENTO RECEITA E LUCRO (Prático e Resumido)" allowfullscreen></iframe>
-                </div>
-            </section> <br>
+        <section class="task-section mt-10 mb-10 p-6 bg-sky-50 rounded-xl shadow-lg text-gray-800 border border-sky-200">
+            <h3 class="text-2xl font-semibold text-sky-700 mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                Tarefa Prática: Análise de Custo e Lucro
+            </h3>
+            <p class="task-question text-gray-700 mb-4">Imagine que você é o proprietário de uma pequena padaria. Liste três exemplos de custos fixos e três exemplos de custos variáveis que a sua padaria teria. Explique como a análise desses custos pode te ajudar a definir o preço de venda de um pão de queijo e garantir o lucro.</p>
+            <textarea rows="5" class="task-answer w-full p-3 border border-sky-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400" placeholder="Ex: Custos Fixos: Aluguel do espaço, salários dos padeiros... Custos Variáveis: Farinha, queijo... A análise desses custos me permite calcular a margem de contribuição..."></textarea>
         </section>
 
         <!-- Capítulo 3: Gestão de Ativos e Passivos -->
-        
-        <section>
-            <div class="section-header">
-                <h2>Gestão de Ativos e Passivos</h2>
-            </div> <br>
-            <ul>
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Gestão de Ativos e Passivos</h2>
+            </div>
+            <div class="space-y-4 text-gray-700">
                 <p>Em finanças, ativos são todos os recursos e bens que a empresa possui, como dinheiro em caixa, estoques, imóveis e equipamentos. Já os passivos representam as obrigações e dívidas que a empresa precisa pagar, como empréstimos, contas a pagar e salários.</p>
-                
-                <li>Capital de Giro</li>
-                <p>O capital de giro é o valor necessário para financiar as operações diárias da empresa. Em outras palavras, é o dinheiro que a empresa usa para pagar contas de curto prazo enquanto espera receber dos clientes. A gestão eficiente do capital de giro é essencial para evitar problemas de liquidez.</p>
-                <p><strong>Exemplo Prático:</strong> Imagine uma fábrica que paga pelos materiais que utiliza na produção, mas só recebe o pagamento dos clientes 30 dias após a entrega dos produtos. Nesse caso, o capital de giro é essencial para cobrir as despesas até que o pagamento seja recebido.</p> <br>
-
-                <section>
-                    <h3>O Que é Capital de Giro (Como Fazer Sem Segredos)</h3> <br>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/cbeIf7IFjYQ?si=0yZn90fYmBONO54M" title="O Que é Capital de Giro (Como Fazer Sem Segredos)" allowfullscreen></iframe>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>
+                        <strong class="text-sky-700">Capital de Giro:</strong> É o valor necessário para financiar as operações diárias da empresa.
+                        <p class="mt-2"><strong>Exemplo Prático:</strong> Imagine uma fábrica que paga pelos materiais que utiliza na produção, mas só recebe o pagamento dos clientes 30 dias após a entrega dos produtos. Nesse caso, o capital de giro é essencial para cobrir as despesas até que o pagamento seja recebido.</p>
+                    </li>
+                </ul>
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-sky-700 mb-2">O Que é Capital de Giro (Como Fazer Sem Segredos)</h3>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/cbeIf7IFjYQ?si=0yZn90fYmBONO54M" title="O Que é Capital de Giro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                </section> <br>
-
-                <li>Gestão de Estoques e Contas a Pagar/Receber</li>
-                <p>A gestão de estoques e das contas a pagar e a receber são partes importantes do capital de giro. Estoques representam dinheiro “parado” e precisam ser bem controlados para evitar perdas, enquanto as contas a receber representam dinheiro que a empresa ainda vai receber dos clientes.</p> 
-                <p><strong>Dica:</strong> Ter um sistema eficiente para gerenciar estoques pode reduzir o custo de armazenagem e garantir que a empresa sempre tenha produtos disponíveis para atender a demanda.</p><br>
-
-                <section>
-                    <h3>COMO GERENCIAR O FLUXO DE CAIXA DA SUA EMPRESA (Dicas de Sucesso)</h3> <br>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/2VMuBr_x6qo?si=I2qEgOKmyyM_Xg7g" title="COMO GERENCIAR O FLUXO DE CAIXA DA SUA EMPRESA (Dicas de Sucesso)" allowfullscreen></iframe>
+                </div>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>
+                        <strong class="text-sky-700">Gestão de Estoques e Contas a Pagar/Receber:</strong> São partes importantes do capital de giro. Estoques representam dinheiro “parado” e as contas a receber são dinheiro que a empresa ainda vai receber.
+                        <p class="mt-2 text-sm text-sky-600"><strong>Dica:</strong> Ter um sistema eficiente para gerenciar estoques pode reduzir o custo de armazenagem e garantir que a empresa sempre tenha produtos disponíveis para atender a demanda.</p>
+                    </li>
+                </ul>
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-sky-700 mb-2">COMO GERENCIAR O FLUXO DE CAIXA DA SUA EMPRESA (Dicas de Sucesso)</h3>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/2VMuBr_x6qo?si=I2qEgOKmyyM_Xg7g" title="COMO GERENCIAR O FLUXO DE CAIXA DA SUA EMPRESA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                </section> <br>
-            </ul> <br>
+                </div>
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-sky-700 mb-2">DIFERENÇA ENTRE FATURAMENTO RECEITA E LUCRO (Prático e Resumido)</h3>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/dztN85jGt4o?si=hzHJVo_ex-GoOAqY" title="DIFERENÇA ENTRE FATURAMENTO RECEITA E LUCRO" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Capítulo 4: Planejamento Tributário e Compliance -->
-
-        <section>
-            <div class="section-header">
-                <h2>Planejamento Tributário e Compliance</h2>
-            </div> <br>
-            <ul>
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-3xl font-semibold text-sky-700 mb-2 sm:mb-0">Planejamento Tributário e Compliance</h2>
+            </div>
+            <div class="space-y-4 text-gray-700">
                 <p>O planejamento tributário é o processo de analisar e planejar as obrigações fiscais da empresa de forma a cumprir as leis e, ao mesmo tempo, minimizar os impostos pagos. Já o compliance é o conjunto de normas e processos que garantem que a empresa está seguindo todas as regulamentações.</p>
-                <li>Tributação Corporativa Básica</li>
-                <p>Toda empresa precisa pagar impostos, mas existem estratégias legais que podem ajudar a reduzir o valor pago. O planejamento tributário é essencial para evitar o pagamento de impostos desnecessários e também para evitar multas por descumprimento da legislação.</p>
-                <p><strong>Exemplo Prático:</strong> Se uma empresa utiliza incentivos fiscais para investir em inovação, pode reduzir o valor dos impostos que paga. Assim, o setor financeiro precisa conhecer todas as leis e regulamentos que possam beneficiar a empresa.</p> <br>
-                
-                <section>
-                    <h3>Planejamento tributário: melhores dicas para entender e reduzir legalmente impostos do seu negócio</h3> <br>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/O0yrmghn0W0?si=_kPoU0CYO21JmZ5U" title="Planejamento tributário: melhores dicas para entender e reduzir legalmente impostos do seu negócio" allowfullscreen></iframe>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>
+                        <strong class="text-sky-700">Tributação Corporativa Básica:</strong> Toda empresa precisa pagar impostos, mas existem estratégias legais que podem ajudar a reduzir o valor pago.
+                        <p class="mt-2"><strong>Exemplo Prático:</strong> Se uma empresa utiliza incentivos fiscais para investir em inovação, pode reduzir o valor dos impostos que paga. Assim, o setor financeiro precisa conhecer todas as leis e regulamentos que possam beneficiar a empresa.</p>
+                    </li>
+                </ul>
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-sky-700 mb-2">Planejamento tributário: melhores dicas para entender e reduzir legalmente impostos do seu negócio</h3>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/O0yrmghn0W0?si=_kPoU0CYO21JmZ5U" title="Planejamento tributário" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                </section> <br>
-
-                <li>Compliance e Controles Internos</li>
-                <p>O compliance financeiro garante que a empresa segue as normas fiscais, contábeis e regulatórias. Isso inclui políticas de controle interno, como auditorias e verificação de documentos financeiros, que ajudam a prevenir fraudes e erros.</p> 
-                <p><strong>Dica:</strong> A criação de uma política de compliance fortalece a confiança dos investidores e clientes na empresa, já que demonstra o compromisso com a ética e transparência.</p><br>
-
-                <section>
-                    <h3>O QUE É UMA NOTA FISCAL (Para Que Serve e Como Emitir)</h3> <br>
-                    <div class="ratio ratio-16x9 mb-4">
-                        <iframe src="https://www.youtube.com/embed/rO9Jl1fDxpo?si=fK9ob5ybrTaFld4z" title="O QUE É UMA NOTA FISCAL (Para Que Serve e Como Emitir)" allowfullscreen></iframe>
+                </div>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>
+                        <strong class="text-sky-700">Compliance e Controles Internos:</strong> O compliance financeiro garante que a empresa segue as normas fiscais, contábeis e regulatórias.
+                        <p class="mt-2 text-sm text-sky-600"><strong>Dica:</strong> A criação de uma política de compliance fortalece a confiança dos investidores e clientes na empresa, já que demonstra o compromisso com a ética e transparência.</p>
+                    </li>
+                </ul>
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-sky-700 mb-2">O QUE É UMA NOTA FISCAL (Para Que Serve e Como Emitir)</h3>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                        <iframe src="https://www.youtube.com/embed/rO9Jl1fDxpo?si=fK9ob5ybrTaFld4z" title="O QUE É UMA NOTA FISCAL" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                </section> <br>
-
-            </ul> <br>
+                </div>
+            </div>
         </section>
 
-        <!-- Referências -->
-        <section>
-            <h2>Referências e Conteúdos Extras</h2> <br>
-            <ul>
-                <li>Sites</li> <br>
-                <a href="https://www.sunoresearch.com.br/artigos/administracao-financeira/">Administração Financeira: entenda o que é e como funciona essa área</a> <br>
-                <a href="https://www.treasy.com.br/blog/">Treasy - Blog</a> <br>
-                <a href="https://abriminhaempresa.com/">AbriMinhaEmpresa.com - Blog</a> <br>
-                <br>
-                <li>Livros</li> <br>
-                <a href="https://www.amazon.com.br/Finan%C3%A7as-iniciantes-Harvard-Business-Review/dp/6555647361/ref=sr_1_15?dib=eyJ2IjoiMSJ9.Jay1VbFz60cbyGuyDua-evOWc3gIV6cIWBvW1SiMVx8iMDzfbfxVW0vtBvzqyZkfHsX9DRiU7Ev-mSW-yVvhm4hswLJ3X0ZiH5Olqj4tHMaYW__ni15kwslWnJbMKxinkby50CQyxJ1Y59J7lKfiWS9o8xZJMlsKeW80sJo6-tJCD6G_D5TzTt7W35md1JWRQVewmoM1p1VEWcDsv1b4yV0r2U6OGwzj05PYhEXFmVFzZcGIAy5_KQyO4dJlnG4Gqp2yh-2f9LwTsnxk6M85r1LtCXIF2w0a6EHAEGsvi0o.PZzZEpbSadGRsNmujlN_HjM10niBQWdxZbsv910eS_0&dib_tag=se&keywords=financeiro&qid=1730738883&sr=8-15">Finanças para iniciantes - Harvard Business Review (Autor), Isa Mara Lando (Tradutora)</a> <br>
-                <br>
-                <li>Cursos</li> <br>
-                <a href="https://www.udemy.com/courses/search/?q=administracao%20financeira">Udemy</a> <br>
-                
-                <br>
-            </ul>
+        <section class="task-section mt-10 mb-10 p-6 bg-sky-50 rounded-xl shadow-lg text-gray-800 border border-sky-200">
+            <h3 class="text-2xl font-semibold text-sky-700 mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Tarefa Prática: Análise de Fluxo de Caixa
+            </h3>
+            <p class="task-question text-gray-700 mb-4">Pense em uma pequena empresa (por exemplo, um carrinho de comida de rua). Descreva três tipos de entradas de caixa (receitas) e três tipos de saídas de caixa (despesas). Em seguida, explique por que é importante para o dono do negócio ter esse controle de fluxo de caixa.</p>
+            <textarea rows="5" class="task-answer w-full p-3 border border-sky-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-gray-800 placeholder-gray-400" placeholder="Ex: Entradas: Venda de sanduíches, venda de sucos... Saídas: Compra de ingredientes, pagamento de taxas... É importante ter controle para prever a liquidez..."></textarea>
+        </section>
+
+    <!--
+
+        <section class="mt-10 mb-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <div class="p-6 border border-violet-300 rounded-xl bg-violet-50 shadow-inner">
+                <h4 class="text-lg font-semibold text-violet-700 mb-3">✨ Gerador de User Stories com IA</h4>
+                <p class="text-sm text-violet-600 mb-3">Descreva uma funcionalidade abaixo e clique no botão para gerar exemplos de user stories.</p>
+                <div>
+                    <label for="featureDescription" class="block text-sm font-medium text-violet-700 mb-1">Descrição da Funcionalidade:</label>
+                    <textarea id="featureDescription" rows="3" class="w-full p-2 border border-violet-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500 text-gray-800" placeholder="Ex: Um sistema de gestão financeira para pequenas empresas"></textarea>
+                </div>
+                <button id="generateUserStoriesBtn" class="btn-gemini mt-4 w-full sm:w-auto">
+                    Gerar Exemplos de User Stories
+                </button>
+                <div id="userStoriesLoading" class="loading-spinner-gemini hidden mt-4"></div>
+            </div>
+        </section>
+    -->
+
+        <section class="mt-10 p-6 bg-white rounded-xl shadow-lg text-gray-800">
+            <h2 class="text-3xl font-semibold text-sky-700 mb-6 pb-4 border-b border-gray-200">Referências e Conteúdos Extras</h2>
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Sites</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><a href="https://www.sunoresearch.com.br/artigos/administracao-financeira/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Administração Financeira: entenda o que é e como funciona essa área (Suno Research)</a></li>
+                        <li><a href="https://www.treasy.com.br/blog/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Treasy - Blog</a></li>
+                        <li><a href="https://abriminhaempresa.com/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">AbriMinhaEmpresa.com - Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Livros</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><a href="https://www.amazon.com.br/Finan%C3%A7as-iniciantes-Harvard-Business-Review/dp/6555647361/" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Finanças para iniciantes - Harvard Business Review</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Cursos</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><a href="https://www.udemy.com/courses/search/?q=administracao%20financeira" target="_blank" class="text-sky-600 hover:text-sky-800 hover:underline transition-colors">Udemy</a></li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
     </main>
-    <footer class="text-center py-4">
-        <p>Feito com <strong>foco </strong>e <strong>compromisso</strong> pela EJECT&copy; - Todos os direitos reservados.</p>
+    <footer class="bg-sky-900 text-white text-center py-8 mt-12">
+        <p class="text-sm">Feito com <strong class="font-semibold">foco</strong> e <strong class="font-semibold">compromisso</strong> pela EJECT© - Todos os direitos reservados.</p>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gyb1pU0M6xz+4yfM6sM+g/fxFvOgQg04hjTTN+nWz5tH9hY2Ct" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-t5W3L1MXjKlwC8HLs8JNh1gKnBT9vdD4URp8qLkpu0ElBCAbK7JXGkpExiJ/xy4J" crossorigin="anonymous"></script>
+
+    <div id="geminiModal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="geminiModalTitle" class="modal-title">Resultado da IA</h5>
+                <button type="button" class="modal-close-btn" id="geminiModalCloseBtn">×</button>
+            </div>
+            <div id="geminiModalBody" class="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="shareModal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="shareModalTitle" class="modal-title">Compartilhar Página</h5>
+                <button type="button" class="modal-close-btn" id="shareModalCloseBtn">×</button>
+            </div>
+            <div id="shareModalBody" class="modal-body text-center">
+                <p class="mb-2 text-sm text-gray-600">Copie o link ou utilize o QR Code:</p>
+                <div class="flex items-center border border-gray-300 rounded-md p-2 mb-4">
+                    <input type="text" id="pageLinkInput" readonly class="w-full p-1.5 border-none focus:ring-0 text-sm text-gray-700 bg-gray-50 rounded-l-md">
+                    <button id="copyLinkBtn" class="copy-link-btn px-4 py-1.5 rounded-r-md text-sm font-medium transition-colors">
+                        Copiar
+                    </button>
+                </div>
+                <div id="qrcodeCanvasContainer" class="flex justify-center">
+                    <div id="qrcodeCanvas"></div>
+                </div>
+                <p id="copyFeedback" class="text-xs text-green-600 mt-2 h-4"></p>
+            </div>
+        </div>
+    </div>
+    <div id="pdfExportFeedback" class="pdf-feedback"></div>
+
+    <div id="accessibilityToolbar">
+        <button id="accessibilityBtn" title="Opções de Acessibilidade">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-5v12c0 .55-.45 1-1 1s-1-.45-1-1v-5h-2v5c0 .55-.45 1-1 1s-1-.45-1-1V9H3V7h18v2z"/>
+            </svg>
+        </button>
+        <div id="accessibilityPanel" class="hidden">
+            <div class="accessibility-section">
+                <h4>Tamanho da Fonte</h4>
+                <div class="accessibility-controls space-y-1">
+                    <button id="increaseFontBtn">Aumentar Fonte (+)</button>
+                    <button id="decreaseFontBtn">Diminuir Fonte (-)</button>
+                    <button id="resetFontBtn">Restaurar Fonte</button>
+                </div>
+            </div>
+            <div class="accessibility-section">
+                <h4>Contraste</h4>
+                <div class="accessibility-controls space-y-1">
+                    <button id="defaultContrastBtn">Padrão</button>
+                    <button id="bwContrastBtn">Preto e Branco</button>
+                    <button id="ybContrastBtn">Amarelo e Preto</button>
+                </div>
+            </div>
+            <div class="accessibility-section">
+                <h4>Leitor de Texto</h4>
+                <div class="accessibility-controls tts-controls flex space-x-1">
+                    <button id="playTTSBtn" title="Ler Conteúdo">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /></svg>
+                        Ler
+                    </button>
+                    <button id="pauseTTSBtn" title="Pausar Leitura">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1H8zm3 0a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1h-1z" clip-rule="evenodd" /></svg>
+                        Pausar
+                    </button>
+                    <button id="stopTTSBtn" title="Parar Leitura">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 00-1 1v1a1 1 0 102 0v-1a1 1 0 00-1-1zm4 0a1 1 0 00-1 1v1a1 1 0 102 0v-1a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                        Parar
+                    </button>
+                </div>
+                <div class="accessibility-controls mt-2">
+                    <label for="ttsVoiceSelect">Voz:</label>
+                    <select id="ttsVoiceSelect" disabled><option value="">A carregar vozes...</option></select>
+                </div>
+                <div class="accessibility-controls mt-1">
+                    <label for="ttsRateRange">Velocidade: <span id="ttsRateValue">1</span></label>
+                    <input type="range" id="ttsRateRange" min="0.5" max="2" step="0.1" value="1">
+                </div>
+                <div class="accessibility-controls mt-1">
+                    <label for="ttsPitchRange">Tom: <span id="ttsPitchValue">1</span></label>
+                    <input type="range" id="ttsPitchRange" min="0" max="2" step="0.1" value="1">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Assegurar que o objeto jsPDF está disponível globalmente se usar a versão UMD
+        const { jsPDF } = window.jspdf;
+
+        // --- Gemini API Integration ---
+        const generateUserStoriesBtn = document.getElementById('generateUserStoriesBtn');
+        const featureDescriptionTextarea = document.getElementById('featureDescription');
+        const userStoriesLoadingDiv = document.getElementById('userStoriesLoading');
+        const geminiModal = document.getElementById('geminiModal');
+        const geminiModalTitle = document.getElementById('geminiModalTitle');
+        const geminiModalBody = document.getElementById('geminiModalBody');
+        const geminiModalCloseBtn = document.getElementById('geminiModalCloseBtn');
+
+        function showGeminiModal(title, htmlContent) {
+            if (geminiModalTitle) geminiModalTitle.textContent = title;
+            if (geminiModalBody) geminiModalBody.innerHTML = htmlContent;
+            if (geminiModal) geminiModal.classList.add('active');
+        }
+        function hideGeminiModal() {
+            if (geminiModal) geminiModal.classList.remove('active');
+        }
+        if (geminiModalCloseBtn) geminiModalCloseBtn.addEventListener('click', hideGeminiModal);
+        if (geminiModal) geminiModal.addEventListener('click', function(event) {
+            if (event.target === geminiModal) hideGeminiModal();
+        });
+
+        if (generateUserStoriesBtn) {
+            generateUserStoriesBtn.addEventListener('click', async () => {
+                const description = featureDescriptionTextarea.value.trim();
+                if (!description) {
+                    showGeminiModal("Erro de Validação", "<p>Por favor, descreva uma funcionalidade para gerar as user stories.</p>");
+                    return;
+                }
+                userStoriesLoadingDiv.classList.remove('hidden');
+                generateUserStoriesBtn.disabled = true;
+                const prompt = `Com base na seguinte descrição de funcionalidade, gera 3 exemplos de user stories CURTAS e CONCISAS no formato "Como um [tipo de utilizador], eu quero [objetivo] para que [razão/benefício]". Não adiciones introduções ou conclusões, apenas as user stories. Descrição da funcionalidade: "${description}"`;
+                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(`Erro da API: ${response.status} ${response.statusText}. Detalhes: ${errorData?.error?.message || 'Sem detalhes adicionais.'}`);
+                    }
+                    const result = await response.json();
+                    if (result.candidates && result.candidates[0]?.content?.parts?.[0]) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        const formattedText = text.split('\n').map(line => line.trim()).filter(line => line.length > 0).map(line => `<p class="mb-2 p-2 bg-violet-100 rounded">${line}</p>`).join('');
+                        showGeminiModal("✨ Exemplos de User Stories Geradas", `<div class="text-sm">${formattedText || '<p>Não foi possível gerar as user stories.</p>'}</div>`);
+                    } else {
+                        showGeminiModal("Erro", "<p>Não foi possível extrair as user stories da resposta da API.</p>");
+                    }
+                } catch (error) {
+                    showGeminiModal("Erro na API", `<p>Ocorreu um erro: ${error.message}</p>`);
+                } finally {
+                    userStoriesLoadingDiv.classList.add('hidden');
+                    generateUserStoriesBtn.disabled = false;
+                }
+            });
+        }
+
+        // --- Share Page Functionality ---
+        const sharePageBtn = document.getElementById('sharePageBtn');
+        const shareModal = document.getElementById('shareModal');
+        const shareModalCloseBtn = document.getElementById('shareModalCloseBtn');
+        const pageLinkInput = document.getElementById('pageLinkInput');
+        const copyLinkBtn = document.getElementById('copyLinkBtn');
+        const qrcodeCanvas = document.getElementById('qrcodeCanvas');
+        const copyFeedback = document.getElementById('copyFeedback');
+        let qrCodeInstance = null;
+
+        function showShareModal() {
+            if (shareModal && pageLinkInput && qrcodeCanvas) {
+                const pageUrl = window.location.href;
+                pageLinkInput.value = pageUrl;
+                qrcodeCanvas.innerHTML = '';
+                if (typeof QRCode !== 'undefined') {
+                     qrCodeInstance = new QRCode(qrcodeCanvas, {
+                         text: pageUrl, width: 180, height: 180,
+                         colorDark : "#000000", colorLight : "#ffffff",
+                         correctLevel : QRCode.CorrectLevel.H
+                     });
+                } else {
+                    qrcodeCanvas.innerHTML = '<p class="text-xs text-red-500">Erro ao carregar biblioteca QRCode.</p>';
+                }
+                shareModal.classList.add('active');
+            }
+        }
+        function hideShareModal() {
+            if (shareModal) {
+                shareModal.classList.remove('active');
+                if (copyFeedback) copyFeedback.textContent = '';
+            }
+        }
+        if (sharePageBtn) sharePageBtn.addEventListener('click', showShareModal);
+        if (shareModalCloseBtn) shareModalCloseBtn.addEventListener('click', hideShareModal);
+        if (shareModal) shareModal.addEventListener('click', (event) => {
+            if (event.target === shareModal) hideShareModal();
+        });
+        if (copyLinkBtn && pageLinkInput) {
+            copyLinkBtn.addEventListener('click', () => {
+                pageLinkInput.select();
+                pageLinkInput.setSelectionRange(0, 99999);
+                try {
+                    document.execCommand('copy');
+                    if(copyFeedback) {
+                        copyFeedback.textContent = 'Link copiado!';
+                        copyFeedback.classList.remove('text-red-500');
+                        copyFeedback.classList.add('text-green-600');
+                    }
+                    setTimeout(() => { if(copyFeedback) copyFeedback.textContent = ''; }, 2000);
+                } catch (err) {
+                    if(copyFeedback) {
+                        copyFeedback.textContent = 'Erro ao copiar.';
+                        copyFeedback.classList.remove('text-green-600');
+                        copyFeedback.classList.add('text-red-500');
+                    }
+                }
+            });
+        }
+
+        // --- PDF Export Functionality ---
+        const exportPdfBtn = document.getElementById('exportPdfBtn');
+        const exportTasksPdfBtn = document.getElementById('exportTasksPdfBtn');
+        const pdfExportFeedbackEl = document.getElementById('pdfExportFeedback');
+
+        function showPdfFeedback(message, isError = false) {
+            if (pdfExportFeedbackEl) {
+                pdfExportFeedbackEl.textContent = message;
+                pdfExportFeedbackEl.className = 'pdf-feedback';
+                if (isError) {
+                    pdfExportFeedbackEl.classList.add('error');
+                } else {
+                    pdfExportFeedbackEl.classList.add('success');
+                }
+                pdfExportFeedbackEl.style.display = 'block';
+                setTimeout(() => {
+                    pdfExportFeedbackEl.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        if (exportPdfBtn) {
+            exportPdfBtn.addEventListener('click', async () => {
+                const originalContentElement = document.getElementById('content-container');
+                if (!originalContentElement) {
+                    showPdfFeedback("Elemento de conteúdo principal não encontrado.", true);
+                    return;
+                }
+                showPdfFeedback("A preparar PDF do conteúdo, por favor aguarde...");
+                exportPdfBtn.disabled = true;
+
+                const clonedContent = originalContentElement.cloneNode(true);
+                // Remover seções de tarefa e o gerador de user stories para o PDF
+                clonedContent.querySelectorAll('.task-section, .ai-generator-section').forEach(el => el.remove());
+
+                clonedContent.style.position = 'absolute';
+                clonedContent.style.left = '-9999px';
+                clonedContent.style.width = originalContentElement.offsetWidth + 'px';
+                clonedContent.style.backgroundColor = 'white';
+                clonedContent.style.padding = '20px';
+                clonedContent.style.color = '#1f2937';
+
+                clonedContent.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, strong, span, div:not([class*="bg-"])')
+                    .forEach(el => el.style.color = '#1f2937');
+
+                document.body.appendChild(clonedContent);
+                try {
+                    const canvas = await html2canvas(clonedContent, {
+                        scale: 2, useCORS: true, logging: false, backgroundColor: null,
+                        width: clonedContent.scrollWidth, height: clonedContent.scrollHeight,
+                        windowWidth: clonedContent.scrollWidth, windowHeight: clonedContent.scrollHeight
+                    });
+                    document.body.removeChild(clonedContent);
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+                    const imgProps = pdf.getImageProperties(imgData);
+                    const pdfPageWidth = pdf.internal.pageSize.getWidth();
+                    const pdfPageHeight = pdf.internal.pageSize.getHeight();
+                    const margin = 10;
+                    const usablePdfWidth = pdfPageWidth - (2 * margin);
+                    const usablePdfHeight = pdfPageHeight - (2 * margin);
+                    const imgRenderHeight = (imgProps.height * usablePdfWidth) / imgProps.width;
+                    let heightLeft = imgRenderHeight;
+                    let currentYPosition = margin;
+                    pdf.addImage(imgData, 'PNG', margin, currentYPosition, usablePdfWidth, imgRenderHeight);
+                    heightLeft -= usablePdfHeight;
+                    while (heightLeft > 0) {
+                        currentYPosition -= usablePdfHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', margin, currentYPosition, usablePdfWidth, imgRenderHeight);
+                        heightLeft -= usablePdfHeight;
+                    }
+                    pdf.save('administracao_financeira_conteudo.pdf');
+                    showPdfFeedback("PDF do conteúdo gerado com sucesso!");
+                } catch (error) {
+                    console.error("Erro ao gerar PDF do conteúdo:", error);
+                    showPdfFeedback("Erro ao gerar PDF do conteúdo. Verifique a consola.", true);
+                    if (document.body.contains(clonedContent)) {
+                        document.body.removeChild(clonedContent);
+                    }
+                } finally {
+                    exportPdfBtn.disabled = false;
+                }
+            });
+        }
+
+        // Exportar Respostas das Tarefas para PDF
+        if (exportTasksPdfBtn) {
+            exportTasksPdfBtn.addEventListener('click', () => {
+                const taskSections = document.querySelectorAll('.task-section');
+                if (taskSections.length === 0) {
+                    showPdfFeedback("Nenhuma tarefa encontrada na página.", true);
+                    return;
+                }
+
+                showPdfFeedback("A preparar PDF das respostas, por favor aguarde...");
+                exportTasksPdfBtn.disabled = true;
+
+                const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+                const margin = 15;
+                const usableWidth = pdf.internal.pageSize.getWidth() - 2 * margin;
+                let currentY = margin;
+                const lineSpacing = 7; // Espaço entre linhas de texto
+                const taskSpacing = 15; // Espaço entre tarefas
+
+                pdf.setFontSize(18);
+                pdf.text("Respostas das Tarefas Práticas - Administração Financeira", margin, currentY);
+                currentY += lineSpacing * 2;
+
+                taskSections.forEach((section, index) => {
+                    if (currentY > (pdf.internal.pageSize.getHeight() - margin * 3)) { // Verifica espaço para nova tarefa
+                        pdf.addPage();
+                        currentY = margin;
+                    }
+
+                    const titleElement = section.querySelector('h3');
+                    const questionElement = section.querySelector('.task-question');
+                    const answerElement = section.querySelector('.task-answer');
+
+                    if (titleElement) {
+                        pdf.setFontSize(14);
+                        pdf.setTextColor(52, 73, 94); // Cor escura para o título da tarefa
+                        const titleLines = pdf.splitTextToSize(titleElement.textContent.trim().replace('Tarefa Prática: ', ''), usableWidth);
+                        pdf.text(titleLines, margin, currentY);
+                        currentY += (titleLines.length * lineSpacing * 0.8);
+                    }
+
+                    if (questionElement) {
+                        pdf.setFontSize(10);
+                        pdf.setTextColor(100, 100, 100); // Cinza para a pergunta
+                        const questionLines = pdf.splitTextToSize("Pergunta: " + questionElement.textContent.trim(), usableWidth);
+                        pdf.text(questionLines, margin, currentY);
+                        currentY += (questionLines.length * lineSpacing * 0.7);
+                    }
+
+                    if (answerElement) {
+                        pdf.setFontSize(11);
+                        pdf.setTextColor(0, 0, 0); // Preto para a resposta
+                        const answerText = answerElement.value.trim() || "Nenhuma resposta fornecida.";
+                        const answerLines = pdf.splitTextToSize("Resposta: \n" + answerText, usableWidth);
+
+                        if (currentY + (answerLines.length * lineSpacing * 0.7) > (pdf.internal.pageSize.getHeight() - margin)) {
+                            pdf.addPage();
+                            currentY = margin;
+                        }
+                        pdf.text(answerLines, margin, currentY);
+                        currentY += (answerLines.length * lineSpacing * 0.7);
+                    }
+
+                    currentY += taskSpacing; // Espaço antes da próxima tarefa
+                     if (index < taskSections.length - 1) {
+                         pdf.setDrawColor(200, 200, 200); // Linha divisória suave
+                         pdf.line(margin, currentY - (taskSpacing / 2), pdf.internal.pageSize.getWidth() - margin, currentY - (taskSpacing / 2));
+                     }
+                });
+
+                try {
+                    pdf.save('respostas_tarefas_administracao_financeira.pdf');
+                    showPdfFeedback("PDF das respostas gerado com sucesso!");
+                } catch(e) {
+                    console.error("Erro ao salvar PDF das tarefas:", e);
+                    showPdfFeedback("Erro ao salvar PDF das tarefas.", true);
+                } finally {
+                    exportTasksPdfBtn.disabled = false;
+                }
+            });
+        }
+
+        // --- Accessibility Features ---
+        const accessibilityBtn = document.getElementById('accessibilityBtn');
+        const accessibilityPanel = document.getElementById('accessibilityPanel');
+        const mainContentContainer = document.getElementById('content-container');
+
+        const increaseFontBtn = document.getElementById('increaseFontBtn');
+        const decreaseFontBtn = document.getElementById('decreaseFontBtn');
+        const resetFontBtn = document.getElementById('resetFontBtn');
+
+        const defaultContrastBtn = document.getElementById('defaultContrastBtn');
+        const bwContrastBtn = document.getElementById('bwContrastBtn');
+        const ybContrastBtn = document.getElementById('ybContrastBtn');
+
+        const playTTSBtn = document.getElementById('playTTSBtn');
+        const pauseTTSBtn = document.getElementById('pauseTTSBtn');
+        const stopTTSBtn = document.getElementById('stopTTSBtn');
+        const ttsVoiceSelect = document.getElementById('ttsVoiceSelect');
+        const ttsRateRange = document.getElementById('ttsRateRange');
+        const ttsRateValue = document.getElementById('ttsRateValue');
+        const ttsPitchRange = document.getElementById('ttsPitchRange');
+        const ttsPitchValue = document.getElementById('ttsPitchValue');
+
+
+        let currentFontSizeMultiplier = 1;
+        const FONT_SIZE_STEP_ACC = 0.1;
+        const MIN_FONT_MULTIPLIER_ACC = 0.7;
+        const MAX_FONT_MULTIPLIER_ACC = 1.8;
+        let originalFontSizesMap = new Map();
+
+        if (accessibilityBtn && accessibilityPanel) {
+            accessibilityBtn.addEventListener('click', () => {
+                accessibilityPanel.classList.toggle('active');
+                accessibilityPanel.classList.toggle('hidden');
+            });
+        }
+
+        function storeOriginalFontSizesAcc() {
+            if (originalFontSizesMap.size === 0 && mainContentContainer) {
+                 mainContentContainer.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, a, span:not([class*="icon"])').forEach((el, index) => {
+                    const computedStyle = window.getComputedStyle(el);
+                    const elId = el.dataset.accId || `acc-el-${index}`;
+                    el.dataset.accId = elId;
+                    originalFontSizesMap.set(elId, parseFloat(computedStyle.fontSize));
+                });
+            }
+        }
+
+        function updateFontSizesAcc(multiplier) {
+            if (!mainContentContainer) return;
+            storeOriginalFontSizesAcc();
+
+            currentFontSizeMultiplier = Math.max(MIN_FONT_MULTIPLIER_ACC, Math.min(multiplier, MAX_FONT_MULTIPLIER_ACC));
+
+            mainContentContainer.querySelectorAll('[data-acc-id]').forEach(el => {
+                const originalSize = originalFontSizesMap.get(el.dataset.accId);
+                if (originalSize) {
+                    el.style.fontSize = (originalSize * currentFontSizeMultiplier) + 'px';
+                }
+            });
+
+            mainContentContainer.querySelectorAll('p, li').forEach(el => {
+                 const currentElementFontSize = parseFloat(el.style.fontSize || window.getComputedStyle(el).fontSize);
+                 let newLineHeight = originalFontSizesMap.get(el.dataset.accId) * 1.7;
+                 if (currentFontSizeMultiplier !== 1) {
+                     newLineHeight = (originalFontSizesMap.get(el.dataset.accId) * 1.7 * currentFontSizeMultiplier * 0.9);
+                 }
+                 el.style.lineHeight = Math.max(originalFontSizesMap.get(el.dataset.accId) * 1.5, newLineHeight) + 'px';
+            });
+        }
+
+
+        if (increaseFontBtn) {
+            increaseFontBtn.addEventListener('click', () => {
+                updateFontSizesAcc(currentFontSizeMultiplier + FONT_SIZE_STEP_ACC);
+            });
+        }
+        if (decreaseFontBtn) {
+            decreaseFontBtn.addEventListener('click', () => {
+                updateFontSizesAcc(currentFontSizeMultiplier - FONT_SIZE_STEP_ACC);
+            });
+        }
+        if (resetFontBtn) {
+            resetFontBtn.addEventListener('click', () => {
+                currentFontSizeMultiplier = 1;
+                mainContentContainer.querySelectorAll('[data-acc-id]').forEach(el => {
+                    const originalSize = originalFontSizesMap.get(el.dataset.accId);
+                    if (originalSize) {
+                        el.style.fontSize = originalSize + 'px';
+                        if (el.tagName === 'P' || el.tagName === 'LI') {
+                           el.style.lineHeight = (originalSize * 1.7) + 'px';
+                        }
+                    } else {
+                           el.style.fontSize = '';
+                           if (el.tagName === 'P' || el.tagName === 'LI') {
+                               el.style.lineHeight = '';
+                           }
+                    }
+                });
+            });
+        }
+
+        function applyContrast(themeClass) {
+            document.body.classList.remove('contrast-default', 'contrast-bw', 'contrast-yb');
+            if (themeClass !== 'contrast-default') {
+                document.body.classList.add(themeClass);
+            }
+        }
+        if (defaultContrastBtn) defaultContrastBtn.addEventListener('click', () => applyContrast('contrast-default'));
+        if (bwContrastBtn) bwContrastBtn.addEventListener('click', () => applyContrast('contrast-bw'));
+        if (ybContrastBtn) ybContrastBtn.addEventListener('click', () => applyContrast('contrast-yb'));
+
+        let speechSynth = window.speechSynthesis;
+        let currentUtterance = null;
+        let elementsToRead = [];
+        let currentElementIndex = 0;
+        let isReadingPaused = false;
+        let availableVoices = [];
+
+        function populateVoiceList() {
+            if(typeof speechSynthesis === 'undefined' || !ttsVoiceSelect) {
+                return;
+            }
+            availableVoices = speechSynth.getVoices();
+            ttsVoiceSelect.innerHTML = '';
+
+            if (availableVoices.length === 0) {
+                 ttsVoiceSelect.innerHTML = '<option value="">Nenhuma voz disponível</option>';
+                 ttsVoiceSelect.disabled = true;
+                 return;
+            }
+
+            let hasPortugueseVoice = false;
+            availableVoices.forEach(voice => {
+                if (voice.lang.startsWith('pt')) {
+                    const option = document.createElement('option');
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.setAttribute('data-lang', voice.lang);
+                    option.setAttribute('data-name', voice.name);
+                    ttsVoiceSelect.appendChild(option);
+                    hasPortugueseVoice = true;
+                }
+            });
+
+            if (!hasPortugueseVoice) {
+                 availableVoices.forEach(voice => {
+                    const option = document.createElement('option');
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.setAttribute('data-lang', voice.lang);
+                    option.setAttribute('data-name', voice.name);
+                    ttsVoiceSelect.appendChild(option);
+                });
+            }
+            ttsVoiceSelect.disabled = false;
+        }
+
+        populateVoiceList();
+        if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoiceList;
+        }
+
+
+        function prepareTextToRead() {
+            if (!mainContentContainer) return '';
+            let textSegments = [];
+            const sections = mainContentContainer.querySelectorAll('section:not(.task-section)');
+            
+            sections.forEach(section => {
+                const titleElement = section.querySelector('h1, h2');
+                if (titleElement && titleElement.textContent.trim().length > 0) {
+                    textSegments.push(titleElement.textContent.trim() + ".");
+                }
+                section.querySelectorAll('p, h3, h4, li').forEach(el => {
+                    if (el.closest('.ai-generator-section') && !el.matches('h4, p')) {
+                        return; // Exclui elementos dentro do gerador de user stories, exceto o título e a descrição.
+                    }
+                    if (el.closest('ul.list-disc li a') && el.closest('ul.list-disc li')) {
+                        textSegments.push(el.textContent.trim().replace(/\s+/g, ' ') + ".");
+                        return;
+                    }
+                    
+                    if (el.textContent.trim().length > 0) {
+                        textSegments.push(el.textContent.trim().replace(/\s+/g, ' ') + ".");
+                    }
+                });
+            });
+            return textSegments.join(' \n ');
+        }
+
+
+        function speakNextSegment() {
+            if (currentElementIndex >= elementsToRead.length || !speechSynth) {
+                playTTSBtn.disabled = false;
+                pauseTTSBtn.disabled = true;
+                stopTTSBtn.disabled = true;
+                currentElementIndex = 0;
+                currentUtterance = null;
+                elementsToRead = [];
+                return;
+            }
+            if (speechSynth.paused && isReadingPaused) { return; }
+            if (speechSynth.speaking && !isReadingPaused) { return; }
+
+            currentUtterance = new SpeechSynthesisUtterance(elementsToRead[currentElementIndex]);
+            currentUtterance.lang = 'pt-BR';
+            currentUtterance.rate = parseFloat(ttsRateRange.value) || 1;
+            currentUtterance.pitch = parseFloat(ttsPitchRange.value) || 1;
+
+            const selectedVoiceName = ttsVoiceSelect.selectedOptions[0]?.getAttribute('data-name');
+            if (selectedVoiceName) {
+                const voice = availableVoices.find(v => v.name === selectedVoiceName);
+                if (voice) currentUtterance.voice = voice;
+            } else {
+                 const portugueseVoice = availableVoices.find(v => v.lang.startsWith('pt-BR') || v.lang.startsWith('pt-PT'));
+                 if(portugueseVoice) currentUtterance.voice = portugueseVoice;
+            }
+
+            currentUtterance.onend = () => {
+                if (elementsToRead.length === 0) return;
+
+                if (currentElementIndex < elementsToRead.length - 1) {
+                    currentElementIndex++;
+                    speakNextSegment();
+                } else {
+                    playTTSBtn.disabled = false;
+                    pauseTTSBtn.disabled = true;
+                    stopTTSBtn.disabled = true;
+                    currentElementIndex = 0;
+                    currentUtterance = null;
+                    elementsToRead = [];
+                }
+            };
+            currentUtterance.onerror = (event) => {
+                console.error('Erro na síntese de voz:', event.error);
+                isReadingPaused = false;
+                currentElementIndex = 0;
+                elementsToRead = [];
+                currentUtterance = null;
+                if (speechSynth) { speechSynth.cancel(); }
+                playTTSBtn.disabled = false;
+                pauseTTSBtn.disabled = true;
+                stopTTSBtn.disabled = true;
+            };
+            speechSynth.speak(currentUtterance);
+            playTTSBtn.disabled = true;
+            pauseTTSBtn.disabled = false;
+            stopTTSBtn.disabled = false;
+            isReadingPaused = false;
+        }
+
+        if (playTTSBtn) {
+            playTTSBtn.addEventListener('click', () => {
+                if (!speechSynth) {
+                    showGeminiModal("Erro de Acessibilidade", "<p>A síntese de voz não é suportada neste navegador.</p>");
+                    return;
+                }
+                if (speechSynth.paused && currentUtterance && isReadingPaused) {
+                    speechSynth.resume();
+                    isReadingPaused = false;
+                    playTTSBtn.disabled = true;
+                    pauseTTSBtn.disabled = false;
+                    stopTTSBtn.disabled = false;
+                } else {
+                    speechSynth.cancel();
+                    currentUtterance = null;
+                    isReadingPaused = false;
+                    elementsToRead = [];
+                    currentElementIndex = 0;
+
+                    const fullText = prepareTextToRead();
+                    elementsToRead = fullText.split('. ')
+                                             .map(s => s.trim())
+                                             .filter(segment => segment.length > 0)
+                                             .map(s => s.endsWith('.') ? s : s + '.');
+
+                    if (elementsToRead.length > 0) {
+                        speakNextSegment();
+                    } else {
+                        showGeminiModal("Erro de Acessibilidade", "<p>Não há conteúdo textual para ler na página.</p>");
+                        playTTSBtn.disabled = false;
+                        pauseTTSBtn.disabled = true;
+                        stopTTSBtn.disabled = true;
+                    }
+                }
+            });
+        }
+
+        if (pauseTTSBtn) {
+            pauseTTSBtn.addEventListener('click', () => {
+                if (speechSynth && speechSynth.speaking && !speechSynth.paused) {
+                    speechSynth.pause();
+                    isReadingPaused = true;
+                    playTTSBtn.disabled = false;
+                    pauseTTSBtn.disabled = true;
+                }
+            });
+            pauseTTSBtn.disabled = true;
+        }
+
+        if (stopTTSBtn) {
+            stopTTSBtn.addEventListener('click', () => {
+                isReadingPaused = false;
+                currentElementIndex = 0;
+                elementsToRead = [];
+                currentUtterance = null;
+                if (speechSynth) { speechSynth.cancel(); }
+                playTTSBtn.disabled = false;
+                pauseTTSBtn.disabled = true;
+                stopTTSBtn.disabled = true;
+            });
+            stopTTSBtn.disabled = true;
+        }
+
+        if (ttsRateRange && ttsRateValue) {
+            ttsRateRange.addEventListener('input', () => {
+                ttsRateValue.textContent = ttsRateRange.value;
+                if (currentUtterance && speechSynth.speaking && !speechSynth.paused) {
+                    speechSynth.cancel();
+                    currentUtterance.rate = parseFloat(ttsRateRange.value);
+                    speechSynth.speak(currentUtterance);
+                } else if (currentUtterance && speechSynth.paused && isReadingPaused) {
+                     currentUtterance.rate = parseFloat(ttsRateRange.value);
+                }
+            });
+        }
+        if (ttsPitchRange && ttsPitchValue) {
+            ttsPitchRange.addEventListener('input', () => {
+                ttsPitchValue.textContent = ttsPitchRange.value;
+                 if (currentUtterance && speechSynth.speaking && !speechSynth.paused) {
+                    speechSynth.cancel();
+                    currentUtterance.pitch = parseFloat(ttsPitchRange.value);
+                    speechSynth.speak(currentUtterance);
+                } else if (currentUtterance && speechSynth.paused && isReadingPaused) {
+                     currentUtterance.pitch = parseFloat(ttsPitchRange.value);
+                }
+            });
+        }
+
+        window.addEventListener('load', storeOriginalFontSizesAcc);
+    </script>
 </body>
 </html>
