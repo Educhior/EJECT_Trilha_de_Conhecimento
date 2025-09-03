@@ -740,7 +740,7 @@
                 const prompt = `Com base no seguinte objetivo, gere 3 exemplos de Resultados-Chave (KRs) mensuráveis no formato "Aumentar [métrica] de [valor inicial] para [valor final] até [data]". Não adicione introduções ou conclusões, apenas os KRs. Objetivo: "${description}"`;
                 let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
                 const payload = { contents: chatHistory };
-                const apiKey = "";
+                const apiKey = "AIzaSyAnojN8ZpEjiHaUVlZbgdalGVKdJwkIrRI";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
                 try {
                     const response = await fetch(apiUrl, {
